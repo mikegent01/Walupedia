@@ -2186,6 +2186,17 @@ a.craft-buy-mini{display:block;text-align:center;text-decoration:none}
 .dline-track{height:6px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
 .dline-fill{height:100%;background:linear-gradient(90deg,#e0b400,#e5484d)}
 .dline-sub{margin-top:6px;font-size:12px;color:var(--muted)}
+.dline-ledger{margin-top:12px;border-top:1px solid var(--border,rgba(255,255,255,.12));padding-top:8px}
+.dline-ledger-h{font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.dline-ledger ol{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:4px}
+.dline-ledger li{display:grid;grid-template-columns:104px 52px 1fr auto;gap:8px;align-items:baseline;font-size:12.5px;min-height:28px}
+.dline-ledger .dl-when{color:var(--muted);font-variant-numeric:tabular-nums}
+.dline-ledger .dl-tag{font-size:9.5px;font-weight:700;letter-spacing:.06em;color:var(--accent)}
+.dline-ledger li.is-start .dl-tag{color:var(--muted)}
+.dline-ledger b{font-variant-numeric:tabular-nums}
+.dline-ledger em{font-style:normal;color:var(--muted);font-weight:400;margin-left:4px}
+.tc-mover{margin-left:4px}
+@media(max-width:560px){.dline-ledger li{grid-template-columns:1fr auto}.dline-ledger .dl-when,.dline-ledger .dl-tag{grid-column:1/-1}}
 .dline-row{display:grid;grid-template-columns:78px 1fr;gap:9px;margin-top:7px;
   font-size:12.5px;line-height:1.55}
 .dline-row span{color:var(--muted);text-transform:uppercase;font-size:10px;
@@ -3560,9 +3571,9 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 /* ---- CALENDAR REDESIGN (calx-*) — one screen, no dead ends -------------
    Month grid + day panel share the screen: clicking a day answers in place
    beside the grid, records are one click deep, months/years are strips. */
-.calx-hero{padding:18px 20px 16px}
+.calx-hero{padding:12px 16px 12px}
 .calx-hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
-.calx-hero-title h1{margin:0;font-size:26px;font-weight:900;letter-spacing:.4px}
+.calx-hero-title h1{margin:0;font-size:21px;font-weight:900;letter-spacing:.4px}
 .calx-hero-title .calx-yr{color:var(--accent2)}
 .calx-hero-title i{font-style:normal;font-size:13px;color:var(--muted);margin-left:5px;font-weight:800}
 .calx-hero-sub{color:var(--muted);font-size:12.5px;margin-top:4px}
@@ -3593,7 +3604,7 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .calx-weekdays div.rest{color:var(--accent2)}
 .calx-grid{display:grid;gap:4px;outline:none}
 .calx-grid:focus-visible{box-shadow:0 0 0 2px var(--accent);border-radius:12px}
-.calx-cell{min-height:74px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:5px 7px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s;position:relative;overflow:hidden}
+.calx-cell{min-height:clamp(46px,6.2vw,64px);background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:4px 6px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s;position:relative;overflow:hidden}
 .calx-cell:hover{border-color:var(--accent);transform:translateY(-1px)}
 .calx-cell.rest{background:linear-gradient(180deg,rgba(224,180,0,.06),var(--panel2))}
 .calx-cell.today{border-color:var(--accent2)}
@@ -3603,10 +3614,15 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .calx-cell.calx-fill:hover{transform:none;border-color:transparent}
 .calx-dnum{display:flex;justify-content:space-between;align-items:baseline}
 .calx-dnum span{font-weight:800;font-size:14px}
-.calx-dnum i{font-style:normal;font-size:9.5px;color:var(--muted)}
-.calx-chips{display:flex;flex-direction:column;gap:2px;margin-top:4px}
-.calx-chip{font-size:10px;line-height:1.3;font-weight:600;color:var(--text);border-left:2px solid var(--k,var(--accent));border-radius:4px;padding:1px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.calx-more{font-size:9.5px;color:var(--muted);font-weight:800;padding-left:5px}
+.calx-dots{display:flex;gap:4px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.calx-dot{width:8px;height:8px;border-radius:50%;background:var(--k,var(--accent))}
+.calx-more{font-size:9.5px;color:var(--muted);font-weight:800}
+.calx-tm{font-style:normal;font-size:11px;line-height:1;margin-left:3px}
+.calx-cell.tm-in{background:linear-gradient(180deg,rgba(255,170,60,.13),var(--panel2));border-color:rgba(255,170,60,.35)}
+.calx-cell.tm-mover{border-color:#ffaa3c;box-shadow:inset 0 -3px 0 #ffaa3c}
+.calx-cell.tm-fire{border-color:var(--danger);box-shadow:inset 0 -3px 0 var(--danger)}
+.calx-tlegend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:8px}
+.calx-tlegend .tl-in::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(255,170,60,.35);margin-right:5px;vertical-align:-1px}
 .calx-weird{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:11.5px}
 .calx-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
 .calx-legend .lg{display:inline-flex;align-items:center;gap:5px}
@@ -3981,3 +3997,33 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .item-report-badge.recipient{background:rgba(224,180,0,.12);border-color:rgba(224,180,0,.3);color:var(--accent2)}
 .item-report-badge.status{background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3);color:#2ecc71}
 .item-report-desc{font-size:11px;color:var(--muted);line-height:1.35}
+
+/* ---- MARGIN GUTTER (margin-gutter.js) — wide records as an active page ----
+   Prose in the left column; rail boxes, "the file behind this record" and
+   comment notes parked in a right gutter beside the passage they explain.
+   Below 1100px the script does not run and the old band layout stands. */
+.article-layout.record-wide-layout.mg-on{max-width:1560px}
+.mg-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(260px,24vw,340px);column-gap:20px;align-items:start;position:relative}
+.mg-grid>.mg-gutter{grid-column:2;grid-row:1 / span 6;position:relative}
+.mg-grid>:not(.mg-gutter):not(.mg-links){grid-column:1}
+.mg-gutter>.mg-item{position:absolute;left:0;right:0;margin:0;max-height:70vh;overflow:auto}
+.mg-links{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:1}
+.mg-links path{fill:none;stroke:var(--accent2,var(--accent));stroke-width:1;stroke-dasharray:3 3;opacity:.6}
+.mg-note{background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--accent2,var(--accent));border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12.5px;line-height:1.4}
+.mg-note b{display:block;font-size:11px;color:var(--accent2,var(--accent));margin-bottom:2px}
+.mg-note p{margin:0;color:var(--text)}
+.mg-note i{display:block;font-style:normal;font-size:10.5px;color:var(--muted);margin-top:3px}
+.annot.mg-hot{background:rgba(138,75,255,.28);outline:1px solid var(--accent)}
+.mg-plate{margin:14px 0;text-align:center}
+.mg-plate .field-gal-item{display:block}
+.mg-plate img{max-width:100%;max-height:420px;border-radius:10px}
+.mg-plate span{display:block;font-size:11.5px;color:var(--muted);margin-top:4px}
+
+/* ---- TOUCH (tablet) — larger targets wherever a finger is the pointer ---- */
+@media (pointer:coarse){
+  .calx-btn,.calx-nav,.calx-mo,.calx-segs button,.app-tab,.railbox>summary,.chip,.setting-pill,.ctrl-mini{min-height:44px;display:inline-flex;align-items:center}
+  .calx-nav{min-width:44px;justify-content:center}
+  .railbox>summary{display:flex}
+  .calx-cell{min-height:clamp(52px,7vw,72px)}
+  .mg-note{padding:11px 12px}
+}
