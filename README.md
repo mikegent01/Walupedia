@@ -514,13 +514,16 @@ Rules for planar dates:
   prose, not dates — hedge it in the text, not in the date field.
 ```
 
-### Margin gutter (wide event and battle pages)
+### Active side (wide event and battle pages)
 
 `Reputation-Matrix2/app/core/margin-gutter.js` runs after an event or battle renders on a
-viewport of 1100px or more. It moves the rail boxes and the apparatus panes into a right-hand
-gutter beside the section they match (by the names they mention), turns comment marks into
-sidenotes joined to the passage, and sets field plates inline. It only rearranges existing DOM;
-below 1100px the old band layout stands. Test: `node tools/tests/test-margin-gutter.mjs`.
+viewport of 900px or more. Nothing is left under the article: Link Graph, the wire and margins,
+the apparatus panes, Connected Systems and Reader Controls move into a sticky right-hand panel.
+Its top box, *In this passage*, follows the reader — it shows the record card (the same one the
+hover preview draws, `linkCardHtml()`) for whatever the paragraph on screen links to, plus that
+paragraph's comments, with a thread from each inline link to its card or Link Graph chip. Field
+plates sit inline. It only rearranges existing DOM; below 900px the old band layout stands.
+Test: `node tools/tests/test-margin-gutter.mjs`.
 
 ### Running deadlines — the clock moves when you file, not when you remember
 

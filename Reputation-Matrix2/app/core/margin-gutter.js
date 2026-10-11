@@ -1,258 +1,392 @@
-/* Margin gutter — event and battle pages as an active page.
+/* Active side — event and battle pages read with a live right-hand panel.
  *
- * A wide record used to read as: prose, then a band of boxes, then "the file
- * behind this record" at the very bottom. Everything that explains the story
- * sat a long scroll away from the passage it explains. This module runs after
- * the article renders and, on a wide enough viewport, moves those boxes into a
- * right-hand gutter, each one parked beside the section where it matters:
+ * A wide record used to end in a long tail: From the margins, Link Graph,
+ * Connected Systems, Reader Controls and "the file behind this record", all
+ * below the last line of prose. This module runs after the article renders
+ * and, on a viewport of MIN_W or more, turns that tail into a sticky side
+ * panel that follows the reader:
  *
- *   rail boxes + apparatus panes  -> a gutter card, anchored by text affinity
- *   .annot comment marks          -> a sidenote joined to the passage by a line
- *   field plates                  -> inline, spread through the sections
+ *   In this passage   the record card (the same one the hover preview draws)
+ *                     for whoever and whatever the paragraph being read
+ *                     names, plus the margin comments on that paragraph. It
+ *                     changes as the page scrolls, under the section's title.
+ *   The stack         Link Graph, the wire, the apparatus panes, Connected
+ *                     Systems and Reader Controls. A box opens by itself and
+ *                     rises to the top when the passage on screen names
+ *                     something inside it, and closes again when the reader
+ *                     moves on. A box the reader opens or closes by hand is
+ *                     left alone after that.
+ *   Colour            every record on screen gets one colour, shared by its
+ *                     inline link, its card, its thread, its Link Graph chip
+ *                     and its mentions inside the open boxes.
+ *   Field plates      set inline through the sections instead of in a
+ *                     gallery at the foot.
  *
- * It only rearranges DOM that already exists — no data is read or written —
- * and it undoes itself on resize below the breakpoint (the page falls back to
- * the old band, which is also the portrait-tablet layout). Everything keeps
- * working without it.
+ * It only rearranges DOM that already exists and reads window.linkCardHtml;
+ * no data is read or written. Below MIN_W it does nothing and the old band
+ * layout stands.
  */
 (function(){
   'use strict';
-  var MIN_W = 1100, GAP = 12;
-  var state = null;
+  var MIN_W = 900, MAX_CARDS = 4, MAX_LINES = 10, READ_LINE = 0.38, NEAR_BLOCKS = 3;
+  var PALETTE = ['#ffb84d', '#5ad1ff', '#ff7ab8', '#7ee08a', '#c79bff', '#ff8a5c', '#4fe0c8', '#f5e663'];
+  var SVG = 'http://www.w3.org/2000/svg';
+  var state = null, raf = 0;
 
   function qs(r, s){ return r.querySelector(s); }
   function qsa(r, s){ return Array.prototype.slice.call(r.querySelectorAll(s)); }
-  function text(n){ return (n.textContent || '').replace(/\s+/g, ' ').toLowerCase(); }
+  function el(tag, cls, txt){ var n = document.createElement(tag); if(cls) n.className = cls; if(txt != null) n.textContent = txt; return n; }
+  function norm(s){ return String(s || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
 
-  /* Sections of the card: every h2 that is a direct child, with the text of
-     what follows it up to the next h2. */
+  /* One colour per record, dealt in order of first appearance so records that
+     share a passage differ, and kept for the life of the page. */
+  var colours = {}, dealt = 0;
+  function colourOf(id){
+    if(!colours[id]) colours[id] = PALETTE[dealt++ % PALETTE.length];
+    return colours[id];
+  }
+
   function sectionsOf(card){
     var out = [], cur = null;
     Array.prototype.forEach.call(card.children, function(ch){
-      if(ch.tagName === 'H2' && ch.id){
-        cur = { head: ch, nodes: [], text: '' };
-        out.push(cur);
-      } else if(cur){
-        cur.nodes.push(ch);
-        cur.text += ' ' + text(ch);
-      }
+      if(ch.tagName === 'H2' && ch.id){ cur = { head: ch, nodes: [] }; out.push(cur); }
+      else if(cur) cur.nodes.push(ch);
     });
     return out;
   }
 
-  /* Names an item talks about: link texts and bold labels inside it. */
-  function namesIn(node){
-    var seen = {}, out = [];
-    qsa(node, 'a, b, strong, .xlink').forEach(function(a){
-      var t = (a.textContent || '').trim().toLowerCase();
-      if(t.length < 4 || t.length > 40 || seen[t]) return;
-      seen[t] = 1; out.push(t);
+  /* Field plates leave the gallery at the foot and sit inline, spread evenly
+     over the sections in the order they were filed. */
+  function plates(card){
+    var grid = qs(card, '.field-gal-grid');
+    if(!grid) return;
+    var sections = sectionsOf(card).filter(function(s){ return s.head.id !== 'h-fieldgallery'; });
+    var tiles = qsa(grid, '.field-gal-item');
+    if(!tiles.length || !sections.length) return;
+    tiles.forEach(function(t, i){
+      var s = sections[Math.min(sections.length - 1, Math.floor(i * sections.length / tiles.length))];
+      var anchor = s.nodes.filter(function(n){ return n.classList && n.classList.contains('prose'); })[0] || s.head;
+      var fig = el('figure', 'mg-plate');
+      fig.appendChild(t);
+      anchor.parentNode.insertBefore(fig, anchor.nextSibling);
     });
-    return out;
+    var head = qs(card, '#h-fieldgallery');
+    if(head) head.parentNode.removeChild(head);
+    if(!grid.children.length) grid.parentNode.removeChild(grid);
   }
 
-  /* Which section does this item belong beside? Highest count of its own
-     names inside a section's prose; ties and zeros fall to a keyword rule,
-     then to the order the items arrive in, spread over the sections. */
-  function pickSection(node, label, sections, ordinal, total){
-    if(!sections.length) return null;
-    var names = namesIn(node), best = -1, bestScore = 0;
-    sections.forEach(function(s, i){
-      var score = 0;
-      names.forEach(function(n){ if(s.text.indexOf(n) >= 0) score++; });
-      if(score > bestScore){ bestScore = score; best = i; }
-    });
-    if(best >= 0) return sections[best];
-    var l = (label || '').toLowerCase();
-    if(/file|case|analysis|cut|aftermath|xp|ledger/.test(l)) return sections[sections.length - 1];
-    if(/graph|connected|reader|control/.test(l)) return sections[0];
-    var i = Math.min(sections.length - 1, Math.floor(ordinal * sections.length / Math.max(1, total)));
-    return sections[i];
-  }
-
-  function cardFromPane(pane, label, icon){
-    var d = document.createElement('details');
-    d.className = 'railbox mg-card'; d.open = true;
-    var s = document.createElement('summary');
-    s.textContent = (icon ? icon + ' ' : '') + label;
-    var b = document.createElement('div'); b.className = 'railbody';
+  function boxFromPane(pane, label){
+    var d = el('details', 'railbox mg-card');
+    d.appendChild(el('summary', '', label));
+    var b = el('div', 'railbody');
     while(pane.firstChild) b.appendChild(pane.firstChild);
-    d.appendChild(s); d.appendChild(b);
+    d.appendChild(b);
     return d;
   }
 
-  function collectItems(A, rail){
-    var items = [];
-    if(rail){
-      Array.prototype.slice.call(rail.children).forEach(function(ch){
-        var sm = qs(ch, 'summary'), head = qs(ch, '.ww-rail-head');
-        var label = sm ? sm.textContent : (head ? head.textContent : (ch.id || ''));
-        items.push({ node: ch, label: label });
-      });
-    }
+  /* The names a box talks about: its links, chips and bold labels. These are
+     what the passage is matched against to decide whether the box is live. */
+  function namesOf(box){
+    var out = [], seen = {};
+    qsa(box, 'a, b, strong, .lg-chip').forEach(function(n){
+      if(n.closest('summary')) return;
+      var t = norm(n.textContent).replace(/^[^a-z0-9]+/, '');
+      if(t.length < 4 || t.length > 48 || seen[t]) return;
+      seen[t] = 1;
+      out.push({ text: t, node: n, id: n.getAttribute('data-id') || '' });
+    });
+    return out.slice(0, 80);
+  }
+
+  /* Everything that used to sit under the article. Boxes start closed; the
+     passage opens them. */
+  function buildStack(A, rail){
+    var stack = el('div', 'mg-stack'), boxes = [];
+    if(rail) Array.prototype.slice.call(rail.children).forEach(function(ch){ boxes.push(ch); });
     var band = qs(A, '.apparatus-band');
     if(band){
       var panes = qsa(band, '.app-pane');
       if(panes.length){
         panes.forEach(function(p){
-          var key = p.id.replace(/^app-pane-/, '');
           var tab = qs(band, '.app-tab[aria-controls="' + p.id + '"]');
-          var label = tab ? tab.textContent.trim() : key;
-          items.push({ node: cardFromPane(p, label, ''), label: label + ' ' + key, fromBand: true });
+          boxes.push(boxFromPane(p, tab ? tab.textContent.trim() : p.id.replace(/^app-pane-/, '')));
         });
-        band.hidden = true; band.setAttribute('data-mg-moved', '1');
-      } else if(band.classList.contains('apparatus-band--single')){
-        var c = cardFromPane(band, 'The file behind this record', '🗄️');
-        items.push({ node: c, label: 'file case', fromBand: true });
+      } else {
+        boxes.push(boxFromPane(band, '🗄️ The file behind this record'));
       }
+      band.hidden = true;
     }
-    return items;
-  }
-
-  function plates(card, sections){
-    var grid = qs(card, '.field-gal-grid');
-    if(!grid || !sections.length) return;
-    var tiles = qsa(grid, '.field-gal-item');
-    if(!tiles.length) return;
-    var head = qs(card, '#h-fieldgallery');
-    tiles.forEach(function(t, i){
-      var s = sections[Math.min(sections.length - 1, Math.floor(i * sections.length / tiles.length))];
-      var anchor = s.nodes.filter(function(n){ return n.classList && n.classList.contains('prose'); })[0] || s.head;
-      var fig = document.createElement('figure');
-      fig.className = 'mg-plate';
-      t.classList.add('mg-plate-link');
-      fig.appendChild(t);
-      anchor.parentNode.insertBefore(fig, anchor.nextSibling);
+    boxes.sort(function(a, b){ return (qs(b, '.lg-chip') ? 1 : 0) - (qs(a, '.lg-chip') ? 1 : 0); });
+    boxes.forEach(function(b){
+      if(b.tagName === 'DETAILS') b.open = false;
+      stack.appendChild(b);
     });
-    if(head) head.parentNode.removeChild(head);
-    if(!grid.children.length) grid.parentNode.removeChild(grid);
+    return { node: stack, boxes: boxes };
   }
 
-  function sidenotes(card){
-    var out = [];
-    qsa(card, '.annot[data-ai]').forEach(function(mk){
-      var ai = Number(mk.getAttribute('data-ai'));
-      var ann = (window.ANNOT_ACTIVE || [])[ai];
-      if(!ann) return;
-      var cs = ann.comments || [], first = cs[0] || {};
-      var n = document.createElement('div');
-      n.className = 'mg-note';
-      n.setAttribute('data-ai', ai);
-      n.innerHTML = '<b></b><p></p><i></i>';
-      n.firstChild.textContent = first.author || 'Margin note';
-      n.children[1].textContent = String(first.text || '').slice(0, 220) + ((first.text || '').length > 220 ? '…' : '');
-      n.children[2].textContent = cs.length > 1 ? '+' + (cs.length - 1) + ' more' : '';
-      n.addEventListener('click', function(){ if(typeof window.openAnnotation === 'function') window.openAnnotation(ai); });
-      n.addEventListener('mouseenter', function(){ mk.classList.add('mg-hot'); });
-      n.addEventListener('mouseleave', function(){ mk.classList.remove('mg-hot'); });
-      out.push({ node: n, mark: mk, note: true });
+  function inView(r){ return r.bottom > 70 && r.top < window.innerHeight - 30 && (r.width || r.height); }
+
+  /* The blocks on screen, nearest the reading line first. */
+  function visibleBlocks(){
+    var line = window.innerHeight * READ_LINE, out = [];
+    state.blocks.forEach(function(b){
+      var r = b.node.getBoundingClientRect();
+      if(!inView(r)) return;
+      var dist = (line >= r.top && line <= r.bottom) ? 0 : Math.min(Math.abs(r.top - line), Math.abs(r.bottom - line));
+      out.push({ b: b, dist: dist });
     });
-    return out;
+    out.sort(function(a, b){ return a.dist - b.dist; });
+    return out.map(function(x){ return x.b; });
   }
 
-  function place(){
+  function currentSection(){
+    var line = window.innerHeight * READ_LINE, cur = null;
+    state.heads.forEach(function(h){ if(h.getBoundingClientRect().top <= line) cur = h; });
+    return cur;
+  }
+
+  function cardHtml(id){
+    try{ return typeof window.linkCardHtml === 'function' ? (window.linkCardHtml(id, { side: true }) || '') : ''; }
+    catch(e){ return ''; }
+  }
+
+  function noteNode(mark){
+    var ai = Number(mark.getAttribute('data-ai'));
+    var ann = (window.ANNOT_ACTIVE || [])[ai];
+    if(!ann) return null;
+    var cs = ann.comments || [], first = cs[0] || {};
+    var n = el('div', 'mg-note');
+    n.appendChild(el('b', '', '💬 ' + (first.author || 'Margin note')));
+    n.appendChild(el('p', '', String(first.text || '').slice(0, 260) + ((first.text || '').length > 260 ? '…' : '')));
+    if(cs.length > 1) n.appendChild(el('i', '', '+' + (cs.length - 1) + ' more — tap to open'));
+    n.addEventListener('click', function(){ if(typeof window.openAnnotation === 'function') window.openAnnotation(ai); });
+    return n;
+  }
+
+  /* Re-read the screen: which links, comment marks and names are in the
+     passage, then bring the panel into line with it. */
+  function update(){
     if(!state) return;
-    var g = state.gutter, gTop = g.getBoundingClientRect().top + window.pageYOffset;
-    var cursor = 0;
-    state.entries.forEach(function(e){
-      var ref = e.mark || e.anchor;
-      var want = ref ? (ref.getBoundingClientRect().top + window.pageYOffset - gTop) : 0;
-      var top = Math.max(want, cursor);
-      e.node.style.top = top + 'px';
-      cursor = top + e.node.offsetHeight + GAP;
-      e.top = top;
+    if(!document.body.contains(state.A)){ unmount(); return; }
+    var blocks = visibleBlocks();
+    var focus = [], seen = {}, onScreen = [], marks = [], nearText = '';
+    blocks.forEach(function(b, bi){
+      if(bi < NEAR_BLOCKS) nearText += ' ' + b.text;
+      qsa(b.node, 'a.xlink[data-id]').forEach(function(a){
+        var id = a.getAttribute('data-id');
+        if(!inView(a.getBoundingClientRect())) return;
+        onScreen.push({ id: id, a: a });
+        if(seen[id]) return;
+        seen[id] = 1;
+        if(focus.length < MAX_CARDS) focus.push({ id: id, a: a });
+      });
+      if(bi < 2) qsa(b.node, '.annot[data-ai]').forEach(function(m){ if(marks.length < 3) marks.push(m); });
     });
-    g.style.minHeight = cursor + 'px';
-    links();
+    if(state.pin && !seen[state.pin.id]) state.pin = null;
+    if(state.pin){
+      focus = [state.pin].concat(focus.filter(function(f){ return f.id !== state.pin.id; })).slice(0, MAX_CARDS);
+    }
+    var sec = currentSection();
+    var key = focus.map(function(f){ return f.id; }).join('|') + '#' + marks.map(function(m){ return m.getAttribute('data-ai'); }).join('|');
+    if(key !== state.key){ state.key = key; renderLive(focus, marks); }
+    if(sec !== state.sec){
+      state.sec = sec;
+      state.where.textContent = sec ? sec.textContent.trim() : '';
+      state.where.hidden = !sec;
+    }
+    state.focus = focus; state.onScreen = onScreen;
+    paint(onScreen, seen);
+    openBoxes(nearText, seen);
+    drawLines();
   }
 
-  /* One elbow line per sidenote, from the end of its passage to the card. */
-  function links(){
-    var svg = state.svg;
-    var box = state.A.getBoundingClientRect();
-    svg.setAttribute('width', box.width); svg.setAttribute('height', box.height);
-    var d = '';
-    state.entries.forEach(function(e){
-      if(!e.mark) return;
-      var m = e.mark.getBoundingClientRect(), n = e.node.getBoundingClientRect();
-      var x1 = m.right - box.left, y1 = m.top + m.height / 2 - box.top;
-      var x2 = n.left - box.left, y2 = n.top + 14 - box.top;
-      var mid = x2 - 14;
-      d += 'M' + x1 + ' ' + y1 + 'H' + mid + 'V' + y2 + 'H' + x2;
+  function renderLive(focus, marks){
+    var box = state.cards;
+    box.textContent = '';
+    state.cardById = {}; state.noteByMark = [];
+    focus.forEach(function(f, i){
+      var html = cardHtml(f.id);
+      if(!html) return;
+      var c = el('div', 'mg-pcard mg-in' + (i ? ' mg-pcard--mini' : ''));
+      c.setAttribute('data-id', f.id);
+      c.style.setProperty('--mg-c', colourOf(f.id));
+      c.innerHTML = html;
+      c.addEventListener('click', function(){ f.a.click(); });
+      box.appendChild(c);
+      state.cardById[f.id] = c;
     });
-    svg.firstChild.setAttribute('d', d);
+    marks.forEach(function(m){
+      var n = noteNode(m);
+      if(!n) return;
+      n.classList.add('mg-in');
+      box.appendChild(n);
+      state.noteByMark.push({ mark: m, node: n });
+    });
+    state.empty.hidden = !!box.children.length;
   }
 
-  var raf = 0;
-  function relayout(){
-    if(raf) return;
-    raf = requestAnimationFrame(function(){ raf = 0; if(state) place(); });
+  /* Colour the inline links on screen and their chips. */
+  function paint(onScreen, seen){
+    qsa(state.A, 'a.xlink.mg-hot').forEach(function(a){ a.classList.remove('mg-hot'); a.style.removeProperty('--mg-c'); });
+    onScreen.forEach(function(o){ o.a.classList.add('mg-hot'); o.a.style.setProperty('--mg-c', colourOf(o.id)); });
+    state.chips.forEach(function(ch){
+      var id = ch.getAttribute('data-id'), on = !!seen[id];
+      ch.classList.toggle('mg-chip-on', on);
+      if(on) ch.style.setProperty('--mg-c', colourOf(id)); else ch.style.removeProperty('--mg-c');
+    });
+  }
+
+  function setOpen(box, open){
+    if(box.node.tagName !== 'DETAILS' || box.node.open === open) return;
+    box.node.open = open;
+  }
+
+  /* A box is live when the passage names something in it — by record id for
+     links and chips, by the words themselves for everything else. Live boxes
+     open and rise to the top; the rest close and drop back. */
+  function openBoxes(nearText, seen){
+    state.boxes.forEach(function(box){
+      var hits = 0;
+      box.names.forEach(function(n){
+        var on = n.id ? !!seen[n.id] : nearText.indexOf(n.text) >= 0;
+        n.node.classList.toggle('mg-match', on);
+        if(on){
+          hits++;
+          n.node.style.setProperty('--mg-c', colourOf(n.id || n.text));
+        } else n.node.style.removeProperty('--mg-c');
+      });
+      box.node.classList.toggle('mg-live-box', hits > 0);
+      if(box.count) box.count.textContent = hits ? String(hits) : '';
+      if(!box.user) setOpen(box, hits > 0);
+    });
+  }
+
+  /* A thread from each inline link on screen to its card, or to its Link Graph
+     chip when the chip is in view inside the panel — in the record's colour. */
+  function drawLines(){
+    var side = state.side.getBoundingClientRect(), svg = state.svg, n = 0, done = {};
+    while(svg.firstChild) svg.removeChild(svg.firstChild);
+    function thread(fromRect, toRect, colour){
+      if(n >= MAX_LINES) return;
+      var ty = toRect.top + Math.min(18, toRect.height / 2);
+      if(ty < side.top || ty > side.bottom || !toRect.width) return;
+      var x1 = fromRect.right + 1, y1 = fromRect.bottom + 1;   /* leave from the underline, not across the words */
+      var x2 = toRect.left - 3, mid = Math.max(x1 + 12, x2 - 30);
+      var p = document.createElementNS(SVG, 'path');
+      p.setAttribute('d', 'M' + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'C' + mid.toFixed(1) + ' ' + y1.toFixed(1) + ' ' +
+        mid.toFixed(1) + ' ' + ty.toFixed(1) + ' ' + x2.toFixed(1) + ' ' + ty.toFixed(1));
+      p.setAttribute('stroke', colour);
+      svg.appendChild(p);
+      n++;
+    }
+    (state.focus || []).forEach(function(f){
+      var c = state.cardById[f.id];
+      if(c){ thread(f.a.getBoundingClientRect(), c.getBoundingClientRect(), colourOf(f.id)); done[f.id] = 1; }
+    });
+    state.noteByMark.forEach(function(x){ thread(x.mark.getBoundingClientRect(), x.node.getBoundingClientRect(), '#e0b400'); });
+    (state.onScreen || []).forEach(function(o){
+      if(done[o.id]) return;
+      var chip = state.chipById[o.id];
+      if(!chip) return;
+      done[o.id] = 1;
+      thread(o.a.getBoundingClientRect(), chip.getBoundingClientRect(), colourOf(o.id));
+    });
+  }
+
+  function schedule(){
+    if(raf || !state) return;
+    raf = requestAnimationFrame(function(){ raf = 0; update(); });
+  }
+  function onResize(){
+    if(window.innerWidth < MIN_W){
+      if(state && window.Router && typeof window.Router.render === 'function'){ unmount(); window.Router.render(); }
+    } else schedule();
+  }
+  function onHash(){ setTimeout(function(){ if(state && !document.body.contains(state.A)) unmount(); }, 80); }
+  function onOver(e){
+    if(!state) return;
+    var a = e.target.closest && e.target.closest('a.xlink[data-id]');
+    if(!a || !state.card.contains(a)) return;
+    state.pin = { id: a.getAttribute('data-id'), a: a };
+    schedule();
+  }
+  /* A box the reader opens or closes by hand is theirs: stop managing it. */
+  function onSummary(e){
+    if(!state) return;
+    var sm = e.target.closest && e.target.closest('summary');
+    if(!sm) return;
+    state.boxes.forEach(function(b){ if(b.node === sm.parentNode){ b.user = true; b.node.classList.add('mg-user'); } });
   }
 
   function unmount(){
     if(!state) return;
+    window.removeEventListener('scroll', schedule);
     window.removeEventListener('resize', onResize);
-    if(state.ro) state.ro.disconnect();
+    window.removeEventListener('hashchange', onHash);
+    document.removeEventListener('mouseover', onOver);
+    if(state.svg.parentNode) state.svg.parentNode.removeChild(state.svg);
     state = null;
-  }
-  function onResize(){
-    if(window.innerWidth < MIN_W){ var r = document.querySelector('.mg-on'); if(r) Router.render(); }
-    else relayout();
   }
 
   function mount(){
     unmount();
+    colours = {}; dealt = 0;
     var lay = document.querySelector('.article-layout.record-wide-layout');
     if(!lay || window.innerWidth < MIN_W) return;
     var A = lay.firstElementChild;
-    if(!A) return;
-    var card = qs(A, ':scope > .card');
+    var card = A && qs(A, ':scope > .card');
     if(!card) return;
     var rail = qs(A, ':scope > .rail-band');
-    var sections = sectionsOf(card);
-    plates(card, sections);
+    plates(card);
 
-    var raw = collectItems(A, rail);
-    var notes = sidenotes(card);
-    if(!raw.length && !notes.length) return;
+    var gutter = el('aside', 'mg-gutter');
+    gutter.setAttribute('aria-label', 'Active side: the passage being read, and the file behind this record');
+    var side = el('div', 'mg-side');
+    var live = el('section', 'mg-live');
+    live.appendChild(el('div', 'mg-live-h', '👁 In this passage'));
+    var where = el('div', 'mg-live-where'); where.hidden = true;
+    var empty = el('p', 'mg-live-empty', 'People, places and records named in the paragraph you are reading appear here as you scroll.');
+    var cards = el('div', 'mg-live-cards');
+    live.appendChild(where); live.appendChild(empty); live.appendChild(cards);
+    side.appendChild(live);
+    var built = buildStack(A, rail);
+    side.appendChild(built.node);
+    gutter.appendChild(side);
+    if(rail && rail.parentNode) rail.parentNode.removeChild(rail);
 
-    var gutter = document.createElement('aside');
-    gutter.className = 'mg-gutter';
-    gutter.setAttribute('aria-label', 'Margin: notes and records for this passage');
-    var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('class', 'mg-links');
-    svg.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'path'));
-
-    var entries = [];
-    raw.forEach(function(it, i){
-      var s = pickSection(it.node, it.label, sections, i, raw.length);
-      entries.push({ node: it.node, anchor: s ? s.head : null });
-    });
-    notes.forEach(function(n){ entries.push({ node: n.node, mark: n.mark }); });
-    /* Document order by where each one wants to sit; cards before notes on a tie. */
-    entries.forEach(function(e){
-      var ref = e.mark || e.anchor;
-      e.y = ref ? ref.getBoundingClientRect().top + window.pageYOffset : 0;
-    });
-    entries.sort(function(a, b){ return a.y - b.y || (a.mark ? 1 : 0) - (b.mark ? 1 : 0); });
-    entries.forEach(function(e){ e.node.classList.add('mg-item'); gutter.appendChild(e.node); });
+    var svg = document.createElementNS(SVG, 'svg');
+    svg.setAttribute('class', 'mg-links'); svg.setAttribute('aria-hidden', 'true');
 
     lay.classList.add('mg-on');
     A.classList.add('mg-grid');
     A.appendChild(gutter);
-    A.appendChild(svg);
-    if(rail && !rail.children.length) rail.parentNode.removeChild(rail);
+    document.body.appendChild(svg);
 
-    state = { A: A, gutter: gutter, svg: svg, entries: entries };
+    var chips = qsa(side, '.lg-chip[data-id]'), chipById = {};
+    chips.forEach(function(c){ var id = c.getAttribute('data-id'); if(!chipById[id]) chipById[id] = c; });
+    var boxes = built.boxes.map(function(node){
+      var sm = node.tagName === 'DETAILS' ? qs(node, ':scope > summary') : null, count = null;
+      if(sm){ count = el('span', 'mg-hits'); sm.appendChild(count); }
+      return { node: node, names: namesOf(node), user: false, count: count };
+    });
+    state = {
+      A: A, card: card, side: side, cards: cards, empty: empty, where: where, svg: svg,
+      chips: chips, chipById: chipById, cardById: {}, noteByMark: [], key: null, pin: null, sec: undefined,
+      boxes: boxes,
+      heads: qsa(card, ':scope > h2[id]'),
+      blocks: qsa(card, '.prose p, .prose li, .prose blockquote, .wnote, .wiki-lead').map(function(n){
+        return { node: n, text: norm(n.textContent) };
+      })
+    };
+    window.addEventListener('scroll', schedule, { passive: true });
     window.addEventListener('resize', onResize);
-    if(window.ResizeObserver){
-      state.ro = new ResizeObserver(relayout);
-      state.ro.observe(card);
-      entries.forEach(function(e){ state.ro.observe(e.node); });
-    }
-    qsa(card, 'img').forEach(function(im){ if(!im.complete) im.addEventListener('load', relayout, { once: true }); });
-    place();
+    window.addEventListener('hashchange', onHash);
+    document.addEventListener('mouseover', onOver);
+    side.addEventListener('scroll', schedule, { passive: true });
+    side.addEventListener('click', onSummary);
+    side.addEventListener('toggle', schedule, true);
+    update();
   }
 
-  window.MarginGutter = { mount: mount, unmount: unmount, relayout: relayout, MIN_W: MIN_W };
+  window.MarginGutter = { mount: mount, unmount: unmount, update: update, MIN_W: MIN_W };
 })();

@@ -20039,7 +20039,7 @@ function getCalendarThemeCSS(){
       .${cls} .calendar-grid-wrap { border-color:${a}55; box-shadow:0 8px 28px ${a}18; }
       .${cls} .calx-mo.on { background:${a}; color:#fff; }
       .${cls} .calx-segs button.on { background:${a}; }
-      .${cls} .calx-cell.selected { border-color:${a}; box-shadow:0 0 0 1px ${a}; background:linear-gradient(180deg,${a}1c,var(--panel2)); }
+      .${cls} .calx-cell.selected { box-shadow:inset 0 0 0 2px ${a}; background:linear-gradient(180deg,${a}1c,var(--panel2)); }
       .${cls} .calx-day-big { color:${a2}; }
       .${cls} .calx-hero h1 { color:${a2}; }
       .${cls}.arttile, .arttile.${cls} { background:linear-gradient(135deg,${a}14,transparent 60%), linear-gradient(180deg,${th.panel||'#1b1430'},${th.bg||'#0d0a15'}); border-left-color:${a}; border-color:${a}38; }
@@ -20231,7 +20231,10 @@ function deadlinePanel(){
         if(!mv.length) return '';
         return `<div class="dline-ledger"><div class="dline-ledger-h">What moved the clock</div><ol>${mv.map(r=>{
           const mn=TC_MONTHS[r.p.month-1]||('M'+r.p.month);
-          const when=`${r.p.day} ${mn}${r.p.hh?' · '+r.p.hh+':'+r.p.mm:''}`;
+          const so=d.startedOn||{};
+          const when=r.start
+            ? `${so.day} ${TC_MONTHS[so.monthIndex]||''} · ${pad2(so.hour||0)}:${pad2(so.minute||0)}`
+            : `${r.p.day} ${mn}${r.p.hh?' · '+r.p.hh+':'+r.p.mm:''}`;
           return `<li class="${r.start?'is-start':''}"><span class="dl-when">${esc(when)}</span><span class="dl-tag">${r.start?'START':'MOVED'}</span><a href="#/article/${encodeURIComponent(r.ev.id)}">${esc(r.ev.name||r.ev.title||r.ev.id)}</a><b>${r.start?'+0m':'+'+spanText(r.delta)}${r.est?' <em title="hour estimated from the record">~est.</em>':''}</b></li>`;
         }).join('')}</ol></div>`;
       })()}
@@ -20369,7 +20372,7 @@ function calxGridHtml(){
   const rem=(firstIdx+days)%nW;
   for(let i=rem?nW-rem:0;i>0;i--) cells+='<div class="calx-cell calx-fill"></div>';
   return `<div class="calx-weekdays" style="grid-template-columns:repeat(${nW},1fr)">${cal.weekdays.map(w=>`<div class="${w.isRestDay?'rest':''}" title="${esc(w.name)}">${esc(w.abbr)}</div>`).join('')}</div>
-    <div class="calx-grid" id="calx-grid" tabindex="0" role="grid" aria-label="Month grid — click a day to open it here; arrow keys move the selected day" onkeydown="calxKeys(event)">${cells}</div>
+    <div class="calx-grid" id="calx-grid" style="grid-template-columns:repeat(${nW},1fr)" tabindex="0" role="grid" aria-label="Month grid — click a day to open it here; arrow keys move the selected day" onkeydown="calxKeys(event)">${cells}</div>
     ${Object.keys(timers).length?`<div class="calx-tlegend"><span class="tl-in">shaded = a timer is running</span><span>⏳ a filing moved it</span><span>⚡ fires</span></div>`:''}`;
 }
 /* the day panel — the calendar's answer to "what happened HERE", rendered
@@ -20707,8 +20710,8 @@ function view_calendar(){
         </span>
       </div>
     </div>
-    ${deadlinePanel()}
     ${mainContent}
+    ${deadlinePanel()}
     ${pocketClockPanel()}
     ${localSection}
   `;
@@ -25089,9 +25092,20 @@ async function loadData(){
     }
     const id=a.getAttribute('data-id'); const p=LINK_PREVIEW[id];
     if(!p) return;
-    /* ===== Feature 4: rich hover card =====
-       Portrait, type badge, live XP level, faction/status facts and quick actions —
-       so a hover answers "who is this and why do I care" without leaving the page. */
+    pv.innerHTML=linkCardHtml(id);
+    HOVER_LINK_ID=id;
+    pv.classList.add('show');
+    positionPreview(x,y);
+  }
+  /* ===== Feature 4: rich hover card =====
+     Portrait, type badge, live XP level, faction/status facts and quick actions —
+     so a hover answers "who is this and why do I care" without leaving the page.
+     Exposed on window so the active side panel (margin-gutter.js) draws the
+     same card for the passage being read; the two cannot drift. */
+  window.linkCardHtml=linkCardHtml;
+  function linkCardHtml(id,opts){
+    const p=LINK_PREVIEW[id];
+    if(!p) return '';
     const kindLabel=(p.typeKey&&TYPE_BY_KEY[p.typeKey]?TYPE_BY_KEY[p.typeKey].singular:prettyId(p.kind||'record'));
     const xp=(typeof XP_SUMMARY!=='undefined')?XP_SUMMARY[id]:null;
     const facts=[];
@@ -25100,7 +25114,7 @@ async function loadData(){
     if(xp)            facts.push(`<span class="lp-fact xp">✦ Lv ${xp.level} · ${Number(xp.currentXP||0).toLocaleString()} XP</span>`);
     const img=p.image?`<img class="lp-portrait" src="${esc(assetPath(p.image))}" alt="" onerror="this.remove()">`:'';
     const inb=(typeof BACKLINKS!=='undefined'&&BACKLINKS[id])?BACKLINKS[id].size:0;
-    pv.innerHTML=`<div class="lp-top">${img}<div class="lp-topbody">
+    return `<div class="lp-top">${img}<div class="lp-topbody">
         <div class="lp-head"><span class="lp-emoji">${p.emoji}</span><span class="lp-name">${esc(p.name)}</span></div>
         <div class="lp-badge">${esc(kindLabel)}</div>
         ${p.sub?`<div class="lp-sub">${esc(String(p.sub)).slice(0,60)}</div>`:''}
@@ -25108,10 +25122,7 @@ async function loadData(){
       ${facts.length?`<div class="lp-facts">${facts.join('')}</div>`:''}
       <div class="lp-sum">${esc(p.summary)}${p.summary&&p.summary.length>=220?'…':''}</div>
       <div class="lp-go"><span>Click to open →</span>${inb?`<span class="lp-inb">${inb} page${inb===1?'':'s'} link here</span>`:''}</div>
-      <div class="lp-mute">press <b>M</b> to stop auto-linking this</div>`;
-    HOVER_LINK_ID=id;
-    pv.classList.add('show');
-    positionPreview(x,y);
+      ${(opts&&opts.side)?'':'<div class="lp-mute">press <b>M</b> to stop auto-linking this</div>'}`;
   }
   function hidePreview(){ pv.classList.remove('show'); HOVER_LINK_ID=null; }
   document.addEventListener('mouseover',e=>{
