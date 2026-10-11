@@ -3997,3 +3997,33 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .item-report-badge.recipient{background:rgba(224,180,0,.12);border-color:rgba(224,180,0,.3);color:var(--accent2)}
 .item-report-badge.status{background:rgba(46,204,113,.12);border-color:rgba(46,204,113,.3);color:#2ecc71}
 .item-report-desc{font-size:11px;color:var(--muted);line-height:1.35}
+
+/* ---- MARGIN GUTTER (margin-gutter.js) — wide records as an active page ----
+   Prose in the left column; rail boxes, "the file behind this record" and
+   comment notes parked in a right gutter beside the passage they explain.
+   Below 1100px the script does not run and the old band layout stands. */
+.article-layout.record-wide-layout.mg-on{max-width:1560px}
+.mg-grid{display:grid;grid-template-columns:minmax(0,1fr) clamp(260px,24vw,340px);column-gap:20px;align-items:start;position:relative}
+.mg-grid>.mg-gutter{grid-column:2;grid-row:1 / span 6;position:relative}
+.mg-grid>:not(.mg-gutter):not(.mg-links){grid-column:1}
+.mg-gutter>.mg-item{position:absolute;left:0;right:0;margin:0;max-height:70vh;overflow:auto}
+.mg-links{position:absolute;left:0;top:0;pointer-events:none;overflow:visible;z-index:1}
+.mg-links path{fill:none;stroke:var(--accent2,var(--accent));stroke-width:1;stroke-dasharray:3 3;opacity:.6}
+.mg-note{background:var(--panel2);border:1px solid var(--border);border-left:3px solid var(--accent2,var(--accent));border-radius:8px;padding:8px 10px;cursor:pointer;font-size:12.5px;line-height:1.4}
+.mg-note b{display:block;font-size:11px;color:var(--accent2,var(--accent));margin-bottom:2px}
+.mg-note p{margin:0;color:var(--text)}
+.mg-note i{display:block;font-style:normal;font-size:10.5px;color:var(--muted);margin-top:3px}
+.annot.mg-hot{background:rgba(138,75,255,.28);outline:1px solid var(--accent)}
+.mg-plate{margin:14px 0;text-align:center}
+.mg-plate .field-gal-item{display:block}
+.mg-plate img{max-width:100%;max-height:420px;border-radius:10px}
+.mg-plate span{display:block;font-size:11.5px;color:var(--muted);margin-top:4px}
+
+/* ---- TOUCH (tablet) — larger targets wherever a finger is the pointer ---- */
+@media (pointer:coarse){
+  .calx-btn,.calx-nav,.calx-mo,.calx-segs button,.app-tab,.railbox>summary,.chip,.setting-pill,.ctrl-mini{min-height:44px;display:inline-flex;align-items:center}
+  .calx-nav{min-width:44px;justify-content:center}
+  .railbox>summary{display:flex}
+  .calx-cell{min-height:clamp(52px,7vw,72px)}
+  .mg-note{padding:11px 12px}
+}

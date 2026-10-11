@@ -514,6 +514,14 @@ Rules for planar dates:
   prose, not dates — hedge it in the text, not in the date field.
 ```
 
+### Margin gutter (wide event and battle pages)
+
+`Reputation-Matrix2/app/core/margin-gutter.js` runs after an event or battle renders on a
+viewport of 1100px or more. It moves the rail boxes and the apparatus panes into a right-hand
+gutter beside the section they match (by the names they mention), turns comment marks into
+sidenotes joined to the passage, and sets field plates inline. It only rearranges existing DOM;
+below 1100px the old band layout stands. Test: `node tools/tests/test-margin-gutter.mjs`.
+
 ### Running deadlines — the clock moves when you file, not when you remember
 
 Some filings start a **timer** that is still running: the Feyward tether cut is

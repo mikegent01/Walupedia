@@ -58,6 +58,7 @@
 <script src="assets/technology/technology.js?v=tech2"></script>
 <script src="assets/sheets/sheets.js?v=sheets1"></script>
   <script src="Reputation-Matrix2/app/core/wario-audio-bridge.js"></script>
+  <script src="Reputation-Matrix2/app/core/margin-gutter.js"></script>
   <script defer src="Reputation-Matrix2/app/core/wario-site-sounds.js"></script>
   <script defer src="Reputation-Matrix2/app/styles/waluipedia-ambient.js"></script>
 <style>.waluigi-dynasty-note{margin:16px 0;padding:12px 14px;border:1px solid #b55cff;border-left:4px solid #e35cff;border-radius:8px;background:linear-gradient(135deg,#5a167044,#1a052e99);color:#f3d5ff;line-height:1.55}.waluigi-dynasty-note b{color:#f5a9ff}
@@ -16556,6 +16557,7 @@ ${typeKey==='characters'?tokenSheetPanel(item):''}${typeKey==='characters'&&type
   setArticleAccent(typeKey);
   endLinkPass();
   mountLocationMapPreview();
+  if(window.MarginGutter){ try{ window.MarginGutter.mount(); }catch(e){ console.warn('margin gutter',e); } }
   if(window.__revScrollTo){ window.scrollTo(0,0); const vh=document.querySelector('.vhistory'); if(vh){ vh.scrollIntoView({behavior:'smooth',block:'start'}); } window.__revScrollTo=null; }
   else { window.scrollTo(0,0); }
   setupScrollSpy();applyCustomCss(item.customCss);
