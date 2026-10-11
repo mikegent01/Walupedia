@@ -20208,6 +20208,7 @@ function deadlinePanel(){
       ${d.grace?`<div class="dline-row"><span>Grace</span><b>${esc(d.grace)}</b></div>`:''}
       ${d.rewardIfMet?`<div class="dline-row"><span>If met</span><b>${esc(d.rewardIfMet)}</b></div>`:''}
       ${d.startedBy?`<div class="dline-row"><span>Started by</span><b>${link(d.startedBy)}</b></div>`:''}
+      ${(d.startedOn&&d.startedOn.year!=null)?`<div class="dline-row"><span>On the grid</span><b><a href="#/calendar/imperial/month/${Number(d.startedOn.year)}/${Number(d.startedOn.monthIndex)||0}/${Number(d.startedOn.day)||1}">🗓️ Show this timer's window on the calendar</a></b></div>`:''}
       ${d.disclosedIn?`<div class="dline-row"><span>Heard upstairs in</span><b>${link(d.disclosedIn)}</b></div>`:''}
       ${d.note?`<div class="pclock-rule"><b>Note</b> ${esc(d.note)}</div>`:''}
     </div>`;
@@ -20279,30 +20280,65 @@ function calxRoute(tab,y,mi,d){
   const cal=getActiveCalendar();
   return '#/calendar/'+cal.id+'/'+(tab||CAL_STATE.tab||'month')+'/'+(y==null?CAL_STATE.year:y)+'/'+(mi==null?CAL_STATE.monthIndex:mi)+'/'+(d==null?CAL_STATE.day:d);
 }
-/* the grid — day cells carry up to two event titles so a month can be READ
-   at a glance instead of tooltip-hunted */
+/* Running-timer marks for one month: which days sit inside a live timer's
+   window, which filings moved it, and the day it fires. Derived from
+   deadlineMovers(), so the grid agrees with the deadlines card. */
+function calxTimerMarks(cal,year,monthIndex){
+  const out={};
+  if(!cal||cal.id!=='imperial') return out;
+  const meta=DATA.calendarMeta||{};
+  (Array.isArray(meta.deadlines)?meta.deadlines:[]).filter(d=>d&&d.status!=='resolved').forEach(d=>{
+    const st=d.startedOn||{};
+    const startN=deadlineDayNumber(Number(st.year)||0,Number(st.monthIndex)||0,Number(st.day)||0);
+    const endN=startN+(Number(d.lengthDays)||0);
+    const mk=(day)=>out[day]||(out[day]={in:false,start:false,fire:false,movers:[],names:[]});
+    for(let day=1;day<=40;day++){
+      const n=deadlineDayNumber(year,monthIndex,day);
+      if(n<startN||n>endN) continue;
+      const m=mk(day); m.in=true; m.names.push(d.name||d.id);
+      if(n===startN) m.start=true;
+      if(n===endN) m.fire=true;
+    }
+    deadlineMovers(d).forEach(r=>{
+      if(r.start||r.p.year!==year||r.p.month-1!==monthIndex) return;
+      const m=mk(r.p.day); m.in=true; m.movers.push(`${r.ev.name||r.ev.id} +${spanText(r.delta)}`);
+    });
+  });
+  Object.keys(out).forEach(k=>{ if(!out[k].in) delete out[k]; });
+  return out;
+}
+/* the grid — compact cells: day number plus one coloured dot per kind of
+   entry, so the month reads like a wall calendar; the day panel beside it
+   (or below on a portrait tablet) carries the titles */
 function calxGridHtml(){
   const cal=getActiveCalendar();
   const md=cal.months[CAL_STATE.monthIndex]||getMonthData(CAL_STATE.monthIndex);
   const nW=cal.weekdays.length;
   const firstIdx=((calAbsoluteDay(cal,CAL_STATE.year,CAL_STATE.monthIndex,1)%nW)+nW)%nW;
   const days=md.days||30;
+  const timers=calxTimerMarks(cal,CAL_STATE.year,CAL_STATE.monthIndex);
   let cells='';
   for(let i=0;i<firstIdx;i++) cells+='<div class="calx-cell calx-fill"></div>';
   for(let d=1;d<=days;d++){
     const evs=collectEventsForDay(CAL_STATE.year,CAL_STATE.monthIndex,d);
     const wd=calWeekdayForDate(cal,CAL_STATE.year,CAL_STATE.monthIndex,d);
     const isToday=CAL_STATE.year===CUR.year&&CAL_STATE.monthIndex===CUR.monthIndex&&d===CUR.day;
-    const chips=evs.slice(0,2).map(e=>{const kk=calxKind(e);return `<span class="calx-chip" style="--k:${kk.c}">${kk.emoji} ${esc(e.name)}</span>`;}).join('');
-    cells+=`<div class="calx-cell${wd.isRestDay?' rest':''}${isToday?' today':''}${d===CAL_STATE.day?' selected':''}" data-d="${d}"${evs.length?` title="${esc(evs.map(e=>e.name).join(' · '))}"`:''} onclick="calxSelectDay(${d})">
-      <div class="calx-dnum"><span>${d}</span><i>${esc(wd.abbr)}</i></div>
-      ${chips?`<div class="calx-chips">${chips}${evs.length>2?`<span class="calx-more">+${evs.length-2} more</span>`:''}</div>`:''}
+    const kinds=[]; evs.forEach(e=>{ const kk=calxKind(e); if(!kinds.some(x=>x.c===kk.c)) kinds.push(kk); });
+    const dots=kinds.slice(0,4).map(kk=>`<span class="calx-dot" style="--k:${kk.c}"></span>`).join('');
+    const tm=timers[d];
+    const tmCls=tm?` tm-in${tm.start?' tm-start':''}${tm.fire?' tm-fire':''}${tm.movers.length?' tm-mover':''}`:'';
+    const tmTip=tm?[tm.start?'Timer started':'',...tm.movers.map(x=>'⏳ '+x),tm.fire?'⚡ Timer fires':'',(!tm.start&&!tm.fire&&!tm.movers.length)?'⏳ '+tm.names.join(', ')+' running':''].filter(Boolean):[];
+    const tip=[...evs.map(e=>e.name),...tmTip].join(' · ');
+    cells+=`<div class="calx-cell${wd.isRestDay?' rest':''}${isToday?' today':''}${d===CAL_STATE.day?' selected':''}${tmCls}" data-d="${d}"${tip?` title="${esc(tip)}"`:''} onclick="calxSelectDay(${d})">
+      <div class="calx-dnum"><span>${d}</span>${tm&&(tm.movers.length||tm.start)?'<em class="calx-tm" aria-label="moved a running timer">⏳</em>':''}${tm&&tm.fire?'<em class="calx-tm" aria-label="timer fires">⚡</em>':''}</div>
+      ${dots?`<div class="calx-dots">${dots}${evs.length>kinds.length?`<span class="calx-more">${evs.length}</span>`:''}</div>`:''}
     </div>`;
   }
   const rem=(firstIdx+days)%nW;
   for(let i=rem?nW-rem:0;i>0;i--) cells+='<div class="calx-cell calx-fill"></div>';
   return `<div class="calx-weekdays" style="grid-template-columns:repeat(${nW},1fr)">${cal.weekdays.map(w=>`<div class="${w.isRestDay?'rest':''}" title="${esc(w.name)}">${esc(w.abbr)}</div>`).join('')}</div>
-    <div class="calx-grid" id="calx-grid" tabindex="0" role="grid" aria-label="Month grid — click a day to open it here; arrow keys move the selected day" onkeydown="calxKeys(event)">${cells}</div>`;
+    <div class="calx-grid" id="calx-grid" tabindex="0" role="grid" aria-label="Month grid — click a day to open it here; arrow keys move the selected day" onkeydown="calxKeys(event)">${cells}</div>
+    ${Object.keys(timers).length?`<div class="calx-tlegend"><span class="tl-in">shaded = a timer is running</span><span>⏳ a filing moved it</span><span>⚡ fires</span></div>`:''}`;
 }
 /* the day panel — the calendar's answer to "what happened HERE", rendered
    beside the grid and refreshed in place on every day click */

@@ -6,11 +6,12 @@ import assert from 'assert';
 const html=fs.readFileSync('index.html','utf8');
 const grab=(a,b)=>{const i=html.indexOf(a);assert(i>=0,a);const j=html.indexOf(b,i);return html.slice(i,j);};
 const code=[grab('function parseTimeCode(','function timeCodePill('),
-            grab('function deadlineDayNumber(','function deadlineBannerHtml(')].join('\n');
+            grab('function deadlineDayNumber(','function deadlineBannerHtml('),
+            grab('function calxTimerMarks(','/* the grid')].join('\n');
 const ev=JSON.parse(fs.readFileSync('Reputation-Matrix2/data/events.json','utf8'));
 const meta=JSON.parse(fs.readFileSync('Reputation-Matrix2/data/calendarMeta.json','utf8'));
 const DATA={events:Array.isArray(ev)?ev:ev.events,calendarMeta:meta};
-const api=new Function('DATA',code+';return {deadlineRemaining,deadlineMovers,spanText,deadlineMoverTags};')(DATA);
+const api=new Function('DATA',code+';return {deadlineRemaining,deadlineMovers,spanText,deadlineMoverTags,calxTimerMarks};')(DATA);
 const live=meta.deadlines.filter(d=>d.status!=='resolved');
 assert(live.length,'no live deadline to test');
 for(const d of live){
@@ -22,6 +23,15 @@ for(const d of live){
   }
   for(let i=1;i<mv.length;i++) assert(mv[i].off>=mv[i-1].off,d.id+': ledger ordered');
   console.log('OK  '+d.id+': '+mv.length+' ledger rows, '+api.spanText(r.elapsedMin)+' passed');
+}
+{ // the calendar grid marks the window, the mover day and the firing day
+  const d=live[0], st=d.startedOn;
+  const m=api.calxTimerMarks({id:'imperial'},st.year,st.monthIndex);
+  assert(m[st.day]&&m[st.day].start,'start day marked');
+  assert(m[st.day+d.lengthDays]&&m[st.day+d.lengthDays].fire,'firing day marked');
+  assert(!m[st.day-1],'day before the start is not inside the window');
+  assert(Object.values(m).some(x=>x.movers.length),'a mover day is marked');
+  assert.deepStrictEqual(api.calxTimerMarks({id:'feyward'},st.year,st.monthIndex),{},'only the imperial calendar is marked');
 }
 assert.strictEqual(api.spanText(210),'3h 30m');
 assert.strictEqual(api.spanText(1500),'1d 1h 0m');

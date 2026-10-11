@@ -3571,9 +3571,9 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 /* ---- CALENDAR REDESIGN (calx-*) — one screen, no dead ends -------------
    Month grid + day panel share the screen: clicking a day answers in place
    beside the grid, records are one click deep, months/years are strips. */
-.calx-hero{padding:18px 20px 16px}
+.calx-hero{padding:12px 16px 12px}
 .calx-hero-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
-.calx-hero-title h1{margin:0;font-size:26px;font-weight:900;letter-spacing:.4px}
+.calx-hero-title h1{margin:0;font-size:21px;font-weight:900;letter-spacing:.4px}
 .calx-hero-title .calx-yr{color:var(--accent2)}
 .calx-hero-title i{font-style:normal;font-size:13px;color:var(--muted);margin-left:5px;font-weight:800}
 .calx-hero-sub{color:var(--muted);font-size:12.5px;margin-top:4px}
@@ -3604,7 +3604,7 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .calx-weekdays div.rest{color:var(--accent2)}
 .calx-grid{display:grid;gap:4px;outline:none}
 .calx-grid:focus-visible{box-shadow:0 0 0 2px var(--accent);border-radius:12px}
-.calx-cell{min-height:74px;background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:5px 7px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s;position:relative;overflow:hidden}
+.calx-cell{min-height:clamp(46px,6.2vw,64px);background:var(--panel2);border:1px solid var(--border);border-radius:10px;padding:4px 6px;cursor:pointer;transition:transform .12s,border-color .12s,background .12s;position:relative;overflow:hidden}
 .calx-cell:hover{border-color:var(--accent);transform:translateY(-1px)}
 .calx-cell.rest{background:linear-gradient(180deg,rgba(224,180,0,.06),var(--panel2))}
 .calx-cell.today{border-color:var(--accent2)}
@@ -3614,10 +3614,15 @@ body.ra-picking #content :is(p,li,h1,h2,h3,h4,blockquote):hover{outline:1px dash
 .calx-cell.calx-fill:hover{transform:none;border-color:transparent}
 .calx-dnum{display:flex;justify-content:space-between;align-items:baseline}
 .calx-dnum span{font-weight:800;font-size:14px}
-.calx-dnum i{font-style:normal;font-size:9.5px;color:var(--muted)}
-.calx-chips{display:flex;flex-direction:column;gap:2px;margin-top:4px}
-.calx-chip{font-size:10px;line-height:1.3;font-weight:600;color:var(--text);border-left:2px solid var(--k,var(--accent));border-radius:4px;padding:1px 5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
-.calx-more{font-size:9.5px;color:var(--muted);font-weight:800;padding-left:5px}
+.calx-dots{display:flex;gap:4px;align-items:center;margin-top:6px;flex-wrap:wrap}
+.calx-dot{width:8px;height:8px;border-radius:50%;background:var(--k,var(--accent))}
+.calx-more{font-size:9.5px;color:var(--muted);font-weight:800}
+.calx-tm{font-style:normal;font-size:11px;line-height:1;margin-left:3px}
+.calx-cell.tm-in{background:linear-gradient(180deg,rgba(255,170,60,.13),var(--panel2));border-color:rgba(255,170,60,.35)}
+.calx-cell.tm-mover{border-color:#ffaa3c;box-shadow:inset 0 -3px 0 #ffaa3c}
+.calx-cell.tm-fire{border-color:var(--danger);box-shadow:inset 0 -3px 0 var(--danger)}
+.calx-tlegend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:8px}
+.calx-tlegend .tl-in::before{content:'';display:inline-block;width:10px;height:10px;border-radius:3px;background:rgba(255,170,60,.35);margin-right:5px;vertical-align:-1px}
 .calx-weird{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;font-size:11.5px}
 .calx-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--muted);margin-top:10px}
 .calx-legend .lg{display:inline-flex;align-items:center;gap:5px}
