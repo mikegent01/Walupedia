@@ -5008,7 +5008,13 @@ function timeCodePill(item){
   const mn=TC_MONTHS[p.month-1]||`M${p.month}`;
   const when=p.hh?`${p.day} ${mn} ${p.year} BF · ${p.hh}:${p.mm}`:`${p.day} ${mn} ${p.year} BF`;
   const tip=`${esc(item.timeCode)} — ${esc(TC_CLOCKS[p.clock]||p.clock)}${p.hh?'':' · hour not established by the record'}`;
-  return `<span class="pill timecode-pill" title="${tip}">🕰 ${esc(when)} <b>${esc(p.clock)}</b></span>`;
+  let adv='';
+  try{
+    adv=deadlineMoverTags(item).map(({d,m})=>m.start
+      ?` <span class="pill timecode-pill tc-mover" title="${esc(d.name||d.id)} started here">⏳ started ${esc(d.name||'')}</span>`
+      :` <span class="pill timecode-pill tc-mover" title="${esc(d.name||d.id)}: this filing carried the clock forward">⏳ +${esc(spanText(m.delta))}${m.est?' ~':''}</span>`).join('');
+  }catch(e){}
+  return `<span class="pill timecode-pill" title="${tip}">🕰 ${esc(when)} <b>${esc(p.clock)}</b></span>${adv}`;
 }
 function shortDateOf(item){
   const raw=String(item&&item.date||'').trim();
@@ -20089,9 +20095,53 @@ function deadlineRemaining(d){
     len:len, totalMin:totalMin, elapsedMin:elapsedMin, leftMin:leftMin,
     days:Math.floor(leftMin/1440),
     hh:Math.floor(leftMin/60), mm:leftMin%60, ss:0,
+    /* time PASSED, as days:hours:minutes — easier to read than 503 hours left */
+    eDays:Math.floor(Math.min(elapsedMin,totalMin)/1440),
+    eHH:Math.floor(Math.min(elapsedMin,totalMin)%1440/60),
+    eMM:Math.min(elapsedMin,totalMin)%60,
     pct: totalMin?Math.min(100,Math.round(elapsedMin/totalMin*100)):0,
     anchor: now, expired: leftMin<=0
   };
+}
+/* Every filing on the timer's clock that carried it past its start, oldest
+   first, with the gap each one added. Derived from the same timeCodes the
+   countdown reads, so the ledger and the clock cannot disagree. The filing
+   named in startedBy opens the list at +0. */
+function deadlineMovers(d){
+  const st=d.startedOn||{};
+  const startN=deadlineDayNumber(Number(st.year)||0,Number(st.monthIndex)||0,Number(st.day)||0);
+  const startMin=(Number(st.hour)||0)*60+(Number(st.minute)||0);
+  const clock=d.clock||'MAT';
+  const rows=[];
+  (DATA.events||[]).forEach(ev=>{
+    const p=parseTimeCode(ev&&ev.timeCode);
+    if(!p||p.clock!==clock) return;
+    const t=tcDayNumber(ev);
+    const off=(t.n-startN)*1440+(t.hh*60+t.mm-startMin);
+    const isStart=ev.id===d.startedBy;
+    if(!isStart && off<=0) return;
+    rows.push({ev, p, off:isStart?0:off, start:isStart,
+      est:ev.timeEstimated===true||/estimated/i.test(String(ev.timeWindow||''))});
+  });
+  rows.sort((a,b)=>a.off-b.off);
+  let prev=0; rows.forEach(r=>{ r.delta=Math.max(0,r.off-prev); prev=r.off; });
+  return rows;
+}
+function spanText(min){
+  min=Math.max(0,Math.round(min));
+  const dd=Math.floor(min/1440), hh=Math.floor(min%1440/60), mm=min%60;
+  return [dd?dd+'d':'', (hh||dd)?hh+'h':'', mm+'m'].filter(Boolean).join(' ');
+}
+/* Which running timers did this record advance? Used by the time-code pill. */
+function deadlineMoverTags(item){
+  const meta=(typeof DATA!=='undefined'&&DATA.calendarMeta)||{};
+  const rows=Array.isArray(meta.deadlines)?meta.deadlines.filter(d=>d&&d.status!=='resolved'):[];
+  const out=[];
+  rows.forEach(d=>{
+    const m=deadlineMovers(d).find(r=>r.ev.id===(item&&item.id));
+    if(m) out.push({d,m});
+  });
+  return out;
 }
 function pad2(n){ return String(n).padStart(2,'0'); }
 /* The countdown, promoted to the top of the home page. A timer that only
@@ -20104,16 +20154,16 @@ function deadlineBannerHtml(){
   return rows.map(d=>{
     const r=deadlineRemaining(d);
     const urgent = r.expired || (r.totalMin && r.leftMin<=r.totalMin/3);
-    return `<div class="dline-banner${urgent?' is-urgent':''}" onclick="Router.go('#/calendar')" title="${esc(d.consequence||'')}">
+    return `<div class="dline-banner${urgent?' is-urgent':''}" onclick="Router.go('#/calendar');setTimeout(function(){var n=document.getElementById('deadlines');if(n)n.scrollIntoView({block:'start'});},60)" title="${esc(d.consequence||'')}">
       <div class="dbn-main">
-        <div class="dbn-label">⏳ ${esc(String(d.clock||''))} · time remaining</div>
+        <div class="dbn-label">⏳ ${esc(String(d.clock||''))} · time passed</div>
         <div class="dbn-name">${esc(d.name||d.id)}</div>
-        <div class="dbn-sub">${r.expired?'The term has expired.':`${r.days} of ${r.len} days left`} — ${esc(d.consequence||'')}</div>
+        <div class="dbn-sub">${r.expired?'The term has expired.':`${r.eDays}d ${r.eHH}h ${r.eMM}m of ${r.len} days gone · ${r.days} days left`} — ${esc(d.consequence||'')}</div>
       </div>
       <div class="dbn-clock">
-        <span class="dline-seg"><b>${pad2(r.hh)}</b><i>hours</i></span><span class="dline-colon">:</span>
-        <span class="dline-seg"><b>${pad2(r.mm)}</b><i>minutes</i></span><span class="dline-colon">:</span>
-        <span class="dline-seg"><b>${pad2(r.ss)}</b><i>seconds</i></span>
+        <span class="dline-seg"><b>${pad2(r.eDays)}</b><i>days</i></span><span class="dline-colon">:</span>
+        <span class="dline-seg"><b>${pad2(r.eHH)}</b><i>hours</i></span><span class="dline-colon">:</span>
+        <span class="dline-seg"><b>${pad2(r.eMM)}</b><i>minutes</i></span>
       </div>
     </div>`;
   }).join('');
@@ -20136,23 +20186,33 @@ function deadlinePanel(){
     return `<div class="dline${urgent?' dline--urgent':''}">
       <div class="dline-head"><span class="dline-icon">⏳</span><b>${esc(d.name||d.id)}</b>
         <span class="dline-tag">${esc(String(d.clock||'MAT'))}</span></div>
-      <div class="dline-clock" role="timer" aria-label="time remaining">
-        <span class="dline-seg"><b>${pad2(r.hh)}</b><i>hours</i></span><span class="dline-colon">:</span>
-        <span class="dline-seg"><b>${pad2(r.mm)}</b><i>minutes</i></span><span class="dline-colon">:</span>
-        <span class="dline-seg"><b>${pad2(r.ss)}</b><i>seconds</i></span>
+      <div class="dline-clock" role="timer" aria-label="time passed">
+        <span class="dline-seg"><b>${pad2(r.eDays)}</b><i>days</i></span><span class="dline-colon">:</span>
+        <span class="dline-seg"><b>${pad2(r.eHH)}</b><i>hours</i></span><span class="dline-colon">:</span>
+        <span class="dline-seg"><b>${pad2(r.eMM)}</b><i>minutes</i></span>
       </div>
-      <div class="dline-days">${r.expired?'THE TERM HAS EXPIRED':`${r.days} day${r.days===1?'':'s'} of ${r.len} remaining`}</div>
+      <div class="dline-days">${r.expired?'THE TERM HAS EXPIRED':`${r.eDays}d ${r.eHH}h ${r.eMM}m of ${r.len} days passed · ${r.days} day${r.days===1?'':'s'} remaining`}</div>
       <div class="dline-track"><div class="dline-fill" style="width:${r.pct}%"></div></div>
       <div class="dline-sub">${anchorTxt}${who?` · agreed between ${who}`:''}</div>
+      ${(()=>{
+        const mv=deadlineMovers(d);
+        if(!mv.length) return '';
+        return `<div class="dline-ledger"><div class="dline-ledger-h">What moved the clock</div><ol>${mv.map(r=>{
+          const mn=TC_MONTHS[r.p.month-1]||('M'+r.p.month);
+          const when=`${r.p.day} ${mn}${r.p.hh?' · '+r.p.hh+':'+r.p.mm:''}`;
+          return `<li class="${r.start?'is-start':''}"><span class="dl-when">${esc(when)}</span><span class="dl-tag">${r.start?'START':'MOVED'}</span><a href="#/article/${encodeURIComponent(r.ev.id)}">${esc(r.ev.name||r.ev.title||r.ev.id)}</a><b>${r.start?'+0m':'+'+spanText(r.delta)}${r.est?' <em title="hour estimated from the record">~est.</em>':''}</b></li>`;
+        }).join('')}</ol></div>`;
+      })()}
       ${d.summary?`<div class="pclock-note">${esc(d.summary)}</div>`:''}
       ${d.consequence?`<div class="dline-row"><span>On zero</span><b>${esc(d.consequence)}</b></div>`:''}
       ${d.grace?`<div class="dline-row"><span>Grace</span><b>${esc(d.grace)}</b></div>`:''}
       ${d.rewardIfMet?`<div class="dline-row"><span>If met</span><b>${esc(d.rewardIfMet)}</b></div>`:''}
       ${d.startedBy?`<div class="dline-row"><span>Started by</span><b>${link(d.startedBy)}</b></div>`:''}
+      ${d.disclosedIn?`<div class="dline-row"><span>Heard upstairs in</span><b>${link(d.disclosedIn)}</b></div>`:''}
       ${d.note?`<div class="pclock-rule"><b>Note</b> ${esc(d.note)}</div>`:''}
     </div>`;
   }).join('');
-  return `<div class="card mt-12 pclock-card">
+  return `<div class="card mt-12 pclock-card" id="deadlines">
     <div class="section-title" style="margin-top:0">⏳ Running deadlines</div>
     <p class="text-muted pclock-lede">Timers counting <b>right now</b>. The remaining time is measured against the newest filed session on each timer's own clock, so it falls on its own as sessions are filed — there is no counter to remember to decrement.</p>
     <div class="dline-grid">${cards}</div>
@@ -20579,8 +20639,8 @@ function view_calendar(){
         </span>
       </div>
     </div>
-    ${mainContent}
     ${deadlinePanel()}
+    ${mainContent}
     ${pocketClockPanel()}
     ${localSection}
   `;

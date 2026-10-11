@@ -553,7 +553,7 @@ must be pruned in the same commit.
 
 | Timer | Clock | Term | Fires | Consequence |
 |---|---|---|---|---|
-| `feyward_tether_cut` | FEY | 21 days from 3 Aethel, 922 BF | 24 Aethel, 922 BF (Feyward clock) | The planar tether joining the Feyward to the Material sanctum is cut, closing the route between the Feyward party and the sanctum |
+| `feyward_tether_cut` | FEY | 21 days from 3 Aethel, 922 BF (set in the Shepherd's Garden; heard upstairs in the Soul-Ring session) | 24 Aethel, 922 BF (Feyward clock) | The planar tether joining the Feyward to the Material sanctum is cut, closing the route between the Feyward party and the sanctum |
 
 *(When that row fires: resolve it, mark it `resolved`, and remove the row. If the
 table is left with no rows, delete the table and leave the rule above.)*
