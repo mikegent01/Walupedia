@@ -1,0 +1,2845 @@
+{
+  "name": "Bowser, Warlord of Darkland",
+  "type": "npc",
+  "_id": "d1qwl5RJ3yk6THBe",
+  "img": "npc/ezgif-7d221b3e36544a77.webp",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 26,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 24,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 21,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 140,
+        "max": 230,
+        "formula": "20d12 + 100",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "40",
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 120
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "alignment": "chaotic neutral",
+      "type": {
+        "value": "humanoid",
+        "subtype": "koopa (dragon-king)"
+      },
+      "cr": 15,
+      "biography": {
+        "value": "<h1>Bowser — The Dragon-King Who Keeps Getting Up</h1><p>Bowser is the creature who has defined the Mushroom Kingdom through opposition for longer than most of its current inhabitants have been alive. He is the villain of every story, the kidnapper in every legend, the fire-breathing turtle-dragon-king whose name is used to frighten children and whose actual presence frightens things considerably larger than children. He has fought Mario more times than either of them can accurately count. He has been defeated, imprisoned, exiled, launched into the sun, thrown into lava, dropped from airships, and subjected to indignities that would have destroyed any creature whose defining characteristic was anything other than the absolute, pathological refusal to stay down.</p><p>Bowser always gets back up. That's the thing about Bowser that makes him terrifying not as a villain but as a FACT. He doesn't stay defeated. He doesn't learn the lesson that everyone thinks defeat is supposed to teach. He stands up, dusts off whatever substance he was thrown into, returns to his castle, rebuilds whatever army Mario scattered, and starts planning the next attempt. The cycle has repeated for decades. The cycle IS Bowser. Without the cycle, he is a very large koopa with anger management issues and an empty castle.</p><p>Understanding what Bowser was—at his peak, before the current crisis reduced him from conqueror to captive to reluctant ally to vampire dinner guest—requires understanding the scale of his ambition and the genuine capability that made that ambition something other than delusion.</p><p>Bowser consolidated power in Darkland during the chaos following Princess Peach's assassination in 955 BF. While the Mushroom Kingdom fragmented into civil war factions, Bowser built. He unified the Koopa Troop—a loose confederation of koopa, goomba, and allied species—into a genuine military force through a combination of personal dominance, strategic marriages with subordinate clan leaders, and the kind of charismatic brutality that inspires loyalty in creatures who respect strength above all other qualities. By the time the First Bowser Conflict began in approximately 1005 BF, Darkland was the most organized military power in the region, and Bowser was its undisputed ruler.</p><p>The kidnapping obsession is the detail that historical analyses either focus on exclusively or dismiss entirely, and both responses miss the point. Bowser kidnapped Princess Toadstool (and later, during the brief period when \"Peach\" was used for her successor) repeatedly, obsessively, with a persistence that transcended tactical logic and entered the territory of something that psychologists would have opinions about if anyone ever convinced Bowser to attend a session.</p><p>The kidnappings were not rational. Bowser could have conquered Mushroom Kingdom territory through conventional military force at several points during the civil war period when the kingdom's defenses were at their weakest. He chose not to. Instead, he kidnapped princesses, built elaborate castle obstacles, positioned his subordinates in fortresses across eight worlds of territory, and WAITED for Mario to come. The entire invasion infrastructure was designed not to prevent rescue but to make rescue as dramatic as possible.</p><p>Waluigi—who has analyzed Bowser with the dedication of someone who has lost to him at every competitive event they've ever entered—believes the kidnappings were not conquest but courtship. Not romantic courtship in the conventional sense, but the courtship of someone who didn't know how to express desire except through control. Bowser wanted Peach (or her successor) the way he wanted everything: absolutely, unilaterally, without the complication of the other person's feelings or the recognition that relationships require consent rather than capture.</p><p>This interpretation doesn't excuse the kidnappings. It contextualizes them as the behavior of someone whose emotional development was shaped by a species and culture where taking what you want is the primary social mechanism, where strength determines entitlement, and where the concept of \"asking\" is foreign enough to require translation. Bowser didn't kidnap princesses because he was evil. He kidnapped princesses because his entire frame of reference for acquiring things he valued was \"take them and defend your claim.\"</p><p>The Chaos Heart Crisis of 1025 BF represents the most complicated chapter of Bowser's history. He was one of the forced participants in the wedding that triggered the Chaos Heart's awakening—married to Princess Peach (the successor) against both their wills by Count Bleck. The ceremony was not about their feelings; it was about the conceptual union of opposing forces creating the paradox that empowered the Chaos Heart. Bowser was a tool. The experience of being USED—of having his agency removed and his body deployed as a component in someone else's plan—was transformative in ways that Bowser has never discussed and that observers have never adequately analyzed.</p><p>After the Crisis, Bowser's behavior changed in subtle but detectable ways. His invasion attempts became less frequent. His castle defenses became less elaborate. His interaction with Junior—always complicated by absence—acquired a quality that might have been guilt or might have been the recognition that empire-building costs things that can't be rebuilt. He still fought Mario. He still kidnapped (less often). He still roared and breathed fire and broke things. But something underneath the performance had shifted, the way a foundation shifts under a building that still looks solid from outside.</p><p>The current crisis has stripped away whatever remained of Bowser's pretensions to empire. He was captured aboard the Vigilance. He was traded between factions like cargo. He was taken captive by Wally (Waluigi's agent) and Bowser still doesn't fully understand the political dimensions of what happened to him. He attended Orangus Cornelius's vampire dinner party in the Shadowfell as a GUEST—not a conqueror, not an invader, a guest who followed etiquette because the alternative was worse. He examined necromancer wands with the curiosity of someone who has stopped pretending that magic beneath his station doesn't interest him.</p><p>He fought alongside the party at Raventree Manor. He participated in the Oracle's failed ritual. He has been scattered across dimensions by the Planar Fracture, reformed alliances with people he would have conquered a decade ago, and demonstrated capabilities and qualities that the Bowser of 1005 BF would have considered beneath his dignity. He has punched ghosts with his bare fists because Archie needed time to cast ice spells. He has accepted tactical direction from toads who weigh less than his left arm. He has cooperated.</p><p>This is the Bowser who exists now: still enormous, still fire-breathing, still capable of violence that makes architecture regret being built, but tempered by decades of defeat, by the loss of his empire, by the absence from his son, and by the creeping realization that the cycle of kidnapping and rescue and defeat was never going to give him what he actually wanted. What he actually wanted was connection. What he actually wanted was for someone to choose to be near him rather than being forced to be near him. What he actually wanted was something that his entire species and culture had no vocabulary for, and that his own behavior made impossible.</p><p>Bowser at his peak was a natural disaster with a crown. Bowser now is something more complicated and more dangerous: a natural disaster that's learning to think.</p>",
+        "public": "A massive koopa dragon-king whose shell is scarred from decades of defeats he survived through stubbornness alone. He fills every room he enters, breathes fire when he's annoyed, and has recently started cooperating with people he used to try to conquer. This last development worries everyone, including Bowser."
+      },
+      "race": "Koopa (Dragon-King)",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "lg",
+      "languages": {
+        "value": [
+          "common",
+          "draconic",
+          "ignan"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [
+          "frightened"
+        ],
+        "custom": ""
+      },
+      "di": {
+        "value": [
+          "fire"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [
+          "bludgeoning",
+          "piercing",
+          "slashing"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "skills": {
+      "ath": {
+        "value": 2,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "int": {
+        "value": 2,
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "source": {
+      "custom": "Custom NPC",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Bowser, Warlord of Darkland",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "depth": 1,
+    "texture": {
+      "src": "npc/tumblr_mqtfrs9xbu1rrftcdo1_500.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "wall-height": {
+        "tokenHeight": 0
+      },
+      "tagger": {},
+      "monks-enhanced-journal": {
+        "chatbubble": ""
+      },
+      "monks-tokenbar": {
+        "include": "default"
+      },
+      "elevation-drag-ruler": {
+        "selectedSpeed": "auto",
+        "hasBonusDash": false,
+        "hideSpeedButton": false
+      },
+      "about-face": {
+        "indicatorDisabled": false,
+        "flipOrRotate": "global",
+        "facingDirection": "global",
+        "rotationOffset": 0,
+        "direction": 360
+      },
+      "levels-3d-preview": {
+        "model3d": "",
+        "imageTexture": "",
+        "material": "none",
+        "color": "#ffffff",
+        "scale": 1,
+        "auraRange": 0,
+        "auraColor": "#ffffff",
+        "ParticleType": "none",
+        "ParticlePosition": "surface",
+        "enableParticleHidden": false,
+        "ParticleIntensity": 1,
+        "ParticleSprite": "modules/levels-3d-preview/assets/particles/emberssmall.png",
+        "ParticleRadius": 0,
+        "ParticleScale": 1,
+        "ParticleColor": "#ffffff",
+        "ParticleColor2": "#ffffff",
+        "baseColor": "default=\"#000000\"",
+        "disableBase": false,
+        "removeBase": true,
+        "solidBaseMode": "default",
+        "stem": false,
+        "enableAnim": true,
+        "animIndex": 0,
+        "animSpeed": 1,
+        "flatTokenStyle": "default",
+        "autoCenter": false,
+        "rotationX": 0,
+        "rotationY": 0,
+        "rotationZ": 0,
+        "offsetX": 0,
+        "offsetY": 0,
+        "offsetZ": 0,
+        "forceFlyingMode": false
+      },
+      "torch": {
+        "lightSourceState": "on"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "name": "Claws and Fists",
+      "type": "weapon",
+      "img": "icons/creatures/abilities/fang-tooth-blood-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser's primary weapons are attached to his body and have been since birth. His claws can rend steel, his fists can shatter stone, and his grip can crush things that were designed to be crush-resistant. He doesn't carry weapons because he IS a weapon—every component of his body optimized through species and personal development for the specific purpose of destroying whatever he's directed toward.</p><p>His fighting style is self-taught through decades of combat against the most capable hero the Mushroom Kingdom has ever produced. Mario forced Bowser to improve. Every defeat revealed a weakness that Bowser addressed for the next encounter. Every near-victory showed a strength that Bowser refined. The result is a combat capability that has been honed against the best possible opponent for over thirty-five years—not elegant, not subtle, but devastatingly effective against anything that hasn't been specifically trained to counter Bowser's particular combination of speed, power, and the unsettling creativity of someone who has learned to fight by losing to a genius.</p><p>The punching-ghosts incident at Raventree Manor demonstrated something that shouldn't be possible: Bowser physically striking incorporeal entities through sheer force of personality and the particular density of a fist that has been clenched in fury so many times that even spiritual beings recognize it as a threat. Whether this reflects magical contamination from decades of exposure to supernatural events or simply Bowser's refusal to accept that something can't be punched, the effect is the same: his attacks count as magical for purposes of overcoming resistance.</p>",
+          "chat": "<p>Claws that have shredded castle walls and fists that have punched ghosts into acknowledging physical reality. He doesn't need weapons. He is one.</p>"
+        },
+        "unidentified": {
+          "name": "Natural Weapons",
+          "description": "<p>This creature's natural claws and fists deliver devastating force that somehow affects even incorporeal entities.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 2,
+            "denomination": 8,
+            "bonus": "8",
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [
+          "rch"
+        ],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "7JhMkNtaaSVYJGb0",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Spiked Shell",
+      "type": "equipment",
+      "img": "icons/creatures/reptiles/turtle-shell-glowing-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser's shell is not armor he wears but anatomy he was born with, reinforced through decades of combat that have deposited layers of impact-hardened keratin over the original structure. The shell's spikes are genuine defensive weapons—creatures that grapple Bowser from behind or attempt to mount his shell take 2d6 piercing damage at the start of each of their turns as the spikes dig into whatever flesh is pressing against them.</p><p>The shell provides AC 21 (natural armor) and is the primary reason Bowser has survived injuries that would have killed conventional creatures multiple times over. It has absorbed dragon fire, magical explosions, being thrown into stars (this happened at least twice, according to accounts Waluigi considers credible), and the specific kind of architectural collapse that occurs when a structure not designed to contain a Bowser fight is forced to contain one anyway.</p><p>The shell also serves as a vehicle. Bowser can withdraw into it and spin, converting himself into a projectile that deals devastating damage to anything in his path. This technique was developed during his fights with Mario and refined through the kind of iterative engineering that occurs when your enemy keeps finding new ways to dodge your fire and you need alternatives.</p>",
+          "chat": "<p>The shell is scarred from every battle he's survived, each mark a defeat that would have killed something less stubborn. The spikes are a reminder that attacking him from behind is also a bad idea.</p>"
+        },
+        "unidentified": {
+          "name": "Spiked Natural Shell",
+          "description": "<p>A massive spiked shell that provides extraordinary natural armor and serves as both defense and weapon.</p>"
+        },
+        "identified": false,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "equipped": true,
+        "armor": {
+          "value": 21,
+          "dex": null
+        },
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "jU8pJItc3UAniEfZ",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Shell Spin",
+      "type": "weapon",
+      "img": "icons/creatures/reptiles/turtle-shell-glowing-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser withdraws into his shell and launches himself as a spinning projectile, crossing up to 40 feet in a straight line and devastating everything in his path. The technique combines the rotational force of his massive body with the spiked shell's cutting capability, creating a mobile hazard that shreds through obstacles and enemies with equal disregard.</p><p>Each creature in Bowser's path must make a DC 21 Dexterity saving throw. On a failure, a creature takes 4d10 + 8 bludgeoning damage plus 2d6 piercing damage from the spikes and is knocked prone. On a success, a creature takes half damage and isn't knocked prone but is pushed 10 feet to either side of Bowser's path. Objects and structures in the path take double damage as the spinning shell grinds through them.</p><p>After the spin, Bowser emerges from his shell in the space at the end of his path. He cannot use Shell Spin again until the start of his next turn, as reorienting from the spin requires a moment of recovery. This recovery period—approximately two seconds—is the window Mario learned to exploit during their fights, and it remains Bowser's most consistent vulnerability during combat.</p>",
+          "chat": "<p>The shell spins, spikes blur into a circle of destruction, and everything between Bowser and his destination learns that standing in a dragon-king's path is a structural engineering problem, not a combat one.</p>"
+        },
+        "unidentified": {
+          "name": "Spinning Shell Charge",
+          "description": "<p>This creature can withdraw into its spiked shell and launch itself as a devastating projectile.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 4,
+            "denomination": 10,
+            "bonus": "8",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "ObeQYZxRtWsNdeea",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Ground Pound",
+      "type": "weapon",
+      "img": "icons/magic/earth/laval-stone-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser leaps and slams his full weight into the ground, creating shockwaves that radiate outward in a 20-foot radius. The technique exploits the simple physics of dropping something extremely heavy from height—Bowser weighs enough that his landing registers on seismographic equipment from considerable distance. The shockwaves crack stone, shatter glass, and knock anyone who isn't braced off their feet.</p><p>Each creature within 20 feet of the impact point must make a DC 21 Strength saving throw. On a failure, a creature takes 3d10 + 8 bludgeoning damage and is knocked prone. On a success, a creature takes half damage and isn't knocked prone. The ground in the affected area becomes difficult terrain as cracks, rubble, and displaced material make footing treacherous.</p>",
+          "chat": "<p>He goes up. He comes down. Everything between 'up' and 'down' ceases to be solid.</p>"
+        },
+        "unidentified": {
+          "name": "Seismic Slam",
+          "description": "<p>This creature can leap and slam the ground, creating shockwaves that damage and topple everything in a wide radius.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 3,
+            "denomination": 10,
+            "bonus": "8",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "W1p8fIX2yOfbAsqC",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Bite",
+      "type": "weapon",
+      "img": "icons/creatures/abilities/mouth-teeth-lamprey-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser's jaws can close with force sufficient to sever limbs and crush armor. His bite attack is typically reserved for enemies who have gotten close enough to grapple or for situations where his claws are occupied. The bite is enhanced by the same biological furnace that produces his fire breath—targets bitten feel residual heat from the furnace's proximity, and the wound often cauterizes partially on infliction.</p>",
+          "chat": "<p>Jaws close with the finality of a drawbridge slamming shut, heat radiating from a mouth that doubles as a furnace.</p>"
+        },
+        "unidentified": {
+          "name": "Crushing Bite",
+          "description": "<p>A devastating bite attack from jaws that radiate heat.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 2,
+            "denomination": 10,
+            "bonus": "8",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "1XoOUFt8xJ1yrARZ",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Refuse to Fall",
+      "type": "feat",
+      "img": "icons/magic/life/heart-glowing-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser has been defeated more times than any creature in documented history and has survived every single time. Thrown into lava, launched into stars, crushed by collapsing castles, dropped from airships at terminal velocity—he has experienced fatal events that would create multiple sequential deaths for conventional creatures and has emerged from each one angry, slightly singed, and ready for the next round.</p><p>Three times per long rest, when Bowser is reduced to 0 hit points but not killed outright, he drops to 1 hit point instead. Each use of this ability produces a visible effect: his eyes burn brighter, his shell's spikes lengthen slightly, and the ground under his feet cracks from the physical manifestation of his refusal to accept defeat. He doesn't recover through healing or resilience. He recovers through STUBBORNNESS—the fundamental quality that defines him more than fire breath or strength or the crown he hasn't worn in months.</p><p>After using all three instances in a single combat, Bowser can be brought to 0 hit points normally. But by the time an enemy has put him down four times, the environment around the fight has typically been so thoroughly destroyed that continuing the engagement becomes an architectural concern rather than a tactical one.</p>",
+          "chat": "<p>He falls. He gets up. He falls again. He gets up again. At some point the enemy has to decide whether killing Bowser is physically possible or just theoretically interesting.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "EvCkZ6YLUoplYaAc",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Evolving Fighter",
+      "type": "feat",
+      "img": "icons/skills/melee/weapons-crossed-swords-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser learns from every fight. This is the quality that makes him genuinely dangerous rather than merely powerful—a creature that simply hits hard can be countered, but a creature that adapts its approach based on what it learns from being countered is a problem that gets harder with each engagement.</p><p>After the first round of combat, Bowser gains advantage on attack rolls against any creature that has successfully hit him, as he's catalogued their attack patterns and adjusted his defense and positioning accordingly. After the second round, he gains resistance to the most common damage type he's received, as his body and tactics adapt to prioritize defense against demonstrated threats. After the third round, he can use a reaction to impose disadvantage on one attack roll against him per round, as his understanding of the enemy's patterns becomes comprehensive enough to predict and counter specific attacks.</p><p>This adaptation resets between combats as different opponents require different assessments. But the ABILITY to adapt doesn't reset—thirty-five years of fighting the most capable hero in the kingdom have built neural pathways for combat learning that other creatures simply don't possess.</p>",
+          "chat": "<p>Hit him once and he learns your timing. Hit him twice and he learns your patterns. Hit him three times and he knows exactly what you're going to do before you do it.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "iubd1X3hqvfbuea0",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Legendary Resistance (3/Day)",
+      "type": "feat",
+      "img": "icons/magic/defensive/shield-barrier-deflect-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Three times per day, when Bowser fails a saving throw, he can choose to succeed instead. He has been hit with everything—petrification, banishment, mind control, temporal displacement, the Chaos Heart's reality-warping effects—and he has shrugged off all of it through the same mechanism that keeps him alive: the fundamental, bone-deep refusal to be stopped by anything he hasn't decided to stop for.</p>",
+          "chat": "<p>The effect hits. Bowser doesn't care. He has survived worse. He has survived EVERYTHING.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "Rw0U6a8lXxXEXDfm",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Legendary Actions (3/Round)",
+      "type": "feat",
+      "img": "icons/magic/time/clock-spinning-gold-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser can take 3 legendary actions, choosing from the options below. Only one legendary action can be used at a time and only at the end of another creature's turn.</p><p><strong>Claw Swipe (1 action):</strong> Bowser makes one claw attack against a creature within reach.</p><p><strong>Roar (1 action):</strong> Bowser roars with force that shakes the room. Each creature within 30 feet that can hear him must succeed on a DC 18 Wisdom saving throw or be frightened until the end of its next turn. Creatures that have fought Bowser before have disadvantage on this save, having learned that the roar usually precedes something worse.</p><p><strong>Fire Snap (2 actions):</strong> Bowser breathes a quick burst of fire at a single target within 30 feet. The target must make a DC 20 Dexterity saving throw, taking 6d6 fire damage on a failure or half on a success.</p><p><strong>Unstoppable Advance (2 actions):</strong> Bowser moves up to his speed. This movement doesn't provoke opportunity attacks, and any creature in his path must succeed on a DC 21 Strength saving throw or be pushed 10 feet ahead of him and knocked prone. Objects in his path take 4d10 bludgeoning damage.</p><p><strong>Giga Bowser Rage (3 actions, 1/day):</strong> Bowser draws on reserves of fury that temporarily increase his size from Large to Huge for 1 round. His reach increases to 15 feet, his damage dice increase by one size category, and he gains 30 temporary hit points. After this round ends, he returns to Large size and cannot use legendary actions until the start of his next turn.</p>",
+          "chat": "<p>Between other creatures' heartbeats, Bowser acts—clawing, roaring, burning, advancing, growing. The dragon-king doesn't wait for his turn because waiting was never part of his personality.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "Na7Jsyc9iQ9lZJj0",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "The Changed King",
+      "type": "feat",
+      "img": "icons/skills/social/diplomacy-handshake-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser is not the creature he was in 1005 BF. Decades of defeat, the Chaos Heart Crisis, the loss of his empire, separation from his son, and the current crisis's forced alliances have produced changes that the old Bowser would have considered weakness and that the current Bowser is slowly, reluctantly beginning to recognize as growth.</p><p>He cooperates with people he would have conquered. He follows tactical direction from creatures he could crush with one hand. He attended a vampire dinner party and used silverware instead of his claws. He punched ghosts to buy time for a wizard he doesn't like because the situation required teamwork rather than dominance. Each of these moments represents a compromise with the version of himself that spent decades trying to take everything by force and learning, repeatedly, that force alone doesn't work.</p><p>This change is not complete. Bowser still defaults to aggression when stressed. He still thinks in terms of conquest and control. He still believes, on some level, that being the strongest should entitle him to whatever he wants. But the defaults are being overridden more frequently by something that looks suspiciously like judgment, and the beliefs are being contradicted by experiences that keep proving them wrong.</p><p>The party interacts with a Bowser in transition—not the villain they might expect from legends, not the ally they might want, but something in between that is figuring out what it is in real time. He will fight alongside them if the situation demands it. He will argue with them about tactics, objectives, and whether punching something is the correct response to a problem (his position: always yes). He will occasionally do something selfless and then immediately deny that selflessness was involved. And he will, in moments of quiet honesty, wonder what kind of king he would have been if he'd learned these lessons before he lost everything.</p>",
+          "chat": "<p>The dragon-king who kidnapped princesses is learning to cooperate with toads. It's not comfortable. It's not natural. But it might be the thing that finally makes him the king he always wanted to be.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "8eHVtKiP7xptQcWa",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Wario's Debt",
+      "type": "loot",
+      "img": "icons/sundries/documents/blueprint-axe.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser allegedly owes Wario 50,000 gold pieces for \"storage fees\" related to keeping some of Bowser's treasure safe during a battle. The actual situation: Wario stole half of Bowser's treasure and is now charging Bowser to return the other half. Bowser is aware that this arrangement is extortion. Bowser has not killed Wario over it because—and this surprises everyone who knows both parties—Bowser finds Wario's audacity entertaining in a way that genuine enemies never manage. There is a grudging respect between them that neither would call friendship and both would deny if asked.</p><p>The debt appears in Wario's ledger, in Bowser's grudging acknowledgment, and in the bizarre political reality that these two creatures—one a former dragon-king, one a con artist with a coin press—have a business relationship that has survived longer than most of the factions currently fighting over the Mushroom Kingdom's future.</p>",
+          "chat": "<p>Fifty thousand gold. For storing treasure he stole. And Bowser hasn't killed him for it. This might be the most confusing relationship in the entire crisis.</p>"
+        },
+        "unidentified": {
+          "name": "Outstanding Debt Document",
+          "description": "<p>A debt record between this creature and a notorious con artist, representing an extortion arrangement that both parties have somehow maintained through mutual grudging respect.</p>"
+        },
+        "identified": false,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790387575992,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "6TtrPtzMJLO1bMQR",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Fire Breath",
+      "type": "feat",
+      "img": "icons/magic/fire/blast-jet-stream-embers-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser's fire breath is the most iconic destructive capability in the Mushroom Kingdom, a weapon that has destroyed castles, routed armies, and—according to Waluigi's research—once ignited an entire lake through means that physicists still debate. The fire originates from a biological furnace unique to koopa dragon-kings, fueled by a diet that includes metals, minerals, and whatever else Bowser feels like eating. The flame temperature exceeds what organic biology should produce, suggesting either magical enhancement, evolutionary anomaly, or simple refusal to conform to the laws of thermodynamics.</p><p>Bowser exhales fire in a 60-foot cone. Each creature in the cone must make a DC 20 Dexterity saving throw, taking 12d6 fire damage on a failure or half on a success. The fire ignites flammable objects in the area that aren't being worn or carried. The breath weapon recharges on a roll of 5-6 on a d6 at the start of Bowser's turn.</p><p>The fire breath's destructive potential has been a strategic factor in every conflict Bowser has participated in. Castles are built to resist it. Armies train formations to scatter when the breath begins charging. And Mario learned, very early in their rivalry, that the three seconds between the inhale and the exhale are the most important seconds in any fight against Bowser—if you're not out of the cone by then, you're not getting out.</p>",
+          "chat": "<p>He inhales. The air around him superheats. And then fire erupts in a torrent that turns architectural ambition into archaeology.</p>"
+        },
+        "activities": {
+          "Mi8poVNeNbCQyzLP": {
+            "type": "save",
+            "name": "",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "targets": [
+                {
+                  "target": "",
+                  "value": "1",
+                  "type": "itemUses",
+                  "scaling": {}
+                }
+              ],
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false,
+              "special": ""
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "cone",
+                "size": "60",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "14"
+              }
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "number": 12,
+                  "denomination": 6,
+                  "bonus": "",
+                  "types": [
+                    "fire"
+                  ],
+                  "scaling": {
+                    "number": 1
+                  }
+                }
+              ],
+              "critical": {
+                "allow": false
+              }
+            },
+            "img": "",
+            "sort": 100000,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {
+                "min": null,
+                "max": null
+              },
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false,
+              "identifier": ""
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default",
+            "_id": "Mi8poVNeNbCQyzLP"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": "3"
+        },
+        "advancement": {},
+        "identifier": "fire-breath",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790390715828,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "persistSourceMigration": true
+        },
+        "scene-packer": {
+          "hash": "15aa970e46820107754ef7a8f2830623d16c1db1"
+        }
+      },
+      "_id": "gISLpPq9aF2Gl3hS",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Shell Spin",
+      "type": "weapon",
+      "img": "icons/creatures/reptiles/turtle-shell-glowing-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser withdraws into his shell and launches himself as a spinning projectile, crossing up to 40 feet in a straight line and devastating everything in his path. The technique combines the rotational force of his massive body with the spiked shell's cutting capability, creating a mobile hazard that shreds through obstacles and enemies with equal disregard.</p><p>Each creature in Bowser's path must make a DC 21 Dexterity saving throw. On a failure, a creature takes 4d10 + 8 bludgeoning damage plus 2d6 piercing damage from the spikes and is knocked prone. On a success, a creature takes half damage and isn't knocked prone but is pushed 10 feet to either side of Bowser's path. Objects and structures in the path take double damage as the spinning shell grinds through them.</p><p>After the spin, Bowser emerges from his shell in the space at the end of his path. He cannot use Shell Spin again until the start of his next turn, as reorienting from the spin requires a moment of recovery. This recovery period—approximately two seconds—is the window Mario learned to exploit during their fights, and it remains Bowser's most consistent vulnerability during combat.</p>",
+          "chat": "<p>The shell spins, spikes blur into a circle of destruction, and everything between Bowser and his destination learns that standing in a dragon-king's path is a structural engineering problem, not a combat one.</p>"
+        },
+        "unidentified": {
+          "name": "Spinning Shell Charge",
+          "description": "<p>This creature can withdraw into its spiked shell and launch itself as a devastating projectile.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 4,
+            "denomination": 10,
+            "bonus": "8",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {
+          "ceVXCr3t3e0TXCdb": {
+            "type": "attack",
+            "_id": "ceVXCr3t3e0TXCdb",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "attack": {
+              "critical": {},
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "spinning-shell-charge",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": "",
+        "attuned": false,
+        "equipped": true
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790390720315,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "scene-packer": {
+          "hash": "467b797408a9ea5943ce068e4eea8be0e19a9f0d"
+        }
+      },
+      "_id": "VPiKYiyOVP6sOStX",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Ground Pound",
+      "type": "weapon",
+      "img": "icons/magic/earth/laval-stone-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser leaps and slams his full weight into the ground, creating shockwaves that radiate outward in a 20-foot radius. The technique exploits the simple physics of dropping something extremely heavy from height—Bowser weighs enough that his landing registers on seismographic equipment from considerable distance. The shockwaves crack stone, shatter glass, and knock anyone who isn't braced off their feet.</p><p>Each creature within 20 feet of the impact point must make a DC 21 Strength saving throw. On a failure, a creature takes 3d10 + 8 bludgeoning damage and is knocked prone. On a success, a creature takes half damage and isn't knocked prone. The ground in the affected area becomes difficult terrain as cracks, rubble, and displaced material make footing treacherous.</p>",
+          "chat": "<p>He goes up. He comes down. Everything between 'up' and 'down' ceases to be solid.</p>"
+        },
+        "unidentified": {
+          "name": "Seismic Slam",
+          "description": "<p>This creature can leap and slam the ground, creating shockwaves that damage and topple everything in a wide radius.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 3,
+            "denomination": 10,
+            "bonus": "8",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {
+          "dYc84P6dr2zsH3VO": {
+            "type": "attack",
+            "_id": "dYc84P6dr2zsH3VO",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "attack": {
+              "critical": {},
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "seismic-slam",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": "",
+        "attuned": false,
+        "equipped": true
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790390721353,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "last": {
+            "dYc84P6dr2zsH3VO": {
+              "attackMode": "oneHanded",
+              "damageType": {
+                "0": "bludgeoning"
+              }
+            }
+          }
+        },
+        "scene-packer": {
+          "hash": "ed07f7bf2aec7c7a59dc9873a8da9a96813500d0"
+        }
+      },
+      "_id": "05e3LB5khqEhlFxF",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Bite",
+      "type": "weapon",
+      "img": "icons/creatures/abilities/mouth-teeth-lamprey-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser's jaws can close with force sufficient to sever limbs and crush armor. His bite attack is typically reserved for enemies who have gotten close enough to grapple or for situations where his claws are occupied. The bite is enhanced by the same biological furnace that produces his fire breath—targets bitten feel residual heat from the furnace's proximity, and the wound often cauterizes partially on infliction.</p>",
+          "chat": "<p>Jaws close with the finality of a drawbridge slamming shut, heat radiating from a mouth that doubles as a furnace.</p>"
+        },
+        "unidentified": {
+          "name": "Crushing Bite",
+          "description": "<p>A devastating bite attack from jaws that radiate heat.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 2,
+            "denomination": 10,
+            "bonus": "8",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {
+          "q772gP17Xq1SZB7u": {
+            "type": "attack",
+            "_id": "q772gP17Xq1SZB7u",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "attack": {
+              "critical": {},
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "crushing-bite",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": "",
+        "attuned": false,
+        "equipped": true
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790390726197,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "scene-packer": {
+          "hash": "c72dfe5de9edc0804357e2bc884c7a6ba71bcf39"
+        }
+      },
+      "_id": "n56GUKa7u4IurG4S",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Multiattack",
+      "type": "feat",
+      "img": "icons/skills/melee/strike-slashes-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser makes three attacks: two claw strikes and one bite, or two claw strikes and one Ground Pound, or one Shell Spin (which replaces his entire action). He can substitute his Fire Breath for any two attacks if it's available.</p>",
+          "chat": "<p>Claws, teeth, weight, fire—every part of him is a weapon and they all arrive in the same round.</p>"
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "multiattack",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790390727252,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "dnd5e": {
+          "persistSourceMigration": true
+        },
+        "scene-packer": {
+          "hash": "d15b28f432c96233de936572711ef5a155a5cb1b"
+        }
+      },
+      "_id": "eObvE1DWQTx3O5f8",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "name": "Junior's Father",
+      "type": "feat",
+      "img": "icons/magic/death/projectile-skull-fire-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Bowser has a son who is currently building a vehicle in the deepest workshop of Koopa Castle to come find him. Bowser doesn't know this. He doesn't know that Junior is worried, that Kamek is consolidating power over the Koopa Troop remnants, or that his son's mythology about an invincible father is crumbling under the weight of reality. He knows only that Junior exists, that Junior needs him, and that he's currently in a dimension where reaching Junior is impossible.</p><p>The separation from Junior affects Bowser's behavior in ways he doesn't acknowledge and barely understands. He becomes more reckless in combat when he feels purposeless—as though proving his strength to absent witnesses might somehow communicate across dimensions. He becomes more protective of small creatures when Junior's absence weighs heavily, transferring parental instinct to whatever vulnerable beings are nearby. And he becomes more cooperative with the party when he recognizes that cooperation might be the path back to his son, because returning to Junior is the one objective that overrides his pride, his aggression, and his stubborn independence.</p><p>If the party uses Junior as leverage—threatening his safety or promising to facilitate reunion—Bowser's response depends on whether the approach feels genuine. Genuine concern for Junior produces cooperation that nothing else can achieve. Manipulation using Junior produces violence that nothing can survive.</p>",
+          "chat": "<p>Somewhere, his son is building something to come find him. Bowser doesn't know this. But something in his chest that isn't fire aches when he's quiet long enough to feel it.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "juniors-father",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790390739522,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {
+        "scene-packer": {
+          "hash": "701f5e5da8051994022c4149a48d0c7963759bad"
+        }
+      },
+      "_id": "YpCrfzV67GT63wjC",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      }
+    },
+    {
+      "_id": "LV0UCGN1z0iJs2FK",
+      "name": "Abduct",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "RHW",
+          "page": "238",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The boneless needn't spend extra movement to move a creature it is grappling.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "abduct",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/magic/movement/portal-vortex-orange.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "RHW",
+          "hash": "abduct_boneless_rhw_rhw"
+        },
+        "scene-packer": {
+          "hash": "a12058fad38a8d26abc65e3469949306b22eff9f"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1790390741258,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    }
+  ],
+  "effects": [],
+  "folder": "txtt9HC0wxmSvDeo",
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3,
+    "70YmMmkjqiWErYNL": 3,
+    "p6LsOjpmBsnR9V8p": 3
+  },
+  "flags": {
+    "scene-packer": {
+      "hash": "4297e35cff696f097a7a8e3f700e76f683b6e0fe"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "fearless",
+          "brute",
+          "controller",
+          "tactician"
+        ],
+        "reasons": [
+          "Legendary Resistance detected",
+          "High HP (230) melee combatant → brute/frontliner",
+          "Keyword \"necromancer\" in name/biography → controller",
+          "Keyword \"vampire\" in name/biography → tactician"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1785687625791,
+        "manuallyOverridden": false
+      }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Koopa Troop"
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Koopa Troop",
+        "npc",
+        "humanoid"
+      ],
+      "color": "#006400",
+      "organized": {
+        "path": [
+          "Koopa Troop"
+        ],
+        "basis": "name-rule",
+        "from": []
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1790387575992,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.7cIOR2o5eLfnODP2",
+      "coreVersion": "14.367",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    }
+  }
+}

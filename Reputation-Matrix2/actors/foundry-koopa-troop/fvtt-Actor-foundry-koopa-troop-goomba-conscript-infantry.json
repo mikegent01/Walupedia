@@ -1,0 +1,955 @@
+{
+  "name": "Goomba (Conscript Infantry)",
+  "type": "npc",
+  "_id": "maImarxazCJpMIIl",
+  "img": "npc/goomba_by_shigehisa_nakaue.webp",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 8,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 8,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 6,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 8,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 7,
+        "max": 7,
+        "formula": "2d6",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "20",
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 30
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "alignment": "neutral",
+      "type": {
+        "value": "humanoid",
+        "subtype": "goomba"
+      },
+      "cr": 0,
+      "biography": {
+        "value": "<h1>Goomba — The Ones Who Die First</h1><p>The Goomba is the most common, most expendable, and most tragically undervalued member of the Koopa Troop's military structure. They are small mushroom-like creatures with no arms, stubby legs, prominent eyebrows that convey a permanent expression of mild indignation, and a combat life expectancy measured in seconds against competent opponents. Mario has personally defeated more Goombas than any living being has defeated anything, and the Goomba species has responded to this statistical reality with the kind of resigned determination that characterizes organisms whose survival strategy is volume rather than individual resilience.</p><p>Goombas serve as the Troop's conscript infantry—the bodies that fill formations, the patrols that walk corridors, the first wave that absorbs enemy attention while more valuable units position themselves. Their combat contribution is primarily absorptive: they exist to be engaged, to occupy enemy actions, and to die in ways that provide tactical information to the units behind them. \"The Goomba learned that the enemy attacks with jumping\" is a genuine entry in Koopa Troop tactical manuals, and nobody in the Troop's command structure considers this entry problematic.</p><p>The Goombas themselves have complicated feelings about their role. Many serve willingly because the Troop provides community, structure, and the sense of purpose that civilian Goomba life—which consists primarily of walking back and forth on platforms for reasons nobody has ever explained—does not offer. Others serve because conscription offers no alternative. And some serve with the quiet defiance of creatures who know they're cannon fodder and have decided to be the best cannon fodder possible, approaching their inevitable defeats with a professionalism that their commanders don't appreciate and that historians will never record.</p>",
+        "public": "A small mushroom creature walking a patrol route with an expression of permanent mild annoyance, as though it knows exactly how expendable it is and has opinions about this that nobody asks."
+      },
+      "race": "Goomba",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "sm",
+      "languages": {
+        "value": [
+          "common"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "skills": {
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "source": {
+      "custom": "Custom NPC",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Goomba (Conscript Infantry)",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 0.6,
+    "height": 0.6,
+    "depth": 1,
+    "texture": {
+      "src": "npc/goomba_by_shigehisa_nakaue.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "monks-tokenbar": {
+        "include": "default"
+      },
+      "wall-height": {
+        "tokenHeight": 0
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "name": "Headbonk",
+      "type": "weapon",
+      "img": "icons/skills/melee/shield-block-bash-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Goomba's only attack is running into enemies headfirst, using its disproportionately hard cranium as a bludgeoning weapon. The headbonk is not sophisticated. It is not elegant. It is a small creature running at you with its head down and hoping that the impact accomplishes something useful. Against unarmored, distracted, or very unlucky targets, it occasionally does.</p><p>The headbonk's primary tactical value is distraction rather than damage. A Goomba headbonking an enemy forces that enemy to spend an action dealing with the Goomba rather than engaging more valuable targets. If the enemy stomps the Goomba (which typically requires one attack and deals any amount of damage, since Goombas have 7 hit points and AC 8), the Goomba has accomplished its mission: one enemy action consumed, one moment of tactical advantage created for the unit behind it.</p><p>Goombas who survive headbonk attempts are surprised and mildly confused by the experience. Success is not what training prepares them for.</p>",
+          "chat": "<p>It runs at you head-first with the total commitment of someone who has accepted that this is probably the end and has decided to make it count.</p>"
+        },
+        "unidentified": {
+          "name": "Headbutt",
+          "description": "<p>A small creature charging headfirst with more determination than tactical viability.</p>"
+        },
+        "identified": true,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 4,
+            "bonus": "-1",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {
+          "DWHtsoFsrbo3nYc8": {
+            "type": "attack",
+            "_id": "DWHtsoFsrbo3nYc8",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "attack": {
+              "critical": {},
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "mastery": ""
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388294984,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "c1csqAd8WkJYVVhm",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Stomp Vulnerability",
+      "type": "feat",
+      "img": "icons/skills/melee/hand-grip-hammer-spiked-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Goombas are critically vulnerable to attacks from above. Any attack that strikes a Goomba from a higher elevation—jumping attacks, falling objects, dropped items, gravity—deals double damage. This vulnerability is biological: the Goomba's cranium is hard for headbonking purposes but the body beneath is soft and compresses easily under downward force. A single stomp from a creature of Medium size or larger is typically sufficient to defeat a Goomba regardless of the attacker's strength score.</p><p>This vulnerability is so well-known that it defines the Goomba's tactical identity. They operate on flat terrain whenever possible. They avoid positions beneath ledges, balconies, or elevated platforms. They cluster together so that stomping one requires landing among the others, creating at least marginal retaliatory opportunity. And they maintain a permanent upward awareness that gives them advantage on Wisdom (Perception) checks to notice threats from above, a survival instinct honed by millennia of being the thing that gets stepped on.</p>",
+          "chat": "<p>Don't stomp on them. They know you want to stomp on them. They've arranged their entire tactical doctrine around the assumption that you will try to stomp on them. Stomp on them anyway because it works every time.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false,
+          "level": null
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388294984,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "rvTVIa84Cs9kuJaW",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Strength in Numbers",
+      "type": "feat",
+      "img": "icons/skills/social/diplomacy-peace-alliance.webp",
+      "system": {
+        "description": {
+          "value": "<p>Goombas are individually negligible threats. In groups, they become something approaching dangerous through sheer volume—not because individual capability increases but because the number of actions required to eliminate them creates opportunities for more capable allies to capitalize on. When three or more Goombas are within 5 feet of each other and attacking the same target, each Goomba gains advantage on its headbonk attack roll as the collective assault from multiple directions makes effective defense more difficult.</p><p>This ability has saved Goomba lives exactly never, but it has delayed enemy advances, consumed enemy resources, and created the momentary distractions that Koopa Troopa squads behind them need to set up effective defensive positions. The Goombas don't know this. They think they're fighting. What they're actually doing is buying time with their bodies, and the Troop's tactical doctrine has been built around this function for so long that nobody questions whether it's ethical.</p>",
+          "chat": "<p>One Goomba is a speedbump. Three Goombas are a slightly taller speedbump. Ten Goombas are a genuine tactical consideration, which is the most a Goomba can aspire to.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388294984,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "CH8cN8pkgblqpZJ1",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Resigned Determination",
+      "type": "feat",
+      "img": "icons/magic/life/heart-glowing-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>Goombas are immune to the frightened condition. Not because they're brave—bravery implies a choice between fear and action, and Goombas don't experience that choice. They simply walk forward. They have always walked forward. Walking forward into danger is what Goombas do, the way breathing is what lungs do, the way falling is what dropped objects do. It is not courage. It is nature. And nature doesn't require saving throws.</p><p>This immunity makes Goombas unexpectedly useful against enemies who rely on fear effects. Dragon frightful presence, undead horrifying visage, banshee wailing—none of it stops a Goomba. The Goomba continues walking forward with its expression of mild annoyance, headbonking whatever terrifying entity it encounters with the same determination it would apply to a locked door or an unfamiliar obstacle. The Goomba doesn't understand why the dragon is surprised. The Goomba doesn't understand most things. The Goomba walks forward.</p>",
+          "chat": "<p>It's not brave. It's not fearless. It simply doesn't have the cognitive architecture for fear to interrupt its walking-forward subroutine. The dragon is confused. The Goomba is not.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388294984,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "gKJ9b1sDfgGzggjO",
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": "txtt9HC0wxmSvDeo",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3,
+    "70YmMmkjqiWErYNL": 3
+  },
+  "flags": {
+    "scene-packer": {
+      "hash": "a15971e3dbd3fa0bced1f40273b40c93fb21b074"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "assassin"
+        ],
+        "reasons": [
+          "No inference signals — fallback pool pick for \"humanoid\": assassin"
+        ],
+        "confidence": 0,
+        "version": 3,
+        "timestamp": 1790388295034,
+        "manuallyOverridden": false
+      }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Koopa Troop"
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Koopa Troop",
+        "npc",
+        "humanoid"
+      ],
+      "color": "#006400",
+      "organized": {
+        "path": [
+          "Koopa Troop"
+        ],
+        "basis": "name-rule",
+        "from": []
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1790388294984,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.x3q4biZKzTwD6S7H",
+      "coreVersion": "14.367",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    }
+  }
+}

@@ -1,0 +1,2470 @@
+{
+  "name": "Eyes that Bite",
+  "type": "npc",
+  "flags": {
+    "plutonium": {
+      "page": "bestiary.html",
+      "source": "TPK",
+      "hash": "eyes%20that%20bite_tpk"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "predator",
+          "tactician",
+          "brute",
+          "controller",
+          "undead-disciplined",
+          "coward"
+        ],
+        "reasons": [
+          "Creature type \"aberration\" → predator",
+          "Creature type \"aberration\" → tactician",
+          "High HP (215) melee combatant → brute/frontliner",
+          "Keyword \"spellcaster\" in name/biography → controller",
+          "Keyword \"shadow\" in name/biography → undead-disciplined",
+          "Keyword \"prey\" in name/biography → coward"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1789785231052,
+        "manuallyOverridden": false
+      }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Bestiary"
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Bestiary",
+        "npc",
+        "aberration",
+        "Creatures"
+      ],
+      "color": "#8B7355",
+      "organized": {
+        "path": [
+          "Bestiary"
+        ],
+        "basis": "bestiary",
+        "from": [
+          "Creatures"
+        ]
+      }
+    }
+  },
+  "_stats": {
+    "systemVersion": "5.3.3",
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "createdTime": 1789785162211,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "QS7mzeYI7mCB0Shv",
+  "img": "portraits/foundry-bestiary/eyes-that-bite.png",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 26,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 24,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 12,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 20,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 12,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": "1"
+        }
+      },
+      "prf": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 2,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0
+      },
+      "spell0": {
+        "value": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "calc": "natural",
+        "flat": 17
+      },
+      "init": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "movement": {
+        "units": "ft",
+        "hover": true,
+        "ignoredDifficultTerrain": [],
+        "special": "",
+        "fly": "30",
+        "walk": "30"
+      },
+      "attunement": {
+        "max": 3
+      },
+      "senses": {
+        "ranges": {
+          "blindsight": 0,
+          "darkvision": 0,
+          "tremorsense": 0,
+          "truesight": 120
+        },
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "hp": {
+        "max": 215,
+        "temp": 0,
+        "tempmax": 0,
+        "value": 215,
+        "formula": "17d12 + 105"
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "biography": {
+        "value": "<div class=\"ve-rd__b  ve-rd__b--0\"><div class=\"ve-rd__b-special ve-rd__b-inset ve-rd__b-inset--readaloud\" data-roll-name-ancestor=\"Xanaris, Eyes that Bite\"><h4 class=\"ve-rd__h ve-rd__h--2-inset\" data-title-index=\"1\"> <span class=\"entry-title-inner \">Xanaris, Eyes that Bite</span><span class=\"ve-flex-vh-center\"> <span class=\"ve-rd__title-link ve-rd__title-link--inset\"><span title=\"Page 262\">p262</span></span></span></h4> <div class=\"ve-rd__quote\"><p class=\"ve-rd__quote-line ve-rd__quote-line--last\">“<i>Xanaris is the biggest and most diabolical of the eyes that bite. Colloquially known as the Mage-Eater or the Arcane Maw, in our last encounter he said he would eat me last so I could watch every ounce of magic fade from the world before I perish. That battle served as a grim reminder of the importance of diversity in one's adventuring companions. Without the quick blade-work of Ava Sonos, I would never have penned this tome, and such a tragic future is best left uncontemplated. At heart, Xanaris is a @creature[yeti|MM], a creature of the mountains that is afraid of fire. The void twisted and magnified his hatred, and he works to return the world to a magic-less state. A future I obviously prefer to avoid.</i>”</p><p><span class=\"ve-rd__quote-by\">— Talien Vos Karven</span></p></div><p><b>Classification:</b> Brute</p><p><b>Favors:</b> Barbarians, Fear (Protection from), Mobility (high), Monks, Rogues</p><p><b>Foils:</b> Sorcerers, Spells, Warlocks, Weapons (Magical), Wizards</p></div><p>Humanoids, giants, and others of similar ilk touched by the void swell with physical strength, becoming hulking brutes that devour magic (and magic-users) with abandon. Whatever form these poor creatures once held is replaced with a convulsing mass of tentacled shadows. Their eyes fill with a bleak redness that saps the life from all who stare into them, and their incisors are lined with runes that drain the magic from their victims. They are without compassion, filled with the deepest hunger for arcana in all its forms.</p><div class=\"ve-rd__quote\"><p class=\"ve-rd__quote-line \">“<i>Wizard's woe, wizard's woe</i></p><p class=\"ve-rd__quote-line \"><i>Teeth so long and twin red glow</i></p><p class=\"ve-rd__quote-line \"><i>Get in bed and douse the light</i></p><p class=\"ve-rd__quote-line \"><i>Sunset calls the eyes that bite!</i>”</p><p><span class=\"ve-rd__quote-by\">— <i>Unattributed nursery rhyme</i></span></p></div><div data-roll-name-ancestor=\"Lore\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"2\"> <span class=\"entry-title-inner \">Lore</span></h2> <p>A character can learn the following information about an eyes that bite with an Intelligence (&amp;Reference[skill=Arcana]), Intelligence (&amp;Reference[skill=Nature]), or Intelligence (&amp;Reference[skill=Religion]) ability check.</p><table class=\"ve-w-100 ve-rd__table  stripe-odd-table\" data-roll-name-ancestor=\"Eyes that Bite Lore\"><caption>Eyes that Bite Lore</caption><thead><tr><th class=\"ve-rd__th ve-col-1 ve-text-center \" data-rd-isroller=\"false\">DC</th><th class=\"ve-rd__th ve-col-11 \" data-rd-isroller=\"false\">Information</th></tr></thead><tbody><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \">17</td><td class=\"ve-rd__th ve-col-11 \">There are rumors of massive shadowy creatures that suck the magic from other creatures the way a @creature[vampire|MM] sucks blood. Dubbed the \"eyes that bite\" by the few survivors, these twisted echoes were once large and powerful creatures before direct contact with the void.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \">22</td><td class=\"ve-rd__th ve-col-11 \">Eyes that bire are brutal voidborn of prodigious strength. They project an aura of antimagic, and their bites drain the magical energy out of a spellcaster, healing the eyes that bite in the process. Though not especially quick, the void energy flowing through them allows them to fly.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \">27</td><td class=\"ve-rd__th ve-col-11 \">While devastating to spellcasters, eyes that bite have no special abilities to suppress or protect themselves from nonmagical items. Nonmagical hindrances such as steel nets and traps can buy time but given the great strength of the eyes that bite, such reprieves are temporary.</td></tr></tbody></table></div><div data-roll-name-ancestor=\"Tactics\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"3\"> <span class=\"entry-title-inner \">Tactics</span></h2> <p>Eyes that bite are patient hunters that become utterly reckless when they leap into battle. They fixate on a spellcaster and stalk it until they get close enough to attack, and they will wait for a short time to try to get their prey alone. If that isn't an option, they attack anyway. An eyes that bite starts out using Void Breath on the spellcaster's allies, then it rushes into melee range and begins biting the spellcaster. It focuses on its target until it has drained every ounce of the caster's magical energy, the target is dead, or both.</p><p>Don't forget about its Gaze into the Void trait—the party should be constantly debating whether to avert their eyes or take the risk of nearly lethal damage. When using Null Zone, focus on any effect that is preventing the eyes that bite from moving or taking actions. Damaging spells are less important. Use Void Breath every time it recharges, primarily to split the party and block line of sight so it becomes more difficult for them to help each other.</p><p><b>Easier Tactics</b> - Spread out Bite attacks between multiple targets, and spend some time attacking characters who aren't spellcasters. You can also have the eyes that bite retreat when reduced to fewer than half its hit point maximum, giving the party time to catch their breath and heal before chasing it down.</p><p><b>Harder Tactics</b> - Use Void Breath on the spellcaster target and run the eyes that bite into melee combat with the caster to finish the job. The eyes that bite won't take damage from its own Void Breath cloud, and its &amp;Reference[rule=truesight] allows it to see clearly in the darkness. Unless the party has their own means of seeing through the darkness, the spellcaster inside is going to be dead in short order. Remember that most teleportation effects like @spell[misty step] specify \"a location you can see,\" and a caster surrounded by magical darkness can see little.</p></div><div data-roll-name-ancestor=\"Plot Hooks\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"4\"> <span class=\"entry-title-inner \">Plot Hooks</span></h2> <div class=\"ve-rd__b  ve-rd__b--2\"><div data-roll-name-ancestor=\"Predator\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"5\"> <span class=\"entry-title-inner \">Predator.</span></span> An eyes that bite picks a spellcaster in the party as its next target. It keeps a safe distance, waiting for the character to become separated from the party before striking. The creature wants to keep the PC alive as an inexhaustible supply of magical energy.</p></div><div data-roll-name-ancestor=\"Grisly Fate\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"6\"> <span class=\"entry-title-inner \">Grisly Fate.</span></span> A giant the party knows is corrupted by the void, perhaps by accident, or perhaps in a valiant act of self-sacrifice. It demands the party kill it before it's too late. Should the party wait too long before acting, the giant will transform into an eyes that bite.</p></div><div data-roll-name-ancestor=\"Trouble At School\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"7\"> <span class=\"entry-title-inner \">Trouble At School.</span></span> A pair of eyes that bite takes up residence in the forest outside a wizarding school or bardic college, and students are disappearing. Then the teachers tsart to vanish too. Soon the school will be an empty shell.</p></div></div><div class=\"ve-rd__b-special ve-rd__b-inset\" data-roll-name-ancestor=\"Xanaris, The Mage-Eater\"><h4 class=\"ve-rd__h ve-rd__h--2-inset\" data-title-index=\"8\"> <span class=\"entry-title-inner \">Xanaris, The Mage-Eater</span><span class=\"ve-flex-vh-center\"> <span class=\"ve-rd__title-link ve-rd__title-link--inset\"><span title=\"Page 264\">p264</span></span></span></h4> <p>When he was a mere @creature[yeti|MM], Xanaris lived in an uneasy balance with the mountain folk. He would eat those who wandered too far afield, and they would chase him away with spears and torches when he came too close to the vilalge. War was not uncommon in those times, and during a particularly violent conflict, Xanaris stole into the closest village to steal an easy meal in the confusion. But the humans had discovered a new kind of fire. A cadre of mages sent a fusillade of fire and shadow, light and lightning, churning the snow and bodies into bloody mush. Xanaris, his body battered, and bones broken, crawled from the wreckage, sheer anger holding him conscious.</p><p>In the wake of this brutality, the void stretched its inky tendrils out of the embers and took hold of the @creature[yeti|MM]. Already large for his kind, the void coursed through him, turning his shaggy fur pitch black, his eyes red, and cursing him with a bottomless hunger. Xanaris hunted down and slew every mage on the mountain, devouring their essence in a fruitless attempt to slake the unslakable. Xanaris then traveled far from the mountain on which he once lived, traversing much of the material plane and other realms pretending to be no more than a simple-minded beast.</p></div></div><div data-roll-name-ancestor=\"Treasure\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"9\"> <span class=\"entry-title-inner \">Treasure</span></h2> <p>By their very nature, voidborn leave little behind when they are slain. Their bodies collapse into nothingness, fading into the void that gave them life. The death of a voidborn—and the resulting collapse in the void—can sometimes cause an upswelling of magic as the weave rushes in, and in these cases, a @item[solstice star|TPK] is formed. This tiny sphere offers protections against magic and from the energies of the void, and they are held in high regard by spellcasters and those who hunt voidborn. Such individuals would pay 15,000 gp for a @item[solstice star|TPK].</p></div><div data-roll-name-ancestor=\"Ecology\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--1\"><h2 class=\"ve-rd__h ve-rd__h--1\" data-title-index=\"10\"> <span class=\"entry-title-inner \">Ecology</span></h2> <p>Eyes that bite spend the entirety of their existence hunting spellcasters—they have no other purpose. Gifted with an instinctual understanding of magic, eyes that bite are able to circumvent most magical defenses undetected. These voidborn only travel under the cover of darkness and will cross great distances in search of new prey. Eyes that bite will take great care to avoid being spotted by anyone, as even a rumor of its presence can send the most laid-back bard running to the hills. While they have no interest in nonmagical creatures, eyes that bite will not tolerate any threat to its existence, attacking anything that threatens its lair. However, they will cooperate with anything that can provide a hearty meal of powerful magic. More than a few evil spellcasters have been brought down by a good aligned foe willing to make a deal with the devil.</p></div></div><hr class=\"ve-rd__hr ve-rd__hr--section\"><div data-roll-name-ancestor=\"Voidborn\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--0\"><h1 class=\"ve-rd__h ve-rd__h--0\" data-title-index=\"11\"> <span class=\"entry-title-inner \">Voidborn</span></h1> <p>For every action, there is an equal and opposite reaction, and magic is no different. As civilization flourishes and magic becomes commonplace, the price of its use remains largely unknown and unseen. Every work of magic—minor or mighty, arcane or divine—leaves behind a void. At first a mere curiosity, millennia of abundant magic use has strengthened it, matured it, and given it a mind all its own. The void, known most commonly as \"antimagic,\" is the check and balance, and it is eager to set the world right. Pulsing like a dark heart, the void seeks to eat magic, birthing and shaping creations to feed its dark hunger.</p><p>Voidborn are the answer to magical creatures and beings, even though many of them were at one time magical themselves. They are typically created in the aftermath of great magical works, whether it be the casting of a @spell[wish] spell, the creation of a magical artifact, or a world-ending battle between spellcasters. More than a few archmages have been consumed by a survivor of their most powerful spells, the creature endowed with mysterious powers from an unknown source.</p><p>Each voidborn is radically different from all others. Their origins are bizarre, but they are bound together by the void's warping hunger. The transformation process is trying, and the strain is well beyond what most can bear. When the transformation ends, a voidborn's senses are honed to razor sharpness, and the unending hunger birthed within them spurs them on toward the nearest source of magic.</p><div class=\"ve-rd__b-special ve-rd__b-inset\" data-roll-name-ancestor=\"Talien's Notes\"><h4 class=\"ve-rd__h ve-rd__h--2-inset\" data-title-index=\"12\"> <span class=\"entry-title-inner \">Talien's Notes</span><span class=\"ve-flex-vh-center\"> <span class=\"ve-rd__title-link ve-rd__title-link--inset\"><span title=\"Page 258\">p258</span></span></span></h4> <p>No subject is of greater interest to the arcane community than the void. Indeed, it serves as an object of common study for those who channel magic of the gods or of nature, or those who are even remotely invested in the long-term survival of this world. I will summarize. All magic, whatever the source, draws power from the weave. It leaves behind a gap, a void, which diminishes as the weave naturally restores itself. In the past, this was hardly a matter of concern, for few could use enough magic to create more than a pinprick void in the weave. But in this age of arcane abundance, our over-reliance of spells is creating something dangerous—void pockets that do not shrink. Instead, they grow. They hunger. They think and scheme. These creatures are called the voidborn. There is no good outcome here, no place for them in the natural cycle. They must be destroyed.</p></div><div class=\"ve-rd__b  ve-rd__b--1\"><div data-roll-name-ancestor=\"Void Influence\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--2\"><h3 class=\"ve-rd__h ve-rd__h--2\" data-title-index=\"13\"> <span class=\"entry-title-inner \">Void Influence</span></h3> <p>The void leaves no being untouched. Whether merely grazed by its shadow or fully bathed in its energy, if creatures walk away from a brush with the void, they are changed by the experience. Thankfully the void's presence is rare, typically appearing in areas that have been subjected to considerable magical damage. Characters that are directly exposed to such areas or to voidborn creatures can become affected by the latent energy, gaining a void influence. When choosing a void influence, select deliberately from the options in the void influence table, roll a [[/r d8]] to determine the effect, or feel free to come up with your own. At your discretion, these changes last until removed by @spell[greater restoration] or more powerful magic, or they may be permanent.</p><table class=\"ve-w-100 ve-rd__table  stripe-odd-table\" data-roll-name-ancestor=\"Void Influence\"><caption>Void Influence</caption><thead><tr><th class=\"ve-rd__th ve-col-1 ve-text-center \" data-rd-isroller=\"true\">[[/r d8]]</th><th class=\"ve-rd__th ve-col-11 \" data-rd-isroller=\"false\">Effect</th></tr></thead><tbody><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"1\" data-roll-max=\"1\">1</td><td class=\"ve-rd__th ve-col-11 \">You become unable to sleep peacefully, wracked with nightmares about being trapped in a slug's body as salt is poured upon you by laughing, faceless figures.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"2\" data-roll-max=\"2\">2</td><td class=\"ve-rd__th ve-col-11 \">Toadstools randomly grow from your skin and hair, often in bright, vibrant colors. Trying to remove them is painful, and they always grow back within 24 hours.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"3\" data-roll-max=\"3\">3</td><td class=\"ve-rd__th ve-col-11 \">You grow older or younger by [[/r 1d12]] years, at the DM's discretion.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"4\" data-roll-max=\"4\">4</td><td class=\"ve-rd__th ve-col-11 \">You always perceive whispers at the edge of your hearing but are unable to make out what is being said. No one else can hear the whispers, and people look at you askance when you bring them up.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"5\" data-roll-max=\"5\">5</td><td class=\"ve-rd__th ve-col-11 \">You can see a ghostly afterimage of yourself, and others can see it too. It doesn't always appear, and it doesn't always match what you do exactly. Sometimes it fails where you succeed, and other times it succeeds where you fail.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"6\" data-roll-max=\"6\">6</td><td class=\"ve-rd__th ve-col-11 \">You gain an unquenchable thirst for drugs and alcohol, desperate to forget the things you have seen.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"7\" data-roll-max=\"7\">7</td><td class=\"ve-rd__th ve-col-11 \">Animals dislike you; dogs bark and cats hiss when you pass by. They smell the otherworldly stench upon you.</td></tr><tr><td class=\"ve-rd__th ve-col-1 ve-text-center \" data-roll-min=\"8\" data-roll-max=\"8\">8</td><td class=\"ve-rd__th ve-col-11 \">Eyes randomly appear on your skin but switch places from day to day. You can see out of them.</td></tr></tbody></table><div class=\"ve-rd__b-special ve-rd__b-inset\" data-roll-name-ancestor=\"Voidtouched Template\"><h4 class=\"ve-rd__h ve-rd__h--2-inset\" data-title-index=\"14\"> <span class=\"entry-title-inner \">Voidtouched Template</span><span class=\"ve-flex-vh-center\"> <span class=\"ve-rd__title-link ve-rd__title-link--inset\"><span title=\"Page 259\">p259</span></span></span></h4> <p>Those who come into prolonged contact with the void are changed irrevocably. Such creatures are voidtouched, altered into strange new forms and bound to the whims of the voidborn. The following template can be applied to any creature, for the void does not discriminate. It should not be applied to characters—characters with this much exposure to the void are no longer under the players' control and instead become creatures controlled by the DM.</p><div data-roll-name-ancestor=\"Type\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"15\"> <span class=\"entry-title-inner \">Type.</span></span> The creature's type changes to aberration.</p></div><div data-roll-name-ancestor=\"Damage Resistances\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"16\"> <span class=\"entry-title-inner \">Damage Resistances.</span></span> The creature gains resistance to bludgeoning, piercing, and slashing damage from magic weapons.</p></div><div data-roll-name-ancestor=\"Condition Immunities\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"17\"> <span class=\"entry-title-inner \">Condition Immunities.</span></span> The creature gains immunity to the &amp;Reference[condition=charmed] and &amp;Reference[condition=frightened] conditions.</p></div><div data-roll-name-ancestor=\"Challenge\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"18\"> <span class=\"entry-title-inner \">Challenge.</span></span> The creature's Challenge Rating increases by 3.</p></div><div data-roll-name-ancestor=\"Traits\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"19\"> <span class=\"entry-title-inner \">Traits.</span></span> The creature gains the following traits:</p><ul class=\"ve-rd__list\"><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Draining Aura\"><span class=\"ve-bold ve-rd__list-item-name\">Draining Aura.</span> At the start of each of the voidtouched creature's turns, creatures within 10 feet of it must succeed on a Wisdom saving throw (DC 8 + the voidtouched creature's proficiency bonus + its Wisdom modifier) or lose 6 ([[/r 1d12]]) hit points, and have their hit point maximum is reduced to their current hit points. This effect can only be removed by @spell[greater restoration] or similar healing magic. If a creature's hit point maximum would be reduced to 0 by this feature, it is reduced to 1 instead.</p></li><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Void Resilience\"><span class=\"ve-bold ve-rd__list-item-name\">Void Resilience.</span> The voidtouched has resistance to all damage from spells and has advantage on saving throws against spells. If the voidtouched succeeds on a saving throw against a spell and suffers an effect on the success, it instead suffers no effect.</p></li></ul></div><div data-roll-name-ancestor=\"Actions\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"20\"> <span class=\"entry-title-inner \">Actions.</span></span> The creature gains the following actions.</p><ul class=\"ve-rd__list\"><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Consume Arcane (Recharge 5–6)\"><span class=\"ve-bold ve-rd__list-item-name\">Consume Arcane (Recharge [[/r 1d6]]{5–6}).</span> The voidtouched chooses up to six creatures it can see within 120 feet and attempts to siphon magic from them. Targets must succeed on a Wisdom saving throw (DC 8 + the voidtouched creature's proficiency bonus + its Wisdom modifier) or expend two spell slots of their choice. The voidtouched regains 10 hit points per level of each spell slot lost, and the target takes 7 ([[/r 2d6]]) psychic damage per level of each spell slot lost.</p></li><li class=\"ve-rd__li \"><p class=\"ve-rd__p-list-item\" data-roll-name-ancestor=\"Strength of the Void\"><span class=\"ve-bold ve-rd__list-item-name\">Strength of the Void.</span> A voidtouched creature's attacks no longer cause damage; instead, the target's hit point maximum is reduced by an amount equal to the damage the attack would have dealt.</p></li></ul></div></div></div></div></div>",
+        "public": ""
+      },
+      "alignment": "Chaotic Evil",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "race": null,
+      "type": {
+        "value": "aberration",
+        "subtype": ""
+      },
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "cr": 16,
+      "treasure": {
+        "value": []
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    },
+    "source": {
+      "revision": 1,
+      "rules": "2014",
+      "custom": "",
+      "book": "TPK",
+      "page": "263",
+      "license": ""
+    },
+    "traits": {
+      "size": "huge",
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "bludgeoning, piercing, and slashing from magic weapons",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "ci": {
+        "value": [
+          "charmed",
+          "frightened",
+          "prone"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [
+          "common",
+          "aarakocra",
+          "abyssal",
+          "aquan",
+          "auran",
+          "celestial",
+          "deep",
+          "draconic",
+          "druidic",
+          "dwarvish",
+          "elvish",
+          "giant",
+          "gith",
+          "gnomish",
+          "goblin",
+          "gnoll",
+          "halfling",
+          "ignan",
+          "infernal",
+          "orc",
+          "primordial",
+          "sylvan",
+          "terran",
+          "cant",
+          "undercommon",
+          "sign"
+        ],
+        "custom": "",
+        "communication": {
+          "telepathy": {
+            "value": 120,
+            "units": "ft"
+          }
+        }
+      },
+      "important": false
+    }
+  },
+  "prototypeToken": {
+    "name": "Eyes that Bite",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 3,
+    "height": 3,
+    "depth": 1,
+    "texture": {
+      "src": "portraits/foundry-bestiary/eyes-that-bite.png",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 120,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {
+      "seeAll": {
+        "range": 120,
+        "enabled": true
+      }
+    },
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "monks-bloodsplats": {
+        "bloodsplat-colour": "#5f377a"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "_id": "RFRX0onezQ5Zyvsd",
+      "name": "Multiattack",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The eyes that bite makes two Bite attacks. The eyes that bite can replace one of its Bite attacks with Void Breath.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity003": {
+            "_id": "dnd5eactivity003",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "multiattack",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/skills/melee/strike-weapons-orange.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterAction",
+          "source": "TPK",
+          "hash": "multiattack_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162336,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "tF9P36K4LF94uboT",
+      "name": "Bite",
+      "type": "weapon",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p><i>Melee Weapon Attack:</i> [[/r 1d20+14]]{+14} to hit, reach 5 ft., one target. <i>Hit:</i> The target loses 30 ([[/r 5d8 + 8]]) hit points must expend one unexpended spell slot of its choice. The eyes that bite regains 7 ([[/r 2d6]]) hit points per level of the spell slot expended.</p></div>",
+          "chat": ""
+        },
+        "range": {
+          "value": 5,
+          "long": null,
+          "units": "ft"
+        },
+        "proficient": 1,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "attack": {
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": ""
+              },
+              "ability": "none",
+              "bonus": "9",
+              "critical": {}
+            },
+            "img": null,
+            "sort": 0,
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "identifier": "bite",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "versatile": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterAction",
+          "source": "TPK",
+          "hash": "bite_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162366,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "mllpMgCk1tk97ocp",
+      "name": "Void Breath",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The eyes that bite exhales void energy in a 15-foot-wide, 30-foot-long line. Each creature in that area must succeed on a [[/save ability=con dc=20]] saving throw or lose 52 ([[/r 8d12]]) hit points, or half as much on a success.</p><p>Additionally, the affected area becomes filled with magical darkness for 1 minute. Sound cannot be produced in the area, and when an enemy creature enters the area for the first time on a turn or ends its turn within the area, it must succeed on a [[/save ability=con dc=20]] saving throw or lose 52 ([[/r 8d12]]) hit points, or half as much on a success.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "1",
+          "recovery": [
+            {
+              "formula": "5",
+              "period": "recharge",
+              "type": "recoverAll"
+            }
+          ],
+          "spent": 0
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity001": {
+            "_id": "dnd5eactivity001",
+            "type": "save",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "targets": [
+                {
+                  "target": "",
+                  "value": "1",
+                  "type": "itemUses",
+                  "scaling": {}
+                }
+              ],
+              "spellSlot": true
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "line",
+                "size": "30",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "20"
+              }
+            },
+            "damage": {
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              },
+              "parts": []
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "identifier": "void-breath",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/mailed-fist.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterAction",
+          "source": "TPK",
+          "hash": "void%20breath%20(recharge%205%e2%80%936)_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162400,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "OiHYFpc5khFK283N",
+      "name": "Draining Aura",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>At the start of each of its turns, creatures within 30 feet of the eyes that bite must succeed on a [[/save ability=wis dc=20]] saving throw or lose 19 ([[/r 3d12]]) hit points and have their hit point maximum reduced to their current hit points. This effect can only be removed by @spell[greater restoration] or similar healing magic. If a creature's hit point maximum would be reduced to 0 by this feature, it is reduced to 1 instead.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity001": {
+            "_id": "dnd5eactivity001",
+            "type": "save",
+            "activation": {
+              "type": "",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "save": {
+              "ability": [
+                "wis"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "20"
+              }
+            },
+            "damage": {
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              },
+              "parts": []
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "identifier": "draining-aura",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "systems/dnd5e/icons/svg/items/feature.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "TPK",
+          "hash": "draining%20aura_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162435,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "ImGwx7eEiJ9x10c3",
+      "name": "Gaze into the Void",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>When a creature that can see the eyes that bite starts its turn within 30 feet of it, the eyes that bite can force it to attempt a [[/save ability=con dc=20]] saving throw if the eyes that bite isn't &amp;Reference[condition=incapacitated] and can see the creature. If the saving throw fails by 5 or more, the creature is reduced to 0 hit points. Otherwise, the creature takes 21 ([[/damage 6d6 type=psychic]]) damage on a failure, or half a s much on a success. Unless surprised, a creature can avert its gaze to avoid the saving throw at the start of its turn. If a creature does so, it has disadvantage on attack rolls against the eyes that bite until the start of its next turn. If the creature looks at the eyes that bite in the meantime, it must immediately attempt the saving throw.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity001": {
+            "_id": "dnd5eactivity001",
+            "type": "save",
+            "activation": {
+              "type": "",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "creature",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "20"
+              }
+            },
+            "damage": {
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              },
+              "parts": []
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          },
+          "brR9tChwoKJO1yXc": {
+            "_id": "brR9tChwoKJO1yXc",
+            "type": "damage",
+            "name": "",
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "damage": {
+              "critical": {
+                "allow": false
+              },
+              "parts": [
+                {
+                  "types": [
+                    "psychic"
+                  ],
+                  "number": 6,
+                  "denomination": 6,
+                  "bonus": "",
+                  "scaling": {
+                    "mode": "",
+                    "number": 1
+                  },
+                  "custom": {
+                    "enabled": false
+                  }
+                }
+              ]
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
+          }
+        },
+        "identifier": "gaze-into-the-void",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "systems/dnd5e/icons/svg/items/feature.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "TPK",
+          "hash": "gaze%20into%20the%20void_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162472,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "FPHXMLDszzGpkJiO",
+      "name": "Magic Scent",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The eyes that bite has advantage on Wisdom (&amp;Reference[skill=Perception]) ability checks that rely on smell.</p><p>Additionally, the eyes that bite can smell spells and magical effects up to 1 mile away and can track a creature by scent up to one hour after the creature casts a spell.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "magic-scent",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "systems/dnd5e/icons/svg/items/feature.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "TPK",
+          "hash": "magic%20scent_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162507,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "LbrWx3Wriq9Mu5X8",
+      "name": "Undetectable",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The eyes that bite cannot be targeted by any divination magic or through magical scrying sensors. Additionally, the eyes that bite is &amp;Reference[condition=invisible] to creatures that have one or more unexpended spell slots.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "undetectable",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/tools/scribal/lens-blue.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "TPK",
+          "hash": "undetectable_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162538,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "m6imcSdTm712NrSB",
+      "name": "Void Resilience",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The eyes that bite has resistance to all damage from spells and advantage on saving throws to resist spells. If the eyes that bite succeeds on a saving throw against a spell and suffers an effect on the success, it instead suffers no effect.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "void-resilience",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "systems/dnd5e/icons/svg/items/feature.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "TPK",
+          "hash": "void%20resilience_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162571,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "iWEwXldxSLK5599p",
+      "name": "Active Nullification",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "TPK",
+          "page": "263",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>As a reaction when a creature the eyes that bite can see casts a spell, it can attempt to interrupt the casting. The caster must immediately expend a spell slot of 3rd level or higher as part of casting the spell, or the spell fails.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity003": {
+            "_id": "dnd5eactivity003",
+            "type": "utility",
+            "activation": {
+              "type": "reaction",
+              "value": 1,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "active-nullification",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "systems/dnd5e/icons/svg/items/feature.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterReaction",
+          "source": "TPK",
+          "hash": "active%20nullification_eyes%20that%20bite_tpk_tpk"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1789785162608,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    }
+  ],
+  "effects": [],
+  "folder": "ecL6IHQSFUEngHKa",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3
+  }
+}

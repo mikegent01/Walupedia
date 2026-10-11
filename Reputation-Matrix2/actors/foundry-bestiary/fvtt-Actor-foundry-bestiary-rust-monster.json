@@ -1,0 +1,2135 @@
+{
+  "_id": "bb0qcet6nsl4UG8u",
+  "name": "Rust Monster",
+  "type": "npc",
+  "img": "modules/house-divided/assets/creatures/tokens-topdown/rust-monster.webp",
+  "items": [
+    {
+      "_id": "mmIronScent00000",
+      "name": "Iron Scent",
+      "type": "feat",
+      "system": {
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activities": {
+          "I1ppxiVO5CS6tKj0": {
+            "type": "utility",
+            "_id": "I1ppxiVO5CS6tKj0",
+            "sort": 0,
+            "activation": {
+              "type": "",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self",
+              "special": ""
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "radius",
+                "size": "30",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "type": "object",
+                "count": "",
+                "special": "ferrous metal"
+              },
+              "override": false,
+              "prompt": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "name": "Expend Use",
+            "img": "systems/dnd5e/icons/svg/monster.svg",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p class=\"feature\">The [[lookup @name lowercase]] can pinpoint the location of [[lookup @target.affects.special activity=I1ppxiVO5CS6tKj0]] within [[lookup @target.template.size activity=I1ppxiVO5CS6tKj0]] feet of itself.</p>",
+          "chat": ""
+        },
+        "identifier": "iron-scent",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "book": "SRD 5.2",
+          "license": "CC-BY-4.0"
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "properties": [
+          "trait"
+        ],
+        "requirements": "",
+        "advancement": {},
+        "cover": null,
+        "crewed": false
+      },
+      "folder": "L9Zgr8qAPc3ngKhb",
+      "img": "icons/magic/air/fog-gas-smoke-dense-orange.webp",
+      "effects": [],
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd-monster-manual.features.Item.mmIronScent00000",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788231129672
+      },
+      "sort": 0,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "mmMultiattack000",
+      "name": "Multiattack",
+      "type": "feat",
+      "system": {
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activities": {
+          "Ms63W7e3Mv2Margn": {
+            "type": "utility",
+            "name": "Expend Use",
+            "_id": "Ms63W7e3Mv2Margn",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self",
+              "special": ""
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "type": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "img": "systems/dnd5e/icons/svg/monster.svg",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p><span style=\"font-family:'Roboto Condensed', sans-serif\">The </span>[[lookup @name lowercase]]<span style=\"font-family:'Roboto Condensed', sans-serif\"> makes one </span>[[/item .mmBite0000000000]]<span style=\"font-family:'Roboto Condensed', sans-serif\"> attack and uses </span>[[/item .mmAntennae000000]]<span style=\"font-family:'Roboto Condensed', sans-serif\"> twice.</span></p>",
+          "chat": ""
+        },
+        "identifier": "multiattack",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "book": "SRD 5.2",
+          "license": "CC-BY-4.0"
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "properties": [],
+        "requirements": "",
+        "advancement": {},
+        "cover": null,
+        "crewed": false
+      },
+      "folder": "4T18pEvubPMQLzvD",
+      "img": "icons/skills/melee/strike-weapons-orange.webp",
+      "effects": [],
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd-monster-manual.features.Item.mmMultiattack000",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788231129672
+      },
+      "sort": 1,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "mmBite0000000000",
+      "name": "Bite",
+      "type": "weapon",
+      "system": {
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {
+          "xWlMeXFjELfSUWX9": {
+            "type": "attack",
+            "_id": "xWlMeXFjELfSUWX9",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "attack": {
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p>[[/attack extended]]. [[/damage average extended]].</p>",
+          "chat": ""
+        },
+        "identifier": "bite",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "book": "SRD 5.2",
+          "license": "CC-BY-4.0"
+        },
+        "properties": [],
+        "identified": true,
+        "unidentified": {
+          "name": "Unidentified Weapon",
+          "description": ""
+        },
+        "mastery": "",
+        "range": {
+          "units": "ft",
+          "value": null,
+          "long": null,
+          "reach": null
+        },
+        "damage": {
+          "base": {
+            "denomination": 8,
+            "bonus": "",
+            "number": 1,
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "armor": {
+          "value": null
+        },
+        "cover": null,
+        "hp": {
+          "value": null,
+          "max": null,
+          "dt": null,
+          "conditions": ""
+        },
+        "ammunition": {},
+        "proficient": null,
+        "crew": {
+          "value": []
+        }
+      },
+      "folder": "pSCWWdqMX9eUATRJ",
+      "img": "icons/creatures/abilities/fangs-teeth-bite.webp",
+      "effects": [],
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd-monster-manual.features.Item.mmBite0000000000",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788231129672
+      },
+      "sort": 2,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "mmAntennae000000",
+      "name": "Antennae",
+      "type": "feat",
+      "system": {
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activities": {
+          "dcSC7EuknnM0uoqY": {
+            "type": "save",
+            "_id": "dcSC7EuknnM0uoqY",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "",
+              "value": "5"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "type": "object",
+                "count": "1",
+                "special": "nonmagical metal"
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "damage": {
+              "parts": [],
+              "onSave": "none",
+              "critical": {
+                "allow": false
+              }
+            },
+            "save": {
+              "ability": [
+                "dex"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "8 + @mod + @prof"
+              }
+            },
+            "name": "",
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p>The [[lookup @name lowercase]] targets one [[lookup @target.affects.special activity=dcSC7EuknnM0uoqY]] object—armor or a weapon—worn or carried by a creature within [[lookup @range.value activity=dcSC7EuknnM0uoqY]] feet of itself.</p><p><em>Dexterity Saving Throw:</em> DC [[lookup @save.dc.value activity=dcSC7EuknnM0uoqY]], the creature with the object.</p><p><em>Failure:</em> The object takes a -1 penalty to the AC it offers (armor) or to its attack rolls (weapon). Armor is destroyed if the penalty reduces its AC to 10, and a weapon is destroyed if its penalty reaches -5. The penalty can be removed by casting the <em>@UUID[Compendium.dnd5e.spells24.Item.phbsplMending000]</em> spell on the armor or weapon.</p><section class=\"secret\" id=\"secret-4QbvfWBnYI6ImcGC\"><p><strong>Foundry Note</strong></p><p>This feature also provides a <strong>Damaged</strong> Enchantment effect that will modify the targeted object. Due to the fact that the equipment penalty can be applied multiple times, the enchantment needs to be dragged from this item's Effects tab onto the target Item's sheet.</p></section>",
+          "chat": ""
+        },
+        "identifier": "antennae",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "book": "SRD 5.2",
+          "license": "CC-BY-4.0"
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "properties": [],
+        "requirements": "",
+        "advancement": {},
+        "cover": null,
+        "crewed": false
+      },
+      "folder": "4T18pEvubPMQLzvD",
+      "img": "icons/commodities/materials/feather-orange.webp",
+      "effects": [
+        {
+          "type": "enchantment",
+          "name": "Damaged: -1 AC/Attack",
+          "img": "icons/skills/melee/sword-damaged-chipped-green.webp",
+          "disabled": true,
+          "_id": "PTSwIOo5chgO4d1p",
+          "system": {
+            "changes": [
+              {
+                "key": "system.armor.value",
+                "value": -1,
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              },
+              {
+                "key": "activities[attack].attack.bonus",
+                "value": -1,
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              }
+            ]
+          },
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "description": "<p>The object takes a -1 penalty to the AC it offers (armor) or to its attack rolls (weapon). Armor is destroyed if the penalty reduces its AC to 10, and a weapon is destroyed if its penalty reaches -5. The penalty can be removed by casting the <em>@UUID[Compendium.dnd5e.spells24.Item.phbsplMending000]</em> spell on the armor or weapon.</p>",
+          "origin": null,
+          "tint": "#ffffff",
+          "transfer": true,
+          "statuses": [],
+          "sort": 0,
+          "flags": {},
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "14.365",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1788231129672
+          },
+          "start": {
+            "combat": null,
+            "round": null,
+            "time": 0,
+            "turn": null,
+            "combatant": null,
+            "initiative": null
+          },
+          "showIcon": 1,
+          "folder": null
+        }
+      ],
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd-monster-manual.features.Item.mmAntennae000000",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788231129672
+      },
+      "sort": 3,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "mmDestroyMetal00",
+      "name": "Destroy Metal",
+      "type": "feat",
+      "system": {
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activities": {
+          "GDJtelEYYTgc9jwr": {
+            "type": "utility",
+            "_id": "GDJtelEYYTgc9jwr",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "ft",
+              "special": "touches a nonmagical metal object",
+              "value": "5"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "cube",
+                "size": "1",
+                "count": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "type": "object",
+                "count": "1",
+                "special": "that isn’t being worn or carried"
+              },
+              "override": false,
+              "prompt": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "name": "Expend Use",
+            "img": "systems/dnd5e/icons/svg/monster.svg",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p class=\"feature\">The [[lookup @name lowercase]] [[lookup @range.special activity=GDJtelEYYTgc9jwr]] within [[lookup @range.value activity=GDJtelEYYTgc9jwr]] feet of itself [[lookup @target.affects.special activity=GDJtelEYYTgc9jwr]]. The touch destroys a [[lookup @target.template.size activity=GDJtelEYYTgc9jwr]]-[[lookup @target.template.units activity=GDJtelEYYTgc9jwr]] [[lookup @target.template.type capitalize activity=GDJtelEYYTgc9jwr]] of the [[lookup @target.affects.type activity=GDJtelEYYTgc9jwr]].</p>",
+          "chat": ""
+        },
+        "identifier": "destroy-metal",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "book": "SRD 5.2",
+          "license": "CC-BY-4.0"
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "properties": [],
+        "requirements": "",
+        "advancement": {},
+        "cover": null,
+        "crewed": false
+      },
+      "folder": "4T18pEvubPMQLzvD",
+      "img": "icons/tools/smithing/furnace-fire-metal-orange.webp",
+      "effects": [],
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd-monster-manual.features.Item.mmDestroyMetal00",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788231129672
+      },
+      "sort": 4,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "mmReflexiveAnten",
+      "name": "Reflexive Antennae",
+      "type": "feat",
+      "system": {
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activities": {
+          "QiCyhPYmezbDoTHt": {
+            "type": "utility",
+            "_id": "QiCyhPYmezbDoTHt",
+            "sort": 0,
+            "activation": {
+              "type": "reaction",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self",
+              "special": ""
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "type": ""
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "name": "Expend Use",
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "description": {
+          "value": "<p class=\"feature\"><em>Trigger:</em> An attack roll hits the [[lookup @name lowercase]]. <em>Response:</em> The [[lookup @name lowercase]] uses [[/item .mmAntennae000000]].</p>",
+          "chat": ""
+        },
+        "identifier": "reflexive-antennae",
+        "source": {
+          "revision": 1,
+          "rules": "2024",
+          "book": "SRD 5.2",
+          "license": "CC-BY-4.0"
+        },
+        "enchant": {},
+        "prerequisites": {
+          "level": null,
+          "repeatable": false,
+          "items": []
+        },
+        "properties": [],
+        "requirements": "",
+        "advancement": {},
+        "cover": null,
+        "crewed": false
+      },
+      "folder": "4T18pEvubPMQLzvD",
+      "img": "icons/commodities/biological/antenna-yellow.webp",
+      "effects": [],
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd-monster-manual.features.Item.mmReflexiveAnten",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788231129672
+      },
+      "sort": 5,
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": "GY66W7IKJu1oFLF9",
+  "sort": 400000,
+  "flags": {
+    "core": {},
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Bestiary",
+        "Monstrosity"
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Bestiary",
+        "npc",
+        "monstrosity",
+        "A House Divided"
+      ],
+      "color": "#CD5C5C",
+      "organized": {
+        "path": [
+          "Bestiary",
+          "Monstrosity"
+        ],
+        "basis": "bestiary",
+        "from": [
+          "A House Divided",
+          "Creatures of the Ruined Manor"
+        ]
+      }
+    }
+  },
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 13,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 12,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 13,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 2,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 13,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 6,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 14,
+        "calc": "natural"
+      },
+      "hp": {
+        "value": 33,
+        "max": 33,
+        "temp": null,
+        "tempmax": null,
+        "formula": "6d8 + 6"
+      },
+      "init": {
+        "ability": "",
+        "bonus": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        }
+      },
+      "movement": {
+        "walk": "40",
+        "units": null,
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "attunement": {
+        "max": 3
+      },
+      "senses": {
+        "units": null,
+        "special": "",
+        "ranges": {
+          "darkvision": 60,
+          "blindsight": null,
+          "tremorsense": null,
+          "truesight": null
+        }
+      },
+      "spellcasting": "str",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "spell": {
+        "level": 0
+      },
+      "loyalty": {
+        "value": null
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      }
+    },
+    "details": {
+      "biography": {
+        "value": "<p><em>Token artwork by <a href=\"https://www.forgotten-adventures.net/\" target=\"_blank\" rel=\"noopener\">Forgotten Adventures</a>.</em></p>",
+        "public": ""
+      },
+      "alignment": "Unaligned",
+      "race": null,
+      "type": {
+        "value": "monstrosity"
+      },
+      "cr": 0.5,
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "custom": "",
+        "value": [
+          {
+            "type": "underdark"
+          }
+        ]
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "med",
+      "di": {
+        "value": [],
+        "bypasses": [],
+        "custom": ""
+      },
+      "dr": {
+        "value": [],
+        "bypasses": [],
+        "custom": ""
+      },
+      "dv": {
+        "value": [],
+        "bypasses": [],
+        "custom": ""
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "languages": {
+        "value": [],
+        "custom": "",
+        "communication": {}
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "skills": {
+      "acr": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0,
+        "override": null
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    },
+    "source": {
+      "revision": 1,
+      "rules": "2024",
+      "book": "SRD 5.2",
+      "license": "CC-BY-4.0"
+    }
+  },
+  "prototypeToken": {
+    "name": "Kitchen Scuttler",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 1,
+    "height": 1,
+    "lockRotation": false,
+    "rotation": 0,
+    "disposition": -1,
+    "displayBars": 20,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "flags": {},
+    "randomImg": false,
+    "alpha": 1,
+    "light": {
+      "alpha": 1,
+      "angle": 360,
+      "bright": 0,
+      "coloration": 1,
+      "dim": 0,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "speed": 5,
+        "intensity": 5,
+        "type": null,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      },
+      "attenuation": 0.5,
+      "color": null,
+      "negative": false,
+      "priority": 0
+    },
+    "texture": {
+      "src": "modules/house-divided/assets/creatures/tokens-topdown/rust-monster.webp",
+      "tint": "#ffffff",
+      "scaleX": 1.2,
+      "scaleY": 1.2,
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "alphaThreshold": 0.75
+    },
+    "sight": {
+      "angle": 360,
+      "enabled": false,
+      "range": 60,
+      "brightness": 0,
+      "color": null,
+      "attenuation": 0.1,
+      "saturation": 0,
+      "contrast": 0,
+      "visionMode": "basic"
+    },
+    "detectionModes": {},
+    "appendNumber": false,
+    "prependAdjective": false,
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "depth": 1
+  },
+  "_stats": {
+    "compendiumSource": "Compendium.dnd5e.monsters.WJsxqbHU28D64lWT",
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1788231129672
+  },
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3
+  }
+}

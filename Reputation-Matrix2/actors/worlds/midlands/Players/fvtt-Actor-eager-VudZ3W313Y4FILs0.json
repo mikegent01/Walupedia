@@ -596,9 +596,9 @@
         "formula": ""
       },
       "hp": {
-        "value": 2,
+        "value": 31,
         "max": 31,
-        "temp": null,
+        "temp": 0,
         "tempmax": 0,
         "bonuses": {}
       },
@@ -677,7 +677,7 @@
       "background": "5f606a64c6bb43f3",
       "originalClass": "DyOqiLm0phacVrFy",
       "xp": {
-        "value": 4860
+        "value": 5020
       },
       "appearance": "A Toad-shaped field companion of uncertain ancestry. Eager is often found in spider silk, a bad room, a collapsing estate, or the exact place the party was hoping not to go.",
       "trait": "I just follow people. What do you think, Markop?",
@@ -764,7 +764,7 @@
         "label": "Action Surge",
         "sr": false,
         "lr": true,
-        "value": 0,
+        "value": 1,
         "max": 1
       },
       "tertiary": {
@@ -810,6 +810,36 @@
         "type": "item",
         "id": ".Item.RUe7IPQ1EomWQjo4",
         "sort": 700000
+      },
+      {
+        "type": "item",
+        "id": ".Item.lyNLeQEHIHPTFlVA",
+        "sort": 800000
+      },
+      {
+        "type": "item",
+        "id": ".Item.n3rFhJtIGrU66oZ4",
+        "sort": 900000
+      },
+      {
+        "type": "item",
+        "id": ".Item.BH60sWiPyT6Pc6ug",
+        "sort": 1000000
+      },
+      {
+        "type": "item",
+        "id": ".Item.b9QKd5dn9dnZRq8V",
+        "sort": 1100000
+      },
+      {
+        "type": "item",
+        "id": ".Item.OQLkcB7Q7XzqH4f2",
+        "sort": 1200000
+      },
+      {
+        "type": "item",
+        "id": ".Item.218ad632c6e149d9",
+        "sort": 1300000
       }
     ]
   },
@@ -7125,7 +7155,7 @@
         },
         "attuned": false,
         "identified": true,
-        "equipped": true,
+        "equipped": false,
         "rarity": "",
         "type": {
           "value": "light",
@@ -8055,7 +8085,7 @@
         "unidentified": {
           "description": ""
         },
-        "container": null
+        "container": "9RPKLGZZKlYJGd5r"
       },
       "img": "icons/weapons/ammunition/arrow-broadhead.webp",
       "flags": {
@@ -11847,61 +11877,1050 @@
         "default": 0,
         "7BMT1Aux3QVtq027": 3
       }
-    }
-  ],
-  "effects": [
+    },
     {
-      "_id": "dnd5ebloodied000",
-      "img": "systems/dnd5e/icons/svg/statuses/bloodied.svg",
-      "flags": {
-        "dnd5e": {
-          "isTemporary": true
+      "name": "Scorncrow's Cloak",
+      "type": "equipment",
+      "img": "icons/equipment/back/cape-layered-tattered-brown-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Wondrous item, (requires attunement)</em></p><p>A cloak of heavy black cloth inter-woven with feathers.</p><p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
+          "chat": ""
         },
-        "dae": {
-          "specialDuration": []
+        "source": {
+          "custom": "DMG pg. 159",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "price": {
+          "value": 3500,
+          "denomination": "gp"
+        },
+        "attunement": "required",
+        "rarity": "uncommon",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "armor": {
+          "value": 0,
+          "dex": 0
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": 0,
+        "proficient": 1,
+        "unidentified": {
+          "description": ""
+        },
+        "type": {
+          "value": "clothing",
+          "baseItem": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "scorncrows-cloak",
+        "activities": {},
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": true
+      },
+      "effects": [
+        {
+          "_id": "jxfin1rh71p1xjjv",
+          "disabled": false,
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "origin": "Actor.VudZ3W313Y4FILs0.Item.JzBWdTXO9Rc2rPBW",
+          "transfer": true,
+          "flags": {},
+          "tint": "#ffffff",
+          "name": "Scorncrow's Cloak",
+          "description": "",
+          "statuses": [],
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "14.367",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1791735068227
+          },
+          "img": "icons/equipment/back/cape-layered-tattered-brown-grey.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.attributes.ac.bonus",
+                "value": 1,
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              },
+              {
+                "key": "system.bonuses.abilities.save",
+                "value": 1,
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              }
+            ]
+          },
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "folder": null
+        }
+      ],
+      "folder": "4edUBO1QohYk4728",
+      "sort": 131250,
+      "flags": {
+        "core": {},
+        "scene-packer": {
+          "hash": "2fbdaa96ea461f403b554096e5ea50959e7b138f"
         }
       },
-      "name": "Bloodied",
-      "statuses": [
-        "bloodied"
-      ],
-      "showIcon": 1,
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "z4YJNIyHG4opLtW2",
-        "combatant": "5YkePtdj1MFlfxWD",
-        "initiative": 17,
-        "round": 7,
-        "turn": 5
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "description": "",
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
-      "folder": null,
-      "sort": 0,
       "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
+        "duplicateSource": null,
+        "exportSource": null,
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1790522446730,
-        "compendiumSource": null,
+        "createdTime": 1791735068227
+      },
+      "_id": "JzBWdTXO9Rc2rPBW",
+      "ownership": {
+        "default": 0,
+        "p6LsOjpmBsnR9V8p": 3
+      }
+    },
+    {
+      "name": "Scorncrow's Leathers",
+      "type": "equipment",
+      "img": "icons/equipment/chest/breastplate-collared-leather-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p><em>Rare, Requires Attunement</em></p>\n<p>This magical suit of leather armor (+1) is adorned with the insignia of wings, beaks, and talons which are woven between its supple leather.</p>\n<p><strong>Resistance: Necrotic.</strong> This armor, while attuned - provides resistance to Necrotic damage.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "DMG pg. 152",
+          "rules": "2014",
+          "revision": 1
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 13,
+          "units": "lb"
+        },
+        "price": {
+          "value": 1545,
+          "denomination": "gp"
+        },
+        "attunement": "required",
+        "rarity": "rare",
+        "identified": true,
+        "cover": null,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "armor": {
+          "value": 12,
+          "dex": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": null,
+        "proficient": 1,
+        "unidentified": {
+          "description": ""
+        },
+        "type": {
+          "value": "light",
+          "baseItem": ""
+        },
+        "container": null,
+        "properties": [],
+        "identifier": "scorncrows-leathers",
+        "activities": {},
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": true
+      },
+      "effects": [
+        {
+          "origin": "Actor.VudZ3W313Y4FILs0.Item.xVNTmDLNWV1kpVTe",
+          "duration": {
+            "value": null,
+            "units": "seconds",
+            "expiry": null,
+            "expired": false
+          },
+          "disabled": false,
+          "_id": "Dn3V9Wv0qrecgeOV",
+          "tint": "#ffffff",
+          "transfer": true,
+          "flags": {},
+          "name": "Scorncrow's Leathers",
+          "description": "",
+          "statuses": [],
+          "_stats": {
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null,
+            "coreVersion": "14.367",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1791735105140
+          },
+          "img": "icons/equipment/chest/breastplate-collared-leather-grey.webp",
+          "type": "base",
+          "system": {
+            "changes": [
+              {
+                "key": "system.traits.dr.value",
+                "value": "necrotic",
+                "priority": null,
+                "type": "add",
+                "phase": "initial"
+              }
+            ]
+          },
+          "sort": 0,
+          "start": null,
+          "showIcon": 1,
+          "folder": null
+        }
+      ],
+      "folder": "4edUBO1QohYk4728",
+      "sort": 137500,
+      "flags": {
+        "core": {},
+        "scene-packer": {
+          "hash": "73c6d59155c5f8c009aab05a7cb214b7274b009b"
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.STxsp9Ao3pS2T4gt",
         "duplicateSource": null,
-        "exportSource": null
+        "exportSource": {
+          "worldId": "frostmaiden",
+          "uuid": null,
+          "coreVersion": "14.361",
+          "systemId": "dnd5e",
+          "systemVersion": "2.0.2"
+        },
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791735105140
+      },
+      "_id": "xVNTmDLNWV1kpVTe",
+      "ownership": {
+        "default": 0,
+        "p6LsOjpmBsnR9V8p": 3
+      }
+    },
+    {
+      "name": "Lario's Sword",
+      "type": "weapon",
+      "img": "icons/weapons/swords/sword-guard-gold-red.webp",
+      "system": {
+        "description": {
+          "value": "<p>@UUID[Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB]{Longsword} decorated with shimmering filigree.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "SRD 5.1",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "price": {
+          "value": 200,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": 1,
+            "denomination": 10,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "slashing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "ver"
+        ],
+        "container": null,
+        "unidentified": {
+          "description": ""
+        },
+        "type": {
+          "value": "martialM",
+          "baseItem": "longsword"
+        },
+        "activities": {
+          "MHknP9lnMuRNNaSK": {
+            "_id": "MHknP9lnMuRNNaSK",
+            "type": "attack",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "attack": {
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "identifier": "decorated-longsword",
+        "ammunition": {},
+        "mastery": "",
+        "proficient": null,
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "folder": "YZrS9LYiHaQhEBm6",
+      "flags": {
+        "core": {},
+        "scene-packer": {
+          "hash": "51e625d3ca8612306af15fef41cb85c4a5772414"
+        },
+        "item-piles": {
+          "item": {}
+        },
+        "dnd5e": {
+          "last": {
+            "MHknP9lnMuRNNaSK": {
+              "attackMode": "oneHanded",
+              "damageType": {
+                "0": "slashing"
+              }
+            }
+          }
+        },
+        "item-durability": {
+          "durability": 100,
+          "maxDurability": 100,
+          "max": 120,
+          "cur": 120
+        },
+        "team-initiative": {
+          "max": 120,
+          "cur": 120
+        },
+        "world": {
+          "itemDurability": {
+            "max": 120,
+            "cur": 120
+          },
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        }
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791735383089
+      },
+      "sort": 700000,
+      "_id": "O7FaaISLtsYNQSw4",
+      "ownership": {
+        "default": 0,
+        "p6LsOjpmBsnR9V8p": 3
+      }
+    },
+    {
+      "name": "Well Made Light Crossbow",
+      "type": "weapon",
+      "img": "icons/weapons/crossbows/crossbow-simple-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>A small crossbow with a wooden haft and a tense cord which is capable of firing a single bolt which can puncture even heavy armor at close range. The woodwork is inlaid with silver.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 2,
+        "weight": {
+          "value": 5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 50,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": 80,
+          "long": 320,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "amm",
+          "lod",
+          "two"
+        ],
+        "type": {
+          "value": "simpleR",
+          "baseItem": "lightcrossbow"
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": "SpPPrYU00xxaxu1I",
+        "activities": {
+          "MgDWQOgxtVeydiZR": {
+            "_id": "MgDWQOgxtVeydiZR",
+            "type": "attack",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "attack": {
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "identifier": "well-made-light-crossbow",
+        "ammunition": {},
+        "proficient": null,
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "folder": "pOAh0mmFrtbGtDAr",
+      "sort": 1100000,
+      "flags": {
+        "core": {},
+        "scene-packer": {
+          "hash": "c8f02f8ca50784232f0cf3dd0a5d03895759a619"
+        },
+        "item-piles": {
+          "item": {}
+        },
+        "item-durability": {
+          "durability": 100,
+          "maxDurability": 100,
+          "max": 120,
+          "cur": 120
+        },
+        "team-initiative": {
+          "max": 120,
+          "cur": 120
+        },
+        "world": {
+          "itemDurability": {
+            "max": 120,
+            "cur": 120
+          },
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        },
+        "dnd5e": {}
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.ddWvQRLmnnIS0eLF",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791735560958
+      },
+      "_id": "bitU5ImHw1VE5HIO",
+      "ownership": {
+        "default": 0,
+        "p6LsOjpmBsnR9V8p": 3
+      }
+    },
+    {
+      "name": "Bolts",
+      "system": {
+        "description": {
+          "value": "<p><em><strong>Storage:</strong> @UUID[Compendium.dnd5e.equipment24.Item.phbagCaseCrossbo]{Case}</em></p><p>@UUID[Compendium.dnd5e.equipment24.Item.phbagAmmunitionV]{Ammunition} is required by a weapon that has the Ammunition property. A weapon's description specifies the type of ammunition used by the weapon. The Ammunition table lists the different types and the amount you get when you buy them. The table also lists the item that is typically used to store each type; storage must be bought separately.</p>",
+          "chat": ""
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 10,
+        "weight": {
+          "value": 0.075,
+          "units": "lb"
+        },
+        "rarity": "",
+        "attunement": "",
+        "uses": {
+          "max": "",
+          "autoDestroy": false,
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": 0,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            },
+            "bonus": ""
+          },
+          "replace": false
+        },
+        "type": {
+          "value": "ammo",
+          "subtype": "crossbowBolt"
+        },
+        "properties": [],
+        "activities": {},
+        "identifier": "bolts",
+        "attuned": false,
+        "equipped": false
+      },
+      "type": "consumable",
+      "folder": "EkXAWGxKr4wYpODe",
+      "img": "icons/weapons/ammunition/arrow-broadhead-white.webp",
+      "effects": [],
+      "sort": 800000,
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "scene-packer": {
+          "hash": "3cfd10106e3ccb5e85eb1eaca02593fa0a3bb09c"
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbamoBolts00000",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791735567265
+      },
+      "_id": "xzf2CCTpHJh8r3DN",
+      "ownership": {
+        "default": 0,
+        "p6LsOjpmBsnR9V8p": 3
+      }
+    },
+    {
+      "_id": "riQybY1FtAzU3ZL2",
+      "name": "Eye of the Giant Green Spider",
+      "type": "loot",
+      "img": "icons/commodities/biological/eye-green-pink.webp",
+      "system": {
+        "description": {
+          "value": "<p>One of the eyes of the giant green spider Eager killed in the Skittering Grove, cut out when the party went over the bodies.</p><ul><li>Trophy from the grove's best fighter.</li><li>Still faintly green in the dark.</li></ul><p><em>Obtained:</em> Taken off the dead of the Skittering Grove before the eight-hour rest, 1 Aethel, 1040 BF.</p><p><em>On the record:</em> carried — cut from the spider he killed.</p><p><em>Waluipedia inventory <code>giant_green_spider_eye</code>, held by Eager — filed from <code>the_box_at_the_cottage_door</code>, <code>the_way_i_started_it</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Uncommon",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "eye-of-the-giant-green-spider",
+        "quantity": 1,
+        "weight": {
+          "value": 0.5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "giant_green_spider_eye",
+          "holder": "eager",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried — cut from the spider he killed"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
       }
     }
   ],
+  "effects": [],
   "folder": "0A40B9PdH5WzraZl",
   "sort": 175000,
   "ownership": {
@@ -11949,7 +12968,7 @@
     "waluipedia-sheets": {
       "ledger": {
         "xpKey": "eager",
-        "xp": 4860,
+        "xp": 5020,
         "level": 4
       },
       "tags": [

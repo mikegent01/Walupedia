@@ -6,10 +6,10 @@
   "system": {
     "currency": {
       "pp": 0,
-      "gp": 359,
+      "gp": 299,
       "ep": 0,
       "sp": 6,
-      "cp": 18
+      "cp": 17
     },
     "abilities": {
       "str": {
@@ -524,15 +524,15 @@
         "override": null
       },
       "spell1": {
-        "value": 0,
+        "value": 4,
         "override": null
       },
       "spell2": {
-        "value": 0,
+        "value": 3,
         "override": null
       },
       "spell3": {
-        "value": 0,
+        "value": 3,
         "override": null
       },
       "spell4": {
@@ -571,9 +571,9 @@
         "formula": ""
       },
       "hp": {
-        "value": 10,
+        "value": 42,
         "max": 42,
-        "temp": 5,
+        "temp": null,
         "tempmax": 0,
         "bonuses": {}
       },
@@ -652,7 +652,7 @@
       "background": "Ho4oQIDSYxub3BFe",
       "originalClass": "aMpTpSFzAAO3NwSc",
       "xp": {
-        "value": 21030
+        "value": 21270
       },
       "appearance": "",
       "trait": "",
@@ -12455,75 +12455,6 @@
       }
     },
     {
-      "name": "Gold",
-      "type": "loot",
-      "system": {
-        "description": {
-          "value": "<p>Gold is the king of currency for many civilizations. Usually more common than the likes of platinum, but nowhere near as common as other metals like iron, it occupies a sweet spot in rarity and unreactiveness.</p>\n<p>Unlike silver, gold can be found more easily on the surface. Both surface and underground mining can be extremely profitable. Gold rushes can and have been a source a great happiness and huge tragedy.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "",
-          "book": "SRD 5.1",
-          "page": "",
-          "license": "CC-BY-4.0",
-          "rules": "2014",
-          "revision": 1
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 1,
-          "units": "lb"
-        },
-        "price": {
-          "value": 50,
-          "denomination": "gp"
-        },
-        "rarity": "",
-        "identified": true,
-        "unidentified": {
-          "description": ""
-        },
-        "container": null,
-        "properties": [],
-        "type": {
-          "value": "",
-          "subtype": ""
-        },
-        "identifier": "gold"
-      },
-      "sort": 1300000,
-      "flags": {
-        "core": {},
-        "item-piles": {
-          "item": {}
-        },
-        "scene-packer": {
-          "hash": "21710202456d5387ff99a0f2b020a2d27f1ad1b0"
-        },
-        "item-identification": {
-          "isIdentified": true,
-          "processed": true
-        }
-      },
-      "img": "icons/commodities/metal/ingot-gold.webp",
-      "effects": [],
-      "folder": null,
-      "_stats": {
-        "compendiumSource": "Compendium.dnd5e.tradegoods.Item.HHh7Ihuk8ToxJzQX",
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730520475
-      },
-      "_id": "xbC2T9KJXFtvfKLg",
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "name": "Chunk of Meat",
       "type": "loot",
       "system": {
@@ -13096,317 +13027,6 @@
         "createdTime": 1788730520475
       },
       "_id": "RUYkKPlZtoKK2l7p",
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "name": "Lario's Sword",
-      "type": "weapon",
-      "img": "icons/weapons/swords/sword-guard-gold-red.webp",
-      "system": {
-        "description": {
-          "value": "<p>@UUID[Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB]{Longsword} decorated with shimmering filigree.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "SRD 5.1",
-          "book": "",
-          "page": "",
-          "license": "",
-          "revision": 1,
-          "rules": "2024"
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 3,
-          "units": "lb"
-        },
-        "price": {
-          "value": 200,
-          "denomination": "gp"
-        },
-        "attunement": "",
-        "rarity": "",
-        "identified": true,
-        "cover": null,
-        "range": {
-          "value": null,
-          "long": null,
-          "units": "ft",
-          "reach": null
-        },
-        "uses": {
-          "max": "",
-          "spent": 0,
-          "recovery": []
-        },
-        "damage": {
-          "versatile": {
-            "number": 1,
-            "denomination": 10,
-            "bonus": "",
-            "types": [],
-            "custom": {
-              "enabled": false,
-              "formula": ""
-            },
-            "scaling": {
-              "mode": "",
-              "number": null,
-              "formula": ""
-            }
-          },
-          "base": {
-            "number": 1,
-            "denomination": 8,
-            "bonus": "",
-            "types": [
-              "slashing"
-            ],
-            "custom": {
-              "enabled": false,
-              "formula": ""
-            },
-            "scaling": {
-              "mode": "",
-              "number": null,
-              "formula": ""
-            }
-          }
-        },
-        "armor": {
-          "value": 10
-        },
-        "hp": {
-          "value": 0,
-          "max": 0,
-          "dt": null,
-          "conditions": ""
-        },
-        "properties": [
-          "ver"
-        ],
-        "container": null,
-        "unidentified": {
-          "description": ""
-        },
-        "type": {
-          "value": "martialM",
-          "baseItem": "longsword"
-        },
-        "activities": {
-          "MHknP9lnMuRNNaSK": {
-            "_id": "MHknP9lnMuRNNaSK",
-            "type": "attack",
-            "sort": 0,
-            "activation": {
-              "type": "action",
-              "value": null,
-              "override": false
-            },
-            "consumption": {
-              "scaling": {
-                "allowed": false
-              },
-              "spellSlot": true,
-              "targets": []
-            },
-            "description": {},
-            "duration": {
-              "units": "inst",
-              "concentration": false,
-              "override": false
-            },
-            "effects": [],
-            "range": {
-              "override": false,
-              "units": "self"
-            },
-            "target": {
-              "template": {
-                "contiguous": false,
-                "units": "ft",
-                "stationary": false
-              },
-              "affects": {
-                "choice": false
-              },
-              "override": false,
-              "prompt": true
-            },
-            "uses": {
-              "spent": 0,
-              "recovery": []
-            },
-            "attack": {
-              "critical": {
-                "threshold": null
-              },
-              "flat": false,
-              "type": {}
-            },
-            "damage": {
-              "critical": {},
-              "includeBase": true,
-              "parts": []
-            },
-            "flags": {},
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "img": null,
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityId": "",
-            "otherActivityAsParentType": true,
-            "attackMode": "oneHanded",
-            "ammunition": "",
-            "otherActivityUuid": "",
-            "attackRollPerTarget": "default",
-            "fumbleThreshold": 1
-          }
-        },
-        "identifier": "decorated-longsword",
-        "ammunition": {},
-        "attuned": false,
-        "mastery": "",
-        "equipped": false,
-        "proficient": null,
-        "crew": {
-          "value": []
-        }
-      },
-      "effects": [],
-      "folder": "YZrS9LYiHaQhEBm6",
-      "flags": {
-        "core": {},
-        "scene-packer": {
-          "hash": "85af758605dfcaccd53c2909849ba334b6fbaf2b"
-        },
-        "item-piles": {
-          "item": {}
-        },
-        "dnd5e": {
-          "last": {
-            "MHknP9lnMuRNNaSK": {
-              "attackMode": "oneHanded",
-              "damageType": {
-                "0": "slashing"
-              }
-            }
-          }
-        },
-        "item-durability": {
-          "durability": 100,
-          "maxDurability": 100,
-          "max": 120,
-          "cur": 120
-        },
-        "team-initiative": {
-          "max": 120,
-          "cur": 120
-        },
-        "world": {
-          "itemDurability": {
-            "max": 120,
-            "cur": 120
-          },
-          "durability": {
-            "cur": 500,
-            "max": 500
-          }
-        },
-        "item-identification": {
-          "isIdentified": true,
-          "processed": true
-        }
-      },
-      "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB",
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730520475
-      },
-      "sort": 700000,
-      "_id": "VrWJrLPEVzYsklSe",
       "ownership": {
         "default": 0
       }
@@ -15653,70 +15273,6 @@
       }
     },
     {
-      "name": "Golden Earring",
-      "type": "loot",
-      "img": "icons/commodities/currency/coin-engraved-square-gold.webp",
-      "system": {
-        "description": {
-          "value": "<p>A simple golden earring set with a tiny ruby.</p>",
-          "chat": ""
-        },
-        "source": {
-          "revision": 1,
-          "rules": "2024"
-        },
-        "identified": true,
-        "unidentified": {
-          "description": ""
-        },
-        "container": "DZncJKhwLXzmmUZE",
-        "quantity": 1,
-        "weight": {
-          "value": 0,
-          "units": "lb"
-        },
-        "price": {
-          "value": 30,
-          "denomination": "gp"
-        },
-        "rarity": "",
-        "properties": [],
-        "type": {
-          "value": "",
-          "subtype": ""
-        },
-        "identifier": "golden-earring"
-      },
-      "effects": [],
-      "folder": "pOAh0mmFrtbGtDAr",
-      "sort": 1600000,
-      "flags": {
-        "scene-packer": {
-          "hash": "a8bce5efb3ab8ac320caa7bf857b769d8435a2aa"
-        },
-        "item-piles": {
-          "item": {}
-        },
-        "item-identification": {
-          "isIdentified": true,
-          "processed": true
-        }
-      },
-      "_stats": {
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730520475
-      },
-      "_id": "tlCA9O90X4iClDCp",
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "name": "Speaker L's Belt Pouch",
       "type": "container",
       "flags": {
@@ -16962,7 +16518,7 @@
         },
         "uses": {
           "max": "1",
-          "spent": 1,
+          "spent": 0,
           "recovery": [
             {
               "period": "lr",
@@ -19268,278 +18824,778 @@
       }
     },
     {
-      "name": "Scorncrow's Leathers",
-      "type": "equipment",
-      "img": "icons/equipment/chest/breastplate-collared-leather-grey.webp",
+      "name": "Entertainer's Pack",
       "system": {
         "description": {
-          "value": "<p><em>Rare, Requires Attunement</em></p>\n<p>This magical suit of leather armor (+1) is adorned with the insignia of wings, beaks, and talons which are woven between its supple leather.</p>\n<p><strong>Resistance: Necrotic.</strong> This armor, while attuned - provides resistance to Necrotic damage.</p>",
+          "value": "<p>An Entertainer's Pack contains the following items: @UUID[Compendium.dnd5e.equipment24.Item.phbagBackpack000]{Backpack}, @UUID[Compendium.dnd5e.equipment24.Item.phbagBedroll0000]{Bedroll}, @UUID[Compendium.dnd5e.equipment24.Item.phbagBell0000000]{Bell}, @UUID[Compendium.dnd5e.items.Item.UkWdyJYQTfVX2cJW]{Bullseye Lantern}, 3 @UUID[Compendium.dnd5e.equipment24.Item.phbagCostume0000]{Costumes}, @UUID[Compendium.dnd5e.equipment24.Item.phbagMirror00000]{Mirror}, 8 flasks of @UUID[Compendium.dnd5e.equipment24.Item.phbagOil00000000]{Oil}, 9 days of @UUID[Compendium.dnd5e.equipment24.Item.phbagRations0000]{Rations}, @UUID[Compendium.dnd5e.equipment24.Item.phbagTinderbox00]{Tinderbox}, and @UUID[Compendium.dnd5e.equipment24.Item.phbagWaterskin00]{Waterskin}.</p>",
           "chat": ""
         },
-        "source": {
-          "custom": "DMG pg. 152",
-          "rules": "2014",
-          "revision": 1
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 13,
-          "units": "lb"
-        },
         "price": {
-          "value": 1545,
+          "value": 40,
           "denomination": "gp"
         },
-        "attunement": "required",
-        "rarity": "rare",
+        "quantity": 1,
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
         "identified": true,
-        "cover": null,
-        "uses": {
-          "max": "",
-          "spent": 0,
-          "recovery": []
-        },
-        "armor": {
-          "value": 12,
-          "dex": null
-        },
-        "hp": {
-          "value": 0,
-          "max": 0,
-          "dt": null,
-          "conditions": ""
-        },
-        "speed": {
-          "value": null,
-          "conditions": "",
-          "units": "ft"
-        },
-        "strength": null,
-        "proficient": 1,
         "unidentified": {
           "description": ""
         },
-        "type": {
-          "value": "light",
-          "baseItem": ""
-        },
         "container": null,
-        "properties": [],
-        "identifier": "scorncrows-leathers",
-        "activities": {},
-        "crew": {
-          "value": []
+        "weight": {
+          "value": 5,
+          "units": "lb"
         },
+        "rarity": "",
+        "attunement": "",
         "attuned": false,
-        "equipped": false
+        "equipped": false,
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "properties": [],
+        "capacity": {
+          "weight": {
+            "value": 30,
+            "units": "lb"
+          },
+          "volume": {
+            "units": "cubicFoot"
+          }
+        },
+        "identifier": "entertainers-pack"
       },
-      "effects": [
-        {
-          "origin": "Actor.pi25oGpjW0lCFtuF.Item.SQDJr1mTaZLyLq1x",
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
-          },
-          "disabled": false,
-          "_id": "Dn3V9Wv0qrecgeOV",
-          "tint": "#ffffff",
-          "transfer": true,
-          "flags": {},
-          "name": "Scorncrow's Leathers",
-          "description": "",
-          "statuses": [],
-          "_stats": {
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null,
-            "coreVersion": "14.367",
-            "systemId": "dnd5e",
-            "systemVersion": "5.3.3",
-            "createdTime": 1789351658331
-          },
-          "img": "icons/equipment/chest/breastplate-collared-leather-grey.webp",
-          "type": "base",
-          "system": {
-            "changes": [
-              {
-                "key": "system.traits.dr.value",
-                "value": "necrotic",
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
-              }
-            ]
-          },
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "folder": null
-        }
-      ],
-      "folder": "4edUBO1QohYk4728",
-      "sort": 137500,
+      "_id": "liqf6JwidhURRr4Y",
+      "type": "container",
+      "folder": "uDk4FBYfcP2JnX6t",
+      "img": "icons/containers/bags/pack-leather-gold-pink.webp",
+      "effects": [],
+      "sort": 2000000,
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
       "flags": {
-        "core": {}
+        "item-piles": {
+          "version": "3.3.4",
+          "item": {}
+        },
+        "scene-packer": {
+          "hash": "49bfc63501793c04de52c1487996a2b43ab09833"
+        }
       },
       "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.STxsp9Ao3pS2T4gt",
         "duplicateSource": null,
-        "exportSource": {
-          "worldId": "frostmaiden",
-          "uuid": null,
-          "coreVersion": "14.361",
-          "systemId": "dnd5e",
-          "systemVersion": "2.0.2"
-        },
         "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
-        "createdTime": 1789351658331
+        "createdTime": 1791735885873,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbagEntertainer"
+      }
+    },
+    {
+      "name": "Diplomat's Pack",
+      "system": {
+        "description": {
+          "value": "<p>A Diplomat's Pack contains the following items: @UUID[Compendium.dnd5e.equipment24.Item.phbagChest000000]{Chest}, @UUID[Compendium.dnd5e.items.Item.FqFmdzIBUSxFKKfi]{Fine Clothes}, @UUID[Compendium.dnd5e.equipment24.Item.phbagInk00000000]{Ink}, 5 @UUID[Compendium.dnd5e.equipment24.Item.phbagInkPen00000]{Ink Pens}, @UUID[Compendium.dnd5e.equipment24.Item.phbagLamp0000000]{Lamp}, 2 @UUID[Compendium.dnd5e.items.Item.5mIeX824uMklU3xq]{Map or Scroll Cases}, 4 @UUID[Compendium.dnd5e.equipment24.Item.phbagOil00000000]{flasks of Oil}, 5 sheets of @UUID[Compendium.dnd5e.equipment24.Item.phbagPaper000000]{Paper}, 5 sheets of @UUID[Compendium.dnd5e.equipment24.Item.phbagParchment00]{Parchment}, @UUID[Compendium.dnd5e.equipment24.Item.phbagPerfume0000]{Perfume}, and @UUID[Compendium.dnd5e.equipment24.Item.phbagTinderbox00]{Tinderbox}.</p>",
+          "chat": ""
+        },
+        "price": {
+          "value": 39,
+          "denomination": "gp"
+        },
+        "quantity": 1,
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "weight": {
+          "value": 25,
+          "units": "lb"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "properties": [],
+        "capacity": {
+          "weight": {
+            "value": 360,
+            "units": "lb"
+          },
+          "volume": {
+            "units": "cubicFoot"
+          }
+        },
+        "identifier": "diplomats-pack"
       },
-      "_id": "SQDJr1mTaZLyLq1x",
+      "_id": "BaI7UVWCtOvCOTlG",
+      "type": "container",
+      "folder": "uDk4FBYfcP2JnX6t",
+      "img": "icons/containers/chest/chest-reinforced-steel-red.webp",
+      "effects": [],
+      "sort": 1700000,
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "flags": {
+        "item-piles": {
+          "version": "3.3.4",
+          "item": {}
+        },
+        "scene-packer": {
+          "hash": "f151460d2e6314fabbc1fffdcfcedadaf7ceaafa"
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791735919825,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbagDiplomatsPa"
+      }
+    },
+    {
+      "name": "Case, Crossbow Bolt",
+      "system": {
+        "description": {
+          "value": "<p>A Crossbow Bolt Case holds up to 20 Bolts.</p>",
+          "chat": ""
+        },
+        "price": {
+          "value": 1,
+          "denomination": "gp"
+        },
+        "quantity": 1,
+        "source": {
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
+          "revision": 1
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "properties": [],
+        "capacity": {
+          "count": 20,
+          "volume": {
+            "units": "cubicFoot"
+          },
+          "weight": {
+            "units": "lb"
+          }
+        },
+        "identifier": "case-crossbow-bolt"
+      },
+      "_id": "g4xcWQBCo886yJ1X",
+      "type": "container",
+      "folder": "uDk4FBYfcP2JnX6t",
+      "img": "icons/containers/ammunition/quiver-simple-brown.webp",
+      "effects": [],
+      "sort": 700000,
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "flags": {
+        "item-piles": {
+          "version": "3.3.4",
+          "item": {}
+        },
+        "scene-packer": {
+          "hash": "2fb4f6e06d2f38549178ab2e901fc57dc8fc6349"
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791735936487,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbagCaseCrossbo"
+      }
+    },
+    {
+      "_id": "3YKbpaYxdcoWZCJK",
+      "name": "Ink",
+      "type": "consumable",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "PHB 2024",
+          "page": "226",
+          "license": "",
+          "rules": "2024",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--2\"><p>Ink comes in a 1-ounce bottle, which provides enough ink to write about 500 pages.</p></div>",
+          "chat": ""
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "attuned": false,
+        "equipped": false,
+        "identified": true,
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        },
+        "properties": [],
+        "attunement": "",
+        "uses": {
+          "max": "1",
+          "spent": 0,
+          "recovery": [],
+          "autoDestroy": true
+        },
+        "magicalBonus": "0",
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "replace": false
+        },
+        "activities": {},
+        "identifier": "ink",
+        "unidentified": {
+          "description": ""
+        },
+        "container": null
+      },
+      "img": "systems/dnd5e/icons/svg/items/consumable.svg",
+      "flags": {
+        "plutonium": {
+          "page": "items.html",
+          "source": "XPHB",
+          "hash": "ink_xphb"
+        },
+        "item-piles": {
+          "version": "3.3.4",
+          "item": {}
+        },
+        "scene-packer": {
+          "hash": "d0422a96f30143b96ce74e4f22aa6e328be412a1"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1791735957942,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0,
       "ownership": {
         "default": 0,
         "7BMT1Aux3QVtq027": 3
       }
     },
     {
-      "name": "Scorncrow's Cloak",
-      "type": "equipment",
-      "img": "icons/equipment/back/cape-layered-tattered-brown-grey.webp",
+      "name": "Candle",
       "system": {
         "description": {
-          "value": "<p><em>Wondrous item, (requires attunement)</em></p><p>A cloak of heavy black cloth inter-woven with feathers.</p><p>You gain a +1 bonus to AC and saving throws while you wear this cloak.</p>",
+          "value": "<p>For 1 hour, a lit Candle sheds Bright Light in a 5-foot radius and Dim Light for an additional 5 feet.</p>",
           "chat": ""
         },
+        "price": {
+          "value": 1,
+          "denomination": "cp"
+        },
         "source": {
-          "custom": "DMG pg. 159",
-          "rules": "2014",
+          "custom": "",
+          "rules": "2024",
+          "license": "CC-BY-4.0",
+          "book": "",
           "revision": 1
         },
-        "quantity": 1,
-        "weight": {
-          "value": 3,
-          "units": "lb"
-        },
-        "price": {
-          "value": 3500,
-          "denomination": "gp"
-        },
-        "attunement": "required",
-        "rarity": "uncommon",
         "identified": true,
-        "cover": null,
-        "uses": {
-          "max": "",
-          "spent": 0,
-          "recovery": []
-        },
-        "armor": {
-          "value": 0,
-          "dex": 0
-        },
-        "hp": {
-          "value": 0,
-          "max": 0,
-          "dt": null,
-          "conditions": ""
-        },
-        "speed": {
-          "value": null,
-          "conditions": "",
-          "units": "ft"
-        },
-        "strength": 0,
-        "proficient": 1,
         "unidentified": {
           "description": ""
         },
-        "type": {
-          "value": "clothing",
-          "baseItem": ""
-        },
         "container": null,
-        "properties": [],
-        "identifier": "scorncrows-cloak",
-        "activities": {},
-        "crew": {
-          "value": []
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
         },
+        "rarity": "",
+        "attunement": "",
         "attuned": false,
-        "equipped": false
-      },
-      "effects": [
-        {
-          "_id": "jxfin1rh71p1xjjv",
-          "disabled": false,
-          "duration": {
-            "value": null,
-            "units": "seconds",
-            "expiry": null,
-            "expired": false
+        "equipped": false,
+        "uses": {
+          "max": "1",
+          "autoDestroy": true,
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
           },
-          "origin": "Actor.pi25oGpjW0lCFtuF.Item.USYApambBSKmmxzt",
-          "transfer": true,
-          "flags": {},
-          "tint": "#ffffff",
-          "name": "Scorncrow's Cloak",
-          "description": "",
-          "statuses": [],
-          "_stats": {
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null,
-            "coreVersion": "14.367",
-            "systemId": "dnd5e",
-            "systemVersion": "5.3.3",
-            "createdTime": 1789351659678
-          },
-          "img": "icons/equipment/back/cape-layered-tattered-brown-grey.webp",
-          "type": "base",
-          "system": {
-            "changes": [
-              {
-                "key": "system.attributes.ac.bonus",
-                "value": 1,
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
+          "replace": false
+        },
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "properties": [],
+        "activities": {
+          "8kldn9CuzuAz7dVb": {
+            "type": "utility",
+            "_id": "8kldn9CuzuAz7dVb",
+            "sort": 0,
+            "activation": {
+              "type": "",
+              "value": null,
+              "override": false,
+              "condition": ""
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
               },
-              {
-                "key": "system.bonuses.abilities.save",
-                "value": 1,
-                "priority": null,
-                "type": "add",
-                "phase": "initial"
-              }
-            ]
-          },
-          "sort": 0,
-          "start": null,
-          "showIcon": 1,
-          "folder": null
-        }
-      ],
-      "folder": "4edUBO1QohYk4728",
-      "sort": 131250,
-      "flags": {
-        "core": {}
+              "spellSlot": true,
+              "targets": [
+                {
+                  "type": "itemUses",
+                  "value": "1",
+                  "target": "",
+                  "scaling": {}
+                }
+              ]
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self",
+              "special": ""
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "type": "",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false,
+                "count": "",
+                "type": ""
+              },
+              "override": false,
+              "prompt": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": [],
+              "max": ""
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false,
+              "name": "",
+              "formula": ""
+            },
+            "name": "Light",
+            "img": "systems/dnd5e/icons/svg/trait-damage-immunities.svg",
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "candle"
       },
-      "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.lvaMqEhfidfHDGf5",
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1789351659678
-      },
-      "_id": "USYApambBSKmmxzt",
+      "_id": "e3v46iM6BS4TnKoi",
+      "type": "consumable",
+      "folder": "uDk4FBYfcP2JnX6t",
+      "img": "icons/sundries/lights/candle-unlit-tan.webp",
+      "effects": [],
+      "sort": 6550000,
       "ownership": {
         "default": 0,
         "7BMT1Aux3QVtq027": 3
+      },
+      "flags": {
+        "dnd5e": {
+          "riders": {
+            "activity": [],
+            "effect": []
+          }
+        },
+        "item-piles": {
+          "version": "3.3.4",
+          "item": {}
+        },
+        "scene-packer": {
+          "hash": "71d562e4c7c7a31a3d87607e38d4fa9b9fc16bbe"
+        }
+      },
+      "_stats": {
+        "duplicateSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791735980389,
+        "exportSource": null,
+        "compendiumSource": "Compendium.dnd5e.equipment24.Item.phbagCandle00000"
+      }
+    },
+    {
+      "_id": "ZfNksdDQEbpVNg03",
+      "name": "Archie's Crossbow Case",
+      "type": "tool",
+      "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>A crossbow case bought by Archie at the town shop. The crossbow, per the record, is not mentioned.</p><ul><li>A case, not a weapon.</li></ul><p><em>Obtained:</em> Bought from the town shop, 1 Aethel, 1040 BF.</p><p><em>On the record:</em> carried — bought 1 Aethel.</p><p><em>Waluipedia inventory <code>archie_crossbow_case</code>, held by Archie Archbold Miser — filed from <code>the_box_at_the_cottage_door</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Common",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "archie-s-crossbow-case",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "rarity": "",
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "ability": "",
+        "chatFlavor": "",
+        "proficient": null,
+        "bonus": "",
+        "activities": {}
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "archie_crossbow_case",
+          "holder": "archie_miser",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried — bought 1 Aethel"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "PWfaYa3LpY5ArjHD",
+      "name": "Archie's Ink and Candle",
+      "type": "tool",
+      "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Ink (10 gold — the same ink Remi had sold the shop moments earlier) and a candle, bought by Archie.</p><ul><li>The ink had been Remi's ten minutes earlier.</li></ul><p><em>Obtained:</em> Bought from the town shop, 1 Aethel, 1040 BF.</p><p><em>On the record:</em> carried — bought 1 Aethel.</p><p><em>Waluipedia inventory <code>archie_ink_and_candle</code>, held by Archie Archbold Miser — filed from <code>the_box_at_the_cottage_door</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Common",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "archie-s-ink-and-candle",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "rarity": "",
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "ability": "",
+        "chatFlavor": "",
+        "proficient": null,
+        "bonus": "",
+        "activities": {}
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "archie_ink_and_candle",
+          "holder": "archie_miser",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried — bought 1 Aethel"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "2333GLyx7MHAj4q5",
+      "name": "Vial of Ettercap Venom",
+      "type": "consumable",
+      "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>Venom drawn off a dead ettercap into a stoppered vial.</p><ul><li>One dose.</li><li>Drawn from the things his last Fireball killed.</li></ul><p><em>Obtained:</em> Taken off the dead of the Skittering Grove before the eight-hour rest, 1 Aethel, 1040 BF.</p><p><em>On the record:</em> carried — one dose.</p><p><em>Waluipedia inventory <code>ettercap_venom_vial</code>, held by Archie Archbold Miser — filed from <code>the_box_at_the_cottage_door</code>, <code>the_way_i_started_it</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Uncommon",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "vial-of-ettercap-venom",
+        "quantity": 1,
+        "weight": {
+          "value": 0.1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "rarity": "",
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0,
+          "autoDestroy": false
+        },
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "magicalBonus": null,
+        "activities": {}
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "ettercap_venom_vial",
+          "holder": "archie_miser",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried — one dose"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
       }
     }
   ],
@@ -19754,57 +19810,6 @@
       },
       "showIcon": 1,
       "folder": null
-    },
-    {
-      "_id": "dnd5ebloodied000",
-      "img": "systems/dnd5e/icons/svg/statuses/bloodied.svg",
-      "flags": {
-        "dnd5e": {
-          "isTemporary": true
-        },
-        "dae": {
-          "specialDuration": []
-        }
-      },
-      "name": "Bloodied",
-      "statuses": [
-        "bloodied"
-      ],
-      "showIcon": 1,
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 24,
-        "combat": "z4YJNIyHG4opLtW2",
-        "combatant": "Qq6pBQiRZngItDkL",
-        "initiative": 20,
-        "round": 2,
-        "turn": 4
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "description": "",
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
-      "folder": null,
-      "sort": 0,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1789344951433,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
     }
   ],
   "folder": "0A40B9PdH5WzraZl",
@@ -19882,7 +19887,7 @@
     "waluipedia-sheets": {
       "ledger": {
         "xpKey": "archie_miser",
-        "xp": 21030,
+        "xp": 21270,
         "level": 6
       },
       "tags": [

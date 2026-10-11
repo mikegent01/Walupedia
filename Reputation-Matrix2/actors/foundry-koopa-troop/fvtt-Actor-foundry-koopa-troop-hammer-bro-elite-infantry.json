@@ -1,0 +1,987 @@
+{
+  "name": "Hammer Bro (Elite Infantry)",
+  "type": "npc",
+  "_id": "j3LA23Bugz03B88A",
+  "img": "npc/hammer_bro_nsmbu_artwork.webp",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 16,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 14,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 14,
+        "proficient": 1,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 12,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 16,
+        "calc": "natural",
+        "formula": ""
+      },
+      "hp": {
+        "value": 45,
+        "max": 45,
+        "formula": "6d8 + 18",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "25",
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": 30
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "alignment": "neutral",
+      "type": {
+        "value": "humanoid",
+        "subtype": "koopa"
+      },
+      "cr": 3,
+      "biography": {
+        "value": "<h1>Hammer Bro — The Elite Who Earned It</h1><p>Hammer Bros are the Koopa Troop's elite infantry—koopas who distinguished themselves through combat performance and were promoted to a specialized role that combines armored durability with ranged firepower through the ancient koopa art of throwing hammers at things until those things stop being problems. They wear helmets that standard Troopas don't receive, carry an apparently infinite supply of hammers that they produce from somewhere nobody has ever adequately explained, and operate in paired teams that coordinate their throws to create overlapping fields of hammers that make approaching them an exercise in pain avoidance.</p><p>The hammers are the mystery. Hammer Bros throw hammers continuously during combat—not one or two, but DOZENS, an unending stream of spinning metal that arcs over intervening obstacles and descends on targets with trajectories that defy simple ballistics. Where the hammers come from is the subject of intense speculation among Mushroom Kingdom intelligence analysts. Some theories suggest hammerspace—a pocket dimension from which the hammers are summoned. Others suggest rapid materialization through innate magic that Hammer Bros themselves don't understand. The most prosaic theory involves hidden compartments in the shell, which would explain the hammers but not the apparent unlimited supply.</p><p>Hammer Bros are proud. They earned their helmets through performance, and they maintain their status through continued excellence. A Hammer Bro who misses consistently is demoted to standard Troopa duty, which is considered humiliating enough to motivate accuracy that borders on supernatural. They work in pairs because paired Hammer Bros are exponentially more dangerous than individual ones—while one throws, the other repositions, creating a rotating barrage that never stops and never comes from the same angle twice.</p>",
+        "public": "A helmeted koopa with an expression of professional determination and a hammer in each hand, with more hammers visible somewhere behind him in quantities that shouldn't be possible."
+      },
+      "race": "Koopa (Elite)",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "sm",
+      "languages": {
+        "value": [
+          "common",
+          "draconic"
+        ],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "skills": {
+      "ath": {
+        "value": 2,
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "value": 1,
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "source": {
+      "custom": "Custom NPC",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Hammer Bro (Elite Infantry)",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 0.6,
+    "height": 0.6,
+    "depth": 1,
+    "texture": {
+      "src": "npc/hammer_bro_nsmbu_artwork.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 0,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "monks-tokenbar": {
+        "include": "default"
+      },
+      "wall-height": {
+        "tokenHeight": 0
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "name": "Hammer Barrage",
+      "type": "weapon",
+      "img": "icons/weapons/hammers/hammer-double-stone-worn.webp",
+      "system": {
+        "description": {
+          "value": "<p>The Hammer Bro's signature attack: a rapid-fire barrage of thrown hammers that arc over obstacles and descend on targets with trajectories calculated through instinct rather than conscious math. Each hammer is a standard construction hammer—metal head, wooden handle, nothing magical about it individually—but the VOLUME and ACCURACY of the throws transforms mundane tools into a devastating ranged attack.</p><p>As an action, a Hammer Bro throws two hammers at targets it can see within 40 feet. Each hammer requires a separate attack roll (+5 to hit) and deals 1d8 + 3 bludgeoning damage on a hit. The hammers arc over half cover and three-quarters cover (though not total cover), reflecting the Hammer Bro's trained ability to throw in parabolic trajectories that bypass obstacles between thrower and target.</p><p>The unlimited supply remains unexplained. After combat, hammers thrown by Hammer Bros are found at impact sites as normal, non-magical hammers. They don't disappear. They don't return. New ones simply appear in the Hammer Bro's hands when needed. Investigation into this phenomenon has been classified as \"not worth the headache\" by the Mages' Guild.</p>",
+          "chat": "<p>Hammers arc through the air in quantities that shouldn't be possible, descending on targets with the inevitability of rain and considerably more impact.</p>"
+        },
+        "unidentified": {
+          "name": "Infinite Hammer Throws",
+          "description": "<p>This creature throws hammers in rapid succession from an apparently unlimited supply, arcing them over obstacles to reach targets.</p>"
+        },
+        "identified": false,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 8,
+            "bonus": "3",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 40,
+          "long": 80,
+          "units": "ft",
+          "reach": null
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "simpleR",
+          "baseItem": ""
+        },
+        "activities": {
+          "nRkFSw3BwlAmPwsQ": {
+            "type": "attack",
+            "_id": "nRkFSw3BwlAmPwsQ",
+            "img": null,
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "attack": {
+              "critical": {},
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "mastery": ""
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388655499,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "ASv7vmU80fWqVeth",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Hammer Bro Helmet",
+      "type": "equipment",
+      "img": "icons/equipment/head/helm-barbute-leather.webp",
+      "system": {
+        "description": {
+          "value": "<p>A reinforced helmet that distinguishes Hammer Bros from standard Troopas and provides protection against the overhead attacks that are the primary threat to koopa infantry. The helmet is earned through performance and maintained through continued excellence—losing or damaging a helmet without adequate justification results in demotion that carries social stigma among koopa military culture.</p><p>The helmet provides +1 AC (already calculated in the Hammer Bro's statistics) and grants immunity to the critical hit bonus damage from attacks originating above—the specific vulnerability that defines standard koopa infantry is partially mitigated for the elite who earned the right to wear head protection.</p>",
+          "chat": "<p>The helmet says 'I earned this.' The dent in the helmet says 'and this is why I needed it.'</p>"
+        },
+        "unidentified": {
+          "name": "Elite Infantry Helmet",
+          "description": "<p>A reinforced helmet that marks its wearer as elite infantry, providing protection that standard soldiers don't receive.</p>"
+        },
+        "identified": false,
+        "weight": {
+          "value": 3,
+          "units": "lb"
+        },
+        "equipped": true,
+        "armor": {
+          "value": 1,
+          "dex": null
+        },
+        "type": {
+          "value": "light",
+          "baseItem": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "proficient": null,
+        "properties": [],
+        "strength": null
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388655499,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "JFDU3ElvlMI3LEVC",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Paired Tactics",
+      "type": "feat",
+      "img": "icons/skills/melee/weapons-crossed-swords-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Hammer Bros operate in paired teams that coordinate their attacks for maximum effectiveness. When two Hammer Bros are within 15 feet of each other and attacking the same target, both gain advantage on their hammer throw attack rolls as the dual barrage from different angles makes effective dodging nearly impossible. Additionally, when one Hammer Bro of a pair is attacked, the other can use its reaction to throw a hammer at the attacker (+5 to hit, 1d8 + 3 bludgeoning damage), discouraging enemies from engaging either member of the pair individually.</p><p>Breaking a Hammer Bro pair—killing one, separating them, or forcing one to retreat—immediately reduces the survivor's effectiveness and morale. A lone Hammer Bro has disadvantage on attack rolls for 1 round after its partner is eliminated, as the coordination reflexes trained into paired operation produce hesitation when the expected partner isn't there.</p>",
+          "chat": "<p>They work in pairs because paired hammers create patterns that single hammers can't. Breaking the pair is priority one. Surviving the pair is priority zero.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388655499,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "jNAO7jtJHvSY5oFL",
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "name": "Platform Hopping",
+      "type": "feat",
+      "img": "icons/skills/movement/arrow-upward-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Hammer Bros hop. It's part of their fighting style—a rhythmic bouncing that keeps them in motion, makes them harder to hit, and provides the elevated launch angle that allows their hammer arcs to clear obstacles. The hopping looks ridiculous from a distance and is extremely effective from combat range, as the constant vertical movement complicates targeting for enemies trying to return fire.</p><p>While hopping (which Hammer Bros do automatically during combat), attacks against them have disadvantage if the attacker is at the same elevation or lower. Attacks from above are unaffected—the hopping provides lateral evasion, not overhead protection. The hopping also allows Hammer Bros to move across gaps up to 10 feet wide without requiring ability checks, their rhythmic bouncing carrying them across spaces that would require standard Troopas to find alternate routes.</p>",
+          "chat": "<p>Hop. Throw. Hop. Throw. The rhythm is annoying and effective in exactly equal measure.</p>"
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1790388655499,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 0,
+      "flags": {},
+      "_id": "wpXqHOkXqzsTINZH",
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": "txtt9HC0wxmSvDeo",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3,
+    "70YmMmkjqiWErYNL": 3
+  },
+  "flags": {
+    "scene-packer": {
+      "hash": "a4a42628133c0ba782f47c0670a9f7ce6fbe4b83"
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined"
+        ],
+        "reasons": [
+          "Keyword \"elite\" in name/biography → disciplined"
+        ],
+        "confidence": 0.3333333333333333,
+        "version": 3,
+        "timestamp": 1785687679511,
+        "manuallyOverridden": false
+      }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Koopa Troop"
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Koopa Troop",
+        "npc",
+        "humanoid"
+      ],
+      "color": "#006400",
+      "organized": {
+        "path": [
+          "Koopa Troop"
+        ],
+        "basis": "name-rule",
+        "from": []
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1790388655499,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": {
+      "worldId": "dnd-part-2",
+      "uuid": "Actor.voB0kOnuExqCwlQ3",
+      "coreVersion": "14.367",
+      "systemId": "dnd5e",
+      "systemVersion": "5.3.3"
+    }
+  }
+}

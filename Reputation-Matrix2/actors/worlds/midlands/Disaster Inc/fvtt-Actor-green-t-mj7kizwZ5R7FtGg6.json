@@ -776,7 +776,7 @@
     "height": 1,
     "depth": 1,
     "texture": {
-      "src": "icons/creatures/amphibians/treefrog-leaf-green.webp",
+      "src": "npc/greent.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -880,7 +880,10 @@
         }
       },
       "monks-tokenbar": {
-        "include": "default",
+        "include": [
+          "default",
+          "default"
+        ],
         "movement": null
       },
       "tokenflip": {
@@ -914,6 +917,140 @@
       },
       "custom-dnd5e": {
         "tint": "#ffffff"
+      },
+      "levels-3d-preview": {
+        "model3d": [
+          "",
+          ""
+        ],
+        "imageTexture": [
+          "",
+          ""
+        ],
+        "material": [
+          "none",
+          "none"
+        ],
+        "color": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "scale": [
+          1,
+          1
+        ],
+        "auraRange": [
+          0,
+          0
+        ],
+        "auraColor": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "ParticleType": [
+          "none",
+          "none"
+        ],
+        "ParticlePosition": [
+          "surface",
+          "surface"
+        ],
+        "enableParticleHidden": [
+          false,
+          false
+        ],
+        "ParticleIntensity": [
+          1,
+          1
+        ],
+        "ParticleSprite": [
+          "modules/levels-3d-preview/assets/particles/emberssmall.png",
+          "modules/levels-3d-preview/assets/particles/emberssmall.png"
+        ],
+        "ParticleRadius": [
+          0,
+          0
+        ],
+        "ParticleScale": [
+          1,
+          1
+        ],
+        "ParticleColor": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "ParticleColor2": [
+          "#ffffff",
+          "#ffffff"
+        ],
+        "baseColor": [
+          "",
+          ""
+        ],
+        "disableBase": [
+          false,
+          false
+        ],
+        "removeBase": [
+          true,
+          true
+        ],
+        "solidBaseMode": [
+          "default",
+          "default"
+        ],
+        "stem": [
+          false,
+          false
+        ],
+        "enableAnim": [
+          true,
+          true
+        ],
+        "animIndex": [
+          0,
+          0
+        ],
+        "animSpeed": [
+          1,
+          1
+        ],
+        "flatTokenStyle": [
+          "default",
+          "default"
+        ],
+        "forceFlyingMode": [
+          false,
+          false
+        ],
+        "autoCenter": [
+          false,
+          false
+        ],
+        "rotationX": [
+          0,
+          0
+        ],
+        "rotationY": [
+          0,
+          0
+        ],
+        "rotationZ": [
+          0,
+          0
+        ],
+        "offsetX": [
+          0,
+          0
+        ],
+        "offsetY": [
+          0,
+          0
+        ],
+        "offsetZ": [
+          0,
+          0
+        ]
       }
     },
     "randomImg": false,

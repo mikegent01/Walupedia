@@ -12,7 +12,7 @@
       "raventree_manor"
     ],
     "opened": "23 Harvestide, 1040 BF",
-    "lastFiled": "1 Aethel, 1040 BF — amended: the grove floor fought through, the whispered Fireball, Feyward Dan's fall and row 59, and the vote for the stump over Remi",
+    "lastFiled": "1 Aethel, 1040 BF — the party is out of the Shadowfell through the Midnight Fountain; Remi was delivered in a box; the Legionlance is being stormed as they watch from the town below",
     "archivist": "Waluigi, Auditor-General",
     "icon": "🏚️",
     "accent": "#8a4bff",
@@ -141,7 +141,13 @@
         "id": "thread_remi_after_the_grove",
         "title": "What about Remi",
         "status": "open",
-        "note": "Markop's question — 'what about Remi, we can't rest now' — was the only mention of Remi on the grove floor and it lost the vote: back to the stump. Remi, Wario and Mossy are on the far side of Anamatar's passage with a student ID traded for the way. The record does not show Markop agreeing to the vote."
+        "note": "Markop's question — 'what about Remi, we can't rest now' — was the only mention of Remi on the grove floor and it lost the vote: back to the stump. Remi, Wario and Mossy are on the far side of Anamatar's passage with a student ID traded for the way. The record does not show Markop agreeing to the vote. FILED 1 Aethel, later: Remi was delivered to Tymnas's door in a box by Green T, asleep, and has no account of how. The question is no longer where she was. It is who sent her and why a courier from the Syndicate was involved."
+      },
+      {
+        "id": "thread_the_forgotten_condition",
+        "title": "The oracle's condition nobody can source",
+        "status": "open",
+        "note": "Archie states a condition — kill the oracle or never leave — with no memory of where it came from. The party left by the Midnight Fountain without doing it. The archive has one contract that fits (Anamatar's, on the rooftop) and no evidence Archie is speaking of it."
       }
     ],
     "leads": [
@@ -596,9 +602,9 @@
       {
         "id": "lead_the_week_at_the_stump",
         "title": "Can the party rest a week at the stump",
-        "status": "open",
+        "status": "closed",
         "priority": "high",
-        "why": "Dan's thumb is a week on the rule; Eager is on two hit points; Archie has no spells; Salam is weak. The stump is inside a grove the Legion treated as its ground and the record has lost track of the Legion. A rest at the stump is a plan with the same shape as the last one.",
+        "why": "Dan's thumb is a week on the rule; Eager is on two hit points; Archie has no spells; Salam is weak. The stump is inside a grove the Legion treated as its ground and the record has lost track of the Legion. A rest at the stump is a plan with the same shape as the last one. CLOSED 1 Aethel, later: the party rested eight hours in Tymnas's cottage, not at the stump, and the stump burned down while they did.",
         "exhibits": []
       },
       {
@@ -607,6 +613,50 @@
         "status": "open",
         "priority": "low",
         "why": "The signal was made — by Archie, for Dan — and nobody retreated on it, because it meant something else. The arrangement is spent and should not be reused without a new word.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_who_sent_the_box",
+        "title": "Ask Green T who the friend was",
+        "status": "open",
+        "priority": "high",
+        "why": "Green T delivered Remi 'from a friend, an associate of the Green Tea Syndicate.' Markop asked who and was answered by Archie stopping mid-word. Green T is the only person in the record who knows, and he followed the party out at a walking pace.",
+        "exhibits": [
+          "ex_the_delivery_box"
+        ]
+      },
+      {
+        "id": "lead_the_far_side",
+        "title": "Count who is still in the Shadowfell",
+        "status": "open",
+        "priority": "high",
+        "why": "Bones, Hjumpik and Toad Lee were left on the other side of the beam and nobody at the fountain said so. The exit that brought the party out burned behind them. Any return needs a second ritual or a different door.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_the_oracle_debt",
+        "title": "Find out what the oracle condition cost",
+        "status": "open",
+        "priority": "medium",
+        "why": "Archie chose the ritual over the oracle. If the condition was real, the party left without paying it. If it was Anamatar's, he has not been told.",
+        "exhibits": [
+          "ex_the_forgotten_condition"
+        ]
+      },
+      {
+        "id": "lead_the_legionlance_storm",
+        "title": "Establish who took the Legionlance",
+        "status": "open",
+        "priority": "high",
+        "why": "Markop saw Toads in rags storming the ship, a flag raised and trumpets. The party's claim on it is 'our group.' The outcome is not on the record, and the Legion gate guard had just called the ship his.",
+        "exhibits": []
+      },
+      {
+        "id": "lead_rudy_lee",
+        "title": "Meet Rudy Lee before agreeing to be fitted",
+        "status": "open",
+        "priority": "low",
+        "why": "Dan has a name and a rumour that the work is done while the patient is awake, 'not sure' why. He said 'got it' and asked nothing further.",
         "exhibits": []
       }
     ],
@@ -724,6 +774,12 @@
         "label": "The Way I Started It — the scream made for the wrong reason, the whispered Fireball over Dan's body, two hit points, and the fist that closed the grove",
         "date": "1 Aethel, 1040 BF",
         "event": "the_way_i_started_it"
+      },
+      {
+        "id": "s_the_box_at_the_cottage_door",
+        "label": "The Box at the Cottage Door — the exit burns, Remi arrives in a parcel, the Midnight Fountain is lit, and the party walks out under a Legion flag",
+        "date": "1 Aethel, 1040 BF",
+        "event": "the_box_at_the_cottage_door"
       }
     ],
     "relatedEvents": [
@@ -746,7 +802,8 @@
       "judgement_in_the_grove",
       "the_shepherds_garden_and_the_three_week_clock",
       "the_airlift_that_never_came",
-      "the_way_i_started_it"
+      "the_way_i_started_it",
+      "the_box_at_the_cottage_door"
     ],
     "exhibits": [
       {
@@ -1450,6 +1507,57 @@
             "pierce_anamatar",
             "remi_akamatsu_full_backstory",
             "wario"
+          ]
+        }
+      },
+      {
+        "id": "ex_the_delivery_box",
+        "session": "s_the_box_at_the_cottage_door",
+        "icon": "📦",
+        "kind": "note",
+        "category": "custody",
+        "title": "The box on Tymnas's step",
+        "secured": "1 Aethel, 1040 BF · the cottage door, opened by Markop after Archie carried it in",
+        "custody": "Green T, as courier; the sender is 'a friend, an associate of the Green Tea Syndicate'",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(90,60,30,.35),rgba(12,10,8,.96));border:1px solid rgba(224,180,0,.3)\"><div style=\"position:absolute;left:18px;top:16px;font-size:34px\">📦</div><div style=\"position:absolute;left:18px;bottom:16px;color:#e0c07a;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">One girl, one lid</div><div style=\"position:absolute;right:18px;top:18px;color:#8b8398;font-size:11px;text-align:right;line-height:1.5\">Delivered<br>sender unnamed</div></div>",
+        "dc": 4,
+        "onRecord": "A heavy box, delivered by Green T, 'from a friend — an associate of the Green Tea Syndicate.' Archie took it from the step, Markop opened it, and Remi was asleep inside. Markop asked who the friend was and Archie answered by stopping in the middle of a word. [[roll:4|Ask who could have put her there|Nobody in the room could say. Green T said he had been gathering backup and that the plan failed 'when no one showed up' — the same hours Remi was out of sight. He does not say he found her.|The box is simply a box. Remi says she sleepwalked, and the table lets that stand.]]",
+        "analysis": "## Who packs a sleeping child for delivery\n\nThe sentence in the record that matters is Green T's: *I've got a delivery from you.* It is addressed to the party and it names a sender the party is not supposed to recognise. Archie recognised it well enough to start saying *dead*.\n\nThree things are established. Green T was away from the cottage when the party rested. He says he was gathering fey, and that nobody came. And whoever packed the box knew where to send it.\n\nWhat is not established is how Remi got from the far side of Anamatar's passage to a box on a step. Her own account is a theory about sleepwalking. A box that size carried by a man who was elsewhere is not a sleepwalk.\n\nI am not filing a conspiracy. I am filing that the Tea Syndicate was called destroyed in this room, in the same breath, by the man who had just taken delivery from it.",
+        "links": {
+          "events": [
+            "the_box_at_the_cottage_door",
+            "green_t_at_the_door_and_the_scorncrow_underfoot"
+          ],
+          "characters": [
+            "green_t",
+            "remi_akamatsu_full_backstory",
+            "archie_miser",
+            "markop"
+          ]
+        }
+      },
+      {
+        "id": "ex_the_forgotten_condition",
+        "session": "s_the_box_at_the_cottage_door",
+        "icon": "🕯️",
+        "kind": "note",
+        "category": "testimony",
+        "title": "Archie's half-remembered condition",
+        "secured": "uncorroborated",
+        "custody": "Archie's own account, 1 Aethel, 1040 BF, spoken to Markop in Tymnas's cottage",
+        "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,rgba(90,60,30,.35),rgba(12,10,8,.96));border:1px solid rgba(224,180,0,.3)\"><div style=\"position:absolute;left:18px;top:16px;font-size:34px\">🕯️</div><div style=\"position:absolute;left:18px;bottom:16px;color:#e0c07a;font-size:11px;letter-spacing:.14em;text-transform:uppercase\">A condition he cannot place</div><div style=\"position:absolute;right:18px;top:18px;color:#8b8398;font-size:11px;text-align:right;line-height:1.5\">Said once<br>not repeated</div></div>",
+        "dc": 5,
+        "onRecord": "'I want to kill the oracle, based on a conversation I had. We kill it or we're stuck here forever. I don't remember the conversation, but I know that if I don't kill the oracle I may never leave here.' Asked why: 'The person who ordered the condition is a jerk.' Markop told him he had left this dimension eight hours ago. Archie said he had thought it was days. [[roll:5|Set it beside the rooftop contract|On the Shadow Estate rooftop a man who trades in possessions took a contract to kill the Oracle in exchange for sending the party home. Archie is describing that contract without its author.|Nothing in the record connects the two. Archie forgot a conversation and no one at the table remembered it for him.]]",
+        "analysis": "## A debt held by the man who can't spell it\n\nArchie has the terms of a contract and none of the signature. *Kill the oracle or stay.* *The person who ordered the condition is a jerk.* There is only one filed contract in this archive with that shape: Pierce Anamatar's, struck on the Shadow Estate rooftop, kill the Oracle and the party goes home.\n\nThe party went home anyway. They went by the Midnight Fountain, lit by Green T, with the Oracle alive and unvisited. Either the contract's condition was never a real gate, or the party left without paying it.\n\nA man who trades in other people's possessions and is owed a death does not have to be in the room to collect. Archie said it himself: he left this dimension eight hours ago and thinks it was days. His sense of what is owed is running on a different clock from everyone else's.\n\nI am not filing a threat. I am filing that Archie chose the ritual over the oracle in one sentence and has not been told what that cost.",
+        "links": {
+          "events": [
+            "the_box_at_the_cottage_door",
+            "shadow_estate_session_Harvestside_14_continued"
+          ],
+          "characters": [
+            "archie_miser",
+            "pierce_anamatar",
+            "markop"
           ]
         }
       }

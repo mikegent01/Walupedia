@@ -524,7 +524,7 @@
         "override": null
       },
       "spell1": {
-        "value": 1,
+        "value": 3,
         "override": 3
       },
       "spell2": {
@@ -571,10 +571,10 @@
         "formula": ""
       },
       "hp": {
-        "value": 7,
+        "value": 25,
         "max": 25,
-        "temp": 5,
-        "tempmax": -6,
+        "temp": 0,
+        "tempmax": 0,
         "bonuses": {
           "overall": "",
           "level": ""
@@ -656,7 +656,7 @@
       "background": "Dimensional Escapee / Oathbound Survivor",
       "originalClass": "y7l5pkLwSvPqL7Ba",
       "xp": {
-        "value": 1960
+        "value": 2180
       },
       "appearance": "A one-armed Toad with a colorful Feywild aura, a scar from the Estragon Island escape, and a third multi-dimensional sensory eye. The missing arm is permanent in the current record; no prosthetic is assumed.",
       "trait": "I apologize to the room first. Then I test the window—with the arm I have.",
@@ -5603,7 +5603,7 @@
               "type": "recoverAll"
             }
           ],
-          "spent": 15
+          "spent": 0
         },
         "type": {
           "value": "class",
@@ -6196,7 +6196,7 @@
                 }
               ],
               "max": "1",
-              "spent": 1
+              "spent": 0
             },
             "spell": {
               "uuid": "Compendium.plutonium-faux-id--7b22746167223a227370656c6c222c2274657874223a22646976696e6520736d6974657c78706862227d.custom.Item.0000000000000000",
@@ -8335,7 +8335,7 @@
               "formula": "1"
             }
           ],
-          "spent": 1
+          "spent": 0
         },
         "type": {
           "value": "class",
@@ -11671,7 +11671,7 @@
           "value": []
         },
         "attuned": false,
-        "equipped": true
+        "equipped": false
       },
       "_id": "DVPEYCP6BQuOXTQG",
       "type": "equipment",
@@ -12561,6 +12561,361 @@
         "default": 0,
         "7BMT1Aux3QVtq027": 3
       }
+    },
+    {
+      "name": "Shortsword",
+      "type": "weapon",
+      "img": "icons/weapons/swords/sword-guard-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>A medium sized blade with a firm crossguard and a leather-wrapped handle. A versatile weapon which makes up in versatility what it lacks in reach.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "",
+          "book": "SRD 5.1",
+          "page": "",
+          "license": "CC-BY-4.0",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "quantity": 5,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 1,
+            "denomination": 6,
+            "bonus": "",
+            "types": [
+              "piercing"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "fin",
+          "lgt"
+        ],
+        "type": {
+          "value": "martialM",
+          "baseItem": "shortsword"
+        },
+        "unidentified": {
+          "description": ""
+        },
+        "container": "SpPPrYU00xxaxu1I",
+        "activities": {
+          "N7wI00xBpyoTStXF": {
+            "_id": "N7wI00xBpyoTStXF",
+            "type": "attack",
+            "sort": 0,
+            "activation": {
+              "type": "action",
+              "value": null,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "override": false,
+              "units": "self"
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false,
+              "prompt": true
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "attack": {
+              "critical": {
+                "threshold": null
+              },
+              "flat": false,
+              "type": {}
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "identifier": "shortsword",
+        "ammunition": {},
+        "proficient": null,
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "folder": "pOAh0mmFrtbGtDAr",
+      "sort": 600000,
+      "flags": {
+        "core": {},
+        "scene-packer": {
+          "hash": "72da756812973c543e43950e298f9073974d415f"
+        },
+        "item-piles": {
+          "item": {}
+        },
+        "item-durability": {
+          "durability": 100,
+          "maxDurability": 100,
+          "max": 120,
+          "cur": 120
+        },
+        "team-initiative": {
+          "max": 120,
+          "cur": 120
+        },
+        "world": {
+          "itemDurability": {
+            "max": 120,
+            "cur": 120
+          },
+          "durability": {
+            "cur": 500,
+            "max": 500
+          }
+        },
+        "item-identification": {
+          "isIdentified": true,
+          "processed": true
+        },
+        "dnd5e": {}
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.Item.osLzOwQdPtrK3rQH",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1791736344299
+      },
+      "_id": "OXfirmwiGtc87kxw",
+      "ownership": {
+        "default": 0,
+        "p6LsOjpmBsnR9V8p": 3
+      }
+    },
+    {
+      "_id": "E6ZXEYeGoE7IQGra",
+      "name": "Giant Spider Fang",
+      "type": "loot",
+      "img": "icons/commodities/biological/mouth-toothed-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>A fang the length of a hand, pulled from one of the grove's giant spiders.</p><ul><li>Hollow, and still sharp.</li></ul><p><em>Obtained:</em> Taken off the dead of the Skittering Grove before the eight-hour rest, 1 Aethel, 1040 BF.</p><p><em>On the record:</em> carried.</p><p><em>Waluipedia inventory <code>giant_spider_fang</code>, held by Dan (The Parallel Paradox) — filed from <code>the_box_at_the_cottage_door</code>, <code>the_way_i_started_it</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Common",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "giant-spider-fang",
+        "quantity": 1,
+        "weight": {
+          "value": 0.5,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "giant_spider_fang",
+          "holder": "dan_the_toad",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
     }
   ],
   "effects": [
@@ -12622,57 +12977,6 @@
       },
       "showIcon": 1,
       "folder": null
-    },
-    {
-      "_id": "dnd5ebloodied000",
-      "img": "systems/dnd5e/icons/svg/statuses/bloodied.svg",
-      "flags": {
-        "dnd5e": {
-          "isTemporary": true
-        },
-        "dae": {
-          "specialDuration": []
-        }
-      },
-      "name": "Bloodied",
-      "statuses": [
-        "bloodied"
-      ],
-      "showIcon": 1,
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "z4YJNIyHG4opLtW2",
-        "combatant": "RxSRshiXOIN4MiiT",
-        "initiative": 10,
-        "round": 8,
-        "turn": 11
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "description": "",
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
-      "folder": null,
-      "sort": 0,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791126174319,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
     }
   ],
   "folder": "0A40B9PdH5WzraZl",
@@ -12751,7 +13055,7 @@
     "waluipedia-sheets": {
       "ledger": {
         "xpKey": "dan_the_toad",
-        "xp": 1960,
+        "xp": 2180,
         "level": 3
       },
       "tags": [

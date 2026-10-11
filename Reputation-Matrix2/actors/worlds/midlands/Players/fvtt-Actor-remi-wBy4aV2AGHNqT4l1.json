@@ -6,10 +6,10 @@
   "system": {
     "currency": {
       "pp": 0,
-      "gp": 35,
+      "gp": 110,
       "ep": 0,
       "sp": 6,
-      "cp": 0,
+      "cp": 2,
       "IETzTwoDi4ElBJAV": 0
     },
     "abilities": {
@@ -594,10 +594,10 @@
     },
     "spells": {
       "spell1": {
-        "value": 0
+        "value": 3
       },
       "spell2": {
-        "value": 1
+        "value": 3
       },
       "spell3": {
         "value": 0
@@ -672,10 +672,10 @@
       },
       "loyalty": {},
       "hp": {
-        "value": 19,
+        "value": 48,
         "max": null,
         "temp": null,
-        "tempmax": -4,
+        "tempmax": 0,
         "bonuses": {
           "overall": "",
           "level": ""
@@ -713,7 +713,7 @@
       "background": "BkyriYRokh5UQVdo",
       "originalClass": "tWpbxRlbWXy6BkXd",
       "xp": {
-        "value": 31258
+        "value": 31518
       },
       "appearance": "",
       "trait": "When the sea is within my sight, my mood is jovial and optimistic.\n\nI enjoy being out in nature; poor weather never sours my mood.",
@@ -967,68 +967,6 @@
     "prependAdjective": false
   },
   "items": [
-    {
-      "name": "Expired Coupon for Angel 24",
-      "type": "loot",
-      "img": "systems/dnd5e/icons/svg/items/loot.svg",
-      "system": {
-        "description": {
-          "value": "<p>A coupon for a free soda. It is expired. A social relic.</p>",
-          "chat": ""
-        },
-        "identifier": "new-item",
-        "source": {
-          "revision": 1,
-          "rules": "2024"
-        },
-        "identified": true,
-        "unidentified": {
-          "description": "",
-          "name": "Unidentified Loot"
-        },
-        "container": null,
-        "quantity": 1,
-        "weight": {
-          "value": 0,
-          "units": "lb"
-        },
-        "price": {
-          "value": 0,
-          "denomination": "gp"
-        },
-        "rarity": "",
-        "properties": [],
-        "type": {
-          "value": "",
-          "subtype": ""
-        }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 100000,
-      "flags": {
-        "scene-packer": {
-          "hash": "6f640b4c76fb62ffbe1b7291a4b88b8046a01371"
-        },
-        "item-identification": {
-          "isIdentified": true,
-          "processed": true
-        }
-      },
-      "_stats": {
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730402512
-      },
-      "_id": "rXA3ILF4AUsMkAs1",
-      "ownership": {
-        "default": 0
-      }
-    },
     {
       "name": "Clothes, Traveler's",
       "system": {
@@ -19348,67 +19286,6 @@
       }
     },
     {
-      "name": ".38 special bullet casing",
-      "type": "loot",
-      "img": "systems/dnd5e/icons/svg/items/loot.svg",
-      "system": {
-        "description": {
-          "value": "",
-          "chat": ""
-        },
-        "identifier": "loot",
-        "source": {
-          "revision": 1,
-          "rules": "2024"
-        },
-        "identified": true,
-        "unidentified": {
-          "description": ""
-        },
-        "container": null,
-        "quantity": 1,
-        "weight": {
-          "value": 0,
-          "units": "lb"
-        },
-        "price": {
-          "value": 0,
-          "denomination": "gp"
-        },
-        "rarity": "",
-        "properties": [],
-        "type": {
-          "value": "",
-          "subtype": ""
-        }
-      },
-      "effects": [],
-      "folder": null,
-      "sort": 600000,
-      "flags": {
-        "scene-packer": {
-          "hash": "3a37361601bf361dbec69ecb74feca7eb95da245"
-        },
-        "item-identification": {
-          "isIdentified": true,
-          "processed": true
-        }
-      },
-      "_stats": {
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730402512
-      },
-      "_id": "D0AhS2pEFxYXwXlZ",
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "folder": "j2wyqXVa3J737WSF",
       "name": "Infinity Goblet (Blue)",
       "type": "loot",
@@ -26940,92 +26817,6 @@
       }
     },
     {
-      "_id": "utceph8rZhxX22t6",
-      "name": "Ink",
-      "type": "consumable",
-      "system": {
-        "source": {
-          "custom": "",
-          "book": "PHB 2024",
-          "page": "226",
-          "license": "",
-          "rules": "2024",
-          "revision": 1
-        },
-        "description": {
-          "value": "<div class=\"ve-rd__b  ve-rd__b--2\"><p>Ink comes in a 1-ounce bottle, which provides enough ink to write about 500 pages.</p></div>",
-          "chat": ""
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 0,
-          "units": "lb"
-        },
-        "price": {
-          "value": 10,
-          "denomination": "gp"
-        },
-        "attuned": false,
-        "equipped": false,
-        "identified": true,
-        "rarity": "",
-        "type": {
-          "value": "",
-          "subtype": ""
-        },
-        "properties": [],
-        "attunement": "",
-        "uses": {
-          "max": "1",
-          "spent": 0,
-          "recovery": [],
-          "autoDestroy": true
-        },
-        "magicalBonus": "0",
-        "damage": {
-          "base": {
-            "types": [],
-            "custom": {
-              "enabled": false
-            },
-            "scaling": {
-              "number": 1
-            }
-          },
-          "replace": false
-        },
-        "activities": {},
-        "identifier": "ink",
-        "unidentified": {
-          "description": ""
-        },
-        "container": null
-      },
-      "img": "systems/dnd5e/icons/svg/items/consumable.svg",
-      "flags": {
-        "plutonium": {
-          "page": "items.html",
-          "source": "XPHB",
-          "hash": "ink_xphb"
-        }
-      },
-      "effects": [],
-      "_stats": {
-        "systemVersion": "5.3.3",
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "createdTime": 1788730402512,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "folder": null,
-      "sort": 0,
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "_id": "KJ6tmheIAaHQcmo8",
       "name": "Ink Pen",
       "type": "equipment",
@@ -27477,69 +27268,6 @@
       },
       "folder": null,
       "sort": 0,
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
-      "_id": "ctSbHCMwQcOhw0nv",
-      "name": "Book About Plant Identification",
-      "type": "loot",
-      "system": {
-        "source": {
-          "custom": "",
-          "book": "SCC",
-          "page": "36",
-          "license": "",
-          "rules": "2014",
-          "revision": 1
-        },
-        "description": {
-          "value": "",
-          "chat": ""
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 0,
-          "units": "lb"
-        },
-        "price": {
-          "value": 0,
-          "denomination": "gp"
-        },
-        "identified": true,
-        "rarity": "",
-        "type": {
-          "value": "junk",
-          "subtype": ""
-        },
-        "properties": [],
-        "identifier": "book-about-plant-identification",
-        "unidentified": {
-          "description": ""
-        },
-        "container": null
-      },
-      "img": "modules/plutonium/media/icon/battle-gear.svg",
-      "flags": {
-        "plutonium": {
-          "page": "items.html",
-          "source": "SCC",
-          "hash": "book%20about%20plant%20identification_scc"
-        }
-      },
-      "effects": [],
-      "_stats": {
-        "systemVersion": "5.3.3",
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "createdTime": 1788730402512,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "folder": null,
-      "sort": 1100000,
       "ownership": {
         "default": 0
       }
@@ -28854,61 +28582,73 @@
         "duplicateSource": null,
         "exportSource": null
       }
-    }
-  ],
-  "effects": [
+    },
     {
-      "_id": "dnd5ebloodied000",
-      "img": "systems/dnd5e/icons/svg/statuses/bloodied.svg",
-      "flags": {
-        "dnd5e": {
-          "isTemporary": true
+      "_id": "H1BKsyGsmRrC01Bc",
+      "name": "Remi's Brain Juice",
+      "type": "consumable",
+      "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>A container of brain juice found in Remi's inventory. She does not remember acquiring it.</p><ul><li>'Brain juice? When did I have brain juice?'</li></ul><p><em>Obtained:</em> Found in her inventory, 1 Aethel, 1040 BF; origin unknown.</p><p><em>On the record:</em> carried — origin unknown.</p><p><em>Waluipedia inventory <code>remi_brain_juice</code>, held by Remi Akamatsu  — filed from <code>the_box_at_the_cottage_door</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
         },
-        "dae": {
-          "specialDuration": []
+        "source": {
+          "custom": "Waluipedia inventory — Unknown",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "remi-s-brain-juice",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "rarity": "",
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0,
+          "autoDestroy": false
+        },
+        "type": {
+          "value": "trinket",
+          "subtype": ""
+        },
+        "magicalBonus": null,
+        "activities": {}
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "remi_brain_juice",
+          "holder": "remi_akamatsu_full_backstory",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried — origin unknown"
         }
       },
-      "name": "Bloodied",
-      "statuses": [
-        "bloodied"
-      ],
-      "showIcon": 1,
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "z4YJNIyHG4opLtW2",
-        "combatant": "r92jCS4YgnSzAaIN",
-        "initiative": 21,
-        "round": 6,
-        "turn": 3
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "description": "",
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
       "folder": null,
-      "sort": 0,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1789919505767,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
+      "ownership": {
+        "default": 0
       }
     }
   ],
+  "effects": [],
   "folder": "0A40B9PdH5WzraZl",
   "sort": 150000,
   "ownership": {
@@ -29005,7 +28745,7 @@
     "waluipedia-sheets": {
       "ledger": {
         "xpKey": "remi_akamatsu_full_backstory",
-        "xp": 31258,
+        "xp": 31518,
         "level": 7
       },
       "tags": [

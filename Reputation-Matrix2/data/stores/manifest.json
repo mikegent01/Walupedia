@@ -1,7 +1,7 @@
 {
   "events": {
     "bundle": "events.json",
-    "n": 133,
+    "n": 134,
     "order": [
       "campaign_songs_archive",
       "collapse_of_blackfen_pass",
@@ -134,8 +134,9 @@
       "the_debt_siege_and_the_sixty_thirty_split",
       "the_rot_zone_at_star_hill",
       "the_unlocked_cell_955_bf",
+      "feyward_the_soul_ring_and_the_twenty_one_day_cut",
       "the_way_i_started_it",
-      "feyward_the_soul_ring_and_the_twenty_one_day_cut"
+      "the_box_at_the_cottage_door"
     ],
     "shards": {
       "campaign_songs_archive": "events/material/1040-a.json",
@@ -270,12 +271,13 @@
       "the_rot_zone_at_star_hill": "events/material/1035-aethel.json",
       "the_unlocked_cell_955_bf": "events/material/955-efferd.json",
       "the_way_i_started_it": "events/shadeward/1040-aethel.json",
-      "feyward_the_soul_ring_and_the_twenty_one_day_cut": "events/feyward/922.json"
+      "feyward_the_soul_ring_and_the_twenty_one_day_cut": "events/feyward/922.json",
+      "the_box_at_the_cottage_door": "events/shadeward/1040-aethel.json"
     }
   },
   "characters": {
     "bundle": "characters.json",
-    "n": 257,
+    "n": 259,
     "order": [
       "dracule_mihawk",
       "sans",
@@ -533,7 +535,9 @@
       "koopa_killer_killa",
       "goomba_who_took_his_chances",
       "july_summer_miser",
-      "quartermaster_cornburary"
+      "quartermaster_cornburary",
+      "mr_shock",
+      "rudy_lee"
     ],
     "shards": {
       "dracule_mihawk": "characters/material-a.json",
@@ -792,12 +796,14 @@
       "koopa_killer_killa": "characters/material-e.json",
       "goomba_who_took_his_chances": "characters/material-e.json",
       "july_summer_miser": "characters/material-e.json",
-      "quartermaster_cornburary": "characters/feyward.json"
+      "quartermaster_cornburary": "characters/feyward.json",
+      "mr_shock": "characters/material-b.json",
+      "rudy_lee": "characters/material-b.json"
     }
   },
   "locations": {
     "bundle": "locations.json",
-    "n": 76,
+    "n": 77,
     "order": [
       "mount_ebott",
       "snowdin_town",
@@ -874,7 +880,8 @@
       "anamatar_den",
       "nintendo_mania_studio",
       "waluigis_outpost",
-      "fawfuls_bean_badge"
+      "fawfuls_bean_badge",
+      "town_beneath_the_legionlance"
     ],
     "shards": {
       "mount_ebott": "locations/material-a.json",
@@ -952,7 +959,8 @@
       "anamatar_den": "locations/shadeward.json",
       "nintendo_mania_studio": "locations/unsorted.json",
       "waluigis_outpost": "locations/material-b.json",
-      "fawfuls_bean_badge": "locations/material-b.json"
+      "fawfuls_bean_badge": "locations/material-b.json",
+      "town_beneath_the_legionlance": "locations/material-b.json"
     }
   },
   "battles": {
@@ -1305,7 +1313,7 @@
   },
   "commentaries": {
     "bundle": "commentaries.json",
-    "n": 17,
+    "n": 18,
     "order": [
       "promo_mario_newspaper_commentary",
       "the_belly_of_the_beast_commentary",
@@ -1323,7 +1331,8 @@
       "the_cut_and_the_puppet_master_commentary",
       "the_rot_zone_at_star_hill_commentary",
       "the_unlocked_cell_955_bf_commentary",
-      "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary"
+      "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary",
+      "the_box_at_the_cottage_door_commentary"
     ],
     "shards": {
       "promo_mario_newspaper_commentary": "commentaries/promo_mario_newspaper_commentary.json",
@@ -1342,7 +1351,8 @@
       "the_cut_and_the_puppet_master_commentary": "commentaries/the_cut_and_the_puppet_master_commentary.json",
       "the_rot_zone_at_star_hill_commentary": "commentaries/the_rot_zone_at_star_hill_commentary.json",
       "the_unlocked_cell_955_bf_commentary": "commentaries/the_unlocked_cell_955_bf_commentary.json",
-      "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary": "commentaries/feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary.json"
+      "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary": "commentaries/feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary.json",
+      "the_box_at_the_cottage_door_commentary": "commentaries/the_box_at_the_cottage_door_commentary.json"
     },
     "wrapper": "commentaries",
     "readme": "Waluigi's Cut — the comedy commentary mode. NOT an analysis and NOT an investigation. An analysis argues a thesis about a filing; a commentary RETELLS the whole story in Waluigi's voice with his opinions cut into it constantly. The story must survive on its own: a reader who has never opened the source article should get the full sequence of events here. The difference is that Waluigi will not shut up while telling it. House rules in docs/COMMENTARY_MODE_GUIDE.md. Voice target measured off spider_grove_battle: >=18 'Waluigi'/1k, >=25 CAPS/1k, an interruption at least every 3rd sentence, and no invented facts."

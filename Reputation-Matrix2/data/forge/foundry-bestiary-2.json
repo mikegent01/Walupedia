@@ -1,0 +1,58 @@
+{
+  "format": "waluipedia-forge-roster/1",
+  "packet": "foundry-bestiary-2",
+  "name": "Bestiary",
+  "title": "Bestiary — existing NPCs from Foundry world midlands",
+  "faction": null,
+  "group": "Bestiary",
+  "color": "#888888",
+  "disposition": -1,
+  "file_prefix": "fvtt-Actor-foundry-bestiary-2-",
+  "portraits": "portraits/foundry-bestiary-2",
+  "renders": "npc-forge/foundry-bestiary-2/renders",
+  "source": "Foundry world mirror: actors/worlds/midlands/Bestiary",
+  "foundry_source": {
+    "world": "midlands",
+    "group": "Bestiary"
+  },
+  "style_preset": "gritty",
+  "style": "Gritty dark fantasy illustration, heavy inked comic linework, cross-hatching, textured parchment paper, muted desaturated palette, semi-realistic proportions, detailed character concept art.",
+  "framing": "Full body, whole figure visible, three-quarter view, centred, isolated on a plain flat solid magenta background (#FF00FF), no floor, no ground shadow, no text, no border.",
+  "negative": "photorealistic, 3d render, blurry, cropped, cut off, multiple characters, text, watermark, signature, border, frame, ground shadow, floor, background scenery, gradient background",
+  "background": "#FF00FF",
+  "render_size": [
+    1408,
+    768
+  ],
+  "plate_size": 512,
+  "subfolders": {
+    "Humanoid": {
+      "color": "#888888",
+      "description": "Existing Foundry folder under Bestiary."
+    }
+  },
+  "entries": [
+    {
+      "id": "commoner",
+      "name": "Commoner",
+      "folder": "Humanoid",
+      "tier": "Foundry NPC",
+      "role": "Existing Foundry NPC",
+      "cr": 0,
+      "type": "humanoid",
+      "size": "med",
+      "token_size": 1,
+      "look": "Commoner @Embed[Compendium.dnd5e.content24.JournalEntry.mmAppendixMonste.JournalEntryPage.M7bvUVFcncRjraJP caption=false cite=false classes=\"no-embed mm free-rules-embed\"] Token artwork by Forgotten Adventures .",
+      "seed": 600001,
+      "source_actor": "worlds/midlands/Bestiary/Humanoid/fvtt-Actor-commoner-ak3bMCNiHYY4BQNv.json",
+      "source_actor_id": "ak3bMCNiHYY4BQNv",
+      "source_folder_path": [
+        "Bestiary",
+        "Humanoid"
+      ],
+      "source_img": null,
+      "base_image": null,
+      "source_has_img": true
+    }
+  ]
+}

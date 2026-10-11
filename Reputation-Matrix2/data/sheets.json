@@ -9,9 +9,9 @@
     "folderScheme": "actors/folders.json",
     "castImport": "actors/cast/import.json",
     "counts": {
-      "characters": 257,
-      "sheets": 251,
-      "generated": 4,
+      "characters": 259,
+      "sheets": 253,
+      "generated": 6,
       "eras": 3,
       "existing": 247,
       "party": 18,
@@ -204,7 +204,7 @@
       "hp": 42,
       "speed": "30",
       "size": "med",
-      "items": 100,
+      "items": 103,
       "ac": 11,
       "level": 6,
       "classes": [
@@ -1413,8 +1413,8 @@
       "hp": 25,
       "speed": "30",
       "size": "sm",
-      "items": 63,
-      "ac": 18,
+      "items": 65,
+      "ac": 16,
       "acApprox": true,
       "level": 3,
       "classes": [
@@ -1734,7 +1734,7 @@
       "hp": 31,
       "speed": "30",
       "size": "sm",
-      "items": 60,
+      "items": 66,
       "ac": 15,
       "level": 4,
       "classes": [
@@ -4168,7 +4168,7 @@
       "hp": 77,
       "speed": "40",
       "size": "med",
-      "items": 120,
+      "items": 122,
       "ac": 18,
       "acApprox": true,
       "level": 8,
@@ -4515,6 +4515,54 @@
         "hitDie": "d8",
         "formula": "3d8 + 3"
       },
+      "versions": []
+    },
+    {
+      "id": "mr_shock",
+      "name": "Mr. Shock",
+      "title": "The Gate Guard Who Was Just a Bit Twitchy",
+      "sheetName": "Mr. Shock",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-mr_shock.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Iron Legion",
+      "portrait": "",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "soldier",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "Active — Legionlance gate detail; swung a shock baton at Remi and missed, and explained that anyone crossing the threshold ends up in Legion custody",
+          "source": "article"
+        },
+        {
+          "feature": "Iron Discipline",
+          "quote": "Iron Legion",
+          "source": "article"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 15,
+        "dex": 12,
+        "con": 14,
+        "int": 10,
+        "wis": 11,
+        "cha": 10
+      },
+      "hp": 19,
+      "speed": "30",
+      "size": "med",
+      "items": 2,
+      "ac": 14,
+      "cr": 0.5,
+      "type": "humanoid",
       "versions": []
     },
     {
@@ -5595,7 +5643,7 @@
       "hp": null,
       "speed": null,
       "size": "sm",
-      "items": 132,
+      "items": 129,
       "ac": 14,
       "acApprox": true,
       "level": 7,
@@ -5773,6 +5821,54 @@
       "items": 2,
       "ac": 14,
       "cr": 1,
+      "type": "humanoid",
+      "versions": []
+    },
+    {
+      "id": "rudy_lee",
+      "name": "Rudy Lee",
+      "title": "The Prosthetist Who Works While You're Awake",
+      "sheetName": "Rudy Lee",
+      "source": "generated",
+      "file": "actors/cast/fvtt-Actor-rudy_lee.json",
+      "alternates": [],
+      "party": false,
+      "partyWhy": "",
+      "group": "Elsewhere",
+      "portrait": "",
+      "ledger": {
+        "level": null,
+        "powerLevel": null
+      },
+      "role": "civilian",
+      "bespoke": false,
+      "evidence": [
+        {
+          "feature": "Club",
+          "quote": "The Prosthetist Who Works While You're Awake",
+          "source": "title"
+        },
+        {
+          "feature": "As Filed",
+          "quote": "The Prosthetist Who Works While You're Awake",
+          "source": "title"
+        }
+      ],
+      "kind": "npc",
+      "abilities": {
+        "str": 10,
+        "dex": 10,
+        "con": 10,
+        "int": 10,
+        "wis": 10,
+        "cha": 10
+      },
+      "hp": 4,
+      "speed": "30",
+      "size": "med",
+      "items": 2,
+      "ac": 10,
+      "cr": 0,
       "type": "humanoid",
       "versions": []
     },

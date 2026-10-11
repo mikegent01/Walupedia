@@ -6,7 +6,7 @@
   "system": {
     "currency": {
       "pp": 0,
-      "gp": 21,
+      "gp": 1,
       "ep": 0,
       "sp": 13,
       "cp": 28,
@@ -614,7 +614,7 @@
         "calc": "default"
       },
       "hp": {
-        "value": 16,
+        "value": 77,
         "max": 77,
         "temp": null,
         "tempmax": 0,
@@ -665,7 +665,7 @@
       "background": "A5jdkdT1QFCzWKzz",
       "originalClass": "2Syw0nzJ04zYWoWC",
       "xp": {
-        "value": 37769
+        "value": 38049
       },
       "appearance": "",
       "trait": "I'm always polite and respectful.\nI've lost too many friends, and I'm slow to make new ones.",
@@ -1907,7 +1907,7 @@
               "type": "recoverAll"
             }
           ],
-          "spent": 40
+          "spent": 0
         },
         "type": {
           "value": "class",
@@ -24753,61 +24753,127 @@
         "duplicateSource": null,
         "exportSource": null
       }
-    }
-  ],
-  "effects": [
+    },
     {
-      "_id": "dnd5ebloodied000",
-      "img": "systems/dnd5e/icons/svg/statuses/bloodied.svg",
-      "flags": {
-        "dnd5e": {
-          "isTemporary": true
+      "_id": "BB4pNivuAkNBIyhM",
+      "name": "Markop's Binoculars",
+      "type": "tool",
+      "img": "icons/containers/bags/pouch-leather-brown-green.webp",
+      "system": {
+        "description": {
+          "value": "<p>A pair of binoculars Markop bought at the town shop to look at the Legionlance; they showed Toads in rags storming it.</p><ul><li>Showed the assault on the Legionlance from the town.</li></ul><p><em>Obtained:</em> Bought from the town shop, 1 Aethel, 1040 BF.</p><p><em>On the record:</em> carried — bought 1 Aethel.</p><p><em>Waluipedia inventory <code>markop_binoculars</code>, held by Markop — filed from <code>the_box_at_the_cottage_door</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
         },
-        "dae": {
-          "specialDuration": []
+        "source": {
+          "custom": "Waluipedia inventory — Common",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "markop-s-binoculars",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "rarity": "",
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "type": {
+          "value": "",
+          "baseItem": ""
+        },
+        "ability": "",
+        "chatFlavor": "",
+        "proficient": null,
+        "bonus": "",
+        "activities": {}
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "markop_binoculars",
+          "holder": "markop",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried — bought 1 Aethel"
         }
       },
-      "name": "Bloodied",
-      "statuses": [
-        "bloodied"
-      ],
-      "showIcon": 1,
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "z4YJNIyHG4opLtW2",
-        "combatant": "rxAcFU2wdv4yRDmu",
-        "initiative": 22,
-        "round": 5,
-        "turn": 1
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "description": "",
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
       "folder": null,
-      "sort": 0,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1789918021417,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "blKPgrK8JrvNGEfd",
+      "name": "Ettercap Silk Cord",
+      "type": "loot",
+      "img": "icons/commodities/cloth/thread-spindle-grey.webp",
+      "system": {
+        "description": {
+          "value": "<p>A long coil of ettercap silk wound off the grove's webs — lighter than hemp and a good deal stronger.</p><ul><li>Light, strong line.</li><li>Slightly tacky to the touch.</li></ul><p><em>Obtained:</em> Taken off the dead of the Skittering Grove before the eight-hour rest, 1 Aethel, 1040 BF.</p><p><em>On the record:</em> carried — coiled with his rope.</p><p><em>Waluipedia inventory <code>ettercap_silk_cord</code>, held by Markop — filed from <code>the_box_at_the_cottage_door</code>, <code>the_way_i_started_it</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Uncommon",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "ettercap-silk-cord",
+        "quantity": 1,
+        "weight": {
+          "value": 2,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "rarity": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "ettercap_silk_cord",
+          "holder": "markop",
+          "event": "the_box_at_the_cottage_door",
+          "filedOn": "2026-10-11",
+          "note": "carried — coiled with his rope"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
       }
     }
   ],
+  "effects": [],
   "folder": "0A40B9PdH5WzraZl",
   "sort": 101563,
   "ownership": {
@@ -24895,7 +24961,7 @@
     "waluipedia-sheets": {
       "ledger": {
         "xpKey": "markop",
-        "xp": 37769,
+        "xp": 38049,
         "level": 8
       },
       "tags": [

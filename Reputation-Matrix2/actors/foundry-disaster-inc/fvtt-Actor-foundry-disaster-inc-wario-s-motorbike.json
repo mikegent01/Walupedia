@@ -1,0 +1,1178 @@
+{
+  "name": "Wario's Motorbike",
+  "type": "npc",
+  "_id": "y1amANPSbK9exY41",
+  "img": "npc/ai/wario-bike.webp",
+  "system": {
+    "abilities": {
+      "str": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 10,
+        "proficient": 0,
+        "bonuses": {
+          "check": "",
+          "save": ""
+        },
+        "max": null,
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "attributes": {
+      "ac": {
+        "flat": 16,
+        "calc": "flat",
+        "formula": ""
+      },
+      "hp": {
+        "value": 75,
+        "max": 75,
+        "formula": "",
+        "temp": null,
+        "tempmax": null
+      },
+      "movement": {
+        "walk": "120",
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": []
+      },
+      "senses": {
+        "units": "ft",
+        "ranges": {
+          "darkvision": null,
+          "blindsight": null,
+          "tremorsense": null,
+          "truesight": null
+        },
+        "special": ""
+      },
+      "init": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": 5000,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "alignment": "unaligned",
+      "type": {
+        "value": "construct",
+        "subtype": "customized motorcycle (Wario's Enterprise)"
+      },
+      "cr": null,
+      "biography": {
+        "value": "<h1>Wario's Motorbike</h1>\n<p>Wario's customized motorcycle — purple with yellow accents and a large\n\"W\" emblem on the gas tank — is his primary getaway vehicle\nwhen Warp Pipes are not available or practical. It is loud, obnoxious, and\nbelches black smoke; it can be heard coming from half a mile away, which\nsomewhat defeats the purpose of a getaway vehicle. Wario refuses to\nacknowledge this flaw.</p>\n<p><strong>Field record — The Scorncrow Skirmish.</strong> Wario arrived\non this motorbike roaring \"You want fun? Wario show you fun!\" at the\novergrown grove — and the motorbike stalled, caught fast in the leaves\nand branches before it had travelled the length of its own entrance. It\nremains stalled in the undergrowth, and Waluigi files the motorbike retrieval\nfee as pending.</p>\n<p><strong>Specifications.</strong> AC 16 (reinforced frame with armor\nplating), 75 hit points, damage threshold 10 (attacks dealing less than 10\ndamage do not harm it), speed 120 feet per round (roughly 80 mph at full\nthrottle), crew 1 driver and 1 passenger (uncomfortably), cargo 200 pounds in\nthe rear compartment. The bike runs on \"Wario Fuel\" — a\nproprietary blend that smells like garlic, burns purple, and is probably\nillegal in most jurisdictions; Wario has never actually bought fuel for it,\nand it never seems to run out.</p>\n<p>Waluigi's machine reference sheet for the motorbike is filed with the\nskirmish record. It is a machine-rendered study, so its maroon paint job is\nnot canon; the item record says purple with yellow accents.</p>\n<p><strong>Other records of the same machine.</strong> Wario's sheet carries\nthis machine twice: as a customized motorcycle (the block above) and as a\nweaponized \"Custom Chopper\" configuration (AC 16, 75 HP, speed 70\nft; forward-facing flamethrower, spiked wheel guards, and an oil slick\ndispenser). His Wario Bike Summon feat uses a simpler summoned-mount block\n(AC 14, 50 HP, speed 60 ft). This actor is the physical customized\nmotorcycle.</p>",
+        "public": "A customized purple-and-yellow motorcycle with a large \"W\" on the gas tank, armored plating, and saddlebags. It is currently stalled in the undergrowth of the overgrown grove."
+      },
+      "race": "Customized Motorcycle",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "habitat": {
+        "value": [],
+        "custom": ""
+      },
+      "treasure": {
+        "value": []
+      }
+    },
+    "traits": {
+      "size": "lg",
+      "languages": {
+        "value": [],
+        "custom": "",
+        "communication": {}
+      },
+      "ci": {
+        "value": [],
+        "custom": ""
+      },
+      "di": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "important": false
+    },
+    "skills": {},
+    "source": {
+      "custom": "Wario's Enterprise",
+      "revision": 1,
+      "rules": "2024"
+    },
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0
+      },
+      "spell2": {
+        "value": 0
+      },
+      "spell3": {
+        "value": 0
+      },
+      "spell4": {
+        "value": 0
+      },
+      "spell5": {
+        "value": 0
+      },
+      "spell6": {
+        "value": 0
+      },
+      "spell7": {
+        "value": 0
+      },
+      "spell8": {
+        "value": 0
+      },
+      "spell9": {
+        "value": 0
+      },
+      "pact": {
+        "value": 0
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    }
+  },
+  "prototypeToken": {
+    "name": "Wario's Motorbike",
+    "displayName": 0,
+    "actorLink": false,
+    "width": 2,
+    "height": 1,
+    "depth": 1,
+    "texture": {
+      "src": "npc/ai/wario-bike.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": 0,
+    "displayBars": 0,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": false,
+      "range": 0,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {},
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {},
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "_id": "0VmTwU59vUs8hACI",
+      "name": "Ramming Speed",
+      "type": "weapon",
+      "img": "icons/skills/melee/strike-hammer-destructive-orange.webp",
+      "system": {
+        "description": {
+          "value": "<p>Wario drives the motorbike directly into a creature or object. Make an attack roll using the <strong>driver's</strong> Strength modifier + proficiency bonus (this vehicle has no ability scores of its own, so the item rolls flat here). On a hit the target takes <strong>4d10 bludgeoning damage</strong>, and the driver must succeed on a DC 14 Dexterity saving throw or be thrown from the bike, taking 2d6 bludgeoning damage and landing prone 10 feet away. The motorbike takes half the damage dealt to the target.</p>",
+          "chat": ""
+        },
+        "unidentified": {
+          "name": "Ramming Vehicle",
+          "description": "<p>A heavy motorcycle hurled at full throttle.</p>"
+        },
+        "identified": true,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": 4,
+            "denomination": 10,
+            "bonus": "",
+            "types": [
+              "bludgeoning"
+            ],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          }
+        },
+        "range": {
+          "value": 0,
+          "units": "ft",
+          "long": null,
+          "reach": null
+        },
+        "properties": [],
+        "equipped": true,
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "",
+              "value": null,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "value": "0",
+              "units": "ft",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "attack": {
+              "ability": "",
+              "bonus": "",
+              "critical": {},
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": "weapon"
+              }
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": [
+                {
+                  "number": 4,
+                  "denomination": 10,
+                  "bonus": "",
+                  "types": [
+                    "bludgeoning"
+                  ],
+                  "custom": {
+                    "enabled": false,
+                    "formula": ""
+                  },
+                  "scaling": {
+                    "mode": "",
+                    "number": null,
+                    "formula": ""
+                  }
+                }
+              ]
+            },
+            "sort": 0,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "img": null,
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityId": "",
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "uses": {
+          "spent": 0,
+          "recovery": [],
+          "max": ""
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "proficient": null,
+        "mastery": ""
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 100,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "hbAFDXK2ZE7oycqy",
+      "name": "Armored Plating (Damage Threshold 10)",
+      "type": "feat",
+      "img": "icons/commodities/metal/plating-metal-armor-tech-steel.webp",
+      "system": {
+        "description": {
+          "value": "<p><strong>Damage Threshold 10.</strong> Attacks dealing less than 10 damage do not harm the motorbike because of its reinforced frame and armor plating. AC is 16.</p>",
+          "chat": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 200,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "u55u771FOyB2DZVt",
+      "name": "Nitro Boost",
+      "type": "feat",
+      "img": "icons/commodities/tech/engine-tech-thrust-yellow.webp",
+      "system": {
+        "description": {
+          "value": "<p>Once per short rest, Wario can activate the illegal nitrous oxide injectors. For 1 minute the motorbike's speed doubles to 240 feet per round, but handling becomes extremely difficult: all vehicle maneuver checks are made with disadvantage, and there is a 20% chance each round that the engine overheats, forcing a stop for 1d4 rounds while it cools down.</p>",
+          "chat": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 300,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "1qUtYeOM1nKARrUF",
+      "name": "Smoke Screen",
+      "type": "feat",
+      "img": "icons/commodities/tech/smoke-bomb-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>As a bonus action, the modified exhaust releases thick black smoke, filling a 20-foot cube behind the motorbike with heavily obscuring smoke that lasts 1 minute or until dispersed by strong wind. Used exclusively to escape pursuers or cover criminal activity — never for legitimate purposes.</p>",
+          "chat": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 400,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "y3VQPPlicMKaQMgl",
+      "name": "Wario Fuel",
+      "type": "feat",
+      "img": "icons/consumables/vegetable/garlic-hardneck-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>The bike runs on \"Wario Fuel\": a blend that smells like garlic, burns purple, and is probably illegal in most jurisdictions. Some say it is garlic oil, others suspect pure greed. Wario has never bought fuel for it, and it never seems to actually run out. If reduced to 0 HP, it can be resummoned after a long rest, emerging dented and smoking but functional.</p>",
+          "chat": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 500,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "2VjC7rqkT9oCTePW",
+      "name": "Signature Horn (WAH HA HA HA!)",
+      "type": "feat",
+      "img": "icons/tools/instruments/horn-megaphone-loudspeaker.webp",
+      "system": {
+        "description": {
+          "value": "<p>A mounted horn that plays a jarring \"WAH HA HA HA!\" when honked, which Wario uses constantly and inappropriately. The bike has been banned from at least seven cities for noise violations, emissions standards breaches, and general obnoxiousness.</p>",
+          "chat": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 600,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "fHcbX3yrVG2sVSui",
+      "name": "Weaponized Loadout (Custom Chopper Configuration)",
+      "type": "feat",
+      "img": "icons/commodities/tech/engine-thrust-jet.webp",
+      "system": {
+        "description": {
+          "value": "<p>Wario's sheet also records a weaponized configuration of this machine as <em>Wario's Custom Chopper (Weaponized Motorcycle)</em> (AC 16, 75 HP, speed 70 ft, rare). It replaces the customizations above with: a forward-facing flamethrower (bonus action, 15-foot cone, DC 14 Dexterity save, 2d6 fire damage); spiked wheel guards (creatures hit by ramming attacks take an extra 1d6 piercing damage); and an oil slick dispenser (action, 30-foot line of difficult terrain lasting 1 minute, DC 14 Dexterity save or fall prone). Use this block when the scene calls for the weaponized build, not this one.</p>",
+          "chat": ""
+        },
+        "activities": {},
+        "uses": {
+          "spent": 0,
+          "recovery": []
+        },
+        "advancement": {},
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "properties": [],
+        "requirements": "",
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 700,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "uXIwdgA3jwFVd0E2",
+      "name": "Hidden Compartment (Under the Seat)",
+      "type": "loot",
+      "img": "icons/containers/bags/case-simple-brown.webp",
+      "system": {
+        "description": {
+          "value": "<p>A secret compartment under the seat. A DC 18 Intelligence (Investigation) check finds it if you do not know it is there. It holds emergency funds (currently 500 gp), a backup Warp Pipe activator, and what Wario describes as \"insurance documents\" — actually blackmail material on various business partners.</p>",
+          "chat": ""
+        },
+        "unidentified": {
+          "name": "Concealed Stowage",
+          "description": "<p>A hidden panel under a motorcycle seat.</p>"
+        },
+        "identified": true,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "identifier": "",
+        "source": {
+          "revision": 1,
+          "rules": "2024"
+        },
+        "container": null,
+        "quantity": 1,
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "properties": [
+          "gear"
+        ],
+        "type": {
+          "value": "",
+          "subtype": ""
+        }
+      },
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1788730934402
+      },
+      "effects": [],
+      "folder": null,
+      "sort": 800,
+      "flags": {},
+      "ownership": {
+        "default": 0
+      }
+    }
+  ],
+  "effects": [],
+  "folder": "FvKdqeKTwINidr0T",
+  "sort": 103125,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3,
+    "dOiH8awyIyFyJqoD": 3
+  },
+  "flags": {
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "fearless"
+        ],
+        "reasons": [
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless"
+        ],
+        "confidence": 0.6666666666666666,
+        "version": 3,
+        "timestamp": 1788730934456,
+        "manuallyOverridden": false
+      }
+    },
+    "midi-qol": {
+      "onUseMacroParts": {}
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Disaster Inc."
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Disaster Inc.",
+        "npc",
+        "construct",
+        "Players"
+      ],
+      "color": "#D4A017",
+      "organized": {
+        "path": [
+          "Disaster Inc."
+        ],
+        "basis": "name-rule",
+        "from": [
+          "Players"
+        ]
+      }
+    }
+  },
+  "_stats": {
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "systemVersion": "5.3.3",
+    "createdTime": 1788730934402,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  }
+}

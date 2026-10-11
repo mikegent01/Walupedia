@@ -67,6 +67,13 @@ FOUNDRY_ART_ROOTS = tuple(p for p in (
 ) if p)
 FOUNDRY_ART_PREFIX = "foundry-art/"      # /file?p=foundry-art/<path> serves from FOUNDRY_ART_ROOTS
 IMAGE_EXT = (".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".avif")
+# Art the installed Foundry modules ship for creatures and people (House Divided's
+# creatures/portraits and tokens-topdown, the 3D miniature compendiums, ...). A
+# module image counts as art for an NPC only when it sits under one of these
+# folder names - dice, tiles and map pieces share the same modules.
+MODULE_ART_DIRS = frozenset(("portraits", "portrait", "tokens", "token", "tokens-topdown", "creatures", "creature",
+                             "actors", "actor", "npcs", "npc", "characters", "character", "miniatures", "bestiary"))
+MODULE_ART_EXT = (".png", ".jpg", ".jpeg", ".webp", ".avif")
 
 # Draft statblocks by tier — enough to import and fight with while the real
 # numbers are written. (abilities, AC, HP, HP formula, attack dice, attacks)
@@ -566,7 +573,61 @@ class Forge:
                 return FOUNDRY_ART_PREFIX + urllib.parse.unquote(image.split("?", 1)[0]).replace("\\", "/").lstrip("/")
         return None
 
+    # -------------------------------------------------- module art index --
+    def module_art_index(self):
+        """slug -> [path under the Foundry Data folder] for every creature / portrait / token image the
+        installed modules ship (see MODULE_ART_DIRS). Built once per process; reads nothing else."""
+        idx = self.__dict__.get("_module_art")
+        if idx is not None:
+            return idx
+        idx = {}
+        for root in FOUNDRY_ART_ROOTS[:1]:              # the user Data folder: that is where modules/ lives
+            mods = os.path.join(root, "modules")
+            if not os.path.isdir(mods):
+                continue
+            for base, _dirs, files in os.walk(mods):
+                rel_dir = os.path.relpath(base, mods).replace(os.sep, "/").lower().split("/")
+                if not MODULE_ART_DIRS.intersection(rel_dir[1:]):
+                    continue
+                for fn in files:
+                    if not fn.lower().endswith(MODULE_ART_EXT):
+                        continue
+                    path = "modules/" + os.path.relpath(os.path.join(base, fn), mods).replace(os.sep, "/")
+                    idx.setdefault(slugify(os.path.splitext(fn)[0]), []).append(path)
+        for paths in idx.values():
+            paths.sort(key=lambda q: ("portrait" not in q.lower(), len(q), q))
+        self._module_art = idx
+        return idx
+
+    def _module_art_exact(self, name):
+        """`foundry-art/<path>` when an installed module ships an image named exactly like this NPC."""
+        if not name:
+            return None
+        base = re.sub(r"\([^)]*\)", "", str(name)).strip()
+        for cand in (str(name), base):
+            hit = self.module_art_index().get(slugify(cand))
+            if hit:
+                return FOUNDRY_ART_PREFIX + hit[0]
+        return None
+
+    def module_art_candidates(self, name, limit=3):
+        """Looser module-art matches for review only (never counted as art): a file whose name starts or
+        ends with this NPC's name, e.g. `kryn` -> `kryn-corvinarus`."""
+        slug = slugify(re.sub(r"\([^)]*\)", "", str(name or "")).strip())
+        if len(slug) < 4 or slug == "npc":
+            return []
+        out = []
+        for stem, paths in self.module_art_index().items():
+            if stem != slug and (stem.startswith(slug + "-") or stem.endswith("-" + slug)):
+                out.append(paths[0])
+        return sorted(out)[:limit]
+
     def _entry_foundry_art(self, entry):
+        """Foundry-installed art for a roster entry: its source actor's own, else an installed module's
+        image named like the NPC (House Divided's portraits and tokens, the 3D miniatures)."""
+        return self._entry_actor_art(entry) or self._module_art_exact(entry.get("name"))
+
+    def _entry_actor_art(self, entry):
         """_foundry_art for a roster entry, read from its source actor (cached by mtime)."""
         if not entry.get("source_actor"):
             return None
@@ -1424,7 +1485,7 @@ class Forge:
             art = self._site_article(name, flags.get("characterId"), articles)
             fb = self.find_existing_fullbody({"id": slugify(name), "site": flags.get("characterId")}, art)
             img = self._foundry_image(doc.get("img"))
-            stock = self._foundry_art(doc)
+            stock = self._foundry_art(doc) or self._module_art_exact(name)
             rows.append({"key": "foundry/" + str(doc.get("_id")), "packet": None, "id": slugify(name), "name": name,
                          "group": x["folder_path"][0], "folder": " / ".join(x["folder_path"][1:]) or "General", "source": "foundry",
                          "imported": False, "stage": "sprite" if fb else ("foundry" if stock else ("reference" if img else "none")),
@@ -1435,18 +1496,62 @@ class Forge:
                 continue        # the same character is already a Foundry NPC row
             art = self._site_article(c["name"], c["site"], articles)
             fb = self.find_existing_fullbody({"id": c["site"], "site": c["site"]}, art)
+            mod = self._module_art_exact(c["name"])
             rows.append({"key": "site/" + c["site"], "packet": None, "id": c["site"], "name": c["name"],
                          "group": c.get("affiliation") or "Website", "folder": c.get("status") or "", "source": "site",
-                         "imported": False, "stage": "sprite" if fb else ("reference" if c.get("image") else "none"),
-                         "needs": not fb, "has_ref": bool(c.get("image")), "thumb": rel(fb) if fb else (c.get("fullBody") or c.get("image")),
+                         "imported": False,
+                         "stage": "sprite" if fb else ("foundry" if mod else ("reference" if c.get("image") else "none")),
+                         "needs": not (fb or mod), "has_ref": bool(c.get("image")),
+                         "thumb": rel(fb) if fb else (mod or c.get("fullBody") or c.get("image")),
                          "replaced": False, "cr": None})
         if match:
             m = match.lower()
             rows = [x for x in rows if m in f"{x['name']} {x['group']} {x['folder']} {x['packet'] or ''}".lower()]
+        for x in rows:
+            if x["needs"]:
+                cands = self.module_art_candidates(x["name"])
+                if cands:
+                    x["module_candidates"] = cands
         counts = {"rows": len(rows), "imported": sum(1 for x in rows if x["imported"]), "unimported": sum(1 for x in rows if not x["imported"]),
                   "missing": sum(1 for x in rows if x["needs"]), "sprites": sum(1 for x in rows if x["stage"] == "sprite"),
-                  "foundry_art": sum(1 for x in rows if x["stage"] == "foundry")}
+                  "foundry_art": sum(1 for x in rows if x["stage"] == "foundry"),
+                  "module_candidates": sum(1 for x in rows if x.get("module_candidates"))}
         return {"rows": rows, "counts": counts, "batch": self.batch}
+
+    def art_audit(self):
+        """The true picture of art: every module / system / world image path the actor files point at, checked
+        against the Foundry Data folder (per module), the module art index, and what is still missing."""
+        data = FOUNDRY_ART_ROOTS[0] if FOUNDRY_ART_ROOTS else ""
+        pat = re.compile(r'"((?:modules|systems|worlds)/[^"]+?\.(?:webp|png|jpe?g|svg|gif|avif))"', re.I)
+        per = {}
+        for base, _dirs, files in os.walk(os.path.join(self.bfp.ACTORS_ROOT)):
+            for fn in files:
+                if not fn.lower().endswith(".json"):
+                    continue
+                try:
+                    text = open(os.path.join(base, fn), encoding="utf-8").read()
+                except (OSError, UnicodeDecodeError):
+                    continue
+                for m in pat.finditer(text):
+                    ref = urllib.parse.unquote(m.group(1))
+                    if "*" in ref or "{" in ref or "," in ref:
+                        continue            # a token-ring pattern or a list, not one file
+                    parts = ref.split("/")
+                    key = "/".join(parts[:2])
+                    d = per.setdefault(key, {"module": key, "refs": set(), "missing": set()})
+                    d["refs"].add(ref)
+                    if not (data and os.path.isfile(os.path.join(data, *parts))):
+                        d["missing"].add(ref)
+        modules = []
+        for key, d in sorted(per.items()):
+            installed = bool(data and os.path.isdir(os.path.join(data, *key.split("/"))))
+            modules.append({"module": key, "installed": installed, "refs": len(d["refs"]),
+                            "missing": sorted(d["missing"])})
+        cat = self.catalog()
+        needs = [r for r in cat["rows"] if r["needs"]]
+        return {"data": data, "modules": modules, "module_art_files": sum(len(v) for v in self.module_art_index().values()),
+                "counts": cat["counts"], "needs": needs,
+                "module_matches": [r for r in cat["rows"] if r["stage"] == "foundry" and str(r.get("thumb") or "").startswith(FOUNDRY_ART_PREFIX + "modules/")]}
 
     def import_all(self):
         """Make every Foundry NPC and website article a roster entry: one roster per Foundry folder the
@@ -1766,7 +1871,7 @@ def watch_loop(forge, directory, packet=None, interval=6):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="NPC Forge — faction → roster → renders → token plates → Foundry packet")
     ap.add_argument("command", nargs="?", default="serve",
-                    choices=["serve", "draft", "collect", "ingest", "prompt", "run", "cut", "build", "handoff", "replace", "remove-bg", "import-all", "generate-missing"])
+                    choices=["serve", "draft", "collect", "ingest", "prompt", "run", "cut", "build", "handoff", "replace", "remove-bg", "import-all", "generate-missing", "art-audit"])
     ap.add_argument("packet", nargs="?")
     ap.add_argument("--list", action="store_true", help="rosters and their art state, then exit")
     ap.add_argument("--host", default="0.0.0.0")
@@ -1893,6 +1998,30 @@ def main(argv=None):
         print(f"replace: {res['count']} entr(ies) updated in website and Foundry for packet {a.packet}")
         for r in res["replaced"]:
             print(f"  {r['id']}: plate {r['plate']} -> website {r['website'] or 'none'}, foundry: {', '.join(r['foundry']) if r['foundry'] else 'none'}")
+        return 0
+    if a.command == "art-audit":
+        res = forge.art_audit()
+        c = res["counts"]
+        print(f"art-audit - Foundry Data: {res['data'] or '(not found)'}  ·  {res['module_art_files']} module creature/portrait/token images indexed")
+        print("\nmodule / system / world art the actors point at:")
+        for m in res["modules"]:
+            state = "installed" if m["installed"] else "NOT INSTALLED"
+            print(f"  {m['module']:42s} {state:14s} {m['refs']:4d} refs, {len(m['missing']):3d} missing")
+            for p in m["missing"][:5]:
+                print(f"      - {p}")
+        print(f"\nNPCs matched to an installed module's art by name: {len(res['module_matches'])}")
+        for r in res["module_matches"]:
+            print(f"  {r['name']}  ->  {str(r['thumb'])[len(FOUNDRY_ART_PREFIX):]}")
+        print(f"\ncatalog: {c['rows']} characters · {c['sprites']} sprites · {c['foundry_art']} with Foundry/module art · "
+              f"{c['missing']} still need art ({c.get('module_candidates', 0)} with a module-art candidate to review)")
+        by = {}
+        for r in res["needs"]:
+            by.setdefault(r["group"] or "(none)", []).append(r)
+        for g, rows in sorted(by.items(), key=lambda kv: -len(kv[1])):
+            print(f"\n  {g}  ({len(rows)})")
+            for r in rows:
+                cand = f"   ~ candidate: {', '.join(r['module_candidates'])}" if r.get("module_candidates") else ""
+                print(f"    - {r['name']}  [{r['source']}]{cand}")
         return 0
     if a.command == "import-all":
         res = forge.import_all()
