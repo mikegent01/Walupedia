@@ -312,6 +312,41 @@ def key_mask(rgb, key, dist, tol):
     return hard
 
 
+def decontaminate(out, edge, key):
+    """Un-matte the key colour out of edge pixels, in place (`out` is HxWx4 int32). An edge pixel is
+    keep*figure + (1-keep)*key; with a magenta field the key share shows as red AND blue over green, so
+    s = min(r,b) - g / 255 estimates it (green field: g over max(r,b)). The share is taken out of the colour
+    and out of alpha (a pixel that is mostly field goes clear), and whatever tint is left is clamped to a
+    neutral lean. A small dead zone keeps a figure's own purple/green intact. Returns pixels changed."""
+    np = _np()
+    kc = np.array(KEYS[key], dtype=float)
+    rgb = out[:, :, :3].astype(float)
+    alpha = out[:, :, 3].astype(float)
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    spill = (np.minimum(r, b) - g) if key == "magenta" else (g - np.maximum(r, b))
+    hit = edge & (alpha > 0) & (spill > 12)
+    if not hit.any():
+        return 0
+    frac = np.clip((spill - 25.0) / 230.0, 0.0, 0.98)
+    frac[~hit] = 0.0
+    keep = 1.0 - frac
+    for ch in range(3):
+        rgb[:, :, ch] = np.where(hit & (frac > 0), (rgb[:, :, ch] - frac * kc[ch]) / keep, rgb[:, :, ch])
+    rgb = np.clip(rgb, 0, 255)
+    alpha = np.where(hit, alpha * keep, alpha)
+    alpha[hit & (keep < 0.08)] = 0
+    r, g, b = rgb[:, :, 0], rgb[:, :, 1], rgb[:, :, 2]
+    if key == "magenta":   # residual tint: lean no further than 10 over green
+        cap = g + 10
+        r[hit] = np.minimum(r[hit], cap[hit]); b[hit] = np.minimum(b[hit], cap[hit])
+    else:
+        cap = np.maximum(r, b) + 10
+        g[hit] = np.minimum(g[hit], cap[hit])
+    out[:, :, :3] = np.rint(rgb).astype(out.dtype)
+    out[:, :, 3] = np.rint(alpha).astype(out.dtype)
+    return int(hit.sum())
+
+
 def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
     """Key `src` into a trimmed, square, transparent PNG at `dst`. Returns a facts dict."""
     from PIL import Image
@@ -384,21 +419,15 @@ def cut(src, dst, key="auto", hard_tol=None, soft_tol=None):
         dead = band & (alpha < 1)
         for ch in range(3):
             out[:, :, ch][dead] = kc[ch]
-    if chroma:  # despill the edge (the band and 3 px in): pull the key channels down to the others
+    out[:, :, 3] = alpha.astype(np.int32)
+    if chroma:  # un-matte the edge (the band and 4 px in): the key's share comes out of colour and alpha
         ring = band.copy()
-        for _ in range(3):
+        for _ in range(4):
             grown = ring | bg
             for dy, dx in ((1, 0), (-1, 0), (0, 1), (0, -1), (1, 1), (-1, -1), (1, -1), (-1, 1)):
                 grown |= np.roll(np.roll(ring | bg, dy, axis=0), dx, axis=1)
             ring = grown & ~bg
-        r, g, b = out[:, :, 0], out[:, :, 1], out[:, :, 2]
-        if key == "magenta":
-            cap = g + 40
-            r[ring] = np.minimum(r[ring], cap[ring]); b[ring] = np.minimum(b[ring], cap[ring])
-        else:
-            cap = np.maximum(r, b) + 40
-            g[ring] = np.minimum(g[ring], cap[ring])
-    out[:, :, 3] = alpha.astype(np.int32)
+        decontaminate(out, ring, key)
     res = Image.fromarray(out.clip(0, 255).astype(np.uint8), "RGBA")
     a = res.split()[3]
     bbox = a.point(lambda v: 255 if v > 8 else 0).getbbox()
@@ -1066,19 +1095,12 @@ def heal(path, key=None, hard_tol=95, soft_tol=150):
             cur[now] = acc[now] / cnt[now][:, None]
             good |= now
         out[:, :, :3] = cur.round().astype(np.int32)
-    if key:                                                                         # pass 3: edge despill, 3 px in
-        edge = (out[:, :, 3] < 255) | _dilate(out[:, :, 3] < 16, 3)
+    if key:                                                                         # pass 3: edge un-matte, 4 px in
+        edge = (out[:, :, 3] < 255) | _dilate(out[:, :, 3] < 16, 4)
         edge &= out[:, :, 3] > 0
-        r, g, b = out[:, :, 0], out[:, :, 1], out[:, :, 2]
-        if key == "magenta":
-            cap = g + 40
-            hit = edge & ((r > cap) | (b > cap))
-            r[hit] = np.minimum(r[hit], cap[hit]); b[hit] = np.minimum(b[hit], cap[hit])
-        else:
-            cap = np.maximum(r, b) + 40
-            hit = edge & (g > cap)
-            g[hit] = np.minimum(g[hit], cap[hit])
-        changed |= hit
+        before = out.copy()
+        decontaminate(out, edge, key)
+        changed |= (out != before).any(axis=2)
     if not changed.any():
         return 0
     Image.fromarray(out.clip(0, 255).astype(np.uint8), "RGBA").save(path, optimize=True)

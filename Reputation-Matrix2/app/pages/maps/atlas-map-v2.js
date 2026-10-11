@@ -133,6 +133,14 @@ const MODES = {
   influence: { label: 'Influence', key: 'political_influence', color: '#a78bfa', unit: 'influence' },
 };
 
+/* Each stat lens has its own dot SHAPE as well as its own colour, so the mode
+   can be read off the map without the legend: population is a disc, military a
+   diamond, economy a hollow ring, influence a dot with a halo. Size follows the
+   value on every one of them. Shapes are pure CSS (no clip-path), so the hover
+   and selection outlines still work. */
+const LENS_SHAPE = { population: 'disc', military: 'diamond', economy: 'ring', influence: 'halo' };
+const SHAPE_GLYPH = { disc: '●', diamond: '◆', ring: '◯', halo: '◉' };
+
 /* Planar layers (cartography desk): a POI's `plane` tag decides which layer
    shows it. Absent = material, so older sheets need no edits. */
 const PLANE_LABELS = {
@@ -861,6 +869,14 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
   /* Chatter lens: pin size = Wah Notes volume. A value fn instead of a key
      because loudness is computed, not filed on the POI. */
   const modes = Object.assign({}, MODES);
+  /* Places: dots coloured by what KIND of place they are (market, fortress,
+     shrine…). It used to be baked into every numeric lens, which left
+     Population, Military, Economy and Influence looking identical; it is its
+     own lens now. Size still follows population. */
+  modes.places = {
+    label: 'Places', color: '#94a3b8', unit: 'residents', sizeLabel: 'residents', byType: true,
+    value: poi => Number(poi.population) || 0,
+  };
   /* Categorical lenses: pin COLOR carries the dominant category (faith group,
      culture, species, faction) while pin SIZE keeps the log ladder, now fed
      by filed adherents or residents. `value` stays numeric so the existing
@@ -916,21 +932,6 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       return { key: 'int:' + band.key, label: band.label, color: band.color, icon: band.icon };
     },
   };
-  /* Province lens: pin colour carries the province's crown, so a reader can see
-     the census walk across the sheet instead of squinting at 300 dots. */
-  if (provinceList.length) {
-    modes.provinces = {
-      label: 'Provinces', color: '#8ab4ff', unit: 'census power', sizeLabel: 'census power', categorical: true,
-      value: poi => { const pr = pinProvince.get(poi.id); return pr ? pr.census.power : 0; },
-      catOf: poi => {
-        const pr = pinProvince.get(poi.id);
-        if (!pr) return null;
-        const fid = pr.census.contested ? 'contested' : (pr.census.controller || 'unclaimed');
-        const meta = fid === 'contested' ? { name: 'Contested marches', color: '#f0b4b4' } : fid === 'unclaimed' ? { name: 'Unclaimed', color: '#5b6b8a' } : factionMeta(fid);
-        return { key: `prov:${pr.id}`, label: `${pr.name} · ${meta.name}`, color: meta.color, icon: initial(pr.name) };
-      },
-    };
-  }
   if (opts.chatter) modes.chatter = { label: 'Chatter', color: '#f472b6', unit: 'wah notes', value: poi => ((opts.chatter.counts || {})[poi.id] || 0) };
   const startMode = (opts.defaultMode && modes[opts.defaultMode]) ? opts.defaultMode : 'population';
   /* Journey stops: [{poiId, n, eventId, name, date, plane}]. Stops whose pin
@@ -1424,9 +1425,9 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       if (lens.categorical) {
         const cats = topCats(displayPois, p => lens.catOf(p));
         lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.sizeLabel || lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''} · ${legendChips(cats.cats, cats.more)}${plotHint}`;
-      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
+      } else lensEl.innerHTML = `<i style="background:${lens.color}"></i>${lens.byType || !LENS_SHAPE[state.mode] ? '' : SHAPE_GLYPH[LENS_SHAPE[state.mode]] + ' '}${format(min)} – ${format(max)} ${esc(lens.unit)} · pin size = ${esc(lens.label)} · ${esc(densityHint)}${clusterHint}${keyHint}${major.size ? ' · ◎ top 5 ringed' : ''}${toks.length ? ` · 🛰️ ${toks.length} party` : ''}${plotHint}`;
     }
-    overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor, map.id) : '') + transportPathSvg() + stationsHtml() + (state.plots ? provinceLabelsHtml() : '') + journeyPathSvg() + clusters.map(group => {
+    overlay.innerHTML = (state.plots ? bordersSvg(provinceList, plotColor, map.id) : '') + transportPathSvg() + stationsHtml() + (state.plots ? provinceLabelsHtml() : '') + journeyPathSvg() + clusters.slice().sort((a, b) => Math.max(0, ...b.map(g => lensVal(g))) - Math.max(0, ...a.map(g => lensVal(g)))).map(group => {
       const poi = group[0];
       const faction = factionMeta(poi.factionId);
       const cat = lens.categorical ? lens.catOf(poi) : null;
@@ -1438,7 +1439,7 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
          show and a door to be. */
       const diameter = group.length > 1
         ? Math.round(12 + weighted * 20 + Math.min(18, Math.log2(group.length) * 5))
-        : Math.round(4 + weighted * 3);
+        : Math.round(4 + Math.pow(weighted, 1.4) * 15);
       const isMajor = group.some(g => major.has(g.id));
       const extra = group.length > 1 ? `<em>${group.length}</em>` : '';
       const groupStops = group.map(g => stopByPoi.get(g.id)).filter(Boolean);
@@ -1455,10 +1456,19 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
          category a pin belongs to, so there it keeps its glyph and its
          category colour — turning those into anonymous dots would delete the
          only thing the lens is for. */
-      const isDot = group.length === 1 && !lens.categorical;
-      const tint = isDot ? typeColor(poi)
+      /* A categorical pin with no filed category is still a pin, just a quiet
+         one: a small dim dot in its place-type colour, not a grey badge. That
+         is what made Species, Religion and Culture read as a grey map — only
+         pins with filed presence carry a category, so the rest step back. */
+      const uncategorised = group.length === 1 && lens.categorical && !cat;
+      const isDot = group.length === 1 && (!lens.categorical || !cat);
+      /* Numeric lenses keep their own colour (population green, military red,
+         economy gold, influence violet); size and brightness carry the value. */
+      const tint = isDot ? ((lens.byType || uncategorised) ? typeColor(poi) : lens.color)
         : cat ? cat.color
         : (lens.categorical ? '#5b6b8a' : lens.color);
+      const shape = isDot && !uncategorised && !lens.categorical && !lens.byType ? (LENS_SHAPE[state.mode] || 'disc') : '';
+      const glow = isDot && !uncategorised && !lens.byType ? (0.1 + weighted * 0.9).toFixed(2) : '';
       const glyph = isDot ? ''
         : !lens.categorical ? faction.icon
         : !cat ? '●'
@@ -1474,8 +1484,8 @@ export function mountAtlasMapV2(host, mapId, opts = {}) {
       const title = isDot
         ? esc(`${poi.name} · ${typeLabel(poi.type)}`)
         : esc(`${group.length} locations — click to zoom in: ` + group.map(g => g.name).join(', ') + (cat ? ` · ${cat.label}` : '') + (plotOf && !cat ? ` · ${plotOf.name}` : ''));
-      const klass = `atlas-v2-marker${isDot ? ' atlas-v2-dot' : ''}${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
-      return `<button type="button" class="${klass}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" data-cx="${cx.toFixed(3)}" data-cy="${cy.toFixed(3)}" style="left:${cx}%;top:${cy}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${(0.45 + weighted * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
+      const klass = `atlas-v2-marker${isDot ? ' atlas-v2-dot' : ''}${uncategorised ? ' atlas-v2-uncat' : ''}${shape ? ` atlas-v2-shape-${shape}` : ''}${group.length > 1 ? ' atlas-v2-cluster' : ''}${groupStops.length ? ' journey' : ''}${isMajor ? ' atlas-v2-major' : ''}${selectedStack ? ' selected' : ''}${inSelectedProvince ? '' : ' atlas-v2-dimmed'}`;
+      return `<button type="button" class="${klass}" data-ids="${esc(ids)}" data-poi="${esc(poi.id)}" data-cx="${cx.toFixed(3)}" data-cy="${cy.toFixed(3)}" style="left:${cx}%;top:${cy}%;width:${diameter}px;height:${diameter}px;--marker:${tint};--intensity:${glow || (0.45 + weighted * 0.55).toFixed(2)}" title="${title}"><span>${glyph}</span>${extra}${badge}</button>`;
     }).join('');
     overlay.querySelectorAll('[data-poi]').forEach(btn => {
       btn.addEventListener('click', ev => {

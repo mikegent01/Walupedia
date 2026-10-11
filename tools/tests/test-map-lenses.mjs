@@ -82,9 +82,9 @@ const clickMode = id => host.querySelector(`[data-mode="${id}"]`).click();
 const legend = () => host.querySelector('[data-legend-lens]').textContent || '';
 const total = () => host.querySelector('[data-mode-total]').textContent || '';
 
-check('all nine lenses mount in order',
+check('all ten lenses mount in order, and there is no Provinces lens',
   [...host.querySelectorAll('[data-mode]')].map(b => b.dataset.mode).join(',') ===
-  'population,military,economy,influence,species,religion,culture,factions,intel');
+  'population,military,economy,influence,places,species,religion,culture,factions,intel');
 
 clickMode('intel');
 check('intel lens bands a routine clearance', markerColor('poi_lw_great_granary') === '#a3e635', markerColor('poi_lw_great_granary'));
@@ -93,7 +93,12 @@ check('intel lens bands a black-clearance site', markerColor('poi_lw_crimson_win
 clickMode('religion');
 check('religion pins read the group color', markerColor('poi_lw_oakhaven') === '#FFD700', markerColor('poi_lw_oakhaven'));
 check('ungrouped faiths bucket honestly', markerColor('poi_lw_bloodmoon_manor') === '#8a94a6', markerColor('poi_lw_bloodmoon_manor'));
-check('unfiled pins dim grey', markerColor('poi_lw_battle_of_ravencreek') === '#5b6b8a', markerColor('poi_lw_battle_of_ravencreek'));
+/* A pin with no filed category steps back as a quiet dot (its place-type
+   colour, dimmed) rather than a grey badge: the lens only paints what it knows. */
+check('unfiled pins step back as quiet dots', (() => {
+  const el = markerFor('poi_lw_battle_of_ravencreek');
+  return el.classList.contains('atlas-v2-uncat') && el.classList.contains('atlas-v2-dot') && markerColor('poi_lw_battle_of_ravencreek') !== '#5b6b8a';
+})(), markerColor('poi_lw_battle_of_ravencreek'));
 check('religion legend names groups + counts', legend().includes('☀️ The Celestial Order ×1') && legend().includes('Other faiths ×1'), legend().slice(0, 120));
 check('religion legend keeps size language', legend().includes('pin size = filed adherents'));
 check('religion total counts filed pins', total() === '2 of 16 pins filed', total());
@@ -199,17 +204,41 @@ check('a crowded sheet is not a pile of overlapping markers',
 const dotEls = denseMarkers.filter(m => m.classList.contains('atlas-v2-dot'));
 check('lone pins render as dots', dotEls.length > 0, `${dotEls.length} dots of ${denseMarkers.length} markers`);
 check('a dot carries no glyph', dotEls.every(d => !d.textContent.trim()));
-check('a dot is only a few pixels across',
-  dotEls.every(d => { const w = parseFloat(d.style.width); return w > 0 && w <= 8; }),
+check('a dot stays a dot: no bigger than a small badge',
+  dotEls.every(d => { const w = parseFloat(d.style.width); return w > 0 && w <= 20; }),
   [...new Set(dotEls.map(d => d.style.width))].sort().join(', '));
 check('a dot names itself and its kind on hover',
   dotEls.every(d => /\S+.* · .+/.test(d.getAttribute('title') || '')),
   JSON.stringify(dotEls[0] && dotEls[0].getAttribute('title')));
-check('dot colour is the building family, not the lens', (() => {
-  const lensColour = '#4ade80'; // population lens
-  const tints = new Set(dotEls.map(d => (/--marker:\s*([^;]+)/.exec(d.getAttribute('style') || '') || [])[1]));
-  return tints.size > 1 || !tints.has(lensColour);
-})(), `${new Set(dotEls.map(d => (/--marker:\s*([^;]+)/.exec(d.getAttribute('style') || '') || [])[1])).size} distinct dot colours`);
+const tintOf = d => (/--marker:\s*([^;]+)/.exec(d.getAttribute('style') || '') || [])[1];
+check('in a numeric lens every dot wears the lens colour',
+  new Set(dotEls.map(tintOf)).size === 1 && tintOf(dotEls[0]) === '#4ade80', [...new Set(dotEls.map(tintOf))].join(', '));
+/* Size carries the data: the most populous dots are clearly bigger than the
+   least populous, and each stat lens has its own shape. */
+{
+  const popOf = new Map(MAP_DATA.midlands_full.pointsOfInterest.map(p => [p.id, Number(p.population) || 0]));
+  const rows = dotEls.map(d => ({ pop: popOf.get(d.dataset.poi) || 0, w: parseFloat(d.style.width) })).sort((a, b) => a.pop - b.pop);
+  const q = Math.max(3, Math.floor(rows.length / 4));
+  const mean = list => list.reduce((n, r) => n + r.w, 0) / (list.length || 1);
+  const low = mean(rows.slice(0, q)), high = mean(rows.slice(-q));
+  check('population dots get bigger for bigger populations', high >= low * 1.8, `bottom quarter ${low.toFixed(1)}px, top quarter ${high.toFixed(1)}px`);
+  check('the population lens draws discs', dotEls.every(d => d.classList.contains('atlas-v2-shape-disc')));
+  const shapeOf = mode => {
+    denseHost.querySelector(`[data-mode="${mode}"]`).click();
+    return new Set([...denseHost.querySelectorAll('.atlas-v2-dot')].map(d => [...d.classList].find(c => c.startsWith('atlas-v2-shape-'))));
+  };
+  const shapes = ['military', 'economy', 'influence'].map(shapeOf);
+  check('military, economy and influence each have their own shape',
+    shapes.every(set => set.size === 1) && new Set(shapes.map(set => [...set][0])).size === 3 && !shapes.some(set => set.has('atlas-v2-shape-disc')),
+    shapes.map(set => [...set].join()).join(' | '));
+  denseHost.querySelector('[data-mode="population"]').click();
+}
+denseHost.querySelector('[data-mode="places"]').click();
+const placeDots = [...denseHost.querySelectorAll('.atlas-v2-dot')];
+check('the Places lens colours dots by building family', new Set(placeDots.map(tintOf)).size > 1, `${new Set(placeDots.map(tintOf)).size} distinct colours`);
+denseHost.querySelector('[data-mode="population"]').click();
+check('dots differ in size and brightness, so a numeric lens shows something',
+  new Set(dotEls.map(d => d.style.width)).size >= 3 && new Set(dotEls.map(d => (/--intensity:\s*([^;"]+)/.exec(d.getAttribute('style') || '') || [])[1])).size >= 3);
 check('clusters stay badges, not dots',
   denseMarkers.filter(m => m.classList.contains('atlas-v2-cluster'))
     .every(m => !m.classList.contains('atlas-v2-dot')));

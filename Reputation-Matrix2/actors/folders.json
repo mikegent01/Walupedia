@@ -1,6 +1,6 @@
 {
   "format": "waluipedia-folders/1",
-  "note": "How the Actors sidebar mirrors the website. tools/organize-actors.py files every actor of the world mirror by these rules (Players for the party, one folder per website group for every character the site knows, Bestiary / <creature type> for generic statblocks), writes the tags, and tools/foundry-bridge.py combine paints the folders. Colours come from data/factionColors.json where the site has one. Edit this file, never the actor files; `keep` lists folder trees the organizer never touches. `nameRules` route statblocks by name (Goomba \u2192 Koopa Troop); `folderRules` route the rest of a GM folder tree by path prefix (the manor adventure's named characters \u2192 Overgrown Manor); generic creatures fall through to Bestiary / <type>. `eras` name the packets of past selves (actors/<dir>) and the era sub-folder (`folder`, e.g. \"955 BF \u2014 Peach's Castle\") each of their actors sits in under its faction's group folder (Koopa Troop / 955 BF \u2014 Peach's Castle; the packet's own folderPath flags say which faction): a mirror actor with the same name and type as one of theirs is that era's copy and goes where the packet files it, and the generated era versions go under their faction the same way. `packets` name the other committed packets the import carries (actors/<dir>), with the styles of their sub-folders (the Liberated Toads cohorts); their actors are matched by name and type the same way. `iconFixes` map icon paths that no longer exist in the GM's Foundry (core icons renamed between versions; the Mass Import summary lists them as missing images) to ones that do \u2014 the organizer rewrites item art by this table, only when the replacement is in tools/item sheet examples/image paths.txt. `minimum` is the smallest folder worth having: a sub-folder with fewer actors (counted across the world mirror, the generated cast and the era packets together) is folded into its parent, a top-level group with fewer into `fallback`. Players, Bestiary itself and the fallback never fold.",
+  "note": "How the Actors sidebar mirrors the website. tools/organize-actors.py files every actor of the world mirror by these rules (Players for the party, one folder per website group for every character the site knows, Bestiary / <creature type> for generic statblocks), writes the tags, and tools/foundry-bridge.py combine paints the folders. Colours come from data/factionColors.json where the site has one. Edit this file, never the actor files; `keep` lists folder trees the organizer never touches. `nameRules` route statblocks by name (Goomba → Koopa Troop); `folderRules` route the rest of a GM folder tree by path prefix (the manor adventure's named characters → Overgrown Manor); generic creatures fall through to Bestiary / <type>. `eras` name the packets of past selves (actors/<dir>) and the era sub-folder (`folder`, e.g. \"955 BF — Peach's Castle\") each of their actors sits in under its faction's group folder (Koopa Troop / 955 BF — Peach's Castle; the packet's own folderPath flags say which faction): a mirror actor with the same name and type as one of theirs is that era's copy and goes where the packet files it, and the generated era versions go under their faction the same way. `packets` name the other committed packets the import carries (actors/<dir>), with the styles of their sub-folders (the Liberated Toads cohorts); their actors are matched by name and type the same way. `iconFixes` map icon paths that no longer exist in the GM's Foundry (core icons renamed between versions; the Mass Import summary lists them as missing images) to ones that do — the organizer rewrites item art by this table, only when the replacement is in tools/item sheet examples/image paths.txt. `minimum` is the smallest folder worth having: a sub-folder with fewer actors (counted across the world mirror, the generated cast and the era packets together) is folded into its parent, a top-level group with fewer into `fallback`. Players, Bestiary itself and the fallback never fold.",
   "minimum": 2,
   "fallback": "Elsewhere",
   "players": {
@@ -8,7 +8,7 @@
     "world": "midlands",
     "color": "#D4A017",
     "description": "The party's own character sheets (the suite keeps them at the ledger level).",
-    "rosterNote": "WHO IS A PLAYER CHARACTER. The roster \u2014 not the dnd5e sheet type \u2014 decides: the GM builds plenty of NPCs on character sheets (Mario, Kirby, Sans) and they are not the party. `actor` is the live Foundry id in the world mirror, `character` the website article id (data/characters.json), `ledger` the XP ledger row (XP_SUMMARY in index.html; null = off-ledger, say why in `offLedger`). Every tool reads this list: build-character-sheets (party = roster + Disaster Inc. affiliation; the roster's live file is the article's primary sheet), organize-actors (the pc tag and the Players folder), promote-player-sheets (ledger XP), foundry-bridge check / check-packet (anything else in Players is an error). `companions` are the NPC-typed actors allowed in Players (a mount, a construct). `retired` keeps the rows of former player characters for the record \u2014 no tool reads them as players (they file by faction like anyone else). `permissions` says who may open which sheet (its own note). `world` is the world this party is played in (actors/worlds/<world>, the export's `exportedFrom`): tools/foundry-bridge.py combine carries this block \u2014 the roster, the companions and the permissions \u2014 in that world's packet (and in a combine that names no world), never in an era packet's committed import.json, so a roster or permission edit does not churn five historical packets; the bridge's LIVE_WORLD is the fallback when `world` is absent. The module reads the block from whichever packet Sync lands on (the live world's import.json, or the world manifest it merges on GitHub \u2014 split writes it there too).",
+    "rosterNote": "WHO IS A PLAYER CHARACTER. The roster — not the dnd5e sheet type — decides: the GM builds plenty of NPCs on character sheets (Mario, Kirby, Sans) and they are not the party. `actor` is the live Foundry id in the world mirror, `character` the website article id (data/characters.json), `ledger` the XP ledger row (XP_SUMMARY in index.html; null = off-ledger, say why in `offLedger`). Every tool reads this list: build-character-sheets (party = roster + Disaster Inc. affiliation; the roster's live file is the article's primary sheet), organize-actors (the pc tag and the Players folder), promote-player-sheets (ledger XP), foundry-bridge check / check-packet (anything else in Players is an error). `companions` are the NPC-typed actors allowed in Players (a mount, a construct). `retired` keeps the rows of former player characters for the record — no tool reads them as players (they file by faction like anyone else). `permissions` says who may open which sheet (its own note). `world` is the world this party is played in (actors/worlds/<world>, the export's `exportedFrom`): tools/foundry-bridge.py combine carries this block — the roster, the companions and the permissions — in that world's packet (and in a combine that names no world), never in an era packet's committed import.json, so a roster or permission edit does not churn five historical packets; the bridge's LIVE_WORLD is the fallback when `world` is absent. The module reads the block from whichever packet Sync lands on (the live world's import.json, or the world manifest it merges on GitHub — split writes it there too).",
     "roster": [
       {
         "actor": "pi25oGpjW0lCFtuF",
@@ -92,7 +92,7 @@
       }
     ],
     "permissions": {
-      "note": "WHO MAY OPEN WHICH SHEET. Keyed by Foundry USER NAME (matched case-insensitively at sync time \u2014 the module looks the names up in game.users and reports a name this world does not have); the values are roster / companion actor NAMES. owner = 3, observer = 2, limited = 1. Every roster and companion actor gets exactly these grants (default 0, a player grant not listed here is removed); actors outside Players are never touched, a player grant found on one is reported. tools/foundry-bridge.py combine carries the resolved block in the packet (payload.players), check validates it.",
+      "note": "WHO MAY OPEN WHICH SHEET. Keyed by Foundry USER NAME (matched case-insensitively at sync time — the module looks the names up in game.users and reports a name this world does not have); the values are roster / companion actor NAMES. owner = 3, observer = 2, limited = 1. Every roster and companion actor gets exactly these grants (default 0, a player grant not listed here is removed); actors outside Players are never touched, a player grant found on one is reported. tools/foundry-bridge.py combine carries the resolved block in the packet (payload.players), check validates it.",
       "default": 0,
       "users": {
         "Hjumpik": {
@@ -246,16 +246,16 @@
   },
   "eras": {
     "peachs-castle-955": {
-      "folder": "955 BF \u2014 Peach's Castle",
+      "folder": "955 BF — Peach's Castle",
       "era": "955 BF",
       "color": "#B8860B",
-      "description": "Highsun 1, 955 BF, Peach's Castle \u2014 the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop."
+      "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop."
     },
     "bowsers-castle-1035": {
-      "folder": "1035 BF \u2014 Bowser's Castle",
+      "folder": "1035 BF — Bowser's Castle",
       "era": "1035 BF",
       "color": "#B22222",
-      "description": "The night Bowser's Castle came down, 18 Harvestide 1035 BF \u2014 Session III of the coup chain (actors/bowsers-castle-1035), filed under the factions: Bowser's line and the remnant at the track under Koopa Troop, Fawthful's forces under Fawthful's Forces."
+      "description": "The night Bowser's Castle came down, 18 Harvestide 1035 BF — Session III of the coup chain (actors/bowsers-castle-1035), filed under the factions: Bowser's line and the remnant at the track under Koopa Troop, Fawthful's forces under Fawthful's Forces."
     }
   },
   "packets": {
@@ -265,35 +265,35 @@
       "subfolders": {
         "Pond Patrol": {
           "color": "#4a9c6d",
-          "description": "Security, enforcement of Speaker L's decrees, protection of the Cohort \u2014 Captain Fernback's patrol."
+          "description": "Security, enforcement of Speaker L's decrees, protection of the Cohort — Captain Fernback's patrol."
         },
         "The Chroniclers": {
           "color": "#c9a227",
-          "description": "Record keeping, intelligence analysis, education, history preservation \u2014 Scribe Dewdrop's desks."
+          "description": "Record keeping, intelligence analysis, education, history preservation — Scribe Dewdrop's desks."
         },
         "The Crafters": {
           "color": "#cd7f32",
-          "description": "Equipment maintenance, construction, repairs, supply management \u2014 Forgemaster Ironspore's shops."
+          "description": "Equipment maintenance, construction, repairs, supply management — Forgemaster Ironspore's shops."
         },
         "The Wardens": {
           "color": "#c94a4a",
-          "description": "Combat operations, defense, external threats, prisoner management \u2014 Warden Thornshell's line."
+          "description": "Combat operations, defense, external threats, prisoner management — Warden Thornshell's line."
         },
         "The Menders": {
           "color": "#27ae60",
-          "description": "Medical care, psychological support, recovery assistance \u2014 Healer Mistpetal's wards."
+          "description": "Medical care, psychological support, recovery assistance — Healer Mistpetal's wards."
         },
         "The Scouts": {
           "color": "#9b59b6",
-          "description": "Reconnaissance, infiltration, information gathering, early warning \u2014 leaderless since the mole."
+          "description": "Reconnaissance, infiltration, information gathering, early warning — leaderless since the mole."
         },
         "Barrel Survivors": {
           "color": "#8b7355",
-          "description": "The original 150 trafficked toads \u2014 the heart of the movement, as generic statblocks."
+          "description": "The original 150 trafficked toads — the heart of the movement, as generic statblocks."
         },
         "The Unassigned": {
           "color": "#7f8c8d",
-          "description": "New arrivals, recovering members, those between assignments \u2014 generic statblocks."
+          "description": "New arrivals, recovering members, those between assignments — generic statblocks."
         }
       }
     },
@@ -303,7 +303,7 @@
       "subfolders": {
         "Machines of Fury": {
           "color": "#7CFC00",
-          "description": "Fawful's constructs by Fury Meter tier \u2014 the wind-up Chortle-Bots, the intake drones and sprayers, the riveted Fury-Bots and the cannon-crawlers that follow when the meter climbs."
+          "description": "Fawful's constructs by Fury Meter tier — the wind-up Chortle-Bots, the intake drones and sprayers, the riveted Fury-Bots and the cannon-crawlers that follow when the meter climbs."
         },
         "The Bean Garrison": {
           "color": "#9ACD32",
@@ -311,7 +311,7 @@
         },
         "Lieutenants of Fury": {
           "color": "#228B22",
-          "description": "The two officers who keep the Fury Meter fed \u2014 Maestro Mustardo of the cannon crews and Countess Chortlebrass, headmistress of helms."
+          "description": "The two officers who keep the Fury Meter fed — Maestro Mustardo of the cannon crews and Countess Chortlebrass, headmistress of helms."
         }
       }
     },
@@ -366,6 +366,122 @@
         "Heavy Beasts & Auxiliaries": {
           "color": "#800000",
           "description": "Armored pride-lions, gate-breaker ogres, and heavy iron colossi guarding the courtyard and gates."
+        }
+      }
+    },
+    "foundry-bestiary": {
+      "folder": "Bestiary",
+      "description": "Bestiary (actors/foundry-bestiary, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-bestiary.json).",
+      "subfolders": {
+        "General": {
+          "color": "#888888",
+          "description": "Existing Foundry folder under Bestiary."
+        },
+        "Beast": {
+          "color": "#888888",
+          "description": "Existing Foundry folder under Bestiary."
+        },
+        "Fey": {
+          "color": "#888888",
+          "description": "Existing Foundry folder under Bestiary."
+        },
+        "Humanoid": {
+          "color": "#888888",
+          "description": "Existing Foundry folder under Bestiary."
+        },
+        "Monstrosity": {
+          "color": "#888888",
+          "description": "Existing Foundry folder under Bestiary."
+        },
+        "Plant": {
+          "color": "#888888",
+          "description": "Existing Foundry folder under Bestiary."
+        },
+        "Undead": {
+          "color": "#888888",
+          "description": "Existing Foundry folder under Bestiary."
+        }
+      }
+    },
+    "foundry-dark-shores": {
+      "folder": "Dark Shores",
+      "description": "Dark Shores (actors/foundry-dark-shores, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-dark-shores.json).",
+      "subfolders": {
+        "General": {
+          "color": "#36454F",
+          "description": "Existing Foundry folder under Dark Shores."
+        }
+      }
+    },
+    "foundry-disaster-inc": {
+      "folder": "Disaster Inc.",
+      "description": "Disaster Inc. (actors/foundry-disaster-inc, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-disaster-inc.json).",
+      "subfolders": {
+        "General": {
+          "color": "#D4A017",
+          "description": "Existing Foundry folder under Disaster Inc.."
+        }
+      }
+    },
+    "foundry-elsewhere": {
+      "folder": "Elsewhere",
+      "description": "Elsewhere (actors/foundry-elsewhere, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-elsewhere.json).",
+      "subfolders": {
+        "General": {
+          "color": "#6C757D",
+          "description": "Existing Foundry folder under Elsewhere."
+        }
+      }
+    },
+    "foundry-fawful-s-furious-freaks": {
+      "folder": "Fawful's Furious Freaks",
+      "description": "Fawful's Furious Freaks (actors/foundry-fawful-s-furious-freaks, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-fawful-s-furious-freaks.json).",
+      "subfolders": {
+        "General": {
+          "color": "#32CD32",
+          "description": "Existing Foundry folder under Fawful's Furious Freaks."
+        }
+      }
+    },
+    "foundry-fawthful-s-forces": {
+      "folder": "Fawthful's Forces",
+      "description": "Fawthful's Forces (actors/foundry-fawthful-s-forces, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-fawthful-s-forces.json).",
+      "subfolders": {
+        "General": {
+          "color": "#3CB371",
+          "description": "Existing Foundry folder under Fawthful's Forces."
+        },
+        "1035 BF — Bowser's Castle": {
+          "color": "#B22222",
+          "description": "The night Bowser's Castle came down, 18 Harvestide 1035 BF — Session III of the coup chain (actors/bowsers-castle-1035), filed under the factions: Bowser's line and the remnant at the track under Koopa Troop, Fawthful's forces under Fawthful's Forces."
+        }
+      }
+    },
+    "foundry-iron-legion": {
+      "folder": "Iron Legion",
+      "description": "Iron Legion (actors/foundry-iron-legion, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-iron-legion.json).",
+      "subfolders": {
+        "General": {
+          "color": "#ADB5BD",
+          "description": "Existing Foundry folder under Iron Legion."
+        }
+      }
+    },
+    "foundry-koopa-troop": {
+      "folder": "Koopa Troop",
+      "description": "Koopa Troop (actors/foundry-koopa-troop, built by tools/build-forge-packets.py from the NPC Forge roster data/forge/foundry-koopa-troop.json).",
+      "subfolders": {
+        "General": {
+          "color": "#006400",
+          "description": "Existing Foundry folder under Koopa Troop."
+        },
+        "1035 BF — Bowser's Castle": {
+          "color": "#B22222",
+          "description": "The night Bowser's Castle came down, 18 Harvestide 1035 BF — Session III of the coup chain (actors/bowsers-castle-1035), filed under the factions: Bowser's line and the remnant at the track under Koopa Troop, Fawthful's forces under Fawthful's Forces."
+        },
+        "955 BF — Peach's Castle": {
+          "color": "#B8860B",
+          "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop."
         }
       }
     }

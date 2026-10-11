@@ -871,8 +871,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640427,
-        "modifiedTime": 1791410640427,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1165,8 +1163,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640427,
-        "modifiedTime": 1791410640427,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1477,8 +1473,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640427,
-        "modifiedTime": 1791410640427,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1535,8 +1529,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640427,
-        "modifiedTime": 1791410640427,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1586,6 +1578,25 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "hunter",
+          "skirmisher",
+          "undead-disciplined"
+        ],
+        "reasons": [
+          "Mixed melee/ranged weapons → hunter",
+          "Finesse weapon + high speed (35ft) → skirmisher",
+          "Keyword \"shadow\" in name/biography → undead-disciplined",
+          "Keyword \"scout\" in name/biography → skirmisher"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791683075931,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1595,8 +1606,6 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791410640427,
-    "modifiedTime": 1791640224238,
-    "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },
   "sort": 0

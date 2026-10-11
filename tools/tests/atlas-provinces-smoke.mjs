@@ -78,14 +78,9 @@ check('the legend counts the contested marches', /⚔ \d+ contested/.test(txt(mk
 const eq = mount('equestria_full');
 check('provinces under one hand get faint internal borders', eq.host.querySelectorAll('.atlas-v2-edge.inner').length >= 5, `${eq.host.querySelectorAll('.atlas-v2-edge.inner').length} inner edges on equestria_full`);
 
-/* ---- the province lens colours pins by crown ---- */
-check('a Provinces lens joins the modes', !!mk.host.querySelector('[data-mode="provinces"]'));
-mk.host.querySelector('[data-mode="provinces"]').click();
-check('the lens legend lists controllers', /pin size = census power/.test(txt(mk.host.querySelector('[data-legend-lens]'))), txt(mk.host.querySelector('[data-legend-lens]')).slice(0, 90));
-check('the lens legend chips count pins per province', /×\d+/.test(txt(mk.host.querySelector('[data-legend-lens]'))));
-check('every pin inherits a province colour', [...mk.host.querySelectorAll('[data-poi]')].every(el => /--plot|--marker/.test(el.getAttribute('style') || '')));
-const filed = txt(mk.host.querySelector('[data-mode-total]'));
-check('the lens total counts filed pins', /pins filed/.test(filed), filed);
+/* ---- there is no Provinces map mode: provinces are a layer, not a lens ---- */
+check('there is no Provinces map mode', !mk.host.querySelector('[data-mode="provinces"]'));
+check('the province plots are still drawn as a layer', mk.host.querySelectorAll('.atlas-v2-plot').length > 0);
 
 /* ---- a plot click opens the dossier ---- */
 const summaries = mk.handle.getProvinces();

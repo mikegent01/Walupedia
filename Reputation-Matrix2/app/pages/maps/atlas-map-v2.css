@@ -341,7 +341,7 @@
 
 /* Big dots: opt-in fat targets for touch, or for anyone who wants to aim at a
    disc instead of a point. */
-.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot{scale:1.9}
+.atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot{scale:1.5}
 .atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot::before{inset:-7px}
 .atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot:hover,
 .atlas-v2-bigpins .atlas-v2-marker.atlas-v2-dot.selected{outline-width:2px}
@@ -915,3 +915,19 @@
 .atlas-v2-station{position:absolute;transform:translate(-50%,-50%) scale(calc(1/var(--pin-zoom,1)));width:16px;height:16px;border-radius:50%;border:2.5px solid var(--station,#e8f0ff);background:#0b1220cc;box-shadow:0 0 0 1.5px #050b16,0 2px 6px #000a;pointer-events:none;z-index:1}
 .atlas-v2-station.hub{width:24px;height:24px;border-width:3px;background:color-mix(in srgb,var(--station,#e8f0ff) 28%,#0b1220)}
 .atlas-v2-station em{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:3px;font:700 9px/1.1 inherit;font-style:normal;white-space:nowrap;letter-spacing:.3px;color:#eef4ff;text-shadow:0 1px 3px #000,0 0 6px #000}
+/* A categorical lens only colours pins that have a filed category; the rest
+   step back as quiet dots instead of a grey wash. */
+.atlas-v2-marker.atlas-v2-uncat{opacity:.4}
+.atlas-v2-marker.atlas-v2-uncat:hover,.atlas-v2-marker.atlas-v2-uncat.selected{opacity:1}
+
+/* Stat-lens dot shapes. Size already carries the value; the shape says which
+   lens is on. box-sizing is border-box so a ring keeps its stated diameter. */
+.atlas-v2-marker.atlas-v2-dot.atlas-v2-shape-diamond{border-radius:18%;rotate:45deg}
+.atlas-v2-marker.atlas-v2-dot.atlas-v2-shape-ring{
+  box-sizing:border-box;
+  background:#0b1220b8;
+  border:max(2px,22%) solid var(--marker,#7c8aa5);
+}
+.atlas-v2-marker.atlas-v2-dot.atlas-v2-shape-halo{
+  box-shadow:0 0 0 2px #0b1220cc,0 0 0 3.5px var(--marker,#7c8aa5);
+}

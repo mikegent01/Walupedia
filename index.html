@@ -5972,12 +5972,12 @@ function mapsDeskPlayLabel(){
 function mapsDeskMount(){
   const host=document.getElementById('maps-desk-map'); if(!host) return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map22';document.head.appendChild(css);}
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map24';document.head.appendChild(css);}
   const journey=(MAPS_DESK.mode==='journey')?buildJourney(MAPS_DESK.mapId,MAPS_DESK.plane,DATA,ATLAS_MAPS,{party:MAPS_DESK.party,sort:MAPS_DESK.sort}):null;
   const stops=(journey&&journey.stops)||[];
   MAPS_DESK.stops=stops;
   const centroid=(MAPS_DESK.plane&&MAPS_DESK.plane!=='all')?mapsDeskCentroid(MAPS_DESK.mapId,MAPS_DESK.plane):null;
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map22').then(m=>{
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map24').then(m=>{
     if(!document.getElementById('maps-desk-map')) return;
     const wantChatter=MAPS_DESK.mode==='chatter';
     MAPS_DESK.handle=m.mountAtlasMapV2(host,MAPS_DESK.mapId,{
@@ -12026,8 +12026,8 @@ function atlasChips(arr,kind){
 function mountAtlasMap(mapId, group, focusPoi){
   const host=document.getElementById('atlas-map-host'); if(!host)return;
   const prefix=(window.location.pathname.includes('/Reputation-Matrix2/')?'./':'./Reputation-Matrix2/');
-  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map22';document.head.appendChild(css);}
-  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map22').then(m=>{
+  if(!document.getElementById('atlas-map-v2-css')){const css=document.createElement('link');css.id='atlas-map-v2-css';css.rel='stylesheet';css.href=prefix+'app/pages/maps/atlas-map-v2.css?v=map24';document.head.appendChild(css);}
+  import(prefix+'app/pages/maps/atlas-map-v2.js?v=map24').then(m=>{
     const handle=m.mountAtlasMapV2(host,mapId,{focusPoi:focusPoi||'',chatter:wahChatterByPoi(mapId),census:wahCensusByPoi(mapId),party:wahPartyTokens(mapId),focusProvince:ATLAS_MOUNT_FOCUS&&ATLAS_MOUNT_FOCUS.provinceId});
     window.__atlasMapHandle=handle;
   }).catch(e=>{host.innerHTML='<div class="atlas-v2-error">Map failed to load.</div>';console.error('Atlas Map v2 failed',e);});

@@ -871,8 +871,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640215,
-        "modifiedTime": 1791410640215,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1182,8 +1180,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640215,
-        "modifiedTime": 1791410640215,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1473,8 +1469,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640215,
-        "modifiedTime": 1791410640215,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1531,8 +1525,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640215,
-        "modifiedTime": 1791410640215,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1589,8 +1581,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640215,
-        "modifiedTime": 1791410640215,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1639,6 +1629,28 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "hunter",
+          "brute",
+          "disciplined",
+          "undead-disciplined",
+          "tactician"
+        ],
+        "reasons": [
+          "Mixed melee/ranged weapons → hunter",
+          "High HP (84) melee combatant → brute/frontliner",
+          "Keyword \"commander\" in name/biography → disciplined",
+          "Keyword \"shadow\" in name/biography → undead-disciplined",
+          "INT 16 ≥ 16 → tactician overlay"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791683064870,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1648,8 +1660,6 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791410640215,
-    "modifiedTime": 1791640224128,
-    "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },
   "sort": 0

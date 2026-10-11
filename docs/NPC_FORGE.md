@@ -33,6 +33,8 @@ machines, the Bean Garrison and two lieutenants, CR 1/2–7 — see
 | `python3 tools/npc-forge.py cut <packet>` | cut whatever renders are in the folder and rebuild (no Comfy needed) |
 | `python3 tools/npc-forge.py remove-bg <packet> [--ids …]` | Step 2: remove background from renders or source images to make transparent sprites |
 | `python3 tools/npc-forge.py replace <packet> [--ids …]` | Step 5 & 6: replace current images on the website and in Foundry with full-body sprites |
+| `python3 tools/npc-forge.py import-all` | write a roster for every Foundry folder / website article the Forge has no entries from (idempotent) |
+| `python3 tools/npc-forge.py generate-missing [<packet>]` | import everything, adopt existing sprites, then render + cut + build every character without a full-body sprite; with no Comfy it cuts the renders it has and writes hand-off briefs |
 | `python3 tools/npc-forge.py handoff <packet>` | write `handoff.md` + `jobs.jsonl` for the entries without a render |
 | `python3 tools/build-forge-packets.py [<packet>] [--check] [--list]` | the generator alone (what `check-all` runs) |
 | `python3 tools/build-forge-packets.py plates <packet> [--force]` | the cut alone |
@@ -50,6 +52,26 @@ machines, the Bean Garrison and two lieutenants, CR 1/2–7 — see
 4. **Remove background (Step 2):** Click **Remove BG** on an entry or **Batch Remove BG** to key out the background and heal edges, producing a 512×512 transparent RGBA sprite plate.
 5. **Replace current image:** Click **Replace image** to update the website article (`characters.json` `fullBody` sprite and lead `image`) and the Foundry actors (`source_actor` in the world mirror and `actors/<packet>/` packet actor).
 6. **Batching:** Configure batch replacement settings in the top bar to batch-replace all ready sprites across both the website and Foundry in a single click.
+
+**All characters (the page's default view):** one table of every roster entry,
+every Foundry world NPC and every website article, deduped, with source, roster,
+and state (*sprite ready / Foundry art / render, needs cut / reference only / nothing yet*).
+*Foundry art* means the actor's portrait or token already points at a file that
+ships with Foundry — the user Data folder (`%LOCALAPPDATA%\FoundryVTT\Data`,
+e.g. `systems/dnd5e/tokens/…`) or the install's core `icons/…` library — so it
+is not counted as missing (`FOUNDRY_DATA` / `FOUNDRY_PUBLIC` override the two
+folders; **Generate anyway** still renders a custom sprite for one row).
+Reading it writes nothing. **Auto-generate missing** imports whatever is not in
+a roster yet, adopts sprites that already exist, then renders, removes the
+background and builds for the rest; **Import everything** only writes rosters;
+a row's **Generate** does one character. The same is `/api/catalog`,
+`/api/import-all`, `/api/generate-missing`.
+
+**Background removal:** the cut keys the magenta field, then un-mattes the
+edge (`decontaminate` in `tools/make-token-plates.py`): each edge pixel's
+share of key colour is taken out of its colour and its alpha, and any
+leftover tint is clamped. Re-run `python3 tools/make-token-plates.py heal` on
+old plates to clean existing purple rims (`tools/tests/test-plate-fringe.py`).
 
 **On the page:** pick a roster (or *New roster from a faction…*), tick the
 steps, press **Run loop**. Each card shows the plate (or the render, or

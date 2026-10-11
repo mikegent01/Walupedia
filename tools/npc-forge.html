@@ -82,6 +82,7 @@
 </header>
 <main>
   <aside>
+    <button id="btnAll" class="primary" style="width:100%" title="Every character the Forge can see — rosters, Foundry NPCs, website articles — in one table">All characters</button>
     <h2>Rosters</h2>
     <div id="rosters"></div>
     <details>
@@ -161,6 +162,8 @@
 const $ = (s, r=document) => r.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"]/g, (c) => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 let state = null, selected = localStorage.getItem("forge.packet") || null, poll = null, factions = null;
+let view = localStorage.getItem("forge.view") || "all", allCatalog = null, allPoll = null;
+const allFilter = {text: "", source: "", stage: "missing"};
 
 async function api(path, body, method) {
   const r = await fetch(path, body === undefined ? {} : { method: method || "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify(body) });
@@ -190,13 +193,13 @@ function renderRosters() {
   if (!state.rosters.length) box.innerHTML = '<p class="muted">No rosters yet — draft one below.</p>';
   for (const r of state.rosters) {
     const d = document.createElement("div");
-    d.className = "roster" + (r.packet === selected ? " sel" : "");
+    d.className = "roster" + (r.packet === selected && view !== "all" ? " sel" : "");
     if (r.error) { d.innerHTML = `<b>${esc(r.packet)}</b><small class="err">${esc(r.error)}</small>`; }
     else {
       const c = r.counts;
       const repText = c.replaced ? ` · ${c.replaced} replaced` : "";
       d.innerHTML = `<b>${esc(r.name)}</b><small>${esc(r.packet)} · ${c.entries} entries · ${c.plates}/${c.entries} plates · ${c.actors} actors${repText}</small>`;
-      d.onclick = () => { selected = r.packet; localStorage.setItem("forge.packet", selected); renderRosters(); renderWork(); };
+      d.onclick = () => { selected = r.packet; view = "roster"; localStorage.setItem("forge.packet", selected); localStorage.setItem("forge.view", view); renderRosters(); renderWork(); };
     }
     box.appendChild(d);
   }
@@ -241,7 +244,113 @@ function renderFoundryImport() {
 $("#foundryPacket").addEventListener("input", () => { foundryPacketEdited = true; });
 function current() { return state.rosters.find((r) => r.packet === selected && !r.error); }
 
+const STAGE_LABEL = {sprite: "sprite ready", foundry: "Foundry art", render: "render, needs cut", reference: "reference only", none: "nothing yet"};
+async function renderAll(reload) {
+  const w = $("#work");
+  if (reload || !allCatalog) {
+    w.innerHTML = '<p class="muted">Reading every roster, Foundry folder and website article…</p>';
+    allCatalog = await api("/api/catalog");
+  }
+  const c = allCatalog.counts, b = state && state.batch;
+  const rows = allCatalog.rows.filter((x) =>
+    (!allFilter.text || `${x.name} ${x.group} ${x.folder} ${x.packet || ""}`.toLowerCase().includes(allFilter.text.toLowerCase())) &&
+    (!allFilter.source || x.source === allFilter.source) &&
+    (!allFilter.stage || (allFilter.stage === "missing" ? x.needs : allFilter.stage === "unimported" ? !x.imported : x.stage === allFilter.stage)));
+  const busy = !!(b && b.alive);
+  w.innerHTML = `
+    <h2>All characters <span class="muted" style="text-transform:none;letter-spacing:0">— ${c.rows} total · ${c.imported} imported · ${c.unimported} not imported yet · ${c.sprites} with a full-body sprite · ${c.foundry_art || 0} using Foundry art · ${c.missing} missing</span></h2>
+    <div class="bar">
+      <button id="allGenerate" class="primary" ${busy ? "disabled" : ""} title="Imports anything not imported, adopts sprites that already exist, then renders + removes background + builds for every character without a full-body sprite">Auto-generate missing (${c.missing})</button>
+      <button id="allImport" ${busy ? "disabled" : ""} title="Write a roster for every Foundry folder and website article the Forge has no entries from">Import everything</button>
+      <button id="allStop" class="danger" ${busy ? "" : "disabled"}>Stop</button>
+      <button id="allReload">Refresh</button>
+      <span id="allStatus" class="muted"></span>
+    </div>
+    <div class="bar">
+      <input id="fText" placeholder="filter name / group / roster" value="${esc(allFilter.text)}" size="26">
+      <select id="fSource"><option value="">all sources</option><option value="roster">in a roster</option><option value="foundry">Foundry NPC</option><option value="site">website article</option></select>
+      <select id="fStage"><option value="">any state</option><option value="missing">missing sprite</option><option value="sprite">sprite ready</option><option value="foundry">Foundry art</option><option value="render">render, needs cut</option><option value="reference">reference only</option><option value="none">nothing yet</option><option value="unimported">not imported</option></select>
+      <span class="muted">${rows.length} shown</span>
+    </div>
+    <div id="allBatch" class="log" style="display:${b ? "block" : "none"};margin-bottom:10px">${b ? esc(b.log.join("\n")) : ""}</div>
+    <table id="allTable" style="width:100%;border-collapse:collapse">
+      <thead><tr style="text-align:left;color:var(--dim);font-size:12px;text-transform:uppercase;letter-spacing:.5px">
+        <th></th><th>Name</th><th>Group / folder</th><th>Source</th><th>Roster</th><th>State</th><th></th></tr></thead>
+      <tbody>${rows.slice(0, 600).map((x, i) => `
+        <tr data-i="${i}" style="border-top:1px solid var(--line)">
+          <td style="width:52px"><div class="pic" style="width:44px;height:44px">${x.thumb ? `<img loading="lazy" src="${fileUrl(x.thumb)}" alt="">` : "<span>—</span>"}</div></td>
+          <td><b>${esc(x.name)}</b>${x.cr != null && x.cr !== "" ? ` <span class="muted">CR ${esc(crText(x.cr))}</span>` : ""}</td>
+          <td>${esc(x.group || "")}${x.folder ? ` <span class="muted">/ ${esc(x.folder)}</span>` : ""}</td>
+          <td><span class="badge">${esc(x.source)}</span></td>
+          <td>${x.imported ? `<a href="#" class="goRoster" data-p="${esc(x.packet)}">${esc(x.packet)}</a>` : '<span class="muted">not imported</span>'}</td>
+          <td><span class="badge ${x.needs ? "" : "on"}">${esc(STAGE_LABEL[x.stage] || x.stage)}</span>${x.replaced ? ' <span class="badge rep">replaced</span>' : ""}</td>
+          <td>${x.needs ? `<button class="btn-xs rowGen" ${busy ? "disabled" : ""}>Generate</button>` : x.stage === "foundry" ? `<button class="btn-xs rowGen" ${busy ? "disabled" : ""} title="Already has art that ships with Foundry — render a custom sprite anyway">Generate anyway</button>` : ""}</td>
+        </tr>`).join("")}</tbody>
+    </table>${rows.length > 600 ? `<p class="hint">Showing the first 600 — narrow the filter.</p>` : ""}`;
+  $("#fSource").value = allFilter.source;
+  $("#fStage").value = allFilter.stage;
+  const setS = (t, bad) => { const el = $("#allStatus"); el.textContent = t; el.className = bad ? "err" : "ok"; };
+  const rerender = () => renderAll(false);
+  $("#fText").oninput = (ev) => { allFilter.text = ev.target.value; clearTimeout(rerender.t); rerender.t = setTimeout(async () => { await rerender(); const t = $("#fText"); t.focus(); t.setSelectionRange(t.value.length, t.value.length); }, 250); };
+  $("#fSource").onchange = (ev) => { allFilter.source = ev.target.value; rerender(); };
+  $("#fStage").onchange = (ev) => { allFilter.stage = ev.target.value; rerender(); };
+  $("#allReload").onclick = () => renderAll(true);
+  $("#allStop").onclick = () => api("/api/stop", {});
+  $("#allImport").onclick = async () => {
+    if (!confirm(`Write rosters for the ${c.unimported} characters the Forge has no entries from?\nThis adds files under Reputation-Matrix2/data/forge/ and updates actors/folders.json.`)) return;
+    try { setS("importing…"); const o = await api("/api/import-all", {}); await refresh(); await renderAll(true); setS(`imported: ${o.rosters.length} roster(s), ${o.site_entries} website article(s)`); }
+    catch (x) { setS(x.message, true); }
+  };
+  const generate = async (ids) => {
+    try {
+      setS("importing and queuing…");
+      const o = await api("/api/generate-missing", {ids: ids || null, render: true, retries: +($("#retries")?.value || 1)});
+      setS(o.can_render ? `generating ${o.queued} character(s) on Comfy` : `Comfy/Qwen not available — cutting existing renders and writing hand-off briefs for ${o.queued}`);
+      await refresh(); watchBatch();
+    } catch (x) { setS(x.message, true); }
+  };
+  $("#allGenerate").onclick = () => {
+    if (!confirm(`Auto-generate art for ${c.missing} character(s) without a full-body sprite?\nUnimported ones are imported into rosters first. This can take a long time on Comfy.`)) return;
+    generate(null);
+  };
+  w.querySelectorAll(".rowGen").forEach((btn) => btn.onclick = async () => {
+    const x = rows[+btn.closest("tr").dataset.i];
+    try {
+      let key = x.key;
+      if (!x.imported) {
+        setS("importing…");
+        await api("/api/import-all", {});
+        allCatalog = await api("/api/catalog");
+        const hit = allCatalog.rows.find((y) => y.imported && y.name === x.name && y.group === x.group) || allCatalog.rows.find((y) => y.imported && y.name === x.name);
+        if (!hit) return setS("imported, but couldn't find it in a roster — use Auto-generate", true);
+        key = hit.key;
+      }
+      await generate([key]);
+    } catch (e) { setS(e.message, true); }
+  });
+  w.querySelectorAll(".goRoster").forEach((a) => a.onclick = (ev) => {
+    ev.preventDefault(); selected = a.dataset.p; view = "roster";
+    localStorage.setItem("forge.packet", selected); localStorage.setItem("forge.view", view);
+    renderRosters(); renderWork();
+  });
+  if (busy) watchBatch();
+}
+function watchBatch() {
+  if (allPoll) return;
+  allPoll = setInterval(async () => {
+    try {
+      const st = await api("/api/state");
+      state.batch = st.batch; state.job = st.job;
+      const b = st.batch, box = $("#allBatch");
+      if (box && b) { box.style.display = "block"; box.textContent = `${b.done}/${b.total}\n` + b.log.join("\n"); box.scrollTop = 1e9; }
+      if (!b || !b.alive) { clearInterval(allPoll); allPoll = null; await refresh(); if (view === "all") await renderAll(true); }
+    } catch { clearInterval(allPoll); allPoll = null; }
+  }, 1500);
+}
+$("#btnAll").onclick = () => { view = "all"; localStorage.setItem("forge.view", view); renderRosters(); renderWork(); };
+
 function renderWork() {
+  if (view === "all") { renderAll(false).catch((x) => { $("#work").innerHTML = `<p class="err">${esc(x.message)}</p>`; }); return; }
   const r = current();
   const w = $("#work");
   if (!r) { w.innerHTML = '<p class="muted">Pick a roster on the left, or draft one from a faction.</p>'; return; }
@@ -363,7 +472,7 @@ function setStatus(t, bad) { const s = $("#status"); if (s) { s.textContent = t;
 function card(r, e, busy) {
   const d = document.createElement("div");
   d.className = "card";
-  const baseArt = e.base_img || e.source_img || e.site_img;
+  const baseArt = e.base_img || e.source_img || e.site_img || e.foundry_art;
   const baseHtml = baseArt ? `<img src="${fileUrl(baseArt, true)}" alt="Base reference">` : `<span>none</span>`;
   const renderHtml = e.render ? `<img src="${fileUrl(e.render, true)}" alt="Render">` : `<span>none</span>`;
   const plateHtml = e.plate ? `<img src="${fileUrl(e.plate, true)}" alt="Sprite">` : `<span>none</span>`;
@@ -388,7 +497,7 @@ function card(r, e, busy) {
       <div class="card-head">
         <h3>${esc(e.name)}</h3>
         <div class="badges">
-          <span class="badge ${baseArt ? "on" : ""}" title="Base reference image">${baseArt ? "base: " + esc(e.base_image_name || "ref") : "no base"}</span>
+          <span class="badge ${baseArt ? "on" : ""}" title="Base reference image">${baseArt ? "base: " + esc(e.base_image_name || (e.foundry_art && !e.base_img ? "Foundry art" : "ref")) : "no base"}</span>
           <span class="badge ${e.render ? "on" : ""}">render</span>
           <span class="badge ${e.plate ? "on" : ""}">sprite</span>
           <span class="badge ${e.actor ? "on" : ""}">actor</span>

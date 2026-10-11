@@ -57,6 +57,16 @@ _LOCAL = os.environ.get("LOCALAPPDATA") or ""
 COMFY_DESKTOP_EXE = (os.path.join(_LOCAL, "Programs", "Comfy Desktop", "Comfy Desktop.exe"),
                      os.path.join(_LOCAL, "Programs", "@comfyorgcomfyui-electron", "ComfyUI.exe"),
                      os.path.join(_LOCAL, "Programs", "ComfyUI", "ComfyUI.exe"))
+# Where Foundry itself keeps art an actor can point at: the user Data folder
+# (systems/dnd5e/tokens/…, modules/…) and the install's public folder (the core
+# icons/… library). FOUNDRY_DATA / FOUNDRY_PUBLIC override the Windows defaults.
+FOUNDRY_ART_ROOTS = tuple(p for p in (
+    os.environ.get("FOUNDRY_DATA") or (os.path.join(_LOCAL, "FoundryVTT", "Data") if _LOCAL else ""),
+    os.environ.get("FOUNDRY_PUBLIC") or os.path.join(os.environ.get("ProgramFiles") or r"C:\Program Files",
+                                                     "Foundry Virtual Tabletop", "resources", "app", "public"),
+) if p)
+FOUNDRY_ART_PREFIX = "foundry-art/"      # /file?p=foundry-art/<path> serves from FOUNDRY_ART_ROOTS
+IMAGE_EXT = (".png", ".jpg", ".jpeg", ".webp", ".svg", ".gif", ".avif")
 
 # Draft statblocks by tier — enough to import and fight with while the real
 # numbers are written. (abilities, AC, HP, HP formula, attack dice, attacks)
@@ -117,6 +127,7 @@ class Forge:
         self.jobs = {}
         self.current = None
         self.stop_flag = False
+        self.batch = None
 
     # -------------------------------------------------------------- comfy --
     def connect(self, url=None):
@@ -407,6 +418,7 @@ class Forge:
                 "base_img": base_img_rel, "has_base_img": bool(base_img_rel),
                 "base_image_name": os.path.basename(base_src) if base_src else None,
                 "existing_fullbody": existing_fb_rel,
+                "foundry_art": self._entry_foundry_art(e),
                 "replaced": bool(e.get("replaced")), "replaced_at": e.get("replaced_at"),
                 "actor": os.path.exists(os.path.join(actors_dir, f"{prefix}{e['id']}.json")) or source_exists,
             })
@@ -521,13 +533,80 @@ class Forge:
             return None
         return os.path.relpath(candidate, ROOT).replace(os.sep, "/")
 
-    def import_foundry(self, group, packet=None, world=None):
+    def foundry_art_path(self, image):
+        """Absolute path of an image that ships with Foundry (its Data folder or
+        the install's core icons), or None. The mystery-man placeholder is not art."""
+        if not isinstance(image, str) or not image or image.startswith(("http://", "https://", "data:")):
+            return None
+        image = urllib.parse.unquote(image.split("?", 1)[0]).replace("\\", "/").lstrip("/")
+        if image == self.bfp.PENDING_IMG or "*" in image or not image.lower().endswith(IMAGE_EXT):
+            return None
+        if os.path.basename(image).lower().startswith("blank"):      # importer placeholders (blank-2024.webp)
+            return None
+        for root in FOUNDRY_ART_ROOTS:
+            root = os.path.realpath(root)
+            candidate = os.path.realpath(os.path.join(root, *image.split("/")))
+            try:
+                if os.path.commonpath((root, candidate)) == root and os.path.isfile(candidate):
+                    return candidate
+            except ValueError:
+                continue
+        return None
+
+    def _foundry_art(self, doc):
+        """`foundry-art/<path>` for an actor whose portrait or token already is
+        Foundry-installed art - it needs no generated sprite. Art that lives in
+        this checkout (portraits/… mirrored into the Data folder) is the Forge's
+        own and keeps going through the sprite stages."""
+        if not isinstance(doc, dict):
+            return None
+        texture = (doc.get("prototypeToken") or {}).get("texture") or {}
+        for image in (doc.get("img"), texture.get("src")):
+            if self.foundry_art_path(image) and not self._foundry_image(image):
+                return FOUNDRY_ART_PREFIX + urllib.parse.unquote(image.split("?", 1)[0]).replace("\\", "/").lstrip("/")
+        return None
+
+    def _entry_foundry_art(self, entry):
+        """_foundry_art for a roster entry, read from its source actor (cached by mtime)."""
+        if not entry.get("source_actor"):
+            return None
+        try:
+            path = self.bfp.source_actor_path(entry)
+            mtime = os.path.getmtime(path)
+        except (OSError, ValueError):
+            return None
+        cache = self.__dict__.setdefault("_art_cache", {})
+        hit = cache.get(path)
+        if not hit or hit[0] != mtime:
+            hit = cache[path] = (mtime, self._foundry_art(read_json(path)))
+        return hit[1]
+
+    def _claimed(self):
+        """(actor ids, name slugs) already carried by some roster entry - the Foundry NPCs the
+        Forge has already imported, however the roster was made."""
+        ids, names = set(), set()
+        for path in self.bfp.roster_paths():
+            try:
+                r = self.bfp.load_roster(path)
+            except ValueError:
+                continue
+            for e in r.get("entries") or []:
+                if e.get("source_actor_id"):
+                    ids.add(e["source_actor_id"])
+                names.add(slugify(e.get("id") or ""))
+                names.add(slugify(e.get("name") or ""))
+        return ids, names
+
+    def import_foundry(self, group, packet=None, world=None, only_unclaimed=False):
         """Create an art-only Forge roster from existing NPCs in one Foundry
         folder. The source actors are references in the world mirror; a later
         Build carries their original sheets forward and changes only art."""
         if not group:
             raise RuntimeError("choose a Foundry group folder")
         world, scheme, rows = self._foundry_actor_rows(group=group, world=world)
+        if only_unclaimed:
+            ids, names = self._claimed()
+            rows = [x for x in rows if str(x["doc"].get("_id")) not in ids and slugify(str(x["doc"].get("name") or "")) not in names]
         if not rows:
             raise KeyError(f"no NPC actors found in {group!r} under actors/worlds/{world}")
         packet = slugify(packet or ("foundry-" + slugify(group)))
@@ -1300,9 +1379,194 @@ class Forge:
             fh.write("\n".join(lines))
         return {"handoff": rel(os.path.join(folder, "handoff.md")), "jobs": rel(os.path.join(folder, "jobs.jsonl")), "count": len(jobs)}
 
+    # ------------------------------------------- everything, tabulated --
+    SITE_PACKET = "website-characters"
+
+    def _site_article(self, name, site, articles):
+        for a in articles:
+            if isinstance(a, dict) and ((site and a.get("id") == site) or slugify(a.get("name") or "") == slugify(name or "")):
+                return a
+        return None
+
+    def catalog(self, match=None):
+        """One table of every character the Forge can draw: roster entries (imported), Foundry NPCs and
+        website articles that no roster carries yet (not imported). `needs` = no transparent full-body
+        sprite anywhere and no Foundry-installed art on the actor - what Generate missing makes."""
+        articles = read_json(os.path.join(self.bfp.RM, "data", "characters.json"), []) or []
+        rows = []
+        for r in self.rosters():
+            if r.get("error"):
+                continue
+            for e in r["entries"]:
+                sprite = bool(e["plate"] or e["existing_fullbody"])
+                have = sprite or bool(e["foundry_art"])
+                stage = "sprite" if sprite else ("foundry" if have else ("render" if e["render"] else ("reference" if e["has_base_img"] else "none")))
+                rows.append({"key": f"{r['packet']}/{e['id']}", "packet": r["packet"], "id": e["id"], "name": e["name"],
+                             "group": r.get("group") or r.get("name"), "folder": e.get("folder"), "source": "roster",
+                             "imported": True, "stage": stage, "needs": not have, "has_ref": e["has_base_img"],
+                             "thumb": e["plate"] or e["existing_fullbody"] or e["render"] or e["foundry_art"] or e["base_img"] or e["site_img"],
+                             "replaced": e["replaced"], "cr": e.get("cr")})
+        ids, names = self._claimed()
+        try:
+            _world, _scheme, actor_rows = self._foundry_actor_rows()
+        except RuntimeError:
+            actor_rows = []
+        seen_names, seen_sites = set(names), set()
+        for x in actor_rows:
+            doc = x["doc"]
+            name = str(doc.get("name") or "")
+            if str(doc.get("_id")) in ids or slugify(name) in names:
+                continue
+            flags = (doc.get("flags") or {}).get(self.bfp.SHEETS_FLAG) or {}
+            seen_names.add(slugify(name))
+            if flags.get("characterId"):
+                seen_sites.add(flags["characterId"])
+            art = self._site_article(name, flags.get("characterId"), articles)
+            fb = self.find_existing_fullbody({"id": slugify(name), "site": flags.get("characterId")}, art)
+            img = self._foundry_image(doc.get("img"))
+            stock = self._foundry_art(doc)
+            rows.append({"key": "foundry/" + str(doc.get("_id")), "packet": None, "id": slugify(name), "name": name,
+                         "group": x["folder_path"][0], "folder": " / ".join(x["folder_path"][1:]) or "General", "source": "foundry",
+                         "imported": False, "stage": "sprite" if fb else ("foundry" if stock else ("reference" if img else "none")),
+                         "needs": not (fb or stock),
+                         "has_ref": bool(img), "thumb": rel(fb) if fb else (stock or img), "replaced": False, "cr": None})
+        for c in self.site_candidates():
+            if c["site"] in seen_sites or slugify(c["name"]) in seen_names:
+                continue        # the same character is already a Foundry NPC row
+            art = self._site_article(c["name"], c["site"], articles)
+            fb = self.find_existing_fullbody({"id": c["site"], "site": c["site"]}, art)
+            rows.append({"key": "site/" + c["site"], "packet": None, "id": c["site"], "name": c["name"],
+                         "group": c.get("affiliation") or "Website", "folder": c.get("status") or "", "source": "site",
+                         "imported": False, "stage": "sprite" if fb else ("reference" if c.get("image") else "none"),
+                         "needs": not fb, "has_ref": bool(c.get("image")), "thumb": rel(fb) if fb else (c.get("fullBody") or c.get("image")),
+                         "replaced": False, "cr": None})
+        if match:
+            m = match.lower()
+            rows = [x for x in rows if m in f"{x['name']} {x['group']} {x['folder']} {x['packet'] or ''}".lower()]
+        counts = {"rows": len(rows), "imported": sum(1 for x in rows if x["imported"]), "unimported": sum(1 for x in rows if not x["imported"]),
+                  "missing": sum(1 for x in rows if x["needs"]), "sprites": sum(1 for x in rows if x["stage"] == "sprite"),
+                  "foundry_art": sum(1 for x in rows if x["stage"] == "foundry")}
+        return {"rows": rows, "counts": counts, "batch": self.batch}
+
+    def import_all(self):
+        """Make every Foundry NPC and website article a roster entry: one roster per Foundry folder the
+        Forge has no entries from, one `website-characters` roster for the articles. Idempotent."""
+        made, added = [], 0
+        try:
+            _world, _scheme, actor_rows = self._foundry_actor_rows()
+        except RuntimeError:
+            actor_rows = []
+        ids, names = self._claimed()
+        groups = []
+        for x in actor_rows:
+            doc = x["doc"]
+            if str(doc.get("_id")) in ids or slugify(str(doc.get("name") or "")) in names:
+                continue
+            if x["folder_path"][0] not in groups:
+                groups.append(x["folder_path"][0])
+        for group in groups:
+            packet = "foundry-" + slugify(group)
+            if os.path.exists(os.path.join(self.bfp.ROSTERS, packet + ".json")):
+                packet = packet + "-2"
+                if os.path.exists(os.path.join(self.bfp.ROSTERS, packet + ".json")):
+                    continue
+            try:
+                self.import_foundry(group, packet=packet, only_unclaimed=True)
+                made.append(packet)
+            except (KeyError, RuntimeError):
+                pass
+        site = self.site_candidates()
+        if site:
+            path = os.path.join(self.bfp.ROSTERS, self.SITE_PACKET + ".json")
+            if not os.path.exists(path):
+                self.draft(self.SITE_PACKET, "Website characters", group="Website characters", plan=[], rows=[], framing="fullbody")
+                made.append(self.SITE_PACKET)
+            res = self.collect(self.SITE_PACKET, site, framing=self.bfp.FRAMINGS["fullbody"])
+            added = len(res["added"])
+        return {"rosters": made, "site_entries": added, "catalog": self.catalog()["counts"]}
+
+    def generate_missing(self, packets=None, ids=None, render=True, retries=1):
+        """Import everything, adopt sprites that already exist, then render + cut + build every entry still
+        without a full-body sprite. Without a Qwen Comfy it cuts the renders it has and writes hand-off
+        briefs for the rest. `ids` is a list of "packet/id" keys to limit the run."""
+        if self.batch and self.batch.get("alive"):
+            raise RuntimeError("a batch is already running - stop it or wait")
+        imported = self.import_all()
+        if render and not (self.comfy and self.engine == "qwen21"):
+            self.connect()
+        can_render = bool(render and self.comfy and self.engine == "qwen21")
+        wanted = set(ids or [])
+        batch = {"alive": True, "log": [], "done": 0, "total": 0, "can_render": can_render, "imported": imported, "started": time.time()}
+        self.batch = batch
+        self.stop_flag = False
+        plan = []
+        for r in self.rosters():
+            if r.get("error") or (packets and r["packet"] not in packets):
+                continue
+            # Foundry-installed art counts as done unless the entry was asked for by key
+            todo = [e["id"] for e in r["entries"] if not (e["plate"] or e["existing_fullbody"])
+                    and (f"{r['packet']}/{e['id']}" in wanted if wanted else not e["foundry_art"])]
+            adopt = [e["id"] for e in r["entries"] if not e["plate"] and e["existing_fullbody"]
+                     and (not wanted or f"{r['packet']}/{e['id']}" in wanted)]
+            if todo or adopt:
+                plan.append((r["packet"], todo, adopt))
+        batch["total"] = sum(len(t) + len(a) for _p, t, a in plan)
+
+        def say(line):
+            batch["log"].append(f"{dt.datetime.now().strftime('%H:%M:%S')}  {line}")
+
+        def work():
+            try:
+                for packet, todo, adopt in plan:
+                    if self.stop_flag:
+                        say("stopped")
+                        break
+                    if adopt:
+                        got = self.use_fullbody(packet, ids=adopt)
+                        say(f"{packet}: adopted {got['count']} existing sprite(s)")
+                        batch["done"] += len(adopt)
+                    if not todo:
+                        continue
+                    roster = self.bfp.find_roster(packet)
+                    by_id = {e["id"]: e for e in roster["entries"]}
+                    rendered = [i for i in todo if os.path.exists(self.bfp.render_file(roster, by_id[i]))]
+                    steps = ("render", "cut", "build") if can_render else ("cut", "build")
+                    run_ids = todo if can_render else rendered
+                    if run_ids:
+                        say(f"{packet}: {'render + ' if can_render else ''}cut {len(run_ids)} entr(ies)")
+                        try:
+                            job = self.run(packet, ids=run_ids, steps=steps, only_missing=True, retries=retries)
+                        except RuntimeError as exc:
+                            say(f"{packet}: {exc}")
+                            batch["done"] += len(todo)
+                            continue
+                        while True:
+                            j = self.jobs.get(job["id"]) or {}
+                            if not j.get("alive"):
+                                break
+                            time.sleep(1)
+                        batch["log"].extend("    " + ln for ln in (j.get("log") or [])[-6:])
+                    if not can_render:
+                        left = [i for i in todo if i not in rendered]
+                        if left:
+                            self.handoff(packet, only_missing=True)
+                            say(f"{packet}: no Comfy - hand-off brief written for {len(left)} entr(ies) (npc-forge/{packet}/handoff.md)")
+                    batch["done"] += len(todo)
+            except Exception as exc:  # noqa: BLE001
+                say(f"{type(exc).__name__}: {exc}")
+            finally:
+                batch["alive"] = False
+                say("done")
+        if plan:
+            threading.Thread(target=work, daemon=True).start()
+        else:
+            batch["alive"] = False
+            say("nothing missing")
+        return {"imported": imported, "queued": batch["total"], "can_render": can_render}
+
     def state(self):
         return {"connection": self.connection(), "rosters": self.rosters(), "foundry": self.foundry_groups(),
-                "job": self.current, "root": ROOT,
+                "job": self.current, "batch": self.batch, "root": ROOT,
                 "tiers": {k: {"cr": v["cr"], "ac": v["ac"], "hp": v["hp"]} for k, v in TIERS.items()}, "default_plan": DEFAULT_PLAN}
 
 
@@ -1328,11 +1592,17 @@ class Handler(BaseHTTPRequestHandler):
             pass
 
     def _file(self, rel_path):
-        path = os.path.realpath(os.path.join(ROOT, rel_path))
-        if not path.startswith(os.path.realpath(ROOT) + os.sep) or not os.path.isfile(path):
-            return self._send(404, {"error": "not found"})
+        if rel_path.startswith(FOUNDRY_ART_PREFIX):
+            path = self.forge.foundry_art_path(rel_path[len(FOUNDRY_ART_PREFIX):])
+            if not path:
+                return self._send(404, {"error": "not found"})
+        else:
+            path = os.path.realpath(os.path.join(ROOT, rel_path))
+            if not path.startswith(os.path.realpath(ROOT) + os.sep) or not os.path.isfile(path):
+                return self._send(404, {"error": "not found"})
         ext = os.path.splitext(path)[1].lower()
         ctype = {".png": "image/png", ".jpg": "image/jpeg", ".jpeg": "image/jpeg", ".webp": "image/webp", ".json": "application/json; charset=utf-8",
+                 ".svg": "image/svg+xml", ".gif": "image/gif", ".avif": "image/avif",
                  ".md": "text/markdown; charset=utf-8"}.get(ext, "application/octet-stream")
         with open(path, "rb") as fh:
             self._send(200, fh.read(), ctype)
@@ -1349,6 +1619,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._file(q.get("p", "").replace("\\", "/").lstrip("/"))
             if u.path == "/api/state":
                 return self._send(200, f.state())
+            if u.path == "/api/catalog":
+                return self._send(200, f.catalog(q.get("match") or None))
             if u.path == "/api/factions":
                 return self._send(200, f.factions())
             if u.path == "/api/job":
@@ -1413,6 +1685,11 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(200, f.draft(body["packet"], body["name"], faction=body.get("faction"), group=body.get("group"), color=body.get("color"),
                                                plan=body.get("plan"), subfolders=body.get("subfolders"), style=body.get("style"), title=body.get("title"),
                                                rows=body.get("rows"), framing=body.get("framing")))
+            if path == "/api/import-all":
+                return self._send(200, f.import_all())
+            if path == "/api/generate-missing":
+                return self._send(202, f.generate_missing(packets=body.get("packets"), ids=body.get("ids"),
+                                                          render=body.get("render", True), retries=int(body.get("retries", 1))))
             if path == "/api/import-foundry":
                 return self._send(200, f.import_foundry(body.get("group"), packet=body.get("packet"), world=body.get("world")))
             if path == "/api/collect":
@@ -1489,7 +1766,7 @@ def watch_loop(forge, directory, packet=None, interval=6):
 def main(argv=None):
     ap = argparse.ArgumentParser(description="NPC Forge — faction → roster → renders → token plates → Foundry packet")
     ap.add_argument("command", nargs="?", default="serve",
-                    choices=["serve", "draft", "collect", "ingest", "prompt", "run", "cut", "build", "handoff", "replace", "remove-bg"])
+                    choices=["serve", "draft", "collect", "ingest", "prompt", "run", "cut", "build", "handoff", "replace", "remove-bg", "import-all", "generate-missing"])
     ap.add_argument("packet", nargs="?")
     ap.add_argument("--list", action="store_true", help="rosters and their art state, then exit")
     ap.add_argument("--host", default="0.0.0.0")
@@ -1616,6 +1893,17 @@ def main(argv=None):
         print(f"replace: {res['count']} entr(ies) updated in website and Foundry for packet {a.packet}")
         for r in res["replaced"]:
             print(f"  {r['id']}: plate {r['plate']} -> website {r['website'] or 'none'}, foundry: {', '.join(r['foundry']) if r['foundry'] else 'none'}")
+        return 0
+    if a.command == "import-all":
+        res = forge.import_all()
+        print(f"import-all: {len(res['rosters'])} roster(s) written, {res['site_entries']} website article(s) added; {res['catalog']}")
+        return 0
+    if a.command == "generate-missing":
+        res = forge.generate_missing(packets=[a.packet] if a.packet else None, render=True, retries=a.retries)
+        print(f"generate-missing: {res['queued']} queued (render={'yes' if res['can_render'] else 'no Comfy - cut + hand-off only'})")
+        while forge.batch and forge.batch.get("alive"):
+            time.sleep(2)
+        print("\n".join(forge.batch["log"]))
         return 0
     if a.command == "remove-bg":
         if not a.packet:

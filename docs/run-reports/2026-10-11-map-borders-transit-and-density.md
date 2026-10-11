@@ -96,3 +96,35 @@ GENERATED
   · 21 hand-filed ledgers now read a different hand than the census (was reported before this run too; absorption moves some pins between provinces, so individual deltas shifted). `docs/PROVINCE_CENSUS_GUIDE.md` does not yet describe island absorption.
   · Detached pieces of hand-filed provinces (Northern Lands, The Empire, Jester's Playground …) were absorbed per the instruction; if the archive should keep those pins with their filed province, restrict `absorbIslands` to `kind === 'merged'`.
   · Absorbed pins are listed on the census as `absorbed: [{poiId, from, to}]` but not yet shown in the province dossier.
+
+---
+
+## Addendum 2 — map modes
+
+**Cause.** An earlier redesign made every single pin a type-coloured dot of 4–7px in every numeric lens, so Population, Military, Economy and Influence produced identical colours and near-identical sizes. Species, Religion and Culture only colour pins with filed character presence; every other pin fell back to the flat `#5b6b8a` badge, which read as a grey map.
+
+**Files**
+EDITED
+  `Reputation-Matrix2/app/pages/maps/atlas-map-v2.js`   Provinces mode removed; numeric lenses restore their own colour (green/red/gold/violet); dot size 4–11px and brightness follow the value; new Places lens carries the type colours; uncategorised pins in a categorical lens become quiet dots
+  `Reputation-Matrix2/app/pages/maps/atlas-map-v2.css`  `.atlas-v2-uncat`
+  `index.html`                                          cache tokens `map22` → `map23` (4)
+  `tools/tests/atlas-provinces-smoke.mjs`               Provinces lens assertions replaced by "no Provinces mode, plots still drawn as a layer"
+  `tools/tests/test-map-lenses.mjs`                     ten lenses incl. Places; unfiled pins are quiet dots; numeric dots wear the lens colour; Places varies colour
+
+**Verification** — lenses 84/84, modes smoke 30 pass / 4 fail (the four cluster/inset checks that predate this work; the four "pins read green/red/gold/violet" checks that failed before now pass), provinces smoke 67/67.
+
+**Not done / open**
+  · Species / Religion / Culture still colour only pins with filed character presence (`wahCensusByPoi` in `index.html`); coverage is thin by nature of the data. They now show that honestly (quiet dots) instead of a grey wash. A regional-majority fallback would be inventing per-pin facts and was not added.
+  · Province fills do not change with the mode (they show the controlling faction); unclaimed provinces stay slate grey by design.
+  · Not looked at in a browser.
+
+---
+
+## Addendum 3 — dots follow the data
+
+  · Dot diameter now scales with the lens value (4 + w^1.4 × 15 px, log-weighted): on Midlands the top-quarter population dots average ~12px against ~4px for the bottom quarter. Big-dot scale for dots lowered 1.9× → 1.5× because size now carries meaning.
+  · Each stat lens has its own shape: population disc, military diamond, economy hollow ring, influence dot with halo (pure CSS, no clip-path, so hover/selection outlines still work). The legend shows the glyph.
+  · Larger dots are drawn first so small ones stay on top and clickable.
+  · Files: `atlas-map-v2.js`, `atlas-map-v2.css`, `index.html` (`map24`), `tools/tests/test-map-lenses.mjs` (87 checks: size tracks population, per-lens shapes).
+  · Not looked at in a browser. Max dot size (≈15px, 22px with big dots) is a judgement call and easy to tune: the constant is the `15` in the dot diameter line.
+

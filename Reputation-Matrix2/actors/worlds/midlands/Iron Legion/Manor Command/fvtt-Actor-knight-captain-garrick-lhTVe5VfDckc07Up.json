@@ -870,8 +870,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640273,
-        "modifiedTime": 1791410640273,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1181,8 +1179,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640273,
-        "modifiedTime": 1791410640273,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1239,8 +1235,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1791410640273,
-        "modifiedTime": 1791410640273,
-        "lastModifiedBy": "7BMT1Aux3QVtq027",
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null
@@ -1290,6 +1284,30 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "brute",
+          "disciplined",
+          "fearless",
+          "warpriest",
+          "tactician",
+          "undead-disciplined"
+        ],
+        "reasons": [
+          "High HP (85) melee combatant → brute/frontliner",
+          "Keyword \"commander\" in name/biography → disciplined",
+          "Keyword \"champion\" in name/biography → fearless",
+          "Keyword \"paladin\" in name/biography → warpriest",
+          "Keyword \"captain\" in name/biography → tactician",
+          "Keyword \"shadow\" in name/biography → undead-disciplined"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1791683062587,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
@@ -1299,8 +1317,6 @@
     "compendiumSource": null,
     "duplicateSource": null,
     "createdTime": 1791410640273,
-    "modifiedTime": 1791640224171,
-    "lastModifiedBy": "7BMT1Aux3QVtq027",
     "exportSource": null
   },
   "sort": 0
