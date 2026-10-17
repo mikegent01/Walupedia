@@ -3766,6 +3766,64 @@ check('voice: a studio stream that errors is read for WHY — turned-away profil
       gRes.isGeneric === false && gRes.hasGrounding === true;
   })());
 
+  check('anti-generic: assistant tells are caught on their own; one stray cliché in a grounded turn is forgiven', (() => {
+    const bot = RP.genericCheck('As an AI, I cannot really hold the ledger, but I hope this helps.');
+    const one = RP.genericCheck('*a wave of relief* "Fourteen coins. Fourteen! Somebody counted short."');
+    const wide = RP.genericCheck('His eyes glinted with mischief. A shiver ran down her spine.');
+    return bot.isGeneric === true && bot.hard.length >= 1 &&
+      one.isGeneric === false && one.cliches.length === 1 &&
+      wide.isGeneric === true && wide.cliches.length === 2;
+  })());
+
+  check('anti-generic: the assistant sign-off is cut, an in-character question is not', (() => {
+    const cut = RP.scrubSlop('*slams the ledger* "Pay me, or the door stays shut." What would you like to do next?');
+    const keep = RP.scrubSlop('*leans over the counter* "Fourteen coins short. What will you do, plumber?"');
+    const ask = RP.scrubSlop('"Let me know when the gold arrives." *pockets the key*');
+    const only = RP.scrubSlop('What would you like to do next?');
+    return cut.cut.length === 1 && cut.text === '*slams the ledger* "Pay me, or the door stays shut."' &&
+      keep.cut.length === 0 && ask.cut.length === 0 && only.cut.length === 0;
+  })());
+
+  check('anti-generic: the directive rides from the first turn and names no other character', (() => {
+    const peach = RP.normChar({ id: 'peach', name: 'Peach' });
+    const room = { kind: 'solo', cast: [peach], messages: [] };
+    const block = RP.antiGenericBlock(room, peach, 'strict');
+    return /WRITE LIKE A PERSON/.test(block) && /Peach/.test(block) &&
+      !/Wario|Mr\. L|Paulo/.test(block) && RP.antiGenericBlock(room, peach, 'guide') === '';
+  })());
+
+  check('continue: a history ending on a character turn is closed with a user turn, roles never repeat', (() => {
+    const shaped = RP.chatShape([
+      { role: 'user', content: 'Hand it over.' },
+      { role: 'assistant', content: 'Wario: WAH. No.' },
+      { role: 'assistant', content: 'Waluigi: For the record, he means no.' },
+    ], 'Wario');
+    const alternates = shaped.every((m, i) => i === 0 || m.role !== shaped[i - 1].role);
+    const opensOnUser = RP.chatShape([{ role: 'assistant', content: 'Narration: Rain.' }], '')[0].role === 'user';
+    return shaped.length === 3 && alternates && shaped[2].role === 'user' && /Wario/.test(shaped[2].content) &&
+      /For the record/.test(shaped[1].content) && opensOnUser &&
+      RP.chatShape([{ role: 'user', content: 'Hi.' }], 'Wario').length === 1;
+  })());
+
+  check('turn flags: each take is checked against the turns before it, and the chip fix names the phrases', (() => {
+    const said = (text) => ({ role: 'char', charId: 'wario', text });
+    const room = { messages: [
+      said('WAH. Your face is inches from yours truly, and the ledger stays shut.'),
+      said('Back off. Your nose is inches from yours truly, plumber.'),
+      said('*taps the ledger* Fourteen coins short.'),
+    ] };
+    const modes = { fresh: 'strict', antiRepetition: 'strict', antiGeneric: 'strict' };
+    const stale = RP.turnFlags(room, 2, 'Close enough. Inches from yours truly, and nobody touches the ledger.', 'wario', modes);
+    const freshTake = RP.turnFlags(room, 2, '*taps the ledger* Fourteen coins short.', 'wario', modes);
+    const off = RP.turnFlags(room, 2, 'Inches from yours truly.', 'wario', { fresh: 'off', antiRepetition: 'off', antiGeneric: 'off' });
+    const nudge = RP.fixNudge(stale, 'Wario');
+    const m = { alt: 1, alts: ['a', 'b'], repeats: ['old'], flags: [{ repeats: ['old'] }, {}] };
+    return (stale.repeats || stale.antiRepeat) && !freshTake.repeats && Object.keys(off).length === 0 &&
+      /REWRITE/.test(nudge) && /Wario/.test(nudge) &&
+      RP.flagsOf(m).repeats === undefined && RP.flagsOf({ alt: 0, repeats: ['old'] }).repeats[0] === 'old' &&
+      RP.flagsOf({ alt: 1, alts: ['a', 'b'], repeats: ['old'] }).repeats === undefined;
+  })());
+
   check('continuity: item transfers between characters in prose are accurately detected', (() => {
     const cast = [RP.normChar({ id: 'wario', name: 'Wario' }), RP.normChar({ id: 'waluigi', name: 'Waluigi' })];
     const hand = RP.handoverScan('Wario handed the brass key to Waluigi with a grunt.', cast);

@@ -410,6 +410,16 @@
     };
   }
 
+  /** Which turn checks are on, for the chips. */
+  function flagModes() {
+    var s = state.settings || {};
+    return {
+      fresh: s.fresh || RP.FRESH_DEFAULT,
+      antiRepetition: s.antiRepetition || RP.ANTI_REPETITION_DEFAULT,
+      antiGeneric: s.antiGeneric || RP.ANTI_GENERIC_DEFAULT,
+    };
+  }
+
   function samplers() {
     var s = (state.settings && state.settings.sampler) || {};
     var out = {};
@@ -420,6 +430,19 @@
       out.frequency_penalty = Math.max(0, Math.min(2, (Number(s.repeat_penalty) - 1) * 2));
     }
     if (s.min_p !== undefined && s.min_p !== '') out.min_p = Number(s.min_p);
+    // XTC and DRY are the anti-slop samplers: XTC sometimes throws away the
+    // most predictable next word (the cliché), DRY punishes repeating runs.
+    // llama.cpp's server and KoboldCpp honour them; servers that do not
+    // know them ignore the fields.
+    if (s.xtc_probability !== undefined && s.xtc_probability !== '') {
+      out.xtc_probability = Number(s.xtc_probability);
+      out.xtc_threshold = 0.1;
+    }
+    if (s.dry_multiplier !== undefined && s.dry_multiplier !== '') {
+      out.dry_multiplier = Number(s.dry_multiplier);
+      out.dry_base = 1.75;
+      out.dry_allowed_length = 2;
+    }
     return out;
   }
 
@@ -2492,8 +2515,13 @@
       esc(RP.moodLabel(m.mood)) + ' (' + esc(m.mood.key) + ' ' + m.mood.level + '/3)' : '';
   }
 
-  function metaStrip(m) {
+  function metaStrip(m, i) {
     var bits = [];
+    var flags = RP.flagsOf(m);
+    // A chip is an offer, not a verdict: click it and the turn is taken
+    // again with exactly those phrases named.
+    var fix = i === undefined ? '' : ' data-fixturn="' + i + '" role="button" tabindex="0"';
+    var fixHint = i === undefined ? '' : ' \u2014 click for a take without it';
     if (m.fate) bits.push('<span class="roll">' + esc(m.fate) + '</span>');
     (m.changes || []).forEach(function (line) { bits.push('<span>' + esc(line) + '</span>'); });
     if (m.beatFired) bits.push('<span class="beat">⏩ ' + esc(RP.clip(m.beatFired, 90)) + '</span>');
@@ -2502,14 +2530,14 @@
       bits.push('<span class="read' + (used ? ' used' : '') + '" title="' + (used ? 'Read out of the archive for this turn, and something of it is in the prose'
         : 'Read out of the archive for this turn') + '">' + (used ? '📚 ' : '🔎 ') + esc(RP.clip(name, 40)) + '</span>');
     });
-    (m.repeats || []).forEach(function (phrase) {
-      bits.push('<span class="stale" title="Still leaning on this after being asked for a fresh turn">♻ ' + esc(RP.clip(phrase, 40)) + '</span>');
+    (flags.repeats || []).forEach(function (phrase) {
+      bits.push('<span class="stale"' + fix + ' title="Repeats “' + esc(phrase) + '” from this character’s earlier turns' + fixHint + '">♻ ' + esc(RP.clip(phrase, 40)) + '</span>');
     });
-    (m.antiRepeat || []).forEach(function (reason) {
-      bits.push('<span class="formula" title="Repetitive formula or cadence pattern">🔁 ' + esc(RP.clip(reason, 40)) + '</span>');
+    (flags.antiRepeat || []).forEach(function (reason) {
+      bits.push('<span class="formula"' + fix + ' title="' + esc(reason) + fixHint + '">🔁 ' + esc(RP.clip(reason, 40)) + '</span>');
     });
-    (m.generic || []).forEach(function (cliche) {
-      bits.push('<span class="generic" title="Generic roleplay cliché detected">🎭 ' + esc(RP.clip(cliche, 40)) + '</span>');
+    (flags.generic || []).forEach(function (cliche) {
+      bits.push('<span class="generic"' + fix + ' title="Stock phrasing: ' + esc(cliche) + fixHint + '">🎭 ' + esc(RP.clip(cliche, 40)) + '</span>');
     });
     if (m.edited) bits.push('<span class="quiet">edited</span>');
     return bits.length ? '<div class="metastrip">' + bits.join('') + '</div>' : '';
@@ -2825,7 +2853,7 @@
           (m.ambient ? '<span class="meanwhile" title="This happened while you were in the other scene">🌗 meanwhile</span>' : '') +
           '<button class="speak" data-speak="' + i + '" title="Read aloud">▶</button></div>' +
           '<div class="bubble">' + RP.md(RP.applyTints(RP.textOf(m), r.tints)) + '</div>' +
-          metaStrip(m) +
+          metaStrip(m, i) +
           '<div class="acts">' +
           '<button data-retry="' + i + '" title="Another take">↻</button>' +
           (r.mechanics === 'off' ? '' : '<button data-auditturn="' + esc(m.id) + '" title="Audit this turn against the sheets">🩺</button>') +
@@ -2863,7 +2891,7 @@
               return '<span class="ooc" title="Sent to the model, not spoken aloud">(( ' + esc(n) + ' ))</span>';
             }).join('') + '</div>'
           : '') +
-        metaStrip(m) +
+        metaStrip(m, m.error ? undefined : i) +
         (m.error ? '<div class="acts"><span>This notice stays out of the model’s context.</span></div>' :
           '<div class="acts">' + swipes +
           (mine ? '' : '<button data-retry="' + i + '" title="Another take">↻</button>') +
@@ -4496,6 +4524,19 @@
         save(); render();
       };
     });
+    stream.querySelectorAll('[data-fixturn]').forEach(function (b) {
+      b.onclick = function () {
+        var idx = +b.dataset.fixturn;
+        var m = r.messages[idx];
+        if (!m) return;
+        var who = m.role === 'world' ? RP.NARRATORS[RP.narrator(state)].name : (charOf(r, m.charId) || {}).name;
+        toast('↻ Asking ' + (who || 'them') + ' for a take without it.');
+        generate({ room: r, retryIndex: idx, reheard: true, nudge: RP.fixNudge(RP.flagsOf(m), who) });
+      };
+      b.onkeydown = function (e) {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); b.onclick(); }
+      };
+    });
     stream.querySelectorAll('[data-retry]').forEach(function (b) {
       b.onclick = function () { generate({ room: r, retryIndex: +b.dataset.retry }); };
     });
@@ -5394,6 +5435,9 @@
       RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, lookBack),
       Number(state.settings.historyChars) || RP.HISTORY_BUDGET);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
+    // ➤ Continue sends no line of the reader's: without this the history
+    // ends on a character's turn and the model is asked to extend it.
+    history = RP.chatShape(history, worldTurn ? '' : speaker.name);
 
     /** Ask for a reply, and if the model runs out of room mid-sentence,
      *  ask it to carry on from exactly where it stopped. Two goes at most,
@@ -5628,6 +5672,10 @@
       if (retry) {
         retry.alts = (retry.alts && retry.alts.length ? retry.alts : [retry.text]).concat([clean]);
         retry.alt = retry.alts.length - 1;
+        // The chips belong to the take, not the card: take 2 used to wear
+        // take 1's warnings, and nothing checked take 2 at all.
+        if (!retry.flags) retry.flags = [{ repeats: retry.repeats, antiRepeat: retry.antiRepeat, generic: retry.generic }];
+        retry.flags[retry.alt] = worldTurn ? {} : RP.turnFlags(r, opts.retryIndex, clean, retry.charId, flagModes());
       } else {
         // Whose line is this, really? A small model handed six people will
         // write whoever spoke last — and sometimes the player themselves.
@@ -5664,6 +5712,14 @@
           }, 150);
           return false;
         }
+        // ✂ The assistant's sign-off ("What would you like to do next?")
+        // is cut on the spot: no character says it, and a retake is a
+        // whole generation on a local model.
+        if ((state.settings.antiGeneric || RP.ANTI_GENERIC_DEFAULT) !== 'off' && !worldTurn && speaker.id !== RP.PLAYER_ID) {
+          var scrubbed = RP.scrubSlop(clean);
+          if (scrubbed.cut.length) clean = scrubbed.text;
+        }
+
         // Clean intra-message sentence loops / stutters
         var loops = RP.findRepetitionLoops(clean);
         if (loops.hasLoop) {
@@ -5722,8 +5778,11 @@
           busy = false; save(); render();
           toast('🎭 AI clichés detected — asking for grounded, specific prose.');
           window.setTimeout(function () {
-            generate({ room: r, reheard: true, nudge: 'GENERIC CLICHES DETECTED: ' + genCheck.cliches.slice(0, 3).map(function (c) { return '“' + c + '”'; }).join(', ') + '. ' +
-              'Ground the reply in concrete scene details and specific character voice. Eliminate purple prose and generic melodrama.' });
+            generate({ room: r, reheard: true, nudge: (genCheck.hard.length
+              ? 'Your last attempt slipped out of character and talked like a chatbot (' + genCheck.hard.slice(0, 2).map(function (c) { return '“' + c + '”'; }).join(', ') + '). ' +
+                speaker.name + ' is a person in this scene, not an assistant: no offers of help, no asking what the user wants next. '
+              : 'Your last attempt leaned on stock phrasing: ' + genCheck.cliches.slice(0, 3).map(function (c) { return '“' + c + '”'; }).join(', ') + '. ') +
+              'Write it again the way ' + speaker.name + ' would actually say it — plain words, their own habits from VOICE, and one real object or fact from this scene.' });
           }, 150);
           return false;
         }
@@ -5767,6 +5826,7 @@
           repeats: repeats && repeats.stale ? repeats.hits.slice(0, 3) : undefined,
           antiRepeat: repCheck && repCheck.repeated ? repCheck.reasons.slice(0, 2) : undefined,
           generic: genCheck && genCheck.isGeneric ? genCheck.cliches.slice(0, 2) : undefined,
+          flags: worldTurn || ambient ? undefined : [RP.turnFlags(r, r.messages.length, clean, saidBy.id, flagModes())],
           // One of several turns written as the same seconds.
           moment: moment ? moment.id : undefined,
           same: moment && moment.done.length ? true : undefined,
@@ -7000,6 +7060,8 @@
       '<label class="mins">top_k <input type="text" id="f_top_k" value="' + esc(String(sampler.top_k === undefined ? '' : sampler.top_k)) + '" placeholder="40"></label>' +
       '<label class="mins">rep. penalty <input type="text" id="f_repeat_penalty" value="' + esc(String(sampler.repeat_penalty === undefined ? '' : sampler.repeat_penalty)) + '" placeholder="1.1"></label>' +
       '<label class="mins">min_p <input type="text" id="f_min_p" value="' + esc(String(sampler.min_p === undefined ? '' : sampler.min_p)) + '" placeholder="0.05"></label>' +
+      '<label class="mins" title="Anti-cliché: chance to skip the most predictable word. llama.cpp / KoboldCpp only.">XTC <input type="text" id="f_xtc_probability" value="' + esc(String(sampler.xtc_probability === undefined ? '' : sampler.xtc_probability)) + '" placeholder="0.5"></label>' +
+      '<label class="mins" title="Anti-repetition: penalises repeated runs of words. llama.cpp / KoboldCpp only.">DRY <input type="text" id="f_dry_multiplier" value="' + esc(String(sampler.dry_multiplier === undefined ? '' : sampler.dry_multiplier)) + '" placeholder="0.8"></label>' +
       '</div>' +
       '<h4>Background AI</h4>' +
       '<label for="f_background">Background AI — lean is ONE model call per turn: speakers rotate, the lore book and upkeep wait</label>' +
@@ -7195,7 +7257,7 @@
       var auto = parseInt($('f_autoplay').value, 10);
       if (!isNaN(auto)) state.settings.autoplay = Math.max(2, Math.min(20, auto));
       var next = {};
-      ['top_p', 'top_k', 'repeat_penalty', 'min_p'].forEach(function (k) {
+      ['top_p', 'top_k', 'repeat_penalty', 'min_p', 'xtc_probability', 'dry_multiplier'].forEach(function (k) {
         var raw = ($('f_' + k).value || '').trim();
         if (raw !== '' && !isNaN(parseFloat(raw))) next[k] = parseFloat(raw);
       });

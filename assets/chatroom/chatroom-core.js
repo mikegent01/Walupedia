@@ -1047,6 +1047,31 @@
     return limit ? out.slice(-limit) : out;
   };
 
+  /** The history in the shape every chat template accepts: it opens and
+   *  ends on the user, and never has two turns of one role in a row. A
+   *  ➤ Continue sends no new line, so the history used to end on the
+   *  character's own last turn — llama.cpp and LM Studio read that as
+   *  "extend this message" and often came back empty, and strict templates
+   *  (Gemma, Mistral) refused it outright, as they did two characters'
+   *  turns back to back. `who` is the name of whoever is up, or '' for the
+   *  narrator. */
+  RP.chatShape = function (messages, who) {
+    var out = [];
+    (messages || []).forEach(function (m) {
+      if (!m || !String(m.content || '').trim()) return;
+      var prev = out[out.length - 1];
+      if (prev && prev.role === m.role) prev.content += '\n\n' + m.content;
+      else out.push({ role: m.role, content: String(m.content) });
+    });
+    if (!out.length || out[0].role !== 'user') out.unshift({ role: 'user', content: '(The scene opens.)' });
+    if (out[out.length - 1].role !== 'user') {
+      out.push({ role: 'user', content: who
+        ? '(I let the scene run without a line of my own. Write ' + who + '’s next turn: something new happens — do not repeat or extend the last turn.)'
+        : '(I let the scene run without a line of my own. Narrate what happens next — do not repeat or extend the last turn.)' });
+    }
+    return out;
+  };
+
   /* ---- the rolling recap: a long chat without a long prompt ---- */
 
   RP.RECAP_AFTER = 18;      // turns of history before the old ones are folded up
@@ -4511,48 +4536,113 @@
     return lines.join('\n');
   };
 
-  /* ---- anti-generic system: catalogue of AI clichés & grounding check ---- */
+  /* ---- anti-generic system: catalogue of AI clichés & grounding check ----
+     Two kinds. Prose slop is the stock phrasing every model reaches for —
+     one is forgivable in a grounded turn, two is a turn written by nobody.
+     Assistant tells (`hard`) are the chatbot leaking through the costume —
+     offering help, naming itself, asking what you would like to do next —
+     and one is enough. `tail` patterns are only ever an assistant's sign-off
+     when they END the turn; RP.scrubSlop cuts those on the spot instead of
+     paying for a retake. */
 
   RP.GENERIC_PATTERNS = [
-    { id: 'smirk_lips', name: 'smirk played on lips', re: /\ba smirk played (?:across|on) (?:[a-z]+ )?lips\b/i },
+    { id: 'smirk_lips', name: 'smirk played on lips', re: /\ba smirk (?:played|tugged|danced|crept|spread) (?:across|on|at|over) (?:[a-z]+ )?(?:lips|mouth|face)\b|\b(?:lips|mouth) (?:curl(?:ed|s|ing)?|quirk(?:ed|s|ing)?|twitch(?:ed|es|ing)?) (?:up )?into a (?:smirk|small smile|knowing smile)\b/i },
     { id: 'eyes_narrowed', name: 'eyes narrowed in/with', re: /\beyes narrowed (?:with|in|slightly)\b/i },
-    { id: 'chill_spine', name: 'chill down spine', re: /\ba chill (?:ran|crept|went) down (?:[a-z]+ )?spine\b/i },
-    { id: 'tension_palpable', name: 'tension was palpable', re: /\btension (?:in the (?:air|room) )?was palpable\b/i },
-    { id: 'tension_thick', name: 'tension hung thick/heavy', re: /\btension (?:hung|hung thick|hung heavy) in the air\b/i },
+    { id: 'eyes_glint', name: 'eyes glinting with mischief', re: /\beyes (?:glint(?:ed|ing|s)?|gleam(?:ed|ing|s)?|sparkl(?:ed|ing|es?)|twinkl(?:ed|ing|es?)|danc(?:ed|ing|es?)|shin(?:e|es|ing)|flash(?:ed|ing|es)?) with (?:mischief|amusement|curiosity|determination|something|mirth|glee)\b/i },
+    { id: 'glint_of', name: 'a glint/flicker of something', re: /\ba (?:mischievous |playful |predatory |dangerous )?(?:glint|twinkle|glimmer|flicker|spark) of (?:mischief|amusement|something|recognition|determination|mirth|understanding)\b/i },
+    { id: 'chill_spine', name: 'chill down spine', re: /\b(?:chill|shiver)s?\b[^.!?\n]{0,30}\bdown (?:[a-z]+ )?spine\b/i },
+    { id: 'tension_palpable', name: 'tension was palpable', re: /\btension (?:in the (?:air|room) )?(?:was|is) palpable\b/i },
+    { id: 'tension_thick', name: 'tension hung thick/heavy', re: /\btension (?:hung|hung thick|hung heavy) in the air\b|\bthe air (?:was|is|grew|hung) (?:thick|heavy|charged|electric) with\b/i },
+    { id: 'hung_in_air', name: 'words hung in the air', re: /\b(?:words|question|silence|threat|accusation) (?:hung|hangs|hanging|lingered|lingers) (?:heavy )?in the air\b/i },
+    { id: 'whisper', name: 'barely above a whisper', re: /\bbarely above a whisper\b/i },
+    { id: 'voice_laced', name: 'voice dripping/laced with', re: /\bvoice (?:dripping|laced|thick|heavy|tinged) with\b/i },
+    { id: 'mix_of', name: 'a mix of X and Y', re: /\ba (?:mix|mixture|blend|cocktail) of [a-z]+ and [a-z]+\b/i },
+    { id: 'something_shifted', name: 'something shifted', re: /\bsomething (?:shifted|changed|flickered|stirred) (?:in|between|behind)\b/i },
+    { id: 'weight_of', name: 'the weight of the words', re: /\bthe weight of (?:his|her|their|my|your|the|those|these) (?:words|gaze|stare|decision|silence|confession|admission)\b/i },
     { id: 'little_did_know', name: 'little did they know', re: /\blittle did (?:he|she|they|anyone|we|i) know\b/i },
     { id: 'testament_to', name: 'a testament to', re: /\ba testament to\b/i },
-    { id: 'unspoken_agreement', name: 'unspoken agreement/understanding', re: /\b(?:an )?unspoken (?:agreement|understanding|bond)\b/i },
+    { id: 'tapestry', name: 'a tapestry of', re: /\b(?:rich |vibrant |intricate |complex )?tapestry of\b/i },
+    { id: 'delve', name: 'delve into', re: /\bdelv(?:e|es|ed|ing) (?:into|deeper)\b/i },
+    { id: 'unspoken_agreement', name: 'unspoken agreement/understanding', re: /\b(?:an )?unspoken (?:agreement|understanding|bond|promise)\b/i },
     { id: 'nodded_agreement', name: 'nodded in agreement', re: /\bnodded (?:slowly |solemnly )?in agreement\b/i },
     { id: 'shared_glance', name: 'shared a glance/look', re: /\bshared a (?:knowing )?(?:glance|look)\b/i },
     { id: 'only_time_will_tell', name: 'only time will tell', re: /\bonly time will tell\b/i },
     { id: 'couldnt_help_but', name: 'couldnt help but feel/wonder', re: /\bcouldn'?t help but (?:feel|wonder|smile|notice|admire)\b/i },
+    { id: 'maybe_just_maybe', name: 'maybe, just maybe', re: /\bmaybe,? just maybe\b/i },
+    { id: 'ghost_smile', name: 'the ghost of a smile', re: /\b(?:the|a) ghost of a (?:smile|grin|smirk|laugh)\b/i },
+    { id: 'wave_of', name: 'a wave of relief/emotion', re: /\ba (?:wave|surge|flood|rush) of (?:relief|emotion|emotions|exhaustion|warmth|panic|nausea|guilt)\b/i },
+    { id: 'fiber_being', name: 'every fibre of their being', re: /\bevery fib(?:er|re) of (?:his|her|their|my|your) being\b/i },
+    { id: 'practiced_ease', name: 'with practiced ease', re: /\bwith (?:practiced|practised|effortless|fluid) ease\b/i },
+    { id: 'world_fell_away', name: 'the world fell away', re: /\bthe (?:world|room) (?:seemed to )?(?:narrowed|narrows|fell away|falls away|faded away|stood still|held its breath)\b/i },
+    { id: 'stark_contrast', name: 'in stark contrast', re: /\bin stark contrast\b/i },
+    { id: 'ozone', name: 'the smell of ozone', re: /\b(?:scent|smell|tang|taste)s? of ozone\b/i },
+    { id: 'orbs', name: 'eyes as orbs', re: /\b(?:emerald|sapphire|azure|cerulean|amber|crimson|obsidian) orbs\b/i },
+    { id: 'not_x_but_y', name: 'it is not X, it is Y', re: /\b(?:it'?s|this is|that'?s|this isn'?t|it isn'?t) not (?:just |merely |simply |about )?[^.!?,;\n]{1,40}[,;—–-]+\s*(?:it'?s|this is|that'?s)\b/i },
     { id: 'dance_of', name: 'dance of shadows/blades', re: /\ba dance of (?:shadows|blades|fire|death)\b/i },
     { id: 'force_to_reckon', name: 'force to be reckoned with', re: /\ba force to be reckoned with\b/i },
     { id: 'calm_before_storm', name: 'calm before the storm', re: /\bthe calm before the storm\b/i },
     { id: 'pregnant_pause', name: 'pregnant pause', re: /\ba pregnant pause\b/i },
-    { id: 'silence_stretched', name: 'silence stretched', re: /\bsilence stretched between them\b/i },
-    { id: 'breath_holding', name: 'breath they didnt realize they held', re: /\b(?:breath|gasp) (?:he|she|they) (?:didn'?t|did not) (?:realize|know) (?:he|she|they) (?:was|were) holding\b/i },
-    { id: 'let_out_breath', name: 'let out a breath held', re: /\blet out a breath (?:he|she|they) (?:didn'?t|did not) (?:realize|know) (?:he|she|they) (?:was|were) holding\b/i },
-    { id: 'time_seemed_to', name: 'time seemed to freeze/stop', re: /\btime seemed to (?:stop|freeze|slow down)\b/i },
-    { id: 'steeling_self', name: 'steeling himself/herself', re: /\bsteeling (?:himself|herself|themselves)\b/i },
-    { id: 'no_time_to_lose', name: 'no time to lose/waste', re: /\b(?:we have|there is) no time to (?:lose|waste)\b/i },
+    { id: 'silence_stretched', name: 'silence stretched', re: /\bsilence stretched (?:between them|on|out)\b/i },
+    { id: 'breath_holding', name: 'breath they didnt realize they held', re: /\bbreath (?:he|she|they|i) (?:didn'?t|did not|hadn'?t|had not) (?:realize|realise|know|noticed?) (?:he|she|they|i) (?:was|were|had been) holding\b/i },
+    { id: 'time_seemed_to', name: 'time seemed to freeze/stop', re: /\btime seemed to (?:stop|freeze|slow down|stand still)\b/i },
+    { id: 'steeling_self', name: 'steeling himself/herself', re: /\bsteel(?:ing|ed|s) (?:himself|herself|themselves|myself)\b/i },
+    { id: 'no_time_to_lose', name: 'no time to lose/waste', re: /\b(?:we have|there is|there'?s) no time to (?:lose|waste)\b/i },
     { id: 'not_so_different', name: 'were not so different', re: /\bwe'?re not so different(?:, you and i)?\b/i },
     { id: 'shall_we_begin', name: 'shall we begin', re: /\bshall we begin\??\b/i },
     { id: 'you_speak_truth', name: 'you speak the truth', re: /\byou speak the truth\b/i },
     { id: 'in_this_moment', name: 'in this moment all/everything', re: /\bin this moment,?\s+(?:everything|all|nothing)\b/i },
     { id: 'whirlwind_emotion', name: 'whirlwind of emotions', re: /\ba whirlwind of emotions?\b/i },
     { id: 'hope_curdling', name: 'hope curdling/the tally', re: /\b(?:hope curdling|the tally of|darkness calls|shadows beckon)\b/i },
-    { id: 'heart_pounded_chest', name: 'heart pounded in chest', re: /\bheart pounded (?:heavily )?(?:in |against )?(?:his|her|their)?\s*chest\b/i },
+    { id: 'heart_pounded_chest', name: 'heart pounded in chest', re: /\bheart (?:pounded|hammered|raced) (?:heavily )?(?:in |against )?(?:his|her|their|my)?\s*(?:chest|ribcage)\b/i },
+    { id: 'knuckles_white', name: 'knuckles turning white', re: /\bknuckles (?:turning |going |turned |went )?white\b/i },
+
+    // Assistant tells: the chatbot under the costume. One is enough.
+    { id: 'as_an_ai', name: 'as an AI', hard: true, re: /\bas an? (?:ai|a\.i\.|language model|assistant|chatbot)\b|\bI(?:'m| am) (?:just )?(?:an? )?(?:ai|language model|assistant|chatbot)\b/i },
+    { id: 'here_to_help', name: 'here to help', hard: true, re: /\b(?:I'?m|I am) (?:always )?(?:here|happy|glad) to (?:help|assist)\b|\bhow (?:can|may) I (?:help|assist) you\b/i },
+    { id: 'hope_helps', name: 'I hope this helps', hard: true, re: /\bI hope (?:this|that) helps\b|\bis there anything else (?:I can|you(?:'d| would) like)\b/i },
+    { id: 'great_question', name: 'great question', hard: true, re: /\b(?:great|good|excellent) question\b(?!\s+(?:for|to))/i },
+    { id: 'certainly_opener', name: 'Certainly! opener', hard: true, re: /^\s*(?:\*[^*\n]{0,80}\*\s*)?["“]?certainly[!,.]/i },
+    { id: 'feel_free', name: 'feel free to / let me know', hard: true, tail: true, re: /(?:^|[.!?…*"”]\s+)[^.!?\n]{0,40}\b(?:feel free to (?:ask|reach out|let me know|share|continue|tell me)|let me know if (?:you(?:'d| would)? (?:like|want|need) (?:anything|more|help|me to)|there(?:'s| is) anything))\b[^.!?\n]*[.!?]?["”*]*\s*$/i },
+    { id: 'what_next', name: 'what would you like to do next', hard: true, tail: true, re: /(?:^|[.!?…*"”]\s+)["“*]?(?:so,? )?(?:what (?:would|do) you (?:like to |want to |wish to )do (?:next|now)?|how (?:would|do) you (?:like to |want to |wish to )?(?:proceed|respond|continue)|the choice is (?:yours|now yours)(?: to make)?|the (?:next move|decision) is yours)[.?!]*["”*]*\s*$/i },
   ];
+
+  /** Cut the assistant's sign-off from the end of a turn — "What would you
+   *  like to do next?", "Feel free to…" — which no character ever says and
+   *  which costs nothing to remove. Only the LAST sentence is touched, and
+   *  only when something is left after it. Returns { text, cut: [names] }. */
+  RP.scrubSlop = function (text) {
+    var out = String(text || '');
+    var cut = [];
+    for (var pass = 0; pass < 2; pass++) {
+      var hit = null;
+      RP.GENERIC_PATTERNS.forEach(function (pat) {
+        if (hit || !pat.tail) return;
+        var m = pat.re.exec(out);
+        if (m) hit = { pat: pat, at: m.index + (m[0].length - m[0].replace(/^(?:[.!?…*"”]\s+)/, '').length) };
+      });
+      if (!hit) break;
+      var kept = out.slice(0, hit.at).replace(/\s+$/, '');
+      if (kept.replace(/[\s*"“”]/g, '').length < 12) break;
+      // An action left open by the cut — "*leans back*  What will you do?"
+      // was fine; "*leans back. What will you do?*" needs its asterisk.
+      if ((kept.match(/\*/g) || []).length % 2) kept += '*';
+      out = kept;
+      cut.push(hit.pat.name);
+    }
+    return { text: out, cut: cut };
+  };
 
   /** Check if a text leans on stock AI clichés or lacks tangible grounding. */
   RP.genericCheck = function (text, opts) {
     opts = opts || {};
     var raw = String(text || '').trim();
-    if (!raw) return { isGeneric: false, score: 0, cliches: [], count: 0, hasGrounding: false, reasons: [] };
+    if (!raw) return { isGeneric: false, score: 0, cliches: [], hard: [], count: 0, hasGrounding: false, reasons: [] };
     var matched = [];
+    var hard = [];
     RP.GENERIC_PATTERNS.forEach(function (pat) {
-      if (pat.re.test(raw)) matched.push(pat.name);
+      if (!pat.re.test(raw)) return;
+      matched.push(pat.name);
+      if (pat.hard) hard.push(pat.name);
     });
     var CONCRETE_WORDS = /\b(?:coin|coins|gold|ledger|key|keys|lock|door|table|chair|hat|boots|knife|blade|gun|cannon|wrench|pipe|garlic|salt|coffee|bottle|glass|iron|steel|blood|mud|wall|floor|pocket|invoice|badge|ticket|wire|card|helmet|shield|potion|rope|bag)\b/i;
     var hasConcrete = CONCRETE_WORDS.test(raw);
@@ -4561,45 +4651,108 @@
     var hasGrounding = hasConcrete || hasNumbers || hasDialogue;
 
     var reasons = [];
-    if (matched.length > 0) reasons.push('used stock AI clichés: ' + matched.slice(0, 3).join(', '));
+    if (hard.length) reasons.push('broke character like a chatbot: ' + hard.slice(0, 2).join(', '));
+    if (matched.length > hard.length) reasons.push('used stock AI clichés: ' + matched.filter(function (n) { return hard.indexOf(n) < 0; }).slice(0, 3).join(', '));
     if (!hasGrounding && raw.length >= 180) reasons.push('lacks concrete physical items, dialogue, or numbers');
 
-    var isGeneric = matched.length >= 2 || (matched.length >= 1 && !hasConcrete) || (raw.length >= 200 && !hasGrounding && matched.length >= 1);
-    var score = Math.min(1, Math.round((matched.length * 0.35 + (hasGrounding ? 0 : 0.4)) * 100) / 100);
+    var soft = matched.length - hard.length;
+    // One stock phrase in a turn that is otherwise about real things is
+    // forgiven; a retake is a whole generation on a local model.
+    var isGeneric = hard.length >= 1 || soft >= 2 || (soft >= 1 && !hasGrounding);
+    var score = Math.min(1, Math.round((soft * 0.35 + hard.length * 0.6 + (hasGrounding ? 0 : 0.4)) * 100) / 100);
     return {
       isGeneric: isGeneric,
       score: score,
       cliches: matched,
+      hard: hard,
       count: matched.length,
       hasGrounding: hasGrounding,
       reasons: reasons,
     };
   };
 
-  /** Prompt directive for anti-generic grounding. */
+  /** Prompt directive for anti-generic grounding. Strict rides from the
+   *  first turn — the opening line is where a model is most generic. It
+   *  names no other character: an example voice ("Wario haggles") in
+   *  everybody's prompt is how everybody starts haggling. */
   RP.antiGenericBlock = function (room, char, setting) {
     if (setting === 'off' || !room || !char) return '';
     var prior = RP.priorTurns(room, char.id, RP.FRESH_TURNS);
-    if (prior.length < 2) return '';
-    var lastTurn = prior[prior.length - 1];
-    var gen = RP.genericCheck(lastTurn);
-    if (!gen.isGeneric && setting !== 'strict') return '';
+    var gen = prior.length ? RP.genericCheck(prior[prior.length - 1]) : { isGeneric: false, cliches: [] };
+    if (setting !== 'strict' && (prior.length < 2 || !gen.isGeneric)) return '';
     var name = (char && char.name) ? char.name : 'the speaker';
     var lines = [
-      'ANTI-GENERIC DIRECTIVE:',
-      '\u2022 BANISHED AI CLICH\u00c9S \u2014 never use stock melodrama or filler, including:',
-      '  \u201ca smirk played on lips\u201d, \u201ceyes narrowed\u201d, \u201ca chill down the spine\u201d, \u201ctension was palpable\u201d,',
-      '  \u201clittle did they know\u201d, \u201ca testament to\u201d, \u201cunspoken agreement\u201d, \u201cshared a glance\u201d, \u201conly time will tell\u201d,',
-      '  \u201cbreath they did not realize they were holding\u201d, \u201ca pregnant pause\u201d, \u201chope curdling\u201d, or \u201cWe have no time to lose\u201d.',
-      '\u2022 CONCRETE GROUNDING \u2014 ground this turn in physical reality: touch, kick, inspect, wield, drop, or slam a',
-      '  specific tangible object, gear, coin, weapon, door, tool, or environmental feature from the scene.',
-      '\u2022 RAW CHARACTER VOICE \u2014 speak in ' + name + '\u2019s distinct idiom, slang, flaws, and grit from their sheet.',
-      '  Never slide into generic purple fantasy or generic horror prose. Mr. L rhymes with mechanical bite; Wario grunts and haggles; Paulo panics over specifics.',
-      '\u2022 DECISIVE MOVES \u2014 make an irreversible choice or physical demand, not a philosophical musing.',
+      'WRITE LIKE A PERSON, NOT A CHATBOT:',
+      '• Plain verbs, concrete nouns, things that are actually in this scene. Fragments are fine. Contractions are fine.',
+      '• No stock phrasing — smirks playing on lips, shivers down spines, eyes glinting with mischief, voices barely above a whisper,',
+      '  air thick with tension, waves of relief, “a testament to”, “a mix of X and Y”, “it’s not X, it’s Y”.',
+      '• No assistant habits: never offer help, never ask what the user would like to do next, never sum up the moment or explain the subtext.',
+      '• Small, specific physical beats (*thumbs the dent in the coin*), not emotional weather (*a wave of relief washes over him*).',
+      '• If a line could come out of anybody in any story, it is wrong. Say what ' + name + ' would say: their words from VOICE, their grudges, their things.',
     ];
     if (gen.isGeneric && gen.cliches.length) {
-      lines.push('\u2022 BANNED CLICHES from recent turns: ' + gen.cliches.slice(0, 3).map(function (c) { return '“' + c + '”'; }).join(', ') + '.');
+      lines.push('• Already used, do not reach for again: ' + gen.cliches.slice(0, 3).map(function (c) { return '“' + c + '”'; }).join(', ') + '.');
     }
+    return lines.join('\n');
+  };
+
+  /* ---- turn flags: the ♻ 🔁 🎭 chips, one set per take ---- */
+
+  /** What the checks found in one take of message `index`, measured
+   *  against the speaker's turns BEFORE it — so a second take is never
+   *  marked as repeating the first. `modes` is { fresh, antiRepetition,
+   *  antiGeneric }; an 'off' check reports nothing. */
+  RP.turnFlags = function (room, index, text, charId, modes) {
+    modes = modes || {};
+    var before = { messages: ((room && room.messages) || []).slice(0, index) };
+    var prior = RP.priorTurns(before, charId, RP.FRESH_TURNS);
+    var out = {};
+    if (modes.fresh !== 'off' && prior.length >= 2) {
+      var rep = RP.repeatCheck(text, prior);
+      if (rep.stale) out.repeats = rep.hits.slice(0, 3);
+    }
+    if (modes.antiRepetition !== 'off' && prior.length >= 1) {
+      var cad = RP.repetitionCheck(text, prior);
+      if (cad.repeated) {
+        out.antiRepeat = cad.reasons.slice(0, 2);
+        out.antiRepeatHits = cad.hits.slice(0, 4);
+      }
+    }
+    if (modes.antiGeneric !== 'off') {
+      var gen = RP.genericCheck(text);
+      if (gen.isGeneric) out.generic = gen.cliches.slice(0, 3);
+    }
+    return out;
+  };
+
+  /** The flags for the take on screen. Old chats kept one set on the
+   *  message itself, true only of the first take. */
+  RP.flagsOf = function (m) {
+    if (!m) return {};
+    var alt = m.alt || 0;
+    if (m.flags && m.flags[alt]) return m.flags[alt];
+    if (alt === 0 && !m.flags) return { repeats: m.repeats, antiRepeat: m.antiRepeat, generic: m.generic };
+    return {};
+  };
+
+  /** The order for a take asked for from a chip: name exactly what to
+   *  leave out, then let the character speak. */
+  RP.fixNudge = function (flags, name) {
+    flags = flags || {};
+    name = name || 'the character';
+    var phrases = [].concat(flags.repeats || [], flags.antiRepeatHits || []).filter(function (p, i, all) {
+      return p && all.indexOf(p) === i;
+    }).slice(0, 6);
+    var lines = ['THIS TAKE IS A REWRITE. The last take of this turn was rejected:'];
+    if (phrases.length) {
+      lines.push('\u2022 It reused ' + name + '\u2019s own earlier material: ' + phrases.map(function (p) { return '\u201c' + p + '\u201d'; }).join(', ') +
+        '. None of those words, none of their rewordings.');
+    }
+    if ((flags.antiRepeat || []).length && !phrases.length) lines.push('\u2022 It fell into a pattern: ' + flags.antiRepeat.join('; ') + '.');
+    if ((flags.generic || []).length) {
+      lines.push('\u2022 It used stock phrasing: ' + flags.generic.map(function (p) { return '\u201c' + p + '\u201d'; }).join(', ') + '.');
+    }
+    lines.push('Write the turn again with a different opening, a different move, and something changed by the end. Same person, same voice.');
     return lines.join('\n');
   };
 

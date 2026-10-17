@@ -339,6 +339,8 @@ a { color: inherit; }
 .metastrip .stale { background: #fdf0ee; border-color: #f0c7c0; color: #9a3b2d; }
 .metastrip .formula { background: #f3f0ff; border-color: #d0bfff; color: #5f3dc4; }
 .metastrip .generic { background: #fff4e6; border-color: #ffd8a8; color: #d9480f; }
+.metastrip [data-fixturn] { cursor: pointer; }
+.metastrip [data-fixturn]:hover, .metastrip [data-fixturn]:focus-visible { filter: brightness(0.95); text-decoration: underline; }
 /* ⚙ Settings: one dialog, five tabs, nothing hidden behind a dock row. */
 .stabs { display: flex; gap: 4px; flex-wrap: wrap; margin: 4px 0 14px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
 .stab { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--muted); }
