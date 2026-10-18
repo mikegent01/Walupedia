@@ -3,8 +3,8 @@
   "generatedBy": "tools/foundry-bridge.py combine",
   "exportedFrom": "waluipedia-cast",
   "system": "dnd5e",
-  "actorCount": 12,
-  "folderCount": 7,
+  "actorCount": 13,
+  "folderCount": 8,
   "unresolvedFolderActors": 0,
   "folderStyles": {
     "Elsewhere": {
@@ -22,6 +22,10 @@
     "Koopa Troop / 955 BF — Peach's Castle": {
       "color": "#B8860B",
       "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop."
+    },
+    "Liberated Toads": {
+      "color": "#87CEEB",
+      "description": null
     },
     "Mages' Guild": {
       "color": "#8A2BE2",
@@ -88,6 +92,19 @@
       "path": [
         "Koopa Troop",
         "955 BF — Peach's Castle"
+      ]
+    },
+    {
+      "_id": "Wchuzi1HmGETatwK",
+      "name": "Liberated Toads",
+      "type": "Actor",
+      "folder": null,
+      "sorting": "a",
+      "sort": 0,
+      "color": "#87CEEB",
+      "description": null,
+      "path": [
+        "Liberated Toads"
       ]
     },
     {
@@ -7974,6 +7991,844 @@
             "label": "Bowser, King of the Koopas",
             "when": "The sovereign who kidnapped princesses and conquered kingdoms, eighty-five years before he held the door for Disaster Inc. — the Koopa Troop at full strength, the castle intact, fire in the throat."
           }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "compendiumSource": null,
+        "duplicateSource": null
+      }
+    },
+    {
+      "_id": "IqICAKjNe8wLtfm0",
+      "name": "Hudston",
+      "type": "npc",
+      "img": "icons/svg/mystery-man.svg",
+      "system": {
+        "abilities": {
+          "str": {
+            "value": 10,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "dex": {
+            "value": 11,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "con": {
+            "value": 11,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "int": {
+            "value": 13,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "wis": {
+            "value": 13,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "cha": {
+            "value": 16,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          }
+        },
+        "attributes": {
+          "ac": {
+            "flat": 10,
+            "calc": "natural",
+            "formula": ""
+          },
+          "hp": {
+            "value": 7,
+            "max": 7,
+            "formula": "2d6",
+            "temp": null,
+            "tempmax": null
+          },
+          "movement": {
+            "walk": "25",
+            "units": "ft",
+            "hover": false,
+            "burrow": "0",
+            "climb": "0",
+            "fly": "0",
+            "swim": "0",
+            "ignoredDifficultTerrain": []
+          },
+          "senses": {
+            "units": "ft",
+            "ranges": {
+              "darkvision": 0
+            },
+            "special": ""
+          },
+          "init": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonus": ""
+          },
+          "attunement": {
+            "max": 3
+          },
+          "spellcasting": "",
+          "exhaustion": 0,
+          "concentration": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "save": ""
+            },
+            "limit": 1
+          },
+          "loyalty": {},
+          "hd": {
+            "spent": 0
+          },
+          "death": {
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "success": 0,
+            "failure": 0,
+            "bonuses": {
+              "save": ""
+            }
+          }
+        },
+        "details": {
+          "alignment": "Neutral",
+          "type": {
+            "value": "humanoid",
+            "subtype": "Toad"
+          },
+          "cr": 0.125,
+          "biography": {
+            "value": "<p><em>Waluipedia cast sheet — Hudston.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 1/8 as a noble. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Toad Who Was Gold By Handshake</strong> — Liberated Toads — the TOADALNAEC</p><p>Status: Active — called out of the TOADALNAEC when the gate toad could not settle a dispute over who owned it; shook Remi's hand, went gold, asked to be shot, enjoyed it, and was counted a toad of the ship's company afterward</p><p>Hudston is the toad the gate sent for. He came out on deck, looked at Remi and asked whether she was gold or gold-plated. She offered a handshake as an answer. He went gold from the hand up, asked to be tested, was shot at by Green T, felt the bullet bounce and said it kind of stung but was really fun. The archive has nothing on him before that morning: no rank and no word on what he does aboard the old Vigilance. The spelling is the account's.</p><h3>Evidence</h3><ul><li><strong>Cane</strong> — “The Toad Who Was Gold By Handshake”</li><li><strong>As Filed</strong> — “The Toad Who Was Gold By Handshake”</li></ul><p>Article: <code>#/article/hudston</code> (characters). Site sheet: <code>#/sheets/hudston</code>.</p>",
+            "public": ""
+          }
+        },
+        "traits": {
+          "size": "sm",
+          "languages": {
+            "value": [
+              "common"
+            ],
+            "custom": "",
+            "communication": {}
+          },
+          "ci": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "di": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dr": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dv": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dm": {
+            "amount": {},
+            "bypasses": []
+          },
+          "important": false
+        },
+        "skills": {
+          "acr": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ani": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "arc": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ath": {
+            "value": 0,
+            "ability": "str",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "dec": {
+            "value": 1,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "his": {
+            "value": 1,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ins": {
+            "value": 1,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "itm": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "inv": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "med": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "nat": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prc": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prf": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "per": {
+            "value": 1,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "rel": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "slt": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ste": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "sur": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "bonuses": {},
+        "tools": {},
+        "spells": {},
+        "resources": {}
+      },
+      "prototypeToken": {
+        "name": "Hudston",
+        "displayName": 0,
+        "actorLink": false,
+        "width": 1,
+        "height": 1,
+        "texture": {
+          "src": "icons/svg/mystery-man.svg",
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "fit": "contain",
+          "scaleX": 1,
+          "scaleY": 1,
+          "tint": "#ffffff",
+          "alphaThreshold": 0.75
+        },
+        "lockRotation": false,
+        "rotation": 0,
+        "alpha": 1,
+        "disposition": 0,
+        "displayBars": 0,
+        "bar1": {
+          "attribute": "attributes.hp"
+        },
+        "bar2": {
+          "attribute": null
+        }
+      },
+      "items": [
+        {
+          "_id": "IdbAS8ZoET5aezRj",
+          "name": "Cane",
+          "type": "weapon",
+          "img": "icons/weapons/staves/staff-simple-gold.webp",
+          "system": {
+            "description": {
+              "value": "<p>Cane; melee weapon attack.</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "quantity": 1,
+            "weight": {
+              "value": 0,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "attunement": "",
+            "rarity": "",
+            "identified": true,
+            "cover": null,
+            "range": {
+              "value": null,
+              "long": null,
+              "units": "ft",
+              "reach": null
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "versatile": {
+                "number": null,
+                "denomination": null,
+                "bonus": "",
+                "types": [],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              },
+              "base": {
+                "number": 1,
+                "denomination": 4,
+                "bonus": "",
+                "types": [
+                  "bludgeoning"
+                ],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              }
+            },
+            "armor": {
+              "value": 10
+            },
+            "hp": {
+              "value": 0,
+              "max": 0,
+              "dt": null,
+              "conditions": ""
+            },
+            "properties": [
+              "lgt"
+            ],
+            "type": {
+              "value": "simpleM",
+              "baseItem": ""
+            },
+            "container": null,
+            "equipped": true,
+            "proficient": null,
+            "identifier": "",
+            "attuned": false,
+            "ammunition": {},
+            "crew": {
+              "value": []
+            },
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "type": "attack",
+                "activation": {
+                  "type": "action",
+                  "value": 1,
+                  "condition": "",
+                  "override": false
+                },
+                "consumption": {
+                  "targets": [],
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "value": "",
+                  "units": "inst",
+                  "special": "",
+                  "override": false
+                },
+                "effects": [],
+                "range": {
+                  "units": "ft",
+                  "special": "",
+                  "override": false
+                },
+                "target": {
+                  "template": {
+                    "count": "",
+                    "contiguous": false,
+                    "type": "",
+                    "size": "",
+                    "width": "",
+                    "height": "",
+                    "units": "ft",
+                    "stationary": false
+                  },
+                  "affects": {
+                    "count": "",
+                    "type": "",
+                    "choice": false,
+                    "special": ""
+                  },
+                  "prompt": true,
+                  "override": false
+                },
+                "uses": {
+                  "spent": 0,
+                  "max": "",
+                  "recovery": []
+                },
+                "attack": {
+                  "ability": "str",
+                  "bonus": "",
+                  "critical": {
+                    "threshold": null
+                  },
+                  "flat": false,
+                  "type": {
+                    "value": "melee",
+                    "classification": "weapon"
+                  }
+                },
+                "damage": {
+                  "critical": {
+                    "bonus": ""
+                  },
+                  "includeBase": true,
+                  "parts": []
+                },
+                "sort": 0,
+                "flags": {},
+                "visibility": {
+                  "level": {},
+                  "requireAttunement": false,
+                  "requireIdentification": false,
+                  "requireMagic": false
+                },
+                "img": null
+              }
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 100000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "kGo5TW5FBxlSAkpr",
+          "name": "As Filed",
+          "type": "feat",
+          "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+          "system": {
+            "description": {
+              "value": "<p>The archive records Hudston as The Toad Who Was Gold By Handshake; nothing in the article describes a fighting trick, so this sheet carries none. Treat the numbers as a baseline.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "monster",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 200000,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ],
+      "effects": [],
+      "folder": "Wchuzi1HmGETatwK",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "waluipedia-mass-import": {
+          "folderPath": [
+            "Liberated Toads"
+          ],
+          "source": "tools/build-character-sheets.py"
+        },
+        "waluipedia-sheets": {
+          "characterId": "hudston",
+          "generated": true,
+          "bespoke": false,
+          "role": "noble",
+          "ledger": {
+            "level": null,
+            "powerLevel": null
+          },
+          "evidence": [
+            {
+              "feature": "Cane",
+              "quote": "The Toad Who Was Gold By Handshake",
+              "source": "title"
+            },
+            {
+              "feature": "As Filed",
+              "quote": "The Toad Who Was Gold By Handshake",
+              "source": "title"
+            }
+          ],
+          "tags": [
+            "Liberated Toads",
+            "npc",
+            "noble",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#87CEEB"
         }
       },
       "_stats": {

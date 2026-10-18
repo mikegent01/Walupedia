@@ -1392,6 +1392,34 @@
         "img": "icons/commodities/biological/mouth-toothed-purple.webp",
         "weight": 0.5
       }
+    },
+    "gloomy_adventure_mask": {
+      "name": "The Gloomy Adventure Mask",
+      "type": "Mask / Unidentified Curio",
+      "rarity": "Unknown",
+      "icon": "🎭",
+      "visibility": "known",
+      "summary": "A gloomy-looking mask the town shopkeeper gave Remi for nothing on 1 Aethel, 1040 BF, after calling it an adventure mask. Remi would not wear it and suggested the toads might. What it does, if anything, is not on file.",
+      "relatedArticles": [
+        "the_toadalnaec_and_the_three_lies",
+        "remi_akamatsu_full_backstory",
+        "town_beneath_the_legionlance"
+      ],
+      "obtained": "Handed over free by the shopkeeper in the town beneath the Legionlance, 1 Aethel, 1040 BF, straight after the gold bar was sold.",
+      "features": [
+        "Gloomy to look at.",
+        "Free, which the party found more interesting than the mask."
+      ],
+      "history": [
+        "Offered free of charge by the shopkeeper, 1 Aethel, 1040 BF. Remi declined to wear it.",
+        "Carried up to the old Vigilance. Within the hour Remi's touch was turning Toads gold; the account never connects the two."
+      ],
+      "foundry": {
+        "type": "equipment",
+        "subtype": "trinket",
+        "img": "icons/commodities/treasure/mask-bone-white.webp",
+        "weight": 1
+      }
     }
   },
   "inventories": {
@@ -1436,6 +1464,11 @@
       {
         "itemId": "remi_brain_juice",
         "status": "carried — origin unknown",
+        "known": true
+      },
+      {
+        "itemId": "gloomy_adventure_mask",
+        "status": "carried — free from the shopkeeper; refused to wear it",
         "known": true
       }
     ],
