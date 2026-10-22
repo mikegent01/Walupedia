@@ -672,9 +672,9 @@
       },
       "loyalty": {},
       "hp": {
-        "value": 48,
+        "value": 39,
         "max": null,
-        "temp": null,
+        "temp": 0,
         "tempmax": 0,
         "bonuses": {
           "overall": "",
@@ -28584,6 +28584,94 @@
       }
     },
     {
+      "_id": "purJNEZFOhkYi8Y5",
+      "name": "Dissimortuum's Cursed Mask",
+      "type": "equipment",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "106",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--2\"><p>The dissimortuum's mask is nigh indestructible. When the creature is destroyed, its mask usually survives and breaks free. On its own, the object emits a faint magical aura with mixed enchantment and necromantic properties. It is a tempting souvenir, but any humanoid or giant foolish enough to don the mask is immediately wracked by pain and takes 7 ([[/damage 2d6 type=necrotic]]) damage. The creature must succeed on a [[/save ability=wis dc=15]] saving throw or become dominated by the mask. The domination arrives slowly. The creature acts normally for a day or two, but then the creature notices periods of time that cannot be accounted for. During these unremembered times, the creature gathers the grisly components needed to build a new body for the dissimortuum. This process takes a week, after which the creature is freed from domination as the dissimortuum arises anew and dons its mask once more.</p></div>",
+          "chat": ""
+        },
+        "proficient": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 4000,
+          "denomination": "gp"
+        },
+        "attuned": false,
+        "identified": true,
+        "equipped": true,
+        "rarity": "rare",
+        "type": {
+          "value": "wondrous",
+          "baseItem": ""
+        },
+        "properties": [
+          "mgc"
+        ],
+        "attunement": "",
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "armor": {
+          "value": null,
+          "dex": null,
+          "magicalBonus": ""
+        },
+        "strength": null,
+        "activities": {},
+        "identifier": "dissimortuums-cursed-mask",
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "crew": {
+          "value": []
+        }
+      },
+      "img": "systems/dnd5e/icons/svg/items/equipment.svg",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "flags": {
+        "plutonium": {
+          "page": "items.html",
+          "source": "ToB1-2023",
+          "hash": "dissimortuum's%20cursed%20mask_tob1-2023"
+        },
+        "item-piles": {
+          "item": {}
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1792334644705,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
       "_id": "H1BKsyGsmRrC01Bc",
       "name": "Remi's Brain Juice",
       "type": "consumable",
@@ -28638,8 +28726,88 @@
           "inventoryItem": "remi_brain_juice",
           "holder": "remi_akamatsu_full_backstory",
           "event": "the_box_at_the_cottage_door",
-          "filedOn": "2026-10-11",
+          "filedOn": "2026-10-18",
           "note": "carried — origin unknown"
+        }
+      },
+      "folder": null,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "sEda47De4pLtT1AC",
+      "name": "The Gloomy Adventure Mask",
+      "type": "equipment",
+      "img": "icons/commodities/treasure/mask-bone-white.webp",
+      "system": {
+        "description": {
+          "value": "<p>A gloomy-looking mask the town shopkeeper gave Remi for nothing on 1 Aethel, 1040 BF, after calling it an adventure mask. Remi would not wear it and suggested the toads might. What it does, if anything, is not on file.</p><ul><li>Gloomy to look at.</li><li>Free, which the party found more interesting than the mask.</li></ul><p><em>Obtained:</em> Handed over free by the shopkeeper in the town beneath the Legionlance, 1 Aethel, 1040 BF, straight after the gold bar was sold.</p><p><em>On the record:</em> carried — free from the shopkeeper; refused to wear it.</p><p><em>Waluipedia inventory <code>gloomy_adventure_mask</code>, held by Remi Akamatsu  — filed from <code>the_toadalnaec_and_the_three_lies</code>. Mechanics as the table rules them; the archive records custody.</em></p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia inventory — Unknown",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "the-gloomy-adventure-mask",
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "properties": [],
+        "attunement": "",
+        "attuned": false,
+        "equipped": false,
+        "rarity": "",
+        "cover": null,
+        "crewed": false,
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "armor": {
+          "value": null,
+          "dex": null
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "speed": {
+          "value": null,
+          "conditions": "",
+          "units": "ft"
+        },
+        "strength": null,
+        "proficient": null,
+        "type": {
+          "value": "trinket",
+          "baseItem": ""
+        },
+        "activities": {}
+      },
+      "effects": [],
+      "flags": {
+        "waluipedia": {
+          "inventoryItem": "gloomy_adventure_mask",
+          "holder": "remi_akamatsu_full_backstory",
+          "event": "the_toadalnaec_and_the_three_lies",
+          "filedOn": "2026-10-18",
+          "note": "carried — free from the shopkeeper; refused to wear it"
         }
       },
       "folder": null,

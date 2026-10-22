@@ -534,11 +534,11 @@
     "tools": {},
     "spells": {
       "spell1": {
-        "value": 4,
+        "value": 2,
         "override": null
       },
       "spell2": {
-        "value": 3,
+        "value": 2,
         "override": null
       },
       "spell3": {
@@ -616,7 +616,7 @@
       "hp": {
         "value": 77,
         "max": 77,
-        "temp": null,
+        "temp": 0,
         "tempmax": 0,
         "bonuses": {
           "level": "",
@@ -15478,6 +15478,15 @@
         "item-identification": {
           "isIdentified": true,
           "processed": true
+        },
+        "dnd5e": {
+          "last": {
+            "dnd5eactivity000": {
+              "damageType": {
+                "0": "radiant"
+              }
+            }
+          }
         }
       },
       "effects": [],
@@ -24811,7 +24820,7 @@
           "inventoryItem": "markop_binoculars",
           "holder": "markop",
           "event": "the_box_at_the_cottage_door",
-          "filedOn": "2026-10-11",
+          "filedOn": "2026-10-18",
           "note": "carried — bought 1 Aethel"
         }
       },
@@ -24863,7 +24872,7 @@
           "inventoryItem": "ettercap_silk_cord",
           "holder": "markop",
           "event": "the_box_at_the_cottage_door",
-          "filedOn": "2026-10-11",
+          "filedOn": "2026-10-18",
           "note": "carried — coiled with his rope"
         }
       },
@@ -24873,13 +24882,132 @@
       }
     }
   ],
-  "effects": [],
+  "effects": [
+    {
+      "origin": "Actor.le5OCgY5x5nnKvkt.Item.PWdsGxBWX2X1NPIj",
+      "disabled": false,
+      "img": "icons/magic/symbols/runes-star-magenta.webp",
+      "name": "Zone of Truth Template",
+      "duration": {
+        "value": 600,
+        "units": "seconds",
+        "expiry": "updateWorldTime",
+        "expired": false
+      },
+      "flags": {
+        "dae": {
+          "stackable": "noneName",
+          "expiryMode": "delete",
+          "specialDuration": []
+        }
+      },
+      "start": {
+        "time": 30,
+        "combat": null,
+        "combatant": null,
+        "initiative": null,
+        "round": null,
+        "turn": null
+      },
+      "_id": "CZUWKsEqs2t6lbsz",
+      "type": "base",
+      "system": {
+        "changes": []
+      },
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": false,
+      "statuses": [],
+      "showIcon": 1,
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1792338388317,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    },
+    {
+      "_id": "dnd5ereaction000",
+      "name": "Reaction used",
+      "system": {
+        "changes": [
+          {
+            "key": "flags.midi-qol.actions.reaction",
+            "type": "override",
+            "value": true,
+            "phase": "initial"
+          },
+          {
+            "key": "flags.midi-qol.actions.reactionsUsed",
+            "type": "override",
+            "value": 1,
+            "phase": "initial"
+          },
+          {
+            "key": "flags.midi-qol.actions.reactionCombatRound",
+            "type": "override",
+            "value": 1,
+            "phase": "initial"
+          }
+        ]
+      },
+      "img": "modules/midi-qol/icons/reaction.svg",
+      "flags": {
+        "dae": {
+          "specialDuration": [
+            "shortRest"
+          ]
+        }
+      },
+      "statuses": [
+        "reaction"
+      ],
+      "showIcon": 2,
+      "type": "base",
+      "disabled": false,
+      "start": {
+        "time": 30,
+        "combat": "XBOiIpLK8Ua7zeDy",
+        "combatant": "Gb1oX9r4cuUAZKC5",
+        "initiative": 20,
+        "round": 1,
+        "turn": 0
+      },
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": "targetStart",
+        "expired": false
+      },
+      "description": "",
+      "origin": "Actor.le5OCgY5x5nnKvkt",
+      "tint": "#ffffff",
+      "transfer": false,
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1792339257287,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    }
+  ],
   "folder": "0A40B9PdH5WzraZl",
   "sort": 101563,
   "ownership": {
     "default": 0,
     "7BMT1Aux3QVtq027": 3,
-    "FvxAJknHXMvbieby": 3
+    "FvxAJknHXMvbieby": 3,
+    "p6LsOjpmBsnR9V8p": 2
   },
   "flags": {
     "dnd5e": {
