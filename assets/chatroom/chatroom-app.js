@@ -471,7 +471,46 @@
       .then(function (r) { return done(true, r); }, function (e) { return done(false, e); });
   }
 
+  /* VRAM swap (docs/QWEN_TTS_BRIDGE.md): an 8 GB card cannot hold the chat
+   * model and the voice at once — the driver spills to system RAM and both
+   * crawl. Before using one, ask start.py to unload the other; it reloads
+   * lazily on its next request. Who holds the GPU is shared with the main
+   * site's read-aloud through localStorage, so the swap only fires on a
+   * change. The LLM is never pulled out from under a running call. */
+  var vram = { off: false, lmBusy: 0, queue: Promise.resolve() };
+  function vramFor(want) {
+    var saved = {};
+    try { saved = JSON.parse(window.localStorage.getItem('waluipedia-tts') || '{}'); } catch (e) { saved = {}; }
+    var holder = null;
+    try { holder = window.localStorage.getItem('waluipedia-vram'); } catch (e) { holder = null; }
+    if (vram.off || saved.swap === false || holder === want) return Promise.resolve();
+    var idle = function () {
+      return vram.lmBusy === 0 ? Promise.resolve() : new Promise(function (resolve) {
+        var timer = window.setInterval(function () { if (vram.lmBusy === 0) { window.clearInterval(timer); resolve(); } }, 250);
+      });
+    };
+    var step = vram.queue.then(function () { return want === 'tts' ? idle() : null; }).then(function () {
+      return fetch('/panel/api/vram', { method: 'POST', body: JSON.stringify({ want: want }) });
+    }).then(function (res) {
+      if (!res.ok) { vram.off = true; return; }   // not served by start.py
+      try { window.localStorage.setItem('waluipedia-vram', want); } catch (e) { /* private window */ }
+    }).catch(function () { /* a failed swap must not stop the scene */ });
+    vram.queue = step;
+    return step;
+  }
+
   function callModel(system, messages, opts) {
+    return vramFor('lm').then(function () {
+      vram.lmBusy++;
+      var settle = function () { vram.lmBusy--; };
+      var call;
+      try { call = callModelNow(system, messages, opts); } catch (e) { settle(); throw e; }
+      call.then(settle, settle);
+      return call;
+    });
+  }
+
+  function callModelNow(system, messages, opts) {
     var route = routeFor(opts);
     var url = route.url;
     var patience = (opts && opts.utility) ? 240000 : 600000;
@@ -6297,7 +6336,9 @@
         return /^https?:/.test(path) ? path : cfg.endpoint + '/gradio_api/file=' + encodeURI(path);
       });
     }
-    return attempt('/gradio_api/call').catch(function (e) {
+    return vramFor('tts').then(function () {
+      return attempt('/gradio_api/call');
+    }).catch(function (e) {
       if (e && e.studio) throw e;
       return attempt('/call');
     });

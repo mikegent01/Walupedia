@@ -46,7 +46,9 @@ import socketserver
 import subprocess
 import sys
 import threading
+import shutil
 import time
+import urllib.request
 import webbrowser
 from pathlib import Path
 
@@ -299,6 +301,70 @@ def launch_tts_studio(say=print) -> None:
 def launch_plate_studio(say=print) -> None:
     """Open the Token Plate Studio (tools/token-plate-studio.py) — see launch_tool."""
     launch_tool("plates", say)
+
+
+# --------------------------------------------------------------------------
+# VRAM swap: an 8 GB card cannot hold LM Studio's model and the TTS studio's
+# at once — the driver spills to system RAM and both crawl. The pages ask
+# for the GPU before they use it; whoever is not wanted is unloaded and
+# reloads lazily on its next request (LM Studio via just-in-time loading).
+# --------------------------------------------------------------------------
+VRAM_LOCK = threading.Lock()
+
+
+def lms_cli() -> str | None:
+    """LM Studio's `lms` CLI: on PATH, or where the installer puts it."""
+    found = shutil.which("lms")
+    if found:
+        return found
+    home = Path.home() / ".lmstudio" / "bin"
+    for name in ("lms.exe", "lms"):
+        if (home / name).is_file():
+            return str(home / name)
+    return None
+
+
+def unload_lm_studio() -> str:
+    if not port_open("127.0.0.1", LM_STUDIO_PORT):
+        return "LM Studio is not running"
+    cli = lms_cli()
+    if not cli:
+        return "lms CLI not found — run LM Studio once, or add ~/.lmstudio/bin to PATH"
+    done = subprocess.run([cli, "unload", "--all"], capture_output=True, text=True, timeout=60,
+                          creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    return (done.stdout or done.stderr or "").strip() or "LM Studio unloaded"
+
+
+def unload_tts_studio() -> str:
+    """Ask the studio's queued /unload_models endpoint and wait for it, so
+    the GPU is really free (a render ahead of it in the queue finishes first)."""
+    if not port_open(TTS_HOST, TTS_PORT):
+        return "TTS studio is not running"
+    base = "http://%s:%d/gradio_api/call/unload_models" % (TTS_HOST, TTS_PORT)
+    req = urllib.request.Request(base, data=b'{"data": []}', headers={"Content-Type": "application/json"})
+    with urllib.request.urlopen(req, timeout=10) as res:
+        event_id = json.loads(res.read().decode("utf-8")).get("event_id")
+    if not event_id:
+        return "TTS studio gave no job id (restart it to pick up /unload_models)"
+    with urllib.request.urlopen(base + "/" + event_id, timeout=300) as stream:
+        body = stream.read().decode("utf-8", "replace")
+    if "event: error" in body:
+        return "TTS studio could not unload (restart it to pick up /unload_models)"
+    return "TTS studio unloaded"
+
+
+def vram_for(want: str) -> dict:
+    """Give the GPU to `want` ('lm' or 'tts') by unloading the other one."""
+    if want not in ("lm", "tts"):
+        raise KeyError(want)
+    with VRAM_LOCK:
+        t0 = time.time()
+        try:
+            note = unload_tts_studio() if want == "lm" else unload_lm_studio()
+            ok = True
+        except Exception as exc:  # a failed swap must not stop the reading
+            note, ok = "%s: %s" % (type(exc).__name__, exc), False
+        return {"ok": ok, "want": want, "note": note, "seconds": round(time.time() - t0, 2)}
 
 
 # --------------------------------------------------------------------------
@@ -762,6 +828,10 @@ def make_handler(panel: "Panel"):
                     return self._json(200, panel.stop(str(body.get("service", ""))))
                 if path == PANEL_ROUTE + "/api/prefs":
                     return self._json(200, panel.set_prefs(body if isinstance(body, dict) else {}))
+                if path == PANEL_ROUTE + "/api/vram":
+                    result = vram_for(str(body.get("want", "")))
+                    panel.say("  vram   : for %s — %s (%.1fs)" % (result["want"], result["note"], result["seconds"]))
+                    return self._json(200, result)
                 if path == PANEL_ROUTE + "/api/open":
                     url = str(body.get("url") or "")
                     if not url.startswith(("http://", "https://")):

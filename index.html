@@ -18341,7 +18341,7 @@ function view_daylog(id){
    Split into a DOM-free core (chunker + Gradio client + controller) so it
    can be exercised headlessly; all DOM lives in the ttsBar* helpers. */
 const TTS_DEFAULTS = { endpoint:'http://127.0.0.1:7860', voice:'Waluigi',
-                       api:'/generate_base_17', lang:'Auto', chunk:450, volume:1 };
+                       api:'/generate_base_17', lang:'Auto', chunk:450, volume:1, swap:true };
 function ttsConfig(){
   try{ return Object.assign({}, TTS_DEFAULTS, JSON.parse(localStorage.getItem('waluipedia-tts')||'{}')); }
   catch(e){ return Object.assign({}, TTS_DEFAULTS); }
@@ -18635,6 +18635,18 @@ async function gradioTTS(text, cfg){
   }
   throw (lastErr || new Error('the studio is unreachable'));
 }
+/* VRAM swap: ask start.py to unload LM Studio's model so the TTS studio has
+   the whole GPU (8 GB cards cannot hold both). Best effort: a page not served
+   by start.py, or a swap that fails, just reads on as before. */
+async function vramFor(want){
+  if(!ttsConfig().swap || vramFor.off) return null;
+  try{
+    const res = await fetch('/panel/api/vram', { method:'POST', body:JSON.stringify({want}) });
+    if(!res.ok){ vramFor.off = true; return null; }   /* no start.py here (GitHub Pages, plain server) */
+    try{ localStorage.setItem('waluipedia-vram', want); }catch(e){}   /* the chatroom reads who holds the GPU */
+    return await res.json();
+  }catch(e){ return null; }
+}
 
 /* ---- controller: chunk N plays while chunk N+1 synthesizes -------------- */
 const ReadAloud = {
@@ -18667,7 +18679,10 @@ const ReadAloud = {
     const title = label || String((document.querySelector('#content .art-title')||{}).textContent || 'Read aloud');
     this.active = true; this.paused = false; this.idx = -1; this.urlCache = {}; this.pending = {}; this.blobs = []; this.token++;
     ttsBarShow(String(title).trim());
-    this._next(this.token);
+    const tok = this.token;
+    if(!ttsConfig().swap){ this._next(tok); return; }
+    ttsBarStatus('Freeing the GPU for the voice…','synth');
+    vramFor('tts').then(()=>this._next(tok));
   },
   async _next(tok){
     if(!this.active || tok!==this.token) return;
@@ -18877,6 +18892,7 @@ function ttsBarEnsure(){
         <option value="/generate_base_06">0.6B — saved voices, faster</option>
       </select></label>
       <label>Chunk size (chars) <input id="ra-chunk" type="number" min="200" max="900" step="50"></label>
+      <label title="Unload LM Studio's model before reading so the voice gets the whole GPU; it reloads on the next chat request"><input id="ra-swap" type="checkbox"> Swap VRAM with LM Studio</label>
       <div class="ra-cfg-btns">
         <button type="button" onclick="raCfgSave()">Save</button>
         <button type="button" onclick="raTestVoice()">Test voice</button>
@@ -18909,6 +18925,7 @@ function raCfgFill(){
   if(f('ra-voice')) f('ra-voice').value = cfg.voice;
   if(f('ra-api')) f('ra-api').value = cfg.api;
   if(f('ra-chunk')) f('ra-chunk').value = cfg.chunk;
+  if(f('ra-swap')) f('ra-swap').checked = Boolean(cfg.swap);
   if(f('ra-vol')) f('ra-vol').value = String(cfg.volume!=null?cfg.volume:1);
 }
 function raCfgSave(){
@@ -18918,6 +18935,7 @@ function raCfgSave(){
                   api:(f('ra-api')&&f('ra-api').value)||TTS_DEFAULTS.api,
                   lang:'Auto',
                   chunk:Math.min(900, Math.max(200, Number(f('ra-chunk')&&f('ra-chunk').value)||TTS_DEFAULTS.chunk)),
+                  swap:f('ra-swap') ? f('ra-swap').checked : TTS_DEFAULTS.swap,
                   volume:Math.min(1, Math.max(0, Number(f('ra-vol')&&f('ra-vol').value!=null?f('ra-vol').value:TTS_DEFAULTS.volume)||0)) });
   const n = document.getElementById('ra-cfg-note'); if(n) n.textContent = 'Saved. New chunks use it immediately.';
 }
