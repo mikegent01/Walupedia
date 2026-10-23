@@ -937,6 +937,52 @@
     return out.join('\n');
   };
 
+  /** groupPrompt in two halves for the cache layout. The STAGE is the same
+   *  for every speaker in the room — the cast (everyone's summary), the
+   *  rules, the style, the scene — so it can sit at the head of the prompt
+   *  and stay in the model server's cache. The SPEAKER half (who is up,
+   *  their card and voice) changes turn by turn and rides after the
+   *  history instead. */
+  RP.groupStage = function (cast, opts) {
+    var list = (cast || []).map(RP.normChar);
+    var out = [
+      'This is a group roleplay scene in the Waluipedia archive. Each turn you play ONE member of the cast; ' +
+        'who, and how they talk, is in the notes on the newest message.',
+      '',
+      'THE CAST',
+      list.map(function (c) {
+        return '- ' + c.name + (c.title ? ' — ' + c.title : '') +
+          (c.affiliation ? ' (' + c.affiliation + ')' : '') +
+          (c.summary ? '\n    ' + clip(c.summary, 120) : '');
+      }).join('\n'),
+      '',
+      'IN-CHARACTER RULES',
+      RULES,
+      '',
+      'STYLE',
+      styleDir(opts),
+    ];
+    if (opts && opts.scene) out.push('', 'THE SCENE', String(opts.scene));
+    return out.join('\n');
+  };
+
+  RP.groupSpeaker = function (speaker) {
+    var who = RP.normChar(speaker || {});
+    return [
+      'YOU ARE ' + who.name,
+      card(who),
+      '',
+      RP.voiceBlock(who),
+      '',
+      'Write the next turn speaking ONLY as ' + who.name + '.',
+      'START WITH ' + who.name.toUpperCase() + '. The first sentence must be ' + who.name + ' doing or saying ' +
+      'something. Do not open on anybody else, do not write another character’s dialogue, do not narrate the ' +
+      'user, and do not describe the room instead of acting.',
+      'If ' + who.name + ' genuinely has nothing to add, have them do one small physical thing and stop — but they ' +
+      'must be the one doing it.',
+    ].join('\n');
+  };
+
   /** Who the user is playing. Empty persona adds nothing to the prompt. */
   RP.personaBlock = function (persona) {
     var text = String(persona || '').trim();
@@ -1083,6 +1129,18 @@
     return turns - from > (every || RP.RECAP_AFTER) * 1.5;
   };
 
+  /** The live window keeps RECAP_KEEP turns; the fold runs every
+   *  RECAP_STEP turns past that. needsRecap waited for 36 unfolded turns
+   *  while packHistory only ever sent the newest ~10, so everything in
+   *  between was in neither the prompt nor the recap — the cast forgot
+   *  it. Folding in small steps keeps the recap meeting the window. */
+  RP.RECAP_KEEP = 10;
+  RP.RECAP_STEP = 6;
+  RP.recapDue = function (room, keep) {
+    var turns = (room.messages || []).filter(visible).length;
+    return turns - Number(room.recapAt || 0) >= (keep || RP.RECAP_KEEP) + RP.RECAP_STEP;
+  };
+
   /** The recap request itself is budgeted. A grandfathered room can owe
    *  hundreds of unfolded turns; sending them all once put 14,557 tokens
    *  into an 8,192-token window and bought a 400 instead of a summary.
@@ -1107,7 +1165,7 @@
     return [
       'Summarise this stretch of a roleplay session so the scene can carry on without re-reading it.',
       '',
-      previous ? 'WHAT WAS ALREADY SUMMARISED (fold this in, do not repeat it separately)\n' + clip(previous, 900) : '',
+      previous ? 'WHAT WAS ALREADY SUMMARISED (fold this in, do not repeat it separately)\n' + clip(previous, 1400) : '',
       '',
       'THE TURNS' + (dropped ? ' (the ' + dropped + ' oldest were dropped for space — mention that time passed)' : ''),
       lines.join('\n'),
@@ -2201,6 +2259,9 @@
     char = char || {};
     var text = ((char.title || '') + ' ' + (char.status || '') + ' ' + (char.summary || '') + ' ' +
       (char.description || '') + ' ' + (char.faction || '')).toLowerCase();
+    // Shift with >>>: hash() is unsigned, and `seed >> 4` on anything over
+    // 2^31 went negative — a negative index, an undefined pocket item, and
+    // a nameless 📦 in the pack of every other character.
     var seed = hash(char.id || char.name || '');
     var items = [];
     for (var i = 0; i < RP.KIT_TABLE.length && items.length < 3; i++) {
@@ -2208,12 +2269,34 @@
       if (!row[0].test(text)) continue;
       var main = row[1][seed % row[1].length];
       items.push(main);
-      if (items.length < 3 && row[2] && (seed >> 2) % 2 === 0) {
-        items.push(row[2][(seed >> 3) % row[2].length]);
+      if (items.length < 3 && row[2] && (seed >>> 2) % 2 === 0) {
+        items.push(row[2][(seed >>> 3) % row[2].length]);
       }
     }
-    items.push(RP.POCKET[(seed >> 4) % RP.POCKET.length]);
-    return items.slice(0, 4).map(RP.normItem);
+    items.push(RP.POCKET[(seed >>> 4) % RP.POCKET.length]);
+    return RP.cleanKit(items.slice(0, 4));
+  };
+
+  /** A kit without its nameless entries — an item with no name is an
+   *  empty 📦 box that can be taken, used and handed over as nothing. */
+  RP.cleanKit = function (items) {
+    return (items || []).filter(Boolean).map(RP.normItem).filter(function (i) { return i.name.trim(); });
+  };
+
+  /** One-time sweep of saved sheets: kits dressed before the fix above
+   *  still carry the empty boxes. Returns how many were thrown out. */
+  RP.sweepEmptyItems = function (state) {
+    var gone = 0;
+    (state && state.rooms || []).forEach(function (r) {
+      Object.keys((r && r.states) || {}).forEach(function (id) {
+        var s = r.states[id];
+        if (!s || !Array.isArray(s.items)) return;
+        var kept = RP.cleanKit(s.items);
+        gone += s.items.length - kept.length;
+        if (kept.length !== s.items.length) s.items = kept;
+      });
+    });
+    return gone;
   };
 
   /** How many slots a pack has. A quartermaster hauls, a ghost does not,
@@ -2294,7 +2377,7 @@
    *  rest, then empty slots so the shape stays the same. */
   RP.gridSlots = function (sheet, size) {
     size = size || (sheet && sheet.slots) || 12;
-    var kit = ((sheet && sheet.items) || []).map(RP.normItem);
+    var kit = RP.cleanKit(sheet && sheet.items);
     var held = kit.filter(function (i) { return i.equipped; });
     var stowed = kit.filter(function (i) { return !i.equipped; });
     var slots = held.concat(stowed).slice(0, size);
@@ -2995,6 +3078,24 @@
 
   /** The player's own body, as a standing limit on what they can attempt.
    *  Nothing when they are whole and unflagged. */
+  /** The player's sheet when it is at 0 HP, else null. */
+  RP.playerDown = function (room) {
+    if (!room || room.mechanics === 'off') return null;
+    var you = (room.states || {})[RP.playerSheetId(room)];
+    return you && you.hp && you.hp.max && Number(you.hp.value) <= 0 ? you : null;
+  };
+
+  /** The one line a small model cannot miss: it rides at the very end of
+   *  the prompt and on the player's own line. The body block in the middle
+   *  of the prompt said it too, and an 8B model wrote a downed reader
+   *  standing, arguing and pulling books off shelves anyway. */
+  RP.downNote = function (room) {
+    var you = RP.playerDown(room);
+    if (!you) return '';
+    return (you.name || 'The player') + ' is DOWN at 0 HP — on the floor, barely conscious. They can manage a whisper, ' +
+      'a look, a hand that will not close; anything more fails before it starts. Everyone here can see it, and reacts to it.';
+  };
+
   RP.playerBodyBlock = function (room) {
     if (!room || room.mechanics === 'off') return '';
     var you = (room.states || {})[RP.playerSheetId(room)];
@@ -4512,6 +4613,21 @@
       hits: allHits.slice(0, 6),
       summary: summary.join(' and ') || 'repeated earlier material',
     };
+  };
+
+  /** Is a strict-mode miss bad enough to throw the take away? A retake is a
+   *  whole second generation, and the logs showed one after most turns: a
+   *  small model opens with the same two words, or uses one stock phrase,
+   *  nearly every time. Those are flagged on the card and steered by the
+   *  prompt; only a turn that is really broken is written again. */
+  RP.worthRetake = function (kind, check) {
+    if (!check) return false;
+    if (kind === 'repetition') {
+      return Boolean(check.hasStaleRepeat || (check.loopHits || []).length >= 2 ||
+        ((check.formulaHits || []).length >= 2 && (check.staleHits || []).length >= 1));
+    }
+    if (kind === 'generic') return Boolean(check.isGeneric && Number(check.score || 0) >= 0.75);
+    return Boolean(check.stale);
   };
 
   /** Prompt directive for anti-repetition. */
@@ -6868,6 +6984,8 @@
     // The narrator carries its own length: the Director needs room, the
     // room itself needs two sentences.
     parts.push(RP.lengthBlock(RP.worldLength(state), false).text);
+    var worldDown = opts.ambientSelf ? '' : RP.downNote(room);
+    if (worldDown) parts.push(worldDown);
     return RP.fitPrompt(parts, opts.budget, protectedFrom);
   };
 
@@ -7281,7 +7399,10 @@
    * buys several turns of reply.
    * ------------------------------------------------------------------ */
 
-  RP.SEQUENCE_MAX = 4;
+  // Two at most: every name on the list is a full-price reply (~4k tokens
+  // of prompt each), and four of them made one line of the player's cost
+  // half a minute even at full speed.
+  RP.SEQUENCE_MAX = 2;
 
   RP.sequencePrompt = function (room, state, opts) {
     opts = opts || {};
@@ -7325,6 +7446,27 @@
 
   /** Read the staging back as a list of ids. Anything unrecognised means
    *  nobody speaks, which is the safe answer. */
+  /** Who the player's line is plainly aimed at: the cast members it names,
+   *  in the order named. When this answers the question, the staging call
+   *  is not made — "I look at Waluigi" does not need a model to decide
+   *  that Waluigi reacts. First names count ("wario" finds "Wario"). */
+  RP.addressedIn = function (room, text) {
+    var said = ' ' + String(text || '').toLowerCase().replace(/[^a-z0-9' ]+/g, ' ') + ' ';
+    var hits = [];
+    RP.speakableCast(room).forEach(function (c) {
+      var full = String(c.name || '').toLowerCase().replace(/[^a-z0-9' ]+/g, ' ').trim();
+      if (!full) return;
+      var keys = [full].concat(full.split(' ').filter(function (w) { return w.length > 3; }));
+      var at = -1;
+      keys.forEach(function (k) {
+        var i = said.indexOf(' ' + k + ' ');
+        if (i >= 0 && (at < 0 || i < at)) at = i;
+      });
+      if (at >= 0) hits.push({ id: c.id, at: at });
+    });
+    return hits.sort(function (a, b) { return a.at - b.at; }).map(function (h) { return h.id; }).slice(0, RP.SEQUENCE_MAX);
+  };
+
   RP.parseSequence = function (text, room, state) {
     var raw = String(text || '').trim();
     if (/^\s*NOBODY\s*$/im.test(raw)) return { order: [], reason: 'nobody had to answer that', silent: true };
@@ -7771,11 +7913,12 @@
   /** What the model is shown: everything about this cast and this room, then
    *  the most recent pages, because a book you cannot fit in the prompt is
    *  a book nobody reads. */
-  RP.bookBlock = function (state, room, limit) {
+  RP.bookBlock = function (state, room, limit, recent) {
     var book = bookState(state);
     if (!book.entries.length) return '';
     var ids = (room.cast || []).map(function (c) { return c.id; });
     var scene = ((room.scene || '') + ' ' + (room.sceneName || '')).toLowerCase();
+    if (recent !== undefined) return bookOnCall(book, room, ids, scene, String(recent || '').toLowerCase(), limit);
     function relevant(e) {
       if (e.roomId === room.id) return 3;
       if ((e.chars || []).some(function (id) { return ids.indexOf(id) >= 0; })) return 2;
@@ -7799,6 +7942,60 @@
       diary.forEach(function (e) { out.push('- ' + (e.when ? e.when + ': ' : '') + e.text); });
     }
     return out.join('\n');
+  };
+
+  /** The book on call: as it grew, every page of every chat rode in every
+   *  prompt. Now a chat carries its own pages and whatever the recent turns
+   *  name; the rest is an index the model can [[LOOKUP:]] from. */
+  RP.BOOK_ON_CALL = 8;
+  function bookOnCall(book, room, ids, scene, recent, limit) {
+    function named(e) {
+      var n = String(e.name || '').toLowerCase().split(/\s+[—-]\s+/)[0].trim();
+      return n.length > 2 && (recent.indexOf(n) >= 0 || scene.indexOf(n) >= 0);
+    }
+    var scored = book.entries.map(function (e, i) {
+      var s = e.roomId === room.id ? 3 : named(e) ? 3
+        : (e.chars || []).some(function (id) { return ids.indexOf(id) >= 0; }) ? 1 : 0;
+      return { e: e, s: s, i: i };
+    });
+    var shown = scored.filter(function (x) { return x.s > 0 && (x.e.kind !== 'diary' || x.e.roomId === room.id); })
+      .sort(function (a, b) { return (b.s - a.s) || (b.i - a.i); })
+      .slice(0, limit || RP.BOOK_ON_CALL);
+    var shownIds = shown.map(function (x) { return x.e.id; });
+    shown.sort(function (a, b) { return a.i - b.i; });
+    var rest = scored.filter(function (x) { return x.e.kind !== 'diary' && shownIds.indexOf(x.e.id) < 0; })
+      .sort(function (a, b) { return (b.s - a.s) || (b.i - a.i); })
+      .slice(0, 15).map(function (x) { return x.e.name; });
+    if (!shown.length && !rest.length) return '';
+    var out = ['THE LORE BOOK — everything below was established in play and is TRUE. Stay consistent with it.'];
+    var diary = [];
+    shown.forEach(function (x) {
+      var e = x.e;
+      if (e.kind === 'diary') { diary.push('- ' + (e.when ? e.when + ': ' : '') + e.text); return; }
+      out.push('- ' + (RP.BOOK_KINDS[e.kind] || {}).label + ': ' + e.name + (e.when ? ' (' + e.when + ')' : '') +
+        (e.text ? ' — ' + e.text : ''));
+    });
+    if (diary.length) out.push('', 'THE DIARY — how the days have gone so far', diary.join('\n'));
+    if (rest.length) {
+      out.push('', 'ALSO IN THE BOOK (not shown; if one matters right now, ask with [[LOOKUP: its name]]): ' + rest.join(' · '));
+    }
+    return out.join('\n');
+  }
+
+  /** Lore book pages matching a [[LOOKUP:]], shaped like archive hits. */
+  RP.searchBook = function (state, query, limit) {
+    var words = String(query || '').toLowerCase().split(/[^a-z0-9']+/).filter(function (w) { return w.length > 2; });
+    if (!words.length) return [];
+    return bookState(state).entries.map(function (e) {
+      var name = String(e.name || '').toLowerCase(), text = String(e.text || '').toLowerCase();
+      var score = words.reduce(function (s, w) { return s + (name.indexOf(w) >= 0 ? 3 : 0) + (text.indexOf(w) >= 0 ? 1 : 0); }, 0);
+      return { e: e, score: score };
+    }).filter(function (x) { return x.score >= 3; })
+      .sort(function (a, b) { return b.score - a.score; })
+      .slice(0, limit || 3)
+      .map(function (x) {
+        return { kind: 'book', id: x.e.id, name: 'Lore book — ' + x.e.name, snippet: x.e.text || '', date: x.e.when || '', book: true };
+      });
   };
 
   /* ---- the queue ---- */
@@ -8611,7 +8808,10 @@
   RP.fateTilt = function (room, opts) {
     opts = opts || {};
     var why = [], plain = [], tilt = 0;    // why: pill chips · plain: words for the prose
-    var you = (room.states || {})[RP.PLAYER_ID] || (room.youPlay ? (room.states || {})[room.youPlay] : null);
+    // The same sheet the prompt and the pack call "you": the starred
+    // character's when one is starred. Reading __you__ first meant a
+    // reader playing a downed Mr. T rolled with a healthy stranger's body.
+    var you = (room.states || {})[RP.playerSheetId(room)] || (room.states || {})[RP.PLAYER_ID] || null;
     var stat = opts.text ? RP.actionStat(opts.text) : '';
     var score = null;
     if (you && you.stats && stat) {
@@ -9141,13 +9341,14 @@
     // Reference material — trimmed first when the window is tight.
     var source = RP.sourceBlock(room, opts.archive);
     if (source) parts.push(source);
-    var keywords = RP.keywordBlock(state, opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' '));
+    var recentText = opts.recent || RP.historyFor(room, 4).map(function (m) { return m.content; }).join(' ');
+    var keywords = RP.keywordBlock(state, recentText);
     if (keywords) parts.push(keywords);
     var sceneFacts = RP.factsBlock(room);
     if (sceneFacts) parts.push(sceneFacts);
     var knowledge = RP.knowledgeBlock(state, room, opts.archive);
     if (knowledge) parts.push(knowledge);
-    var book = RP.bookBlock(state, room);
+    var book = RP.bookBlock(state, room, 0, recentText);
     if (book) parts.push(book);
     var taste = RP.tasteBlock(state, room);
     if (taste) parts.push(taste);
@@ -9230,8 +9431,68 @@
     // Last word to the character. Two thousand characters of stage
     // directions used to be the final thing the model read before writing
     // Wario; now it is Wario.
-    parts.push(RP.closingLine(RP.normChar(speaker || room.cast[0] || {}), style.style));
-    return RP.fitPrompt(parts, opts.budget, protectedFrom);
+    var down = opts.ambientSelf ? '' : RP.downNote(room);
+    var closing = (down ? down + '\n' : '') + RP.closingLine(RP.normChar(speaker || room.cast[0] || {}), style.style);
+    parts.push(closing);
+    if (!opts.split) return RP.fitPrompt(parts, opts.budget, protectedFrom);
+    return RP.splitForCache(parts, protectedFrom, {
+      stage: room.kind === 'group' ? RP.groupStage(room.cast, style) : base,
+      speaker: room.kind === 'group' ? RP.groupSpeaker(speaker) : '',
+      stable: [room.kind !== 'group' && room.scene ? 'THE SCENE\n' + room.scene : '', perspective, source, lore, recap, persona,
+        room.mechanics !== 'off' ? RP.DIRECTIVES : ''],
+      closing: closing, budget: opts.budget,
+    });
+  };
+
+  /** The cache layout. A local server (LM Studio, llama.cpp) reuses the
+   *  work it did on the longest prefix the new prompt shares with an old
+   *  one. The old prompt put the speaker's card ~200 tokens in and the
+   *  per-turn reading after it, so every call shared almost nothing and
+   *  the whole history was read again: the logs showed 28–65% kept.
+   *
+   *  Here the parts that hold still for the whole scene (the stage, the
+   *  scene, the source filing, the lore, the recap, the persona, the
+   *  directive grammar) form the system message; everything that changes
+   *  turn to turn — who is speaking, what was looked up, moods, rolls,
+   *  the length — becomes NOTES that ride on the newest message, after the
+   *  history. Returns { system, notes, closing }. */
+  RP.CACHE_HEAD_SHARE = 0.55;
+  RP.splitForCache = function (parts, protectedFrom, opts) {
+    var stable = (opts.stable || []).filter(Boolean);
+    var head = [opts.stage], notes = opts.speaker ? [opts.speaker] : [];
+    var guardFrom = -1;
+    parts.forEach(function (p, i) {
+      if (i === 0) return;                       // the base: rebuilt as stage + speaker
+      if (stable.indexOf(p) >= 0) { head.push(p); return; }
+      if (i >= protectedFrom && guardFrom < 0) guardFrom = notes.length;
+      notes.push(p);
+    });
+    var cap = opts.budget || RP.PROMPT_BUDGET;
+    var system = RP.fitPrompt(head, Math.round(cap * RP.CACHE_HEAD_SHARE), head.length);
+    var text = RP.fitPrompt(notes, Math.max(2000, cap - system.length), guardFrom < 0 ? notes.length : guardFrom);
+    var closing = opts.closing || '';
+    var at = closing ? text.lastIndexOf(closing) : -1;
+    return {
+      system: system,
+      notes: (at >= 0 ? text.slice(0, at) : text).trim(),
+      closing: at >= 0 ? closing : '',
+    };
+  };
+
+  /** The newest message as the model reads it under the cache layout: the
+   *  turn's notes, then what the player actually said, then the closing
+   *  line — the last thing read before writing, as before. */
+  RP.withNotes = function (messages, split, extra) {
+    var out = (messages || []).slice();
+    var last = out[out.length - 1];
+    if (!last || last.role !== 'user') out.push(last = { role: 'user', content: '(The scene carries on.)' });
+    var notes = [split.notes].concat(extra || []).filter(Boolean).join('\n\n');
+    out[out.length - 1] = {
+      role: 'user',
+      content: (notes ? '[NOTES FOR THIS TURN — for you, not said aloud; never quote them]\n' + notes + '\n[END OF NOTES]\n\n' : '') +
+        last.content + (split.closing ? '\n\n' + split.closing : ''),
+    };
+    return out;
   };
 
   // A local model has a context window and the server refuses anything over
@@ -9249,6 +9510,39 @@
   RP.HISTORY_BUDGET = 6500;
   RP.TURN_CLIP = 1600;
   RP.OLD_CLIP = 450;        // what a turn is worth once it is old news
+
+  /** packHistory for the cache layout: the window's first message and the
+   *  line between clipped and whole turns move only every `step` messages,
+   *  so for most turns the history the model already read is a byte-for-
+   *  byte prefix of the new one. Counted from the recap point (historyFor
+   *  starts there), which is also where the prefix starts over anyway. */
+  RP.HISTORY_STEP = 6;
+  RP.packHistoryStepped = function (messages, budget, opts) {
+    opts = opts || {};
+    var list = messages || [];
+    var cap = Number(budget) || RP.HISTORY_BUDGET;
+    var floor = opts.minTurns === undefined ? 6 : opts.minTurns;
+    var step = opts.step || RP.HISTORY_STEP;
+    var n = list.length;
+    var wholeFrom = Math.max(0, Math.floor((n - floor) / step) * step);
+    var sized = list.map(function (m, i) {
+      var c = String(m.content || '');
+      var limit = i >= wholeFrom ? RP.TURN_CLIP : RP.OLD_CLIP;
+      return c.length > limit ? { role: m.role, content: clip(c, limit) } : m;
+    });
+    var start = n, used = 0;
+    while (start > 0) {
+      var len = String(sized[start - 1].content || '').length;
+      if (used + len > cap && n - start >= floor) break;
+      used += len; start--;
+    }
+    if (opts.maxTurns) start = Math.max(start, n - opts.maxTurns);
+    // Round the start UP to the step, which only ever drops more, so the
+    // budget still holds — unless that would cut below the floor.
+    var stepped = Math.ceil(start / step) * step;
+    if (n - stepped >= Math.min(floor, n)) start = stepped;
+    return sized.slice(start);
+  };
 
   RP.packHistory = function (messages, budget, minTurns) {
     var cap = Number(budget) || RP.HISTORY_BUDGET;
@@ -9321,7 +9615,20 @@
       parts[0] = squeezeBase(parts[0], level);
       text = parts.join('\n\n');
     }
-    return text.length > cap ? text.slice(0, cap - 40) + '\n… (truncated)' : text;
+    if (text.length <= cap) return text;
+    // Last resort: cut from the middle, not the end. The end is the closing
+    // line — slicing it off (the logs showed exactly that) left the model
+    // writing with no idea who it was answering as.
+    var tail = parts[parts.length - 1];
+    if (tail.length > cap / 3) return text.slice(0, cap - 40) + '\n… (truncated)';
+    // The turn's instructions run most-important first (the 🎬 direction,
+    // the moment, the audience) to least (flourish, OOC notes, the length
+    // guide), so whole blocks go from just before the closing line first.
+    var body = parts.slice(0, -1);
+    while (body.length > 2 && (body.join('\n\n') + '\n\n' + tail).length > cap) body.splice(body.length - 1, 1);
+    body = body.join('\n\n');
+    if (body.length + tail.length + 2 <= cap) return body + '\n\n' + tail;
+    return body.slice(0, cap - tail.length - 40) + '\n… (truncated)\n\n' + tail;
   };
 
   /** The base prompt with less in it, keeping what makes the character
@@ -9578,6 +9885,7 @@
         if (value.settings && typeof value.settings === 'object') state.settings = Object.assign(state.settings, value.settings);
       }
     } catch (e) { /* a corrupt store is an empty store */ }
+    RP.sweepEmptyItems(state);
     return state;
   };
 

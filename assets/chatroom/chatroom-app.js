@@ -476,6 +476,10 @@
     var url = route.url;
     var patience = (opts && opts.utility) ? 240000 : 600000;
     var temperature = (state.settings && state.settings.temperature) || 0.85;
+    // Background chores answer in a format (ORDER:, PLACE:, a summary). At
+    // the roleplay's 0.85 the staging call kept writing the scene instead
+    // of naming who speaks — a wasted call and a guessed order.
+    if (opts && opts.utility) temperature = Math.min(temperature, 0.3);
     // Qwen3-family models think out loud by default and will happily spend
     // the ENTIRE token budget on reasoning_content, returning empty prose
     // after five minutes. Their documented soft switch turns it off.
@@ -5271,6 +5275,12 @@
       return next ? [next.id] : [];
     }
     if (leanAI()) return Promise.resolve(rotation());
+    // No decision to make, no call to make: one person who can answer, or
+    // a line that names who it is for.
+    var speakable = RP.speakableCast(r);
+    if (speakable.length === 1) return Promise.resolve([speakable[0].id]);
+    var named = RP.addressedIn(r, lastText);
+    if (named.length) return Promise.resolve(named);
     return callModel(RP.sequencePrompt(r, state, {}), [{ role: 'user', content: 'Who answers this?' }], { tokens: 60, utility: true })
       .then(function (text) {
         var staged = RP.parseSequence(text, r, state);
@@ -5421,8 +5431,15 @@
     // A 🎬 direction rides in this prompt and is spent by the turn that
     // lands; a turn that fails or is asked again still has it.
     var directed = r.direction || null;
-    var system = (worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2)) +
-      (opts.nudge ? '\n\n' + opts.nudge : '') + (pep ? '\n\n' + pep : '');
+    // ⚡ The cache layout (Settings → cacheLayout, on unless turned off):
+    // the system message holds still for the scene and the turn's own
+    // notes ride after the history, so the model server keeps the work it
+    // already did. The narrator keeps the classic single-prompt shape.
+    var cacheSplit = !worldTurn && (state.settings.cacheLayout || 'on') !== 'off'
+      ? RP.systemFor(state, r, speaker, Object.assign({}, opts2, { split: true })) : null;
+    var system = cacheSplit ? cacheSplit.system
+      : (worldTurn ? RP.worldSystem(state, r, opts2) : RP.systemFor(state, r, speaker, opts2)) +
+        (opts.nudge ? '\n\n' + opts.nudge : '') + (pep ? '\n\n' + pep : '');
     // The thin-air brief fires once: the turn that answers the claim has
     // seen it, and the scene moves on.
     r.conjured = '';
@@ -5431,13 +5448,22 @@
     var lookBack = RP.contextLimit(r, (state.settings && state.settings.context) || 24);
     // Turn count first, then the character budget: a long chat should cost
     // turns, not paragraphs, and one monologue must not evict ten turns.
-    var history = RP.packHistory(
-      RP.historyFor(retry ? { kind: r.kind, cast: r.cast, messages: r.messages.slice(0, opts.retryIndex) } : r, lookBack),
-      Number(state.settings.historyChars) || RP.HISTORY_BUDGET);
+    var historySource = retry ? { kind: r.kind, cast: r.cast, recapAt: r.recapAt, messages: r.messages.slice(0, opts.retryIndex) } : r;
+    var history = cacheSplit
+      ? RP.packHistoryStepped(RP.historyFor(historySource), Number(state.settings.historyChars) || RP.HISTORY_BUDGET, { maxTurns: lookBack })
+      : RP.packHistory(RP.historyFor(historySource, lookBack), Number(state.settings.historyChars) || RP.HISTORY_BUDGET);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
     // ➤ Continue sends no line of the reader's: without this the history
     // ends on a character's turn and the model is asked to extend it.
     history = RP.chatShape(history, worldTurn ? '' : speaker.name);
+    // A downed reader's line goes out marked as what it is. Only the copy
+    // sent to the model changes; the chat on screen keeps what was typed.
+    var downed = ambientSelf ? null : RP.playerDown(r);
+    if (downed && history.length && history[history.length - 1].role === 'user') {
+      var tail = history[history.length - 1];
+      history[history.length - 1] = { role: 'user', content: '(' + (downed.name || 'I') + ', DOWN at 0 HP, barely conscious:) ' + tail.content };
+    }
+    if (cacheSplit) history = RP.withNotes(history, cacheSplit, [opts.nudge || '', pep || '']);
 
     /** Ask for a reply, and if the model runs out of room mid-sentence,
      *  ask it to carry on from exactly where it stopped. Two goes at most,
@@ -5488,8 +5514,11 @@
       // in its prompt. That lookup is dropped on the floor.
       if (asked && /\b(current|right now|this scene|attire|wearing|location|where am|the sheets?|my (own )?(pack|items|sheet))\b/i.test(asked.query)) asked = null;
       if (asked && !retry && !opts.searched) {
-        var results = RP.searchArchive(archiveIndex, asked.query, { limit: 3 });
-        results.forEach(function (hit) {
+        // The lore book answers first — it is what this campaign has
+        // established in play; the archive fills whatever is left.
+        var fromBook = RP.searchBook(state, asked.query, 2);
+        var results = fromBook.concat(RP.searchArchive(archiveIndex, asked.query, { limit: 3 })).slice(0, 4);
+        results.filter(function (hit) { return !hit.book; }).forEach(function (hit) {
           RP.bookAdd(state, {
             kind: 'fact', name: hit.name + ' — ' + RP.clip(asked.query, 40), text: hit.snippet,
             when: roomDate(r), roomId: r.id, roomTitle: r.title,
@@ -5754,7 +5783,7 @@
           var priorTurns = RP.priorTurns(r, speaker.id, RP.FRESH_TURNS);
           if (priorTurns.length >= 1) repCheck = RP.repetitionCheck(clean, priorTurns, r);
         }
-        if (repCheck && repCheck.repeated && antiRepMode === 'strict' && !opts.reheard) {
+        if (repCheck && repCheck.repeated && antiRepMode === 'strict' && !opts.reheard && RP.worthRetake('repetition', repCheck)) {
           r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
           r.next = speaker.id;
           busy = false; save(); render();
@@ -5772,7 +5801,7 @@
         if (antiGenMode !== 'off' && !worldTurn) {
           genCheck = RP.genericCheck(clean);
         }
-        if (genCheck && genCheck.isGeneric && antiGenMode === 'strict' && !opts.reheard) {
+        if (genCheck && genCheck.isGeneric && antiGenMode === 'strict' && !opts.reheard && RP.worthRetake('generic', genCheck)) {
           r.states = JSON.parse(sheetsBefore); r.cast = JSON.parse(castBefore);
           r.next = speaker.id;
           busy = false; save(); render();
@@ -6056,9 +6085,9 @@
   /** Fold the older turns into a recap so a long chat stays cheap. Runs
    *  on the background model, once, when the history outgrows the window. */
   function maybeRecap(r) {
-    if (!bgQuiet() || !RP.needsRecap(r, state.settings.context || 24)) return false;
+    var keep = Math.max(6, Math.min(RP.RECAP_KEEP, Math.round((state.settings.context || 24) / 2)));
+    if (!bgQuiet() || !RP.recapDue(r, keep)) return false;
     var turns = (r.messages || []).filter(RP.visible);
-    var keep = Math.max(8, Math.round((state.settings.context || 24) / 2));
     var upTo = turns.length - keep;
     var fold = turns.slice(Number(r.recapAt || 0), upTo).map(function (m) {
       return {
@@ -7124,6 +7153,9 @@
       sel('f_voice', '🔊 Voice', state.settings.voice === 'on' ? 'on' : 'off', [
         ['off', 'On tap — ▶ on a card reads it'],
         ['on', 'Auto — every reply is read aloud as it lands']]) +
+      sel('f_cacheLayout', '⚡ Prompt layout — how a turn is laid out for the model server', state.settings.cacheLayout === 'off' ? 'off' : 'on', [
+        ['on', 'Cache-friendly — the scene stays put, the turn’s notes ride on the newest line (faster replies)'],
+        ['off', 'Classic — everything in one system prompt, rebuilt every turn']]) +
       '</section>' +
 
       // ---- memory & budget ----
@@ -7264,6 +7296,7 @@
       state.settings.sampler = next;
       state.settings.utilityModel = $('f_utilityModel').value.trim();
       state.settings.background = $('f_background') ? $('f_background').value : (state.settings.background || RP.BACKGROUND_DEFAULT);
+      if ($('f_cacheLayout')) state.settings.cacheLayout = $('f_cacheLayout').value;
       state.settings.utilityEndpoint = $('f_utilityEndpoint').value.trim();
       state.settings.style = $('f_style').value;
       var t = parseFloat($('f_temperature').value);

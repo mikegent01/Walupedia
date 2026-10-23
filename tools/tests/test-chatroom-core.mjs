@@ -869,6 +869,109 @@ check('book: the model is handed the book as established truth', (() => {
     block.includes('The Ledger Room') && block.includes('THE DIARY');
 })());
 check('book: it reaches the system prompt', RP.systemFor(bookState, bookRoom, sans).includes('THE LORE BOOK'));
+check('book on call: other chats’ pages are an index unless the recent turns name them', (() => {
+  const st = RP.blankState();
+  const here = RP.newRoom([sans], { scene: 'The archive.' });
+  RP.bookAdd(st, { kind: 'place', name: 'Archive Hall', text: 'Dim, locked after hours.', roomId: here.id });
+  RP.bookAdd(st, { kind: 'thing', name: 'Treasury of Wonders', text: 'A fund the Toads audit.', roomId: 'elsewhere' });
+  RP.bookAdd(st, { kind: 'person', name: 'Old Ferryman', text: 'Rows the moat.', roomId: 'elsewhere' });
+  const quiet = RP.bookBlock(st, here, 0, 'I look around the shelves.');
+  const asked = RP.bookBlock(st, here, 0, 'What is the treasury of wonders?');
+  return quiet.includes('Dim, locked') && !quiet.includes('A fund the Toads') &&
+    /ALSO IN THE BOOK[^\n]*Treasury of Wonders/.test(quiet) && /\[\[LOOKUP/.test(quiet) &&
+    asked.includes('A fund the Toads') && !asked.includes('Rows the moat');
+})());
+check('book on call: a LOOKUP finds the page by name', (() => {
+  const st = RP.blankState();
+  RP.bookAdd(st, { kind: 'thing', name: 'Treasury of Wonders', text: 'A fund the Toads audit.', roomId: 'x' });
+  const hits = RP.searchBook(st, 'treasury', 2);
+  return hits.length === 1 && hits[0].book && hits[0].snippet.includes('Toads audit') &&
+    RP.retrievalBlock(hits, 'treasury').includes('Treasury of Wonders') && !RP.searchBook(st, 'moat').length;
+})());
+check('kit: no character is dressed with a nameless 📦, and saved ones are swept on load', (() => {
+  const names = ['Wario', 'Waluigi', 'Mr. T', 'Beta Luigi', 'Toadsworth', 'Kamek', 'Petey', 'Bowser Jr.', 'Rosalina', 'Ninji'];
+  const clean = names.every((n, i) => RP.kitFor({ id: 'k' + i + n, name: n, title: 'courier soldier' }).every(it => it.name.trim()));
+  const store = new Map();
+  const st = RP.blankState();
+  const r = RP.newRoom([sans], {});
+  r.states[sans.id].items = [{ name: '', icon: '📦' }, '🪙 a few small coins', ''];
+  st.rooms.push(r);
+  RP.saveState({ setItem: (k, v) => store.set(k, v), getItem: k => store.get(k) }, st);
+  const back = RP.loadState({ getItem: k => store.get(k) });
+  const kit = back.rooms[0].states[sans.id].items;
+  return clean && kit.length === 1 && kit[0].name === 'a few small coins' &&
+    RP.gridSlots({ items: [{ name: '' }], slots: 3 }).every(s => s === null);
+})());
+check('cache layout: the system message is the same for every speaker and every turn', (() => {
+  const st = RP.blankState();
+  const r = RP.newRoom([sans, cutters], { scene: 'The hangar.' });
+  st.rooms.push(r);
+  r.messages.push({ id: 'u1', role: 'user', text: 'Where is the key?' });
+  const a = RP.systemFor(st, r, sans, { split: true, recent: 'where is the key' });
+  r.messages.push({ id: 'c1', role: 'char', charId: sans.id, text: '*shrugs* "Ask Cutters."' });
+  r.messages.push({ id: 'u2', role: 'user', text: 'Cutters?' });
+  const b = RP.systemFor(st, r, cutters, { split: true, recent: 'cutters ask' });
+  const sent = RP.withNotes([{ role: 'user', content: 'Cutters?' }], b, ['a nudge']);
+  const last = sent[sent.length - 1].content;
+  return a.system === b.system && !a.system.includes('YOU ARE') &&
+    a.notes.includes('YOU ARE ' + sans.name) && b.notes.includes('YOU ARE ' + cutters.name) &&
+    /NOW ANSWER AS/.test(b.closing) && last.indexOf('[NOTES FOR THIS TURN') === 0 &&
+    last.includes('a nudge') && last.indexOf('Cutters?') < last.indexOf(b.closing) && last.endsWith(b.closing) &&
+    typeof RP.systemFor(st, r, sans, {}) === 'string';
+})());
+check('cache layout: the history window only moves in steps, so last turn’s history is a prefix of this one', (() => {
+  // The share of each turn's history the server already read last turn
+  // (the shared leading run of messages). The old window slid one message
+  // every turn and shared nothing.
+  const all = Array.from({ length: 60 }, (_, i) => ({ role: i % 2 ? 'assistant' : 'user', content: 'turn ' + i + ' ' + 'x'.repeat(500) }));
+  const share = (pack) => {
+    let kept = 0, tot = 0;
+    for (let n = 20; n < 59; n++) {
+      const before = pack(all.slice(0, n)), after = pack(all.slice(0, n + 1));
+      let i = 0;
+      while (i < before.length && after[i] && after[i].content === before[i].content) { kept += after[i].content.length; i++; }
+      tot += after.reduce((s, m) => s + m.content.length, 0);
+      if (after.length < 6) return -1;
+    }
+    return kept / tot;
+  };
+  const stepped = share(m => RP.packHistoryStepped(m, 6500, {}));
+  const sliding = share(m => RP.packHistory(m.slice(-24), 6500));
+  const fits = RP.packHistoryStepped(all, 6500, {}).reduce((s, m) => s + m.content.length, 0) <= 6500;
+  return stepped >= 0.55 && sliding < 0.1 && fits;
+})());
+check('down: a downed player is the last thing read, and the dice use the starred character’s body', (() => {
+  const st = RP.blankState();
+  const r = RP.newRoom([sans, cutters], { scene: 'The hangar.' });
+  st.rooms.push(r);
+  r.youPlay = cutters.id;
+  r.states[cutters.id].hp = { value: 0, max: 100 };
+  const sys = RP.systemFor(st, r, sans, {});
+  const split = RP.systemFor(st, r, sans, { split: true });
+  const tilt = RP.fateTilt(r, { text: 'I climb the shelf and grab the ledger' });
+  r.states[cutters.id].hp = { value: 100, max: 100 };
+  return /DOWN at 0 HP[\s\S]*NOW ANSWER AS/.test(sys.slice(-900)) && split.closing.includes('DOWN at 0 HP') &&
+    tilt.scale === 'unfit' && tilt.tilt < 0 && !RP.downNote(r);
+})());
+check('staging: a line that names its listener needs no staging call; two replies at most', (() => {
+  const r = RP.newRoom([sans, cutters], {});
+  return RP.addressedIn(r, 'I look at ' + cutters.name.toLowerCase() + ' and say nothing').join() === cutters.id &&
+    RP.addressedIn(r, cutters.name + ', then ' + sans.name + '?').join() === [cutters.id, sans.id].join() &&
+    RP.addressedIn(r, 'what is on the agenda').length === 0 && RP.SEQUENCE_MAX === 2;
+})());
+check('retakes: a stock opener alone is flagged, not written again; a real loop still is', (
+  !RP.worthRetake('repetition', { repeated: true, formulaHits: ['identical turn opener “wario s”'], staleHits: [], loopHits: [] }) &&
+  RP.worthRetake('repetition', { repeated: true, hasStaleRepeat: true }) &&
+  RP.worthRetake('repetition', { repeated: true, loopHits: ['a a a a', 'b b b b'] }) &&
+  !RP.worthRetake('generic', { isGeneric: true, score: 0.4 }) && RP.worthRetake('generic', { isGeneric: true, score: 0.95 })
+));
+check('recap: the fold keeps pace with the window instead of waiting for 36 turns', (() => {
+  const r = RP.newRoom([sans], {});
+  for (let i = 0; i < RP.RECAP_KEEP + RP.RECAP_STEP - 1; i++) r.messages.push({ id: 'm' + i, role: i % 2 ? 'char' : 'user', charId: sans.id, text: 't' + i });
+  const before = RP.recapDue(r);
+  r.messages.push({ id: 'last', role: 'user', text: 'one more' });
+  return !before && RP.recapDue(r) && !RP.needsRecap(r, 24);
+})());
 check('book: a page can be torn out', (() => {
   const id = RP.bookState(bookState).entries[1].id;
   RP.bookRemove(bookState, id);
