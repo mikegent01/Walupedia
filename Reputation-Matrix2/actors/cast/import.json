@@ -3,8 +3,8 @@
   "generatedBy": "tools/foundry-bridge.py combine",
   "exportedFrom": "waluipedia-cast",
   "system": "dnd5e",
-  "actorCount": 13,
-  "folderCount": 8,
+  "actorCount": 15,
+  "folderCount": 9,
   "unresolvedFolderActors": 0,
   "folderStyles": {
     "Elsewhere": {
@@ -38,6 +38,10 @@
     "Mushroom Regency & Kingdom / 955 BF — Peach's Castle": {
       "color": "#B8860B",
       "description": "Highsun 1, 955 BF, Peach's Castle — the past selves (actors/peachs-castle-955) and the generated 955 BF versions of the cast, filed under their factions: the court under Mushroom Regency & Kingdom, the incursion under Koopa Troop."
+    },
+    "Wario's Enterprise & WarioWare": {
+      "color": "#FFAC1C",
+      "description": null
     }
   },
   "folders": [
@@ -146,9 +150,858 @@
         "Mushroom Regency & Kingdom",
         "955 BF — Peach's Castle"
       ]
+    },
+    {
+      "_id": "RSYQLzwscRNpYc1w",
+      "name": "Wario's Enterprise & WarioWare",
+      "type": "Actor",
+      "folder": null,
+      "sorting": "a",
+      "sort": 0,
+      "color": "#FFAC1C",
+      "description": null,
+      "path": [
+        "Wario's Enterprise & WarioWare"
+      ]
     }
   ],
   "actors": [
+    {
+      "_id": "F08mNA7heIs0C25J",
+      "name": "Beta Luigi",
+      "type": "npc",
+      "img": "portraits/beta_luigi.jpg",
+      "system": {
+        "abilities": {
+          "str": {
+            "value": 7,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "dex": {
+            "value": 15,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "con": {
+            "value": 11,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "int": {
+            "value": 11,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "wis": {
+            "value": 13,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "cha": {
+            "value": 15,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          }
+        },
+        "attributes": {
+          "ac": {
+            "flat": 13,
+            "calc": "natural",
+            "formula": ""
+          },
+          "hp": {
+            "value": 27,
+            "max": 27,
+            "formula": "6d8",
+            "temp": null,
+            "tempmax": null
+          },
+          "movement": {
+            "walk": "30",
+            "units": "ft",
+            "hover": false,
+            "burrow": "0",
+            "climb": "0",
+            "fly": "0",
+            "swim": "0",
+            "ignoredDifficultTerrain": []
+          },
+          "senses": {
+            "units": "ft",
+            "ranges": {
+              "darkvision": 0
+            },
+            "special": ""
+          },
+          "init": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonus": ""
+          },
+          "attunement": {
+            "max": 3
+          },
+          "spellcasting": "",
+          "exhaustion": 0,
+          "concentration": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "save": ""
+            },
+            "limit": 1
+          },
+          "loyalty": {},
+          "hd": {
+            "spent": 0
+          },
+          "death": {
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "success": 0,
+            "failure": 0,
+            "bonuses": {
+              "save": ""
+            }
+          }
+        },
+        "details": {
+          "alignment": "Neutral",
+          "type": {
+            "value": "humanoid",
+            "subtype": "human"
+          },
+          "cr": 1,
+          "biography": {
+            "value": "<p><em>Waluipedia cast sheet — Beta Luigi.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 1 as a spirit. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Brother Left Alone</strong> — None — formerly beside Mario; now acting strictly alone</p><p>Status: Active — walked out of the Archive Hall alone on 3 Aethel, 1035 BF carrying an unnamed volume pulled from the shelves after swearing to make them atone alone</p><p>A hollow-eyed, grief-wrecked figure in stained green overalls, heavy tool belt, and low-pulled cap who entered the Archive Hall during a thunderstorm as the third haunting of the week. Followed by a singing chorus of ghosts, a fifteen-foot angry crimson phantom, and Mario's disembodied voice answering in Italian ('Ti perdono. Vai avanti'), he crushed a working Fire Flower under his boot, wept out the whole of 'Alone' on the stone floor, took one book from the shelf, and walked out by himself.</p><h3>Evidence</h3><ul><li><strong>Withering Touch</strong> — “The Brother Left Alone”</li><li><strong>Incorporeal Movement</strong> — “Followed by a singing chorus of ghosts, a fifteen-foot angry crimson phantom, and Mario's disembodied voice answering in Italian ('Ti perdono.”</li></ul><p>Article: <code>#/article/beta_luigi</code> (characters). Site sheet: <code>#/sheets/beta_luigi</code>.</p>",
+            "public": ""
+          }
+        },
+        "traits": {
+          "size": "med",
+          "languages": {
+            "value": [
+              "common"
+            ],
+            "custom": "",
+            "communication": {}
+          },
+          "ci": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "di": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dr": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dv": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dm": {
+            "amount": {},
+            "bypasses": []
+          },
+          "important": false
+        },
+        "skills": {
+          "acr": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ani": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "arc": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ath": {
+            "value": 0,
+            "ability": "str",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "dec": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "his": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ins": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "itm": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "inv": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "med": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "nat": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prc": {
+            "value": 1,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prf": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "per": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "rel": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "slt": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ste": {
+            "value": 1,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "sur": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "bonuses": {},
+        "tools": {},
+        "spells": {},
+        "resources": {}
+      },
+      "prototypeToken": {
+        "name": "Beta Luigi",
+        "displayName": 0,
+        "actorLink": false,
+        "width": 1,
+        "height": 1,
+        "texture": {
+          "src": "portraits/beta_luigi.jpg",
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "fit": "contain",
+          "scaleX": 1,
+          "scaleY": 1,
+          "tint": "#ffffff",
+          "alphaThreshold": 0.75
+        },
+        "lockRotation": false,
+        "rotation": 0,
+        "alpha": 1,
+        "disposition": 0,
+        "displayBars": 0,
+        "bar1": {
+          "attribute": "attributes.hp"
+        },
+        "bar2": {
+          "attribute": null
+        }
+      },
+      "items": [
+        {
+          "_id": "VKF50OjOyxj3r3oa",
+          "name": "Withering Touch",
+          "type": "weapon",
+          "img": "icons/magic/death/skull-horned-goat-pentagram-red.webp",
+          "system": {
+            "description": {
+              "value": "<p>Withering Touch; melee weapon attack.</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "quantity": 1,
+            "weight": {
+              "value": 0,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "attunement": "",
+            "rarity": "",
+            "identified": true,
+            "cover": null,
+            "range": {
+              "value": null,
+              "long": null,
+              "units": "ft",
+              "reach": null
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "versatile": {
+                "number": null,
+                "denomination": null,
+                "bonus": "",
+                "types": [],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              },
+              "base": {
+                "number": 1,
+                "denomination": 6,
+                "bonus": "",
+                "types": [
+                  "necrotic"
+                ],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              }
+            },
+            "armor": {
+              "value": 10
+            },
+            "hp": {
+              "value": 0,
+              "max": 0,
+              "dt": null,
+              "conditions": ""
+            },
+            "properties": [],
+            "type": {
+              "value": "natural",
+              "baseItem": ""
+            },
+            "container": null,
+            "equipped": true,
+            "proficient": null,
+            "identifier": "",
+            "attuned": false,
+            "ammunition": {},
+            "crew": {
+              "value": []
+            },
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "type": "attack",
+                "activation": {
+                  "type": "action",
+                  "value": 1,
+                  "condition": "",
+                  "override": false
+                },
+                "consumption": {
+                  "targets": [],
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "value": "",
+                  "units": "inst",
+                  "special": "",
+                  "override": false
+                },
+                "effects": [],
+                "range": {
+                  "units": "ft",
+                  "special": "",
+                  "override": false
+                },
+                "target": {
+                  "template": {
+                    "count": "",
+                    "contiguous": false,
+                    "type": "",
+                    "size": "",
+                    "width": "",
+                    "height": "",
+                    "units": "ft",
+                    "stationary": false
+                  },
+                  "affects": {
+                    "count": "",
+                    "type": "",
+                    "choice": false,
+                    "special": ""
+                  },
+                  "prompt": true,
+                  "override": false
+                },
+                "uses": {
+                  "spent": 0,
+                  "max": "",
+                  "recovery": []
+                },
+                "attack": {
+                  "ability": "cha",
+                  "bonus": "",
+                  "critical": {
+                    "threshold": null
+                  },
+                  "flat": false,
+                  "type": {
+                    "value": "melee",
+                    "classification": "weapon"
+                  }
+                },
+                "damage": {
+                  "critical": {
+                    "bonus": ""
+                  },
+                  "includeBase": true,
+                  "parts": []
+                },
+                "sort": 0,
+                "flags": {},
+                "visibility": {
+                  "level": {},
+                  "requireAttunement": false,
+                  "requireIdentification": false,
+                  "requireMagic": false
+                },
+                "img": null
+              }
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 100000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "HWB2CkXNIzzivWP0",
+          "name": "Incorporeal Movement",
+          "type": "feat",
+          "img": "icons/magic/death/undead-ghost-strike-white.webp",
+          "system": {
+            "description": {
+              "value": "<p>Can move through other creatures and objects as if they were difficult terrain; takes 5 (1d10) force damage if it ends its turn inside an object.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "monster",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 200000,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ],
+      "effects": [],
+      "folder": "xy1H0daYbsd2etui",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "waluipedia-mass-import": {
+          "folderPath": [
+            "Elsewhere"
+          ],
+          "source": "tools/build-character-sheets.py"
+        },
+        "waluipedia-sheets": {
+          "characterId": "beta_luigi",
+          "generated": true,
+          "bespoke": false,
+          "role": "spirit",
+          "ledger": {
+            "level": null,
+            "powerLevel": null
+          },
+          "evidence": [
+            {
+              "feature": "Withering Touch",
+              "quote": "The Brother Left Alone",
+              "source": "title"
+            },
+            {
+              "feature": "Incorporeal Movement",
+              "quote": "Followed by a singing chorus of ghosts, a fifteen-foot angry crimson phantom, and Mario's disembodied voice answering in Italian ('Ti perdono.",
+              "source": "article"
+            }
+          ],
+          "tags": [
+            "Elsewhere",
+            "npc",
+            "spirit",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#6C757D"
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "compendiumSource": null,
+        "duplicateSource": null
+      }
+    },
     {
       "_id": "dgzyCBMCyGFITKBt",
       "name": "GB Mario",
@@ -14109,6 +14962,936 @@
             "label": "Mario at his height",
             "when": "The year Peach died. Before Highsun 1 the hero was always near her, and the routine still held: Bowser kidnaps Peach, Mario stomps through eight worlds, Peach bakes a cake."
           }
+        }
+      },
+      "_stats": {
+        "coreVersion": "14.365",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "compendiumSource": null,
+        "duplicateSource": null
+      }
+    },
+    {
+      "_id": "Au2Fc3mCGCtyqUND",
+      "name": "Mr. T",
+      "type": "npc",
+      "img": "portraits/mr_t.jpg",
+      "system": {
+        "abilities": {
+          "str": {
+            "value": 10,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "dex": {
+            "value": 16,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "con": {
+            "value": 12,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "int": {
+            "value": 13,
+            "proficient": 1,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "wis": {
+            "value": 13,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          },
+          "cha": {
+            "value": 12,
+            "proficient": 0,
+            "bonuses": {
+              "check": "",
+              "save": ""
+            },
+            "max": null,
+            "check": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            },
+            "save": {
+              "roll": {
+                "min": null,
+                "max": null,
+                "mode": 0
+              }
+            }
+          }
+        },
+        "attributes": {
+          "ac": {
+            "flat": 14,
+            "calc": "natural",
+            "formula": ""
+          },
+          "hp": {
+            "value": 27,
+            "max": 27,
+            "formula": "6d6 + 6",
+            "temp": null,
+            "tempmax": null
+          },
+          "movement": {
+            "walk": "25",
+            "units": "ft",
+            "hover": false,
+            "burrow": "0",
+            "climb": "0",
+            "fly": "0",
+            "swim": "0",
+            "ignoredDifficultTerrain": []
+          },
+          "senses": {
+            "units": "ft",
+            "ranges": {
+              "darkvision": 0
+            },
+            "special": ""
+          },
+          "init": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonus": ""
+          },
+          "attunement": {
+            "max": 3
+          },
+          "spellcasting": "",
+          "exhaustion": 0,
+          "concentration": {
+            "ability": "",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "save": ""
+            },
+            "limit": 1
+          },
+          "loyalty": {},
+          "hd": {
+            "spent": 0
+          },
+          "death": {
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "success": 0,
+            "failure": 0,
+            "bonuses": {
+              "save": ""
+            }
+          }
+        },
+        "details": {
+          "alignment": "Neutral",
+          "type": {
+            "value": "humanoid",
+            "subtype": "Toad"
+          },
+          "cr": 1,
+          "biography": {
+            "value": "<p><em>Waluipedia cast sheet — Mr. T.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Courier Who Cleans the Laundry</strong> — Wario's Enterprise / Waluigi's Audit Desk (Courier &amp; Back-Room Cleaner)</p><p>Status: Active — followed Wario and the Contract of Accord into the Star Hill corridor on 3 Aethel, 1035 BF after watching Beta Luigi walk out with an Archive Hall volume</p><p>A gaunt, exhausted courier and back-room bookkeeper who writes Wario's daily reports, cleans Waluigi's financial laundry, and knows too much about both men's gambling debts. He slid Waluigi the 'Wario Bowser / Wawario' lyric sheet, fell asleep beneath the Archive Hall's leaking vault, pulled Wario's real backup ledgers off the shelf at random, and proved he had flagged the Treasury of Wonders discrepancy months earlier with 'AUDIT REQUIRED - WARIO' in the corner.</p><h3>Evidence</h3><ul><li><strong>Dagger</strong> — “The Courier Who Cleans the Laundry”</li><li><strong>Keen Records</strong> — “He opens the night of 3 Aethel, 1035 BF by sliding a transcribed song sheet across the Archive Hall table to Waluigi — &quot;Mario, Luigi, Wario, Waluigi, Bowser, and Wario Bowser&quot; — and pressing him deadpan on whether”</li><li><strong>Courier's Pace</strong> — “The Courier Who Cleans the Laundry”</li><li><strong>Coin Sense</strong> — “A gaunt, exhausted courier and back-room bookkeeper who writes Wario's daily reports, cleans Waluigi's financial laundry, and knows too much about both men's gambling debts.”</li></ul><p>Article: <code>#/article/mr_t</code> (characters). Site sheet: <code>#/sheets/mr_t</code>.</p>",
+            "public": ""
+          }
+        },
+        "traits": {
+          "size": "sm",
+          "languages": {
+            "value": [
+              "common"
+            ],
+            "custom": "",
+            "communication": {}
+          },
+          "ci": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "di": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dr": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dv": {
+            "value": [],
+            "custom": "",
+            "bypasses": []
+          },
+          "dm": {
+            "amount": {},
+            "bypasses": []
+          },
+          "important": false
+        },
+        "skills": {
+          "acr": {
+            "value": 0,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ani": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "arc": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ath": {
+            "value": 0,
+            "ability": "str",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "dec": {
+            "value": 1,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "his": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ins": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "itm": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "inv": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "med": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "nat": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prc": {
+            "value": 1,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "prf": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "per": {
+            "value": 0,
+            "ability": "cha",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "rel": {
+            "value": 0,
+            "ability": "int",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "slt": {
+            "value": 1,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "ste": {
+            "value": 2,
+            "ability": "dex",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "sur": {
+            "value": 0,
+            "ability": "wis",
+            "roll": {
+              "min": null,
+              "max": null,
+              "mode": 0
+            },
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          }
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "currency": {
+          "pp": 0,
+          "gp": 0,
+          "ep": 0,
+          "sp": 0,
+          "cp": 0
+        },
+        "bonuses": {},
+        "tools": {},
+        "spells": {},
+        "resources": {}
+      },
+      "prototypeToken": {
+        "name": "Mr. T",
+        "displayName": 0,
+        "actorLink": false,
+        "width": 1,
+        "height": 1,
+        "texture": {
+          "src": "portraits/mr_t.jpg",
+          "anchorX": 0.5,
+          "anchorY": 0.5,
+          "fit": "contain",
+          "scaleX": 1,
+          "scaleY": 1,
+          "tint": "#ffffff",
+          "alphaThreshold": 0.75
+        },
+        "lockRotation": false,
+        "rotation": 0,
+        "alpha": 1,
+        "disposition": 0,
+        "displayBars": 0,
+        "bar1": {
+          "attribute": "attributes.hp"
+        },
+        "bar2": {
+          "attribute": null
+        }
+      },
+      "items": [
+        {
+          "_id": "PTaCi49FYcWN43PI",
+          "name": "Dagger",
+          "type": "weapon",
+          "img": "icons/weapons/daggers/dagger-simple-black.webp",
+          "system": {
+            "description": {
+              "value": "<p>Dagger; melee weapon attack.</p>",
+              "chat": ""
+            },
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            },
+            "quantity": 1,
+            "weight": {
+              "value": 0,
+              "units": "lb"
+            },
+            "price": {
+              "value": 0,
+              "denomination": "gp"
+            },
+            "attunement": "",
+            "rarity": "",
+            "identified": true,
+            "cover": null,
+            "range": {
+              "value": 20,
+              "long": 60,
+              "units": "ft",
+              "reach": null
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "damage": {
+              "versatile": {
+                "number": null,
+                "denomination": null,
+                "bonus": "",
+                "types": [],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              },
+              "base": {
+                "number": 1,
+                "denomination": 4,
+                "bonus": "",
+                "types": [
+                  "piercing"
+                ],
+                "custom": {
+                  "enabled": false,
+                  "formula": ""
+                },
+                "scaling": {
+                  "mode": "",
+                  "number": null,
+                  "formula": ""
+                }
+              }
+            },
+            "armor": {
+              "value": 10
+            },
+            "hp": {
+              "value": 0,
+              "max": 0,
+              "dt": null,
+              "conditions": ""
+            },
+            "properties": [
+              "fin",
+              "lgt",
+              "thr"
+            ],
+            "type": {
+              "value": "simpleM",
+              "baseItem": ""
+            },
+            "container": null,
+            "equipped": true,
+            "proficient": null,
+            "identifier": "",
+            "attuned": false,
+            "ammunition": {},
+            "crew": {
+              "value": []
+            },
+            "activities": {
+              "dnd5eactivity000": {
+                "_id": "dnd5eactivity000",
+                "type": "attack",
+                "activation": {
+                  "type": "action",
+                  "value": 1,
+                  "condition": "",
+                  "override": false
+                },
+                "consumption": {
+                  "targets": [],
+                  "scaling": {
+                    "allowed": false,
+                    "max": ""
+                  },
+                  "spellSlot": true
+                },
+                "description": {
+                  "chatFlavor": ""
+                },
+                "duration": {
+                  "concentration": false,
+                  "value": "",
+                  "units": "inst",
+                  "special": "",
+                  "override": false
+                },
+                "effects": [],
+                "range": {
+                  "units": "ft",
+                  "special": "",
+                  "override": false
+                },
+                "target": {
+                  "template": {
+                    "count": "",
+                    "contiguous": false,
+                    "type": "",
+                    "size": "",
+                    "width": "",
+                    "height": "",
+                    "units": "ft",
+                    "stationary": false
+                  },
+                  "affects": {
+                    "count": "",
+                    "type": "",
+                    "choice": false,
+                    "special": ""
+                  },
+                  "prompt": true,
+                  "override": false
+                },
+                "uses": {
+                  "spent": 0,
+                  "max": "",
+                  "recovery": []
+                },
+                "attack": {
+                  "ability": "dex",
+                  "bonus": "",
+                  "critical": {
+                    "threshold": null
+                  },
+                  "flat": false,
+                  "type": {
+                    "value": "melee",
+                    "classification": "weapon"
+                  }
+                },
+                "damage": {
+                  "critical": {
+                    "bonus": ""
+                  },
+                  "includeBase": true,
+                  "parts": []
+                },
+                "sort": 0,
+                "flags": {},
+                "visibility": {
+                  "level": {},
+                  "requireAttunement": false,
+                  "requireIdentification": false,
+                  "requireMagic": false
+                },
+                "img": null
+              }
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 100000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "ZD8QX5QvxB84jZlH",
+          "name": "Keen Records",
+          "type": "feat",
+          "img": "icons/tools/scribal/ink-quill-pink.webp",
+          "system": {
+            "description": {
+              "value": "<p>Has advantage on Intelligence (History) and (Investigation) checks about anything it has filed, and can recall any document it has read in the last year word for word.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "monster",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 200000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "wh6qGuc8i1VoKlen",
+          "name": "Courier's Pace",
+          "type": "feat",
+          "img": "icons/skills/movement/figure-running-gray.webp",
+          "system": {
+            "description": {
+              "value": "<p>Speed increased by 10 feet; opportunity attacks against it are made with disadvantage while it is carrying a package.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "monster",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 300000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
+          "_id": "UM0WSLcg1uHdP6T5",
+          "name": "Coin Sense",
+          "type": "feat",
+          "img": "icons/commodities/currency/coins-plain-stack-gold.webp",
+          "system": {
+            "description": {
+              "value": "<p>Knows the market value of anything it can see or hold, and has advantage on Wisdom (Insight) checks to tell whether an offer is a lie.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "monster",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 400000,
+          "ownership": {
+            "default": 0
+          }
+        }
+      ],
+      "effects": [],
+      "folder": "RSYQLzwscRNpYc1w",
+      "ownership": {
+        "default": 0
+      },
+      "flags": {
+        "waluipedia-mass-import": {
+          "folderPath": [
+            "Wario's Enterprise & WarioWare"
+          ],
+          "source": "tools/build-character-sheets.py"
+        },
+        "waluipedia-sheets": {
+          "characterId": "mr_t",
+          "generated": true,
+          "bespoke": false,
+          "role": "rogue",
+          "ledger": {
+            "level": null,
+            "powerLevel": null
+          },
+          "evidence": [
+            {
+              "feature": "Dagger",
+              "quote": "The Courier Who Cleans the Laundry",
+              "source": "title"
+            },
+            {
+              "feature": "Keen Records",
+              "quote": "He opens the night of 3 Aethel, 1035 BF by sliding a transcribed song sheet across the Archive Hall table to Waluigi — \"Mario, Luigi, Wario, Waluigi, Bowser, and Wario Bowser\" — and pressing him deadpan on whether",
+              "source": "article"
+            },
+            {
+              "feature": "Courier's Pace",
+              "quote": "The Courier Who Cleans the Laundry",
+              "source": "article"
+            },
+            {
+              "feature": "Coin Sense",
+              "quote": "A gaunt, exhausted courier and back-room bookkeeper who writes Wario's daily reports, cleans Waluigi's financial laundry, and knows too much about both men's gambling debts.",
+              "source": "article"
+            }
+          ],
+          "tags": [
+            "Wario's Enterprise & WarioWare",
+            "npc",
+            "rogue",
+            "humanoid",
+            "generated"
+          ],
+          "color": "#FFAC1C"
         }
       },
       "_stats": {

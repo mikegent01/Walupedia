@@ -1,7 +1,7 @@
 {
   "format": "waluipedia-actors/1",
   "exportedFrom": "midlands",
-  "exportedAt": "2026-10-18T16:05:55.688Z",
+  "exportedAt": "2026-10-24T02:44:32.101Z",
   "system": "dnd5e",
   "systemVersion": "5.3.3",
   "coreVersion": "14.367",
@@ -15,15 +15,22 @@
     "seen": "data:9c6f7e1814aa652a27af527ca7d582f9909bdaf6"
   },
   "source": "midlands-all-actors.json",
-  "actorCount": 536,
+  "actorCount": 700,
   "volatileStats": "stripped",
-  "filesChanged": 105,
+  "filesChanged": 270,
   "folders": [
     "Bestiary",
+    "Bestiary / Aberration",
     "Bestiary / Beast",
+    "Bestiary / Construct",
+    "Bestiary / Dragon",
+    "Bestiary / Elemental",
     "Bestiary / Fey",
+    "Bestiary / Fiend",
+    "Bestiary / Giant",
     "Bestiary / Humanoid",
     "Bestiary / Monstrosity",
+    "Bestiary / Ooze",
     "Bestiary / Plant",
     "Bestiary / Undead",
     "Dark Shores",
@@ -152,6 +159,264 @@
   "note": "",
   "actors": [
     {
+      "name": "Aberrant Zealot",
+      "type": "npc",
+      "_id": "pbsoAberrantZeal",
+      "file": "Bestiary/Aberration/fvtt-Actor-aberrant-zealot-pbsoAberrantZeal.json"
+    },
+    {
+      "name": "Aboleth",
+      "type": "npc",
+      "_id": "shhHtE7b92PefCWB",
+      "file": "Bestiary/Aberration/fvtt-Actor-aboleth-shhHtE7b92PefCWB.json"
+    },
+    {
+      "name": "Beholder",
+      "type": "npc",
+      "_id": "pbsoBeholder0000",
+      "file": "Bestiary/Aberration/fvtt-Actor-beholder-pbsoBeholder0000.json"
+    },
+    {
+      "name": "Blue Slaad",
+      "type": "npc",
+      "_id": "pbsoBlueSlaad000",
+      "file": "Bestiary/Aberration/fvtt-Actor-blue-slaad-pbsoBlueSlaad000.json"
+    },
+    {
+      "name": "Brain Breaker",
+      "type": "npc",
+      "_id": "pbsoBrainBreaker",
+      "file": "Bestiary/Aberration/fvtt-Actor-brain-breaker-pbsoBrainBreaker.json"
+    },
+    {
+      "name": "Chishinix",
+      "type": "npc",
+      "_id": "pbsoChishinix000",
+      "file": "Bestiary/Aberration/fvtt-Actor-chishinix-pbsoChishinix000.json"
+    },
+    {
+      "name": "Chishinix's Severed Head",
+      "type": "npc",
+      "_id": "pbsoSeveredHead0",
+      "file": "Bestiary/Aberration/fvtt-Actor-chishinixs-severed-head-pbsoSeveredHead0.json"
+    },
+    {
+      "name": "Chuul",
+      "type": "npc",
+      "_id": "P6qC8jB3pnEH0tIE",
+      "file": "Bestiary/Aberration/fvtt-Actor-chuul-P6qC8jB3pnEH0tIE.json"
+    },
+    {
+      "name": "Cloaker Mutate",
+      "type": "npc",
+      "_id": "pbsoCloakerMutat",
+      "file": "Bestiary/Aberration/fvtt-Actor-cloaker-mutate-pbsoCloakerMutat.json"
+    },
+    {
+      "name": "Encephalon Cluster",
+      "type": "npc",
+      "_id": "pbsoEncephalonCl",
+      "file": "Bestiary/Aberration/fvtt-Actor-encephalon-cluster-pbsoEncephalonCl.json"
+    },
+    {
+      "name": "Encephalon Gemmule",
+      "type": "npc",
+      "_id": "pbsoGemmule00000",
+      "file": "Bestiary/Aberration/fvtt-Actor-encephalon-gemmule-pbsoGemmule00000.json"
+    },
+    {
+      "name": "Flesh Meld",
+      "type": "npc",
+      "_id": "pbsoFleshMeld000",
+      "file": "Bestiary/Aberration/fvtt-Actor-flesh-meld-pbsoFleshMeld000.json"
+    },
+    {
+      "name": "Flumph",
+      "type": "npc",
+      "_id": "pbsoFlumph000000",
+      "file": "Bestiary/Aberration/fvtt-Actor-flumph-pbsoFlumph000000.json"
+    },
+    {
+      "name": "Gibbering Mouther",
+      "type": "npc",
+      "_id": "8pX2JhWUpTNNRBVx",
+      "file": "Bestiary/Aberration/fvtt-Actor-gibbering-mouther-8pX2JhWUpTNNRBVx.json"
+    },
+    {
+      "name": "Goblin Psi Brawler",
+      "type": "npc",
+      "_id": "pbsoGoblinPsiBra",
+      "file": "Bestiary/Aberration/fvtt-Actor-goblin-psi-brawler-pbsoGoblinPsiBra.json"
+    },
+    {
+      "name": "Goblin Psi Commander",
+      "type": "npc",
+      "_id": "pbsoGoblinPsiCom",
+      "file": "Bestiary/Aberration/fvtt-Actor-goblin-psi-commander-pbsoGoblinPsiCom.json"
+    },
+    {
+      "name": "Gray Slaad",
+      "type": "npc",
+      "_id": "pbsoGraySlaad000",
+      "file": "Bestiary/Aberration/fvtt-Actor-gray-slaad-pbsoGraySlaad000.json"
+    },
+    {
+      "name": "Green Slaad",
+      "type": "npc",
+      "_id": "pbsoGreenSlaad00",
+      "file": "Bestiary/Aberration/fvtt-Actor-green-slaad-pbsoGreenSlaad00.json"
+    },
+    {
+      "name": "Grell",
+      "type": "npc",
+      "_id": "pbsoGrell0000000",
+      "file": "Bestiary/Aberration/fvtt-Actor-grell-pbsoGrell0000000.json"
+    },
+    {
+      "name": "Grell Psychic",
+      "type": "npc",
+      "_id": "pbsoGrellPsychic",
+      "file": "Bestiary/Aberration/fvtt-Actor-grell-psychic-pbsoGrellPsychic.json"
+    },
+    {
+      "name": "Hashutu",
+      "type": "npc",
+      "_id": "pbsoHashutu00000",
+      "file": "Bestiary/Aberration/fvtt-Actor-hashutu-pbsoHashutu00000.json"
+    },
+    {
+      "name": "Humanoid Mutate",
+      "type": "npc",
+      "_id": "pbsoHumanmutate0",
+      "file": "Bestiary/Aberration/fvtt-Actor-humanoid-mutate-pbsoHumanmutate0.json"
+    },
+    {
+      "name": "Infected Elder Brain",
+      "type": "npc",
+      "_id": "pbsoElderinfecte",
+      "file": "Bestiary/Aberration/fvtt-Actor-infected-elder-brain-pbsoElderinfecte.json"
+    },
+    {
+      "name": "Intellect Devourer",
+      "type": "npc",
+      "_id": "pbsoIntellectDev",
+      "file": "Bestiary/Aberration/fvtt-Actor-intellect-devourer-pbsoIntellectDev.json"
+    },
+    {
+      "name": "Intellect Snare",
+      "type": "npc",
+      "_id": "pbsoIntellectSna",
+      "file": "Bestiary/Aberration/fvtt-Actor-intellect-snare-pbsoIntellectSna.json"
+    },
+    {
+      "name": "Mind Flayer Clairvoyant",
+      "type": "npc",
+      "_id": "pbsoClairvoyantm",
+      "file": "Bestiary/Aberration/fvtt-Actor-mind-flayer-clairvoyant-pbsoClairvoyantm.json"
+    },
+    {
+      "name": "Mind Flayer Nothic",
+      "type": "npc",
+      "_id": "pbsoNothicmindfl",
+      "file": "Bestiary/Aberration/fvtt-Actor-mind-flayer-nothic-pbsoNothicmindfl.json"
+    },
+    {
+      "name": "Mind Flayer",
+      "type": "npc",
+      "_id": "pbsoMindFlayer00",
+      "file": "Bestiary/Aberration/fvtt-Actor-mind-flayer-pbsoMindFlayer00.json"
+    },
+    {
+      "name": "Mind Flayer Prophet",
+      "type": "npc",
+      "_id": "pbsoMindFlayerPr",
+      "file": "Bestiary/Aberration/fvtt-Actor-mind-flayer-prophet-pbsoMindFlayerPr.json"
+    },
+    {
+      "name": "Nothic",
+      "type": "npc",
+      "_id": "pbsoNothic000000",
+      "file": "Bestiary/Aberration/fvtt-Actor-nothic-pbsoNothic000000.json"
+    },
+    {
+      "name": "Oculorb",
+      "type": "npc",
+      "_id": "pbsoOculorb00000",
+      "file": "Bestiary/Aberration/fvtt-Actor-oculorb-pbsoOculorb00000.json"
+    },
+    {
+      "name": "Ontharyx Henlifel",
+      "type": "npc",
+      "_id": "pbsoOntharyxHenl",
+      "file": "Bestiary/Aberration/fvtt-Actor-ontharyx-henlifel-pbsoOntharyxHenl.json"
+    },
+    {
+      "name": "Otyugh",
+      "type": "npc",
+      "_id": "jcZblJ6lqtW0ePxe",
+      "file": "Bestiary/Aberration/fvtt-Actor-otyugh-jcZblJ6lqtW0ePxe.json"
+    },
+    {
+      "name": "Otyugh Mutate",
+      "type": "npc",
+      "_id": "pbsoOtyughMutate",
+      "file": "Bestiary/Aberration/fvtt-Actor-otyugh-mutate-pbsoOtyughMutate.json"
+    },
+    {
+      "name": "Qunbraxel",
+      "type": "npc",
+      "_id": "pbsoQunbraxel000",
+      "file": "Bestiary/Aberration/fvtt-Actor-qunbraxel-pbsoQunbraxel000.json"
+    },
+    {
+      "name": "Red Slaad",
+      "type": "npc",
+      "_id": "pbsoRedSlaad0000",
+      "file": "Bestiary/Aberration/fvtt-Actor-red-slaad-pbsoRedSlaad0000.json"
+    },
+    {
+      "name": "Refraction of Ilvaash",
+      "type": "npc",
+      "_id": "pbsoIlvaash00000",
+      "file": "Bestiary/Aberration/fvtt-Actor-refraction-of-ilvaash-pbsoIlvaash00000.json"
+    },
+    {
+      "name": "Ruxithid the Chosen",
+      "type": "npc",
+      "_id": "pbsoRuxithidTheC",
+      "file": "Bestiary/Aberration/fvtt-Actor-ruxithid-the-chosen-pbsoRuxithidTheC.json"
+    },
+    {
+      "name": "Shalfi Lewin",
+      "type": "npc",
+      "_id": "pbsoShalfiLewin0",
+      "file": "Bestiary/Aberration/fvtt-Actor-shalfi-lewin-pbsoShalfiLewin0.json"
+    },
+    {
+      "name": "Slaad Tadpole",
+      "type": "npc",
+      "_id": "pbsoSlaadTadpole",
+      "file": "Bestiary/Aberration/fvtt-Actor-slaad-tadpole-pbsoSlaadTadpole.json"
+    },
+    {
+      "name": "Spectator",
+      "type": "npc",
+      "_id": "pbsoSpectator000",
+      "file": "Bestiary/Aberration/fvtt-Actor-spectator-pbsoSpectator000.json"
+    },
+    {
+      "name": "Voalsh",
+      "type": "npc",
+      "_id": "pbsoVoalsh000000",
+      "file": "Bestiary/Aberration/fvtt-Actor-voalsh-pbsoVoalsh000000.json"
+    },
+    {
+      "name": "Bessie (Giant Badger)",
+      "type": "npc",
+      "_id": "cJGY1ZywUOo6heNR",
+      "file": "Bestiary/Beast/fvtt-Actor-bessie-giant-badger-cJGY1ZywUOo6heNR.json"
+    },
+    {
       "name": "Black Bear",
       "type": "npc",
       "_id": "C04YpnHjyu4oh0X8",
@@ -170,16 +435,58 @@
       "file": "Bestiary/Beast/fvtt-Actor-colossal-spider-C0TKUDtIprhxOZD5.json"
     },
     {
+      "name": "Dire Wolf",
+      "type": "npc",
+      "_id": "EYiQZ3rFL25fEJY5",
+      "file": "Bestiary/Beast/fvtt-Actor-dire-wolf-EYiQZ3rFL25fEJY5.json"
+    },
+    {
+      "name": "Draft Horse",
+      "type": "npc",
+      "_id": "Bupo3E9X5Ptx6XeT",
+      "file": "Bestiary/Beast/fvtt-Actor-draft-horse-Bupo3E9X5Ptx6XeT.json"
+    },
+    {
+      "name": "Giant Constrictor Snake",
+      "type": "npc",
+      "_id": "NpvwE1feOHyEqAbP",
+      "file": "Bestiary/Beast/fvtt-Actor-giant-constrictor-snake-NpvwE1feOHyEqAbP.json"
+    },
+    {
       "name": "Giant Green Spider",
       "type": "npc",
       "_id": "pNEOaqxDMmUbzR8H",
       "file": "Bestiary/Beast/fvtt-Actor-giant-green-spider-pNEOaqxDMmUbzR8H.json"
     },
     {
+      "name": "Giant Octopus",
+      "type": "npc",
+      "_id": "p9Xnr820UAZBOIVN",
+      "file": "Bestiary/Beast/fvtt-Actor-giant-octopus-p9Xnr820UAZBOIVN.json"
+    },
+    {
+      "name": "Giant Poisonous Snake",
+      "type": "npc",
+      "_id": "ZW39DE2zI3TXVYC9",
+      "file": "Bestiary/Beast/fvtt-Actor-giant-poisonous-snake-ZW39DE2zI3TXVYC9.json"
+    },
+    {
+      "name": "Giant Spider",
+      "type": "npc",
+      "_id": "v99wOosUJjUgcUNF",
+      "file": "Bestiary/Beast/fvtt-Actor-giant-spider-v99wOosUJjUgcUNF.json"
+    },
+    {
       "name": "Giant Wolf Spider",
       "type": "npc",
       "_id": "v6dM0lxmenwJlksD",
       "file": "Bestiary/Beast/fvtt-Actor-giant-wolf-spider-v6dM0lxmenwJlksD.json"
+    },
+    {
+      "name": "Goat",
+      "type": "npc",
+      "_id": "y8sRU8Ks2lcrGsaf",
+      "file": "Bestiary/Beast/fvtt-Actor-goat-y8sRU8Ks2lcrGsaf.json"
     },
     {
       "name": "Great Shadowmaw",
@@ -194,10 +501,112 @@
       "file": "Bestiary/Beast/fvtt-Actor-shadowtusk-RfKDLGMKmWwC9qOF.json"
     },
     {
+      "name": "Stirge",
+      "type": "npc",
+      "_id": "gKRtiMNAjZiCVfwz",
+      "file": "Bestiary/Beast/fvtt-Actor-stirge-gKRtiMNAjZiCVfwz.json"
+    },
+    {
       "name": "Swarm of Spiders",
       "type": "npc",
       "_id": "dXFPHhTbg87ClkKq",
       "file": "Bestiary/Beast/fvtt-Actor-swarm-of-spiders-dXFPHhTbg87ClkKq.json"
+    },
+    {
+      "name": "Wolf",
+      "type": "npc",
+      "_id": "yawTeS8u2FCfzzZH",
+      "file": "Bestiary/Beast/fvtt-Actor-wolf-yawTeS8u2FCfzzZH.json"
+    },
+    {
+      "name": "Animated Armor",
+      "type": "npc",
+      "_id": "eORmAXuV5v3nWsQL",
+      "file": "Bestiary/Construct/fvtt-Actor-animated-armor-eORmAXuV5v3nWsQL.json"
+    },
+    {
+      "name": "Clay Golem",
+      "type": "npc",
+      "_id": "YOqhbf8WsX0jH9Fu",
+      "file": "Bestiary/Construct/fvtt-Actor-clay-golem-YOqhbf8WsX0jH9Fu.json"
+    },
+    {
+      "name": "Fiendish Auger",
+      "type": "npc",
+      "_id": "pbsoFiendishAuge",
+      "file": "Bestiary/Construct/fvtt-Actor-fiendish-auger-pbsoFiendishAuge.json"
+    },
+    {
+      "name": "Helmed Horror",
+      "type": "npc",
+      "_id": "pbsoHelmedHorror",
+      "file": "Bestiary/Construct/fvtt-Actor-helmed-horror-pbsoHelmedHorror.json"
+    },
+    {
+      "name": "Homunculus",
+      "type": "npc",
+      "_id": "ZQTCZfTV9ZoTjNCU",
+      "file": "Bestiary/Construct/fvtt-Actor-homunculus-ZQTCZfTV9ZoTjNCU.json"
+    },
+    {
+      "name": "Shield Guardian",
+      "type": "npc",
+      "_id": "z85EsGS2GVWj46qE",
+      "file": "Bestiary/Construct/fvtt-Actor-shield-guardian-z85EsGS2GVWj46qE.json"
+    },
+    {
+      "name": "Adult Green Dragon",
+      "type": "npc",
+      "_id": "FyxByofPajp9Jg3y",
+      "file": "Bestiary/Dragon/fvtt-Actor-adult-green-dragon-FyxByofPajp9Jg3y.json"
+    },
+    {
+      "name": "Lowarnizel",
+      "type": "npc",
+      "_id": "pbsoYoungAmethys",
+      "file": "Bestiary/Dragon/fvtt-Actor-lowarnizel-pbsoYoungAmethys.json"
+    },
+    {
+      "name": "Venomfang",
+      "type": "npc",
+      "_id": "85ahD1jEo9B3POaQ",
+      "file": "Bestiary/Dragon/fvtt-Actor-venomfang-85ahD1jEo9B3POaQ.json"
+    },
+    {
+      "name": "Earth Elemental",
+      "type": "npc",
+      "_id": "sApYLZj9PTZ40wJr",
+      "file": "Bestiary/Elemental/fvtt-Actor-earth-elemental-sApYLZj9PTZ40wJr.json"
+    },
+    {
+      "name": "Galeb Duhr",
+      "type": "npc",
+      "_id": "pbsoGalebDuhr000",
+      "file": "Bestiary/Elemental/fvtt-Actor-galeb-duhr-pbsoGalebDuhr000.json"
+    },
+    {
+      "name": "Invisible Stalker",
+      "type": "npc",
+      "_id": "oDspGxRQFBhE74L2",
+      "file": "Bestiary/Elemental/fvtt-Actor-invisible-stalker-oDspGxRQFBhE74L2.json"
+    },
+    {
+      "name": "Water Elemental",
+      "type": "npc",
+      "_id": "namJz755U1EhvEJa",
+      "file": "Bestiary/Elemental/fvtt-Actor-water-elemental-namJz755U1EhvEJa.json"
+    },
+    {
+      "name": "Water Weird",
+      "type": "npc",
+      "_id": "pbsoWaterWeird00",
+      "file": "Bestiary/Elemental/fvtt-Actor-water-weird-pbsoWaterWeird00.json"
+    },
+    {
+      "name": "Xorn",
+      "type": "npc",
+      "_id": "2MZNHeOZweXAYbv1",
+      "file": "Bestiary/Elemental/fvtt-Actor-xorn-2MZNHeOZweXAYbv1.json"
     },
     {
       "name": "Centaur",
@@ -220,14 +629,14 @@
     {
       "name": "Hobgoblin",
       "type": "npc",
-      "_id": "qqtbtdwINX8iyrJw",
-      "file": "Bestiary/Fey/fvtt-Actor-hobgoblin-qqtbtdwINX8iyrJw.json"
+      "_id": "6qnT52lZtZblgGw8",
+      "file": "Bestiary/Fey/fvtt-Actor-hobgoblin-6qnT52lZtZblgGw8.json"
     },
     {
-      "name": "Hobgoblin Warrior",
+      "name": "Hobgoblin",
       "type": "npc",
-      "_id": "4BpweQBMswdd6gyp",
-      "file": "Bestiary/Fey/fvtt-Actor-hobgoblin-warrior-4BpweQBMswdd6gyp.json"
+      "_id": "qqtbtdwINX8iyrJw",
+      "file": "Bestiary/Fey/fvtt-Actor-hobgoblin-qqtbtdwINX8iyrJw.json"
     },
     {
       "name": "Hobgoblin Warrior",
@@ -332,10 +741,70 @@
       "file": "Bestiary/Fey/fvtt-Actor-the-ravenous-host-cuIbliWBwzc9UegA.json"
     },
     {
+      "name": "Arcanaloth",
+      "type": "npc",
+      "_id": "pbsoArcanaloth00",
+      "file": "Bestiary/Fiend/fvtt-Actor-arcanaloth-pbsoArcanaloth00.json"
+    },
+    {
+      "name": "Barlgura",
+      "type": "npc",
+      "_id": "pbsoBarlgura0000",
+      "file": "Bestiary/Fiend/fvtt-Actor-barlgura-pbsoBarlgura0000.json"
+    },
+    {
+      "name": "Chain Devil",
+      "type": "npc",
+      "_id": "KtM6IV9I5l1MWUDk",
+      "file": "Bestiary/Fiend/fvtt-Actor-chain-devil-KtM6IV9I5l1MWUDk.json"
+    },
+    {
+      "name": "Mezzoloth",
+      "type": "npc",
+      "_id": "pbsoMezzoloth000",
+      "file": "Bestiary/Fiend/fvtt-Actor-mezzoloth-pbsoMezzoloth000.json"
+    },
+    {
+      "name": "Nycaloth",
+      "type": "npc",
+      "_id": "pbsoNycaloth0000",
+      "file": "Bestiary/Fiend/fvtt-Actor-nycaloth-pbsoNycaloth0000.json"
+    },
+    {
+      "name": "Yochlol",
+      "type": "npc",
+      "_id": "pbsoYochlol00000",
+      "file": "Bestiary/Fiend/fvtt-Actor-yochlol-pbsoYochlol00000.json"
+    },
+    {
+      "name": "Zeond",
+      "type": "npc",
+      "_id": "bwtkdzavdNHISgp4",
+      "file": "Bestiary/Fiend/fvtt-Actor-zeond-bwtkdzavdNHISgp4.json"
+    },
+    {
+      "name": "Fomorian",
+      "type": "npc",
+      "_id": "pbsoFomorian0000",
+      "file": "Bestiary/Giant/fvtt-Actor-fomorian-pbsoFomorian0000.json"
+    },
+    {
+      "name": "Ogre",
+      "type": "npc",
+      "_id": "eIGowKTkEBC9gUzx",
+      "file": "Bestiary/Giant/fvtt-Actor-ogre-eIGowKTkEBC9gUzx.json"
+    },
+    {
       "name": "Bandit",
       "type": "npc",
       "_id": "2pZO6gQ1ykHCb0ug",
       "file": "Bestiary/Humanoid/fvtt-Actor-bandit-2pZO6gQ1ykHCb0ug.json"
+    },
+    {
+      "name": "Bandit",
+      "type": "npc",
+      "_id": "n4TEv7inVUkyZviN",
+      "file": "Bestiary/Humanoid/fvtt-Actor-bandit-n4TEv7inVUkyZviN.json"
     },
     {
       "name": "Berserker",
@@ -344,10 +813,52 @@
       "file": "Bestiary/Humanoid/fvtt-Actor-berserker-mY01QrfjFBZ0XHAq.json"
     },
     {
+      "name": "Brughor Axe-Biter",
+      "type": "npc",
+      "_id": "pbsoBrughorAxebi",
+      "file": "Bestiary/Humanoid/fvtt-Actor-brughor-axe-biter-pbsoBrughorAxebi.json"
+    },
+    {
+      "name": "Bugbear",
+      "type": "npc",
+      "_id": "QtJairF0h18BRhEM",
+      "file": "Bestiary/Humanoid/fvtt-Actor-bugbear-QtJairF0h18BRhEM.json"
+    },
+    {
+      "name": "Carp",
+      "type": "npc",
+      "_id": "pbsoCarp00000000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-carp-pbsoCarp00000000.json"
+    },
+    {
+      "name": "Commoner",
+      "type": "npc",
+      "_id": "2vgMrOQVmOiF0aRn",
+      "file": "Bestiary/Humanoid/fvtt-Actor-commoner-2vgMrOQVmOiF0aRn.json"
+    },
+    {
+      "name": "Commoner",
+      "type": "npc",
+      "_id": "SqZRuJ8lt2KGJBbq",
+      "file": "Bestiary/Humanoid/fvtt-Actor-commoner-SqZRuJ8lt2KGJBbq.json"
+    },
+    {
       "name": "Commoner",
       "type": "npc",
       "_id": "ak3bMCNiHYY4BQNv",
       "file": "Bestiary/Humanoid/fvtt-Actor-commoner-ak3bMCNiHYY4BQNv.json"
+    },
+    {
+      "name": "Cult Fanatic",
+      "type": "npc",
+      "_id": "tYfQIxCJT0WaaKmc",
+      "file": "Bestiary/Humanoid/fvtt-Actor-cult-fanatic-tYfQIxCJT0WaaKmc.json"
+    },
+    {
+      "name": "Cultist",
+      "type": "npc",
+      "_id": "qkLNA1lKMMJpxuWg",
+      "file": "Bestiary/Humanoid/fvtt-Actor-cultist-qkLNA1lKMMJpxuWg.json"
     },
     {
       "name": "Cultist",
@@ -356,10 +867,58 @@
       "file": "Bestiary/Humanoid/fvtt-Actor-cultist-vi1IvHUDzDdT6ZAn.json"
     },
     {
+      "name": "Droop",
+      "type": "npc",
+      "_id": "pbsoDroop0000000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-droop-pbsoDroop0000000.json"
+    },
+    {
+      "name": "Drow",
+      "type": "npc",
+      "_id": "1vaBSMUfOy6JPJ14",
+      "file": "Bestiary/Humanoid/fvtt-Actor-drow-1vaBSMUfOy6JPJ14.json"
+    },
+    {
+      "name": "Drow Elite Warrior",
+      "type": "npc",
+      "_id": "pbsoDrowEliteWar",
+      "file": "Bestiary/Humanoid/fvtt-Actor-drow-elite-warrior-pbsoDrowEliteWar.json"
+    },
+    {
+      "name": "Druid",
+      "type": "npc",
+      "_id": "K15Yl8JmB5iPircc",
+      "file": "Bestiary/Humanoid/fvtt-Actor-druid-K15Yl8JmB5iPircc.json"
+    },
+    {
       "name": "Feyward House Guard",
       "type": "npc",
       "_id": "7FK7hQIzljzUv3E2",
       "file": "Bestiary/Humanoid/fvtt-Actor-feyward-house-guard-7FK7hQIzljzUv3E2.json"
+    },
+    {
+      "name": "Githyanki Knight",
+      "type": "npc",
+      "_id": "pbsoGithyankiKni",
+      "file": "Bestiary/Humanoid/fvtt-Actor-githyanki-knight-pbsoGithyankiKni.json"
+    },
+    {
+      "name": "Githyanki Warrior",
+      "type": "npc",
+      "_id": "pbsoGithyankiWar",
+      "file": "Bestiary/Humanoid/fvtt-Actor-githyanki-warrior-pbsoGithyankiWar.json"
+    },
+    {
+      "name": "Goblin",
+      "type": "npc",
+      "_id": "TjWQOgI3A4UAl7lC",
+      "file": "Bestiary/Humanoid/fvtt-Actor-goblin-TjWQOgI3A4UAl7lC.json"
+    },
+    {
+      "name": "Goblin Boss",
+      "type": "npc",
+      "_id": "pbsoGoblinBoss00",
+      "file": "Bestiary/Humanoid/fvtt-Actor-goblin-boss-pbsoGoblinBoss00.json"
     },
     {
       "name": "Goblin Line Cook",
@@ -374,6 +933,18 @@
       "file": "Bestiary/Humanoid/fvtt-Actor-goblin-staff-56r4YGpMU1CigK3P.json"
     },
     {
+      "name": "Gossa",
+      "type": "npc",
+      "_id": "pbsoGossa0000000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-gossa-pbsoGossa0000000.json"
+    },
+    {
+      "name": "Grimlock",
+      "type": "npc",
+      "_id": "GpeQYtlo8oGvGlkM",
+      "file": "Bestiary/Humanoid/fvtt-Actor-grimlock-GpeQYtlo8oGvGlkM.json"
+    },
+    {
       "name": "Guard",
       "type": "npc",
       "_id": "8LJ2C4iPs39y1MtK",
@@ -384,6 +955,60 @@
       "type": "npc",
       "_id": "oowBq6Vak4ky6dmp",
       "file": "Bestiary/Humanoid/fvtt-Actor-guard-oowBq6Vak4ky6dmp.json"
+    },
+    {
+      "name": "Gundren Rockseeker",
+      "type": "npc",
+      "_id": "pbsoGundrenRocks",
+      "file": "Bestiary/Humanoid/fvtt-Actor-gundren-rockseeker-pbsoGundrenRocks.json"
+    },
+    {
+      "name": "Gwyn Oresong",
+      "type": "npc",
+      "_id": "CHEUjiYrVM9X0vIT",
+      "file": "Bestiary/Humanoid/fvtt-Actor-gwyn-oresong-CHEUjiYrVM9X0vIT.json"
+    },
+    {
+      "name": "Hamun Kost",
+      "type": "npc",
+      "_id": "pbsoHamunKost000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-hamun-kost-pbsoHamunKost000.json"
+    },
+    {
+      "name": "Harbin Wester",
+      "type": "npc",
+      "_id": "pbsoHarbinWester",
+      "file": "Bestiary/Humanoid/fvtt-Actor-harbin-wester-pbsoHarbinWester.json"
+    },
+    {
+      "name": "Iarno \"Glasstaff\" Albrek",
+      "type": "npc",
+      "_id": "pbsoIarnoAlbrek0",
+      "file": "Bestiary/Humanoid/fvtt-Actor-iarno-glasstaff-albrek-pbsoIarnoAlbrek0.json"
+    },
+    {
+      "name": "Infected Townsperson",
+      "type": "npc",
+      "_id": "kz1t6xeXVwODpYb2",
+      "file": "Bestiary/Humanoid/fvtt-Actor-infected-townsperson-kz1t6xeXVwODpYb2.json"
+    },
+    {
+      "name": "Kianka",
+      "type": "npc",
+      "_id": "pbsoKianka000000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-kianka-pbsoKianka000000.json"
+    },
+    {
+      "name": "King Grol",
+      "type": "npc",
+      "_id": "pbsoKingGrol0000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-king-grol-pbsoKingGrol0000.json"
+    },
+    {
+      "name": "Klarg",
+      "type": "npc",
+      "_id": "pbsoKlarg0000000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-klarg-pbsoKlarg0000000.json"
     },
     {
       "name": "Knight",
@@ -404,16 +1029,118 @@
       "file": "Bestiary/Humanoid/fvtt-Actor-mage-BPMXrVGAPzawfLyl.json"
     },
     {
+      "name": "Mage",
+      "type": "npc",
+      "_id": "mQnsXanewsPiV7QE",
+      "file": "Bestiary/Humanoid/fvtt-Actor-mage-mQnsXanewsPiV7QE.json"
+    },
+    {
+      "name": "Nezznar the Spider",
+      "type": "npc",
+      "_id": "pbsoNezznarTheSp",
+      "file": "Bestiary/Humanoid/fvtt-Actor-nezznar-the-spider-pbsoNezznarTheSp.json"
+    },
+    {
+      "name": "Nundro Rockseeker",
+      "type": "npc",
+      "_id": "pbsoNundroRockse",
+      "file": "Bestiary/Humanoid/fvtt-Actor-nundro-rockseeker-pbsoNundroRockse.json"
+    },
+    {
+      "name": "Nythalyn Henlifel",
+      "type": "npc",
+      "_id": "x719wBho0qZvrbAV",
+      "file": "Bestiary/Humanoid/fvtt-Actor-nythalyn-henlifel-x719wBho0qZvrbAV.json"
+    },
+    {
+      "name": "Quaggoth",
+      "type": "npc",
+      "_id": "pbsoQuaggoth0000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-quaggoth-pbsoQuaggoth0000.json"
+    },
+    {
+      "name": "Quaggoth Thonot",
+      "type": "npc",
+      "_id": "pbsoQuaggothThon",
+      "file": "Bestiary/Humanoid/fvtt-Actor-quaggoth-thonot-pbsoQuaggothThon.json"
+    },
+    {
+      "name": "Redbrand Ruffian",
+      "type": "npc",
+      "_id": "pbsoRedbrandRuff",
+      "file": "Bestiary/Humanoid/fvtt-Actor-redbrand-ruffian-pbsoRedbrandRuff.json"
+    },
+    {
+      "name": "Reidoth",
+      "type": "npc",
+      "_id": "pbsoReidoth00000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-reidoth-pbsoReidoth00000.json"
+    },
+    {
+      "name": "Rivibiddel",
+      "type": "npc",
+      "_id": "pbsoRivibiddel00",
+      "file": "Bestiary/Humanoid/fvtt-Actor-rivibiddel-pbsoRivibiddel00.json"
+    },
+    {
       "name": "Shadow Servant",
       "type": "npc",
       "_id": "SEWZsTBN4pIPoTu0",
       "file": "Bestiary/Humanoid/fvtt-Actor-shadow-servant-SEWZsTBN4pIPoTu0.json"
     },
     {
+      "name": "Sister Garaele",
+      "type": "npc",
+      "_id": "pbsoSisterGarael",
+      "file": "Bestiary/Humanoid/fvtt-Actor-sister-garaele-pbsoSisterGarael.json"
+    },
+    {
+      "name": "Troglodyte",
+      "type": "npc",
+      "_id": "pbsoTroglodyte00",
+      "file": "Bestiary/Humanoid/fvtt-Actor-troglodyte-pbsoTroglodyte00.json"
+    },
+    {
+      "name": "Varakkta",
+      "type": "npc",
+      "_id": "pbsoVarakkta0000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-varakkta-pbsoVarakkta0000.json"
+    },
+    {
+      "name": "Vazzi",
+      "type": "npc",
+      "_id": "pbsoVazzi0000000",
+      "file": "Bestiary/Humanoid/fvtt-Actor-vazzi-pbsoVazzi0000000.json"
+    },
+    {
+      "name": "Yanthdel Henlifel",
+      "type": "npc",
+      "_id": "pQjF6emUcfloErNr",
+      "file": "Bestiary/Humanoid/fvtt-Actor-yanthdel-henlifel-pQjF6emUcfloErNr.json"
+    },
+    {
       "name": "Ankheg",
       "type": "npc",
       "_id": "t5Cs0fUER4rc0t7v",
       "file": "Bestiary/Monstrosity/fvtt-Actor-ankheg-t5Cs0fUER4rc0t7v.json"
+    },
+    {
+      "name": "Basilisk",
+      "type": "npc",
+      "_id": "hqj2yXtgwt64v3Lj",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-basilisk-hqj2yXtgwt64v3Lj.json"
+    },
+    {
+      "name": "Behir",
+      "type": "npc",
+      "_id": "x47ZnpHfYl0ptDM9",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-behir-x47ZnpHfYl0ptDM9.json"
+    },
+    {
+      "name": "Doppelganger",
+      "type": "npc",
+      "_id": "mWbrPhcKOz6oLXMV",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-doppelganger-mWbrPhcKOz6oLXMV.json"
     },
     {
       "name": "Ettercap",
@@ -426,6 +1153,72 @@
       "type": "npc",
       "_id": "aS8TNGfFjkPb14e2",
       "file": "Bestiary/Monstrosity/fvtt-Actor-eyestalk-of-gzemnid-aS8TNGfFjkPb14e2.json"
+    },
+    {
+      "name": "Grick Alpha",
+      "type": "npc",
+      "_id": "pbsoGrickAlpha00",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-grick-alpha-pbsoGrickAlpha00.json"
+    },
+    {
+      "name": "Grick",
+      "type": "npc",
+      "_id": "tFJX45zj3QDc3Zli",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-grick-tFJX45zj3QDc3Zli.json"
+    },
+    {
+      "name": "Honna",
+      "type": "npc",
+      "_id": "pbsoHonna0000000",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-honna-pbsoHonna0000000.json"
+    },
+    {
+      "name": "Hook Horror",
+      "type": "npc",
+      "_id": "pbsoHookHorror00",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-hook-horror-pbsoHookHorror00.json"
+    },
+    {
+      "name": "Hydra",
+      "type": "npc",
+      "_id": "K4vsSlHqbBAHUDHY",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-hydra-K4vsSlHqbBAHUDHY.json"
+    },
+    {
+      "name": "Kraken",
+      "type": "npc",
+      "_id": "pbsoKraken000000",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-kraken-pbsoKraken000000.json"
+    },
+    {
+      "name": "Owlbear",
+      "type": "npc",
+      "_id": "zY3W5MG7FjssENf6",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-owlbear-zY3W5MG7FjssENf6.json"
+    },
+    {
+      "name": "Phase Spider",
+      "type": "npc",
+      "_id": "llSG0Hi4eGlRlQ4o",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-phase-spider-llSG0Hi4eGlRlQ4o.json"
+    },
+    {
+      "name": "Purple Worm",
+      "type": "npc",
+      "_id": "PtotS52HpHX596cZ",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-purple-worm-PtotS52HpHX596cZ.json"
+    },
+    {
+      "name": "Remorhaz",
+      "type": "npc",
+      "_id": "pbsoRemorhaz0000",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-remorhaz-pbsoRemorhaz0000.json"
+    },
+    {
+      "name": "Roper",
+      "type": "npc",
+      "_id": "qZyLwdx7lj5d1wfD",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-roper-qZyLwdx7lj5d1wfD.json"
     },
     {
       "name": "Rust Monster",
@@ -446,6 +1239,30 @@
       "file": "Bestiary/Monstrosity/fvtt-Actor-shard-stalker-reflection-sAlVajLX9CxaRp5R.json"
     },
     {
+      "name": "Spirit Naga",
+      "type": "npc",
+      "_id": "BAT6ld8qJZetpycL",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-spirit-naga-BAT6ld8qJZetpycL.json"
+    },
+    {
+      "name": "Umber Hulk",
+      "type": "npc",
+      "_id": "pbsoUmberHulk000",
+      "file": "Bestiary/Monstrosity/fvtt-Actor-umber-hulk-pbsoUmberHulk000.json"
+    },
+    {
+      "name": "Ochre Jelly",
+      "type": "npc",
+      "_id": "xBhG7Dos3tkg9jWz",
+      "file": "Bestiary/Ooze/fvtt-Actor-ochre-jelly-xBhG7Dos3tkg9jWz.json"
+    },
+    {
+      "name": "Psychic Gray Ooze",
+      "type": "npc",
+      "_id": "pbsoPsychicGrayO",
+      "file": "Bestiary/Ooze/fvtt-Actor-psychic-gray-ooze-pbsoPsychicGrayO.json"
+    },
+    {
       "name": "Awakened Shrub",
       "type": "npc",
       "_id": "tx1hgMMKbCL9CV8n",
@@ -458,10 +1275,28 @@
       "file": "Bestiary/Plant/fvtt-Actor-flowering-shambler-IJscfSM70waHu6cW.json"
     },
     {
+      "name": "Needle Blight",
+      "type": "npc",
+      "_id": "pbsoNeedleBlight",
+      "file": "Bestiary/Plant/fvtt-Actor-needle-blight-pbsoNeedleBlight.json"
+    },
+    {
       "name": "Shambling Mound",
       "type": "npc",
       "_id": "EF8DIx38HTqr5jVV",
       "file": "Bestiary/Plant/fvtt-Actor-shambling-mound-EF8DIx38HTqr5jVV.json"
+    },
+    {
+      "name": "Shambling Mound",
+      "type": "npc",
+      "_id": "gGeLeV411iQ5Yijs",
+      "file": "Bestiary/Plant/fvtt-Actor-shambling-mound-gGeLeV411iQ5Yijs.json"
+    },
+    {
+      "name": "Shrieker",
+      "type": "npc",
+      "_id": "TaK6nQMGqZ0y8gt7",
+      "file": "Bestiary/Plant/fvtt-Actor-shrieker-TaK6nQMGqZ0y8gt7.json"
     },
     {
       "name": "Shrieker Fungus",
@@ -488,6 +1323,18 @@
       "file": "Bestiary/Plant/fvtt-Actor-treant-mmTreant00000000.json"
     },
     {
+      "name": "Twig Blight",
+      "type": "npc",
+      "_id": "pbsoTwigBlight00",
+      "file": "Bestiary/Plant/fvtt-Actor-twig-blight-pbsoTwigBlight00.json"
+    },
+    {
+      "name": "Violet Fungus",
+      "type": "npc",
+      "_id": "7EmUVycEASn7SFL0",
+      "file": "Bestiary/Plant/fvtt-Actor-violet-fungus-7EmUVycEASn7SFL0.json"
+    },
+    {
       "name": "Violet Fungus",
       "type": "npc",
       "_id": "S55ybuiR19IADptX",
@@ -506,16 +1353,64 @@
       "file": "Bestiary/Undead/fvtt-Actor-arcane-wraith-x28laoC4NPE7abQC.json"
     },
     {
+      "name": "Ash Zombie",
+      "type": "npc",
+      "_id": "pbsoAshZombie000",
+      "file": "Bestiary/Undead/fvtt-Actor-ash-zombie-pbsoAshZombie000.json"
+    },
+    {
+      "name": "Banshee",
+      "type": "npc",
+      "_id": "pbsoBanshee00000",
+      "file": "Bestiary/Undead/fvtt-Actor-banshee-pbsoBanshee00000.json"
+    },
+    {
       "name": "Boneless Dancer",
       "type": "npc",
       "_id": "JVsWNiZCt5WVd3A8",
       "file": "Bestiary/Undead/fvtt-Actor-boneless-dancer-JVsWNiZCt5WVd3A8.json"
     },
     {
+      "name": "Dwarf Skeleton",
+      "type": "npc",
+      "_id": "pbsoDwarfSkeleto",
+      "file": "Bestiary/Undead/fvtt-Actor-dwarf-skeleton-pbsoDwarfSkeleto.json"
+    },
+    {
+      "name": "Feral Ashenwight",
+      "type": "npc",
+      "_id": "pbsoFeralAshenwi",
+      "file": "Bestiary/Undead/fvtt-Actor-feral-ashenwight-pbsoFeralAshenwi.json"
+    },
+    {
+      "name": "Flameskull",
+      "type": "npc",
+      "_id": "pbsoFlameskull00",
+      "file": "Bestiary/Undead/fvtt-Actor-flameskull-pbsoFlameskull00.json"
+    },
+    {
+      "name": "Ghost",
+      "type": "npc",
+      "_id": "qoFEjfrANBdrCP6m",
+      "file": "Bestiary/Undead/fvtt-Actor-ghost-qoFEjfrANBdrCP6m.json"
+    },
+    {
       "name": "Ghostly Remnant",
       "type": "npc",
       "_id": "uKRhhZUFKGz9ykI3",
       "file": "Bestiary/Undead/fvtt-Actor-ghostly-remnant-uKRhhZUFKGz9ykI3.json"
+    },
+    {
+      "name": "Ghoul",
+      "type": "npc",
+      "_id": "OBujQLLPSmlJiZnL",
+      "file": "Bestiary/Undead/fvtt-Actor-ghoul-OBujQLLPSmlJiZnL.json"
+    },
+    {
+      "name": "Hjoldak Hollowhelm",
+      "type": "npc",
+      "_id": "pbsoHjoldakHollo",
+      "file": "Bestiary/Undead/fvtt-Actor-hjoldak-hollowhelm-pbsoHjoldakHollo.json"
     },
     {
       "name": "Housebound",
@@ -536,10 +1431,58 @@
       "file": "Bestiary/Undead/fvtt-Actor-mazebound-GhITCy3jMBMKdPFP.json"
     },
     {
+      "name": "Mormesk the Wraith",
+      "type": "npc",
+      "_id": "pbsoMormeskTheWr",
+      "file": "Bestiary/Undead/fvtt-Actor-mormesk-the-wraith-pbsoMormeskTheWr.json"
+    },
+    {
+      "name": "Mummy",
+      "type": "npc",
+      "_id": "t8WYD7ak07X7xpx8",
+      "file": "Bestiary/Undead/fvtt-Actor-mummy-t8WYD7ak07X7xpx8.json"
+    },
+    {
+      "name": "Ogre Zombie",
+      "type": "npc",
+      "_id": "RenLfmDT2XlbCF4x",
+      "file": "Bestiary/Undead/fvtt-Actor-ogre-zombie-RenLfmDT2XlbCF4x.json"
+    },
+    {
+      "name": "Oshundo the Alhoon",
+      "type": "npc",
+      "_id": "pbsoOshundoTheAl",
+      "file": "Bestiary/Undead/fvtt-Actor-oshundo-the-alhoon-pbsoOshundoTheAl.json"
+    },
+    {
+      "name": "Psionic Ashenwight",
+      "type": "npc",
+      "_id": "pbsoPsionicAshen",
+      "file": "Bestiary/Undead/fvtt-Actor-psionic-ashenwight-pbsoPsionicAshen.json"
+    },
+    {
+      "name": "Revenant",
+      "type": "npc",
+      "_id": "pbsoRevenant0000",
+      "file": "Bestiary/Undead/fvtt-Actor-revenant-pbsoRevenant0000.json"
+    },
+    {
       "name": "Shadow",
       "type": "npc",
       "_id": "5muAGgpHQDtXl3qo",
       "file": "Bestiary/Undead/fvtt-Actor-shadow-5muAGgpHQDtXl3qo.json"
+    },
+    {
+      "name": "Skeleton",
+      "type": "npc",
+      "_id": "nU8GN8La8DCt8SDb",
+      "file": "Bestiary/Undead/fvtt-Actor-skeleton-nU8GN8La8DCt8SDb.json"
+    },
+    {
+      "name": "Specter",
+      "type": "npc",
+      "_id": "PuPo4H4Dcxigf0fY",
+      "file": "Bestiary/Undead/fvtt-Actor-specter-PuPo4H4Dcxigf0fY.json"
     },
     {
       "name": "Specter",
@@ -566,16 +1509,34 @@
       "file": "Bestiary/Undead/fvtt-Actor-waltzgeist-SQbXXUNXUspXZrYs.json"
     },
     {
+      "name": "Wight",
+      "type": "npc",
+      "_id": "rbyp54px2D0ql4QK",
+      "file": "Bestiary/Undead/fvtt-Actor-wight-rbyp54px2D0ql4QK.json"
+    },
+    {
       "name": "Wraith",
       "type": "npc",
       "_id": "5406wJog3mq1bkeI",
       "file": "Bestiary/Undead/fvtt-Actor-wraith-5406wJog3mq1bkeI.json"
     },
     {
+      "name": "Wraith",
+      "type": "npc",
+      "_id": "ET4PEVEiNJLU4f7c",
+      "file": "Bestiary/Undead/fvtt-Actor-wraith-ET4PEVEiNJLU4f7c.json"
+    },
+    {
       "name": "Wretched Hound",
       "type": "npc",
       "_id": "RPXEkB8NdH3jBPiK",
       "file": "Bestiary/Undead/fvtt-Actor-wretched-hound-RPXEkB8NdH3jBPiK.json"
+    },
+    {
+      "name": "Zombie",
+      "type": "npc",
+      "_id": "NAISFPoNNgUCsEyW",
+      "file": "Bestiary/Undead/fvtt-Actor-zombie-NAISFPoNNgUCsEyW.json"
     },
     {
       "name": "Adult Copper Dragon",
@@ -610,6 +1571,12 @@
     {
       "name": "Dust Mephit",
       "type": "npc",
+      "_id": "BUCfQ7ihaXX75Vai",
+      "file": "Bestiary/fvtt-Actor-dust-mephit-BUCfQ7ihaXX75Vai.json"
+    },
+    {
+      "name": "Dust Mephit",
+      "type": "npc",
       "_id": "lCsJHgu1ARA9Ztz1",
       "file": "Bestiary/fvtt-Actor-dust-mephit-lCsJHgu1ARA9Ztz1.json"
     },
@@ -626,16 +1593,34 @@
       "file": "Bestiary/fvtt-Actor-joseph-lee-i81gKchy0m427tAl.json"
     },
     {
+      "name": "Nematode's Membrane",
+      "type": "npc",
+      "_id": "pbsoNematodesMem",
+      "file": "Bestiary/fvtt-Actor-nematodes-membrane-pbsoNematodesMem.json"
+    },
+    {
       "name": "Non-Player Character",
       "type": "npc",
       "_id": "8W7RJohiHMoHxORK",
       "file": "Bestiary/fvtt-Actor-non-player-character-8W7RJohiHMoHxORK.json"
     },
     {
+      "name": "Party",
+      "type": "group",
+      "_id": "pbsoParty0000000",
+      "file": "Bestiary/fvtt-Actor-party-pbsoParty0000000.json"
+    },
+    {
       "name": "Ruined Manor",
       "type": "npc",
       "_id": "dIXHXuGTzaAhFKxl",
       "file": "Bestiary/fvtt-Actor-ruined-manor-dIXHXuGTzaAhFKxl.json"
+    },
+    {
+      "name": "Sildar Hallwinter",
+      "type": "npc",
+      "_id": "pbsoSildarHallwi",
+      "file": "Bestiary/fvtt-Actor-sildar-hallwinter-pbsoSildarHallwi.json"
     },
     {
       "name": "The Tree of Woe",
@@ -648,6 +1633,12 @@
       "type": "npc",
       "_id": "xVo7PZHPMz3JGB12",
       "file": "Bestiary/fvtt-Actor-voluminous-ochre-jelly-xVo7PZHPMz3JGB12.json"
+    },
+    {
+      "name": "Wagon",
+      "type": "vehicle",
+      "_id": "pbsoWagon0000000",
+      "file": "Bestiary/fvtt-Actor-wagon-pbsoWagon0000000.json"
     },
     {
       "name": "Alistair of the Marshkeepers",

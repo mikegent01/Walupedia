@@ -1990,6 +1990,227 @@
         "lightning",
         "eager"
       ]
+    },
+    {
+      "id": "tech_cottage_emergency_release",
+      "name": "The Cottage Swipe-and-Release System",
+      "kind": "device",
+      "tier": "industrial",
+      "icon": "🔓",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": null,
+        "label": "An unnamed cottage; neither the site nor its operator is identified."
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown — the swipe reader and emergency release are described, but no maker is named.",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+        "date": "2 Aethel, 1040 BF — estimated; start hour unknown",
+        "year": 1040,
+        "timeCode": "TC:1040-09-02/MAT",
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Bones pressed the emergency release once; it opened every door. Power source, reset state, and current lock status are unknown.",
+      "summary": "A key swipe failed, then a single emergency-release button unlocked all doors in the cottage.",
+      "record": "The access system is known only through two actions: Bones tried a key swipe and the door stayed locked; the emergency-release button then opened every locked door. The account does not say what the swipe credential was, who installed the system, or whether the button reset after use. The model is a schematic of the button, not a reconstruction of the cottage.",
+      "quotes": [
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "Bones tried the key swipe. It failed; the door stayed locked."
+        },
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "He pressed it. The locks opened. Not just the one in front of him—all the doors."
+        }
+      ],
+      "pressure": 0,
+      "tension": [],
+      "model": {
+        "recipe": "emergency_button",
+        "palette": {
+          "body": "#394149",
+          "trim": "#aab0b6",
+          "button": "#c53a36",
+          "label": "#e4dcc8"
+        }
+      },
+      "tags": [
+        "cottage",
+        "access control",
+        "emergency release",
+        "unknown site"
+      ]
+    },
+    {
+      "id": "tech_fawful_hypno_helmet_drone_1040",
+      "name": "Fawful’s Hypno-Helmet Drone — 1040 Report",
+      "kind": "construct",
+      "tier": "cosmic",
+      "icon": "🌀",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": null,
+        "label": "Unnamed cottage/compound in the Material Plane; the route and region are not recorded."
+      },
+      "origin": {
+        "faction": "fawful_forces",
+        "maker": "Attributed to Fawful in Bones’s account; workshop and construction are not documented.",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+        "date": "2 Aethel, 1040 BF — estimated; start hour unknown",
+        "year": 1040,
+        "timeCode": "TC:1040-09-02/MAT",
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "The drone escaped after the helmet was removed; its location and condition are unknown.",
+      "summary": "A drone tackled an unnamed person, forced a hypno-helmet over them, and lashed vines at Bones.",
+      "record": "Bones’s 2 Aethel report describes a device that combines a moving drone, a helmet, and mechanical vines. The account says it began eating the unnamed victim’s brain, but supplies no medical outcome; that claim is preserved as witness wording rather than independently verified anatomy. It is distinct from the surveillance drone filed from Bowser’s Castle in 1035: no record ties the two machines together.",
+      "quotes": [
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "A Fawful hypno-helmet drone tackled an unnamed person."
+        },
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "The drone's vines lashed at Bones."
+        }
+      ],
+      "pressure": 2,
+      "tension": [],
+      "model": {
+        "recipe": "drone",
+        "palette": {
+          "body": "#517f43",
+          "eye": "#f4d146",
+          "metal": "#45464e"
+        }
+      },
+      "tags": [
+        "fawful",
+        "hypno-helmet",
+        "vines",
+        "1040 report"
+      ]
+    },
+    {
+      "id": "tech_fawful_clockwork_mustard_drone_1040",
+      "name": "Fawful’s Clockwork Mustard Drone — 1040 Report",
+      "kind": "construct",
+      "tier": "industrial",
+      "icon": "⚙️",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": null,
+        "label": "Fawful-aligned compound/woodland; no location or route is established."
+      },
+      "origin": {
+        "faction": "fawful_forces",
+        "maker": "Fawful’s forces are attributed in the report; the actual builder is unknown.",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+        "date": "2 Aethel, 1040 BF — estimated; start hour unknown",
+        "year": 1040,
+        "timeCode": "TC:1040-09-02/MAT",
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Used in the pursuit; no recovery, destruction, or current location is recorded.",
+      "summary": "A separate clockwork drone sprayed mustard at Bones during Fawful’s pursuit.",
+      "record": "A second machine appears during the sacrifice preparations. Bones’s account distinguishes it from the hypno-helmet device: Fawful winds this one up, and it sprays mustard in the pursuit. The archive does not give its model, fuel, range, or final condition. The existing Mustard Sprayer in the Fawful-force roster is not assumed to be this device.",
+      "quotes": [
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "Fawful wound up a separate clockwork drone."
+        },
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "It spat mustard across the passage and across Bones."
+        }
+      ],
+      "pressure": 1,
+      "tension": [],
+      "model": {
+        "recipe": "drone",
+        "palette": {
+          "body": "#6b6245",
+          "eye": "#d9c84a",
+          "metal": "#423d34"
+        }
+      },
+      "tags": [
+        "fawful",
+        "clockwork",
+        "mustard",
+        "pursuit"
+      ]
+    },
+    {
+      "id": "tech_archie_bot_goblin_camp_1040",
+      "name": "The “Archie Bot” at the Goblin Camp — 1040 Report",
+      "kind": "construct",
+      "tier": "industrial",
+      "icon": "🤖",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": null,
+        "label": "Unnamed goblin camp in the Material Plane; site and region are not established."
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Unknown — the camp calls the figure an “Archie bot”; construction and operator are unverified.",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+        "date": "2 Aethel, 1040 BF — estimated; start hour unknown",
+        "year": 1040,
+        "timeCode": "TC:1040-09-02/MAT",
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Observed using a water trick and speaking at the camp; the later dragon passenger may be the same figure, but the record does not establish that. No identity match to Archie Miser is made.",
+      "summary": "A camp figure called an “Archie bot” extinguished a fire with “WATERBALL!” and was recruited by the goblins.",
+      "record": "The ledger records the camp’s name for the figure and the action Bones observed. The event does not establish whether “bot” is a literal mechanical description, a title, or a joke. The schematic model is not a portrait. The dragon later leaves with an Archie-like passenger; the source does not establish that the bot and passenger are the same entity, and neither is merged with Archie Miser.",
+      "quotes": [
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "When the goblins lit a fire, a figure they called an Archie bot stood near it."
+        },
+        {
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon",
+          "text": "WATERBALL!"
+        }
+      ],
+      "pressure": 0,
+      "tension": [],
+      "model": {
+        "recipe": "drone",
+        "palette": {
+          "body": "#668e55",
+          "eye": "#83d7ec",
+          "metal": "#a58a54"
+        }
+      },
+      "tags": [
+        "archie bot",
+        "waterball",
+        "goblin camp",
+        "unverified identity"
+      ]
     }
   ]
 }

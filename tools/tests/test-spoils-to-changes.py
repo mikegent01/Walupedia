@@ -115,6 +115,24 @@ with tempfile.TemporaryDirectory() as tmp:
               lib=LIB, events=events, now="2026-10-05T10:00:00Z", filed_on="2026-10-05")
 
     doc, rep = S.generate("testw", party_only=True, **kw)
+
+    # A later registry addition must not make every still-pending item appear
+    # newly filed; preserve each existing item's original flag date.
+    registry["items"]["second_key"] = {"name": "A Second Key", "type": "Key", "visibility": "known", "summary": "another key"}
+    registry["inventories"]["hjumpik"].append({"itemId": "second_key", "status": "received", "known": True})
+    write(rm / "data" / "inventory.json", registry)
+    growth, _ = S.generate("testw", party_only=True, previous=doc,
+                           **{**kw, "now": "2026-10-06T10:00:00Z", "filed_on": "2026-10-06"})
+    growth_hj = next(c for c in growth["changes"] if c["match"]["_id"] == "Hj1aaaaaaaaaaaaa")
+    growth_dates = {i["flags"]["waluipedia"]["inventoryItem"]: i["flags"]["waluipedia"]["filedOn"]
+                    for i in growth_hj["addItems"]}
+    check("adding a new holding preserves existing filedOn dates and dates the new item today",
+          growth_dates["morel_key"] == "2026-10-05" and growth_dates["second_key"] == "2026-10-06",
+          json.dumps(growth_dates))
+    registry["items"].pop("second_key")
+    registry["inventories"]["hjumpik"].pop()
+    write(rm / "data" / "inventory.json", registry)
+
     by_actor = {c["match"]["_id"]: c for c in doc["changes"]}
     hj_items = {i["flags"]["waluipedia"]["inventoryItem"]: i for i in by_actor["Hj1aaaaaaaaaaaaa"]["addItems"]}
     eg_items = {i["flags"]["waluipedia"]["inventoryItem"]: i for i in by_actor["Eg1aaaaaaaaaaaaa"]["addItems"]}

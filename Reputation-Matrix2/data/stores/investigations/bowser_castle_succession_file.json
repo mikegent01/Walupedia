@@ -11,7 +11,7 @@
       "bowser_castle_assault"
     ],
     "opened": "18 Harvestide, 1035 BF — inferred archival placement",
-    "lastFiled": "18 Harvestide, 1035 BF — historical assault record; exact hour unrecorded",
+    "lastFiled": "2 Aethel, 1040 BF — retrospective field report; a possible dragon comparison, not an identity finding.",
     "archivist": "Waluigi, Auditor-General",
     "icon": "🐢",
     "accent": "#d46b32",
@@ -44,6 +44,12 @@
         "title": "A throne before a godhood claim",
         "state": "open",
         "text": "Fawthful states the sequence plainly: ruler first, god after. The dragon, the traitors, and the evacuation pressure all make more sense if the castle is a first seat to be occupied rather than a target to be burned for its own sake. The file does not yet prove how the second step would work."
+      },
+      {
+        "id": "th_bowser_camp_dragon_identity",
+        "title": "The goblin-camp dragon is not yet the Castle dragon",
+        "state": "open",
+        "text": "Bones reports a dragon at an unnamed goblin camp and recalls a comparison to the dragon used at Bowser’s Castle before 1035. No stable marking, custody record, or independent witness joins the two sightings. The retreat order already on file records a Castle dragon; this new event creates a comparison to test, not a retroactive identification of The Supplied Dragon."
       }
     ],
     "leads": [
@@ -68,6 +74,17 @@
         "exhibits": [
           "ex_castle_switch_label"
         ]
+      },
+      {
+        "id": "lead_compare_camp_dragon_to_castle_record",
+        "title": "Test the camp dragon against the 1035 Castle record",
+        "state": "open",
+        "priority": "low",
+        "objective": "Compare Bones’s goblin-camp account with the existing Castle retreat order and establish whether any stable identifying trait or custody trail links the dragons.",
+        "why": "The new witness recalls a resemblance to a dragon used at Bowser’s Castle before 1035, but supplies no distinguishing feature. The Castle file contains the retreat order for the historical dragon; comparing primary details is the only safe way to test the match without converting memory into identity.",
+        "exhibits": [
+          "ex_castle_retreat_order"
+        ]
       }
     ],
     "sessions": [
@@ -82,11 +99,18 @@
         "label": "The dragon at Bowser’s Castle",
         "date": "18 Harvestide, 1035 BF — continuing from the throne-room breach; exact hour unrecorded",
         "event": "the_assault_on_bowsers_castle"
+      },
+      {
+        "id": "s_bowser_bones_dragon_claim",
+        "label": "A possible Castle-dragon comparison from the goblin camp",
+        "date": "2 Aethel, 1040 BF — retrospective Bones field account; exact hour unknown; identity not established",
+        "event": "bones_cottage_hypno_helmet_and_goblin_dragon"
       }
     ],
     "relatedEvents": [
       "bowser_throne_room_compromise",
-      "the_assault_on_bowsers_castle"
+      "the_assault_on_bowsers_castle",
+      "bones_cottage_hypno_helmet_and_goblin_dragon"
     ],
     "exhibits": [
       {
