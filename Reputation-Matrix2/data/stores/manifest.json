@@ -1,7 +1,7 @@
 {
   "events": {
     "bundle": "events.json",
-    "n": 136,
+    "n": 138,
     "order": [
       "campaign_songs_archive",
       "collapse_of_blackfen_pass",
@@ -138,7 +138,9 @@
       "the_way_i_started_it",
       "the_box_at_the_cottage_door",
       "the_golden_palace_and_the_ink_throat",
-      "the_toadalnaec_and_the_three_lies"
+      "the_toadalnaec_and_the_three_lies",
+      "the_archive_hall_and_the_song_alone",
+      "bones_cottage_hypno_helmet_and_goblin_dragon"
     ],
     "shards": {
       "campaign_songs_archive": "events/material/1040-a.json",
@@ -276,12 +278,14 @@
       "feyward_the_soul_ring_and_the_twenty_one_day_cut": "events/feyward/922.json",
       "the_box_at_the_cottage_door": "events/shadeward/1040-aethel.json",
       "the_golden_palace_and_the_ink_throat": "events/material/1040-aethel-b.json",
-      "the_toadalnaec_and_the_three_lies": "events/shadeward/1040-aethel.json"
+      "the_toadalnaec_and_the_three_lies": "events/shadeward/1040-aethel.json",
+      "the_archive_hall_and_the_song_alone": "events/material/1035-aethel.json",
+      "bones_cottage_hypno_helmet_and_goblin_dragon": "events/material/1040-aethel-b.json"
     }
   },
   "characters": {
     "bundle": "characters.json",
-    "n": 263,
+    "n": 265,
     "order": [
       "dracule_mihawk",
       "sans",
@@ -545,7 +549,9 @@
       "jimmy_dobson",
       "gb_mario",
       "the_golden_king",
-      "hudston"
+      "hudston",
+      "mr_t",
+      "beta_luigi"
     ],
     "shards": {
       "dracule_mihawk": "characters/material-a.json",
@@ -810,12 +816,14 @@
       "jimmy_dobson": "characters/material-d.json",
       "gb_mario": "characters/material-d.json",
       "the_golden_king": "characters/material-d.json",
-      "hudston": "characters/material-e.json"
+      "hudston": "characters/material-e.json",
+      "mr_t": "characters/material-d.json",
+      "beta_luigi": "characters/material-d.json"
     }
   },
   "locations": {
     "bundle": "locations.json",
-    "n": 79,
+    "n": 80,
     "order": [
       "mount_ebott",
       "snowdin_town",
@@ -895,7 +903,8 @@
       "fawfuls_bean_badge",
       "town_beneath_the_legionlance",
       "the_golden_land",
-      "the_golden_palace"
+      "the_golden_palace",
+      "the_archive_hall"
     ],
     "shards": {
       "mount_ebott": "locations/material-a.json",
@@ -976,7 +985,8 @@
       "fawfuls_bean_badge": "locations/material-b.json",
       "town_beneath_the_legionlance": "locations/material-b.json",
       "the_golden_land": "locations/material-b.json",
-      "the_golden_palace": "locations/material-b.json"
+      "the_golden_palace": "locations/material-b.json",
+      "the_archive_hall": "locations/material-b.json"
     }
   },
   "battles": {
@@ -1329,7 +1339,7 @@
   },
   "commentaries": {
     "bundle": "commentaries.json",
-    "n": 20,
+    "n": 21,
     "order": [
       "promo_mario_newspaper_commentary",
       "the_belly_of_the_beast_commentary",
@@ -1350,7 +1360,8 @@
       "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary",
       "the_box_at_the_cottage_door_commentary",
       "the_golden_palace_and_the_ink_throat_commentary",
-      "the_toadalnaec_and_the_three_lies_commentary"
+      "the_toadalnaec_and_the_three_lies_commentary",
+      "the_archive_hall_and_the_song_alone_commentary"
     ],
     "shards": {
       "promo_mario_newspaper_commentary": "commentaries/promo_mario_newspaper_commentary.json",
@@ -1372,14 +1383,15 @@
       "feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary": "commentaries/feyward_the_soul_ring_and_the_twenty_one_day_cut_commentary.json",
       "the_box_at_the_cottage_door_commentary": "commentaries/the_box_at_the_cottage_door_commentary.json",
       "the_golden_palace_and_the_ink_throat_commentary": "commentaries/the_golden_palace_and_the_ink_throat_commentary.json",
-      "the_toadalnaec_and_the_three_lies_commentary": "commentaries/the_toadalnaec_and_the_three_lies_commentary.json"
+      "the_toadalnaec_and_the_three_lies_commentary": "commentaries/the_toadalnaec_and_the_three_lies_commentary.json",
+      "the_archive_hall_and_the_song_alone_commentary": "commentaries/the_archive_hall_and_the_song_alone_commentary.json"
     },
     "wrapper": "commentaries",
     "readme": "Waluigi's Cut — the comedy commentary mode. NOT an analysis and NOT an investigation. An analysis argues a thesis about a filing; a commentary RETELLS the whole story in Waluigi's voice with his opinions cut into it constantly. The story must survive on its own: a reader who has never opened the source article should get the full sequence of events here. The difference is that Waluigi will not shut up while telling it. House rules in docs/COMMENTARY_MODE_GUIDE.md. Voice target measured off spider_grove_battle: >=18 'Waluigi'/1k, >=25 CAPS/1k, an interruption at least every 3rd sentence, and no invented facts."
   },
   "articleAnalyses": {
     "bundle": "articleAnalyses.json",
-    "n": 30,
+    "n": 31,
     "order": [
       "hanging_tree_apple_waluigi_analysis",
       "feyward_chop_bros_trust_accounting_analysis",
@@ -1410,7 +1422,8 @@
       "the_unlocked_cell_955_bf_schedule_reading",
       "the_way_i_started_it_stump_reading",
       "the_golden_palace_and_the_ink_throat_waluigi_analysis",
-      "the_toadalnaec_and_the_three_lies_waluigi_analysis"
+      "the_toadalnaec_and_the_three_lies_waluigi_analysis",
+      "the_archive_hall_and_the_song_alone_waluigi_analysis"
     ],
     "shards": {
       "hanging_tree_apple_waluigi_analysis": "articleAnalyses/hanging_tree_apple_waluigi_analysis.json",
@@ -1442,7 +1455,8 @@
       "the_unlocked_cell_955_bf_schedule_reading": "articleAnalyses/the_unlocked_cell_955_bf_schedule_reading.json",
       "the_way_i_started_it_stump_reading": "articleAnalyses/the_way_i_started_it_stump_reading.json",
       "the_golden_palace_and_the_ink_throat_waluigi_analysis": "articleAnalyses/the_golden_palace_and_the_ink_throat_waluigi_analysis.json",
-      "the_toadalnaec_and_the_three_lies_waluigi_analysis": "articleAnalyses/the_toadalnaec_and_the_three_lies_waluigi_analysis.json"
+      "the_toadalnaec_and_the_three_lies_waluigi_analysis": "articleAnalyses/the_toadalnaec_and_the_three_lies_waluigi_analysis.json",
+      "the_archive_hall_and_the_song_alone_waluigi_analysis": "articleAnalyses/the_archive_hall_and_the_song_alone_waluigi_analysis.json"
     },
     "wrapper": "analyses",
     "readme": {

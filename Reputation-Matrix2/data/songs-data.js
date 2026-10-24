@@ -1234,4 +1234,213 @@ Plumbers`,
         context: "Played by the Nintendo Mania studio's own sound system during the fight with the corrupted Mario, who dodged the paratroopa squad's tranq rounds in perfect time to it. Luigi knew the song and hummed it against his will — the account concludes it is the real Mario's own theme, wielded by his corrupted copy as a weapon. The real Mario appeared at its final note.",
         critique: "Waluigi has heard this jingle before — every kingdom has a version — and hearing a stolen copy of a man's own love song played while a bad actor dances through gunfire is the single most disgusting use of brass the archive has on file. The final chorus swap — hat in the sand to CAPE in his hand — is the studio admitting, in its own dialect, exactly what it did to him. WAH.",
         notes: "C4 E4 G4 C5"
+      },
+      {
+        id: "song_wario_bowser_and_wawario",
+        title: '"Mario, Luigi, Wario, Waluigi, Bowser, and Wario Bowser" (The Wawario Sheet)',
+        category: "full",
+        accent: "#9b5de5",
+        performers: "Unattributed Transcription (Delivered across the Archive Hall table by Mr. T)",
+        sourceTitle: "The Archive Hall and the Song 'Alone': Two Songs, Ten Thousand Missing Gold, the Third Haunting, and the Courier Who Cleans the Laundry",
+        sourceId: "the_archive_hall_and_the_song_alone",
+        lyrics: `[Transcribed Sheet — slid across the Archive Hall oak table with every [music] cue intact]
+MARIO,
+LUIGI, [music]
+WARIO, WALUIGI,
+BOWSER,
+and Wario [music]
+Bowser.
+
+You see,
+Mario and Luigi are the heroes who often
+save the princesses.
+>> [music]
+>> Wario and Waluigi are their rivals who
+often interrupt them, sometimes team up
+with them.
+Bowser is the king of the Koopas who
+kidnaps [music] the princesses, and
+Wario Bowser
+is the evil version of
+Bowser!
+>> [music]
+>> Mario, Luigi, Wario, Waluigi, Bowser,
+and Wario Bowser
+are the six [music] characters from the
+same game series, but you don't often
+see
+Wario [music] Bowser
+and Waluigi
+in any Mario games [music] like Mario
+Kart 64,
+on the great Nintendo 64,
+and New Super Mario [music] Bros. Wii on
+the white Nintendo Wii, and there is
+something that you need to know that in
+Mario Kart 64 [music]
+and in Super Smash Bros., there is
+Mario, Luigi, and Wario, but no Waluigi,
+and there is Bowser, [music] but there's
+no Wario Bowser who's not in any Mario
+game to ever
+exist. [music]
+
+There is Mario, Luigi,
+and Waluigi, and they say that [music]
+Wario and Waluigi are meant to beat
+them, and Mario and Luigi are brothers,
+[music] and Wario is their cousin, but
+nobody knows if Waluigi is
+>> [music]
+[music]
+>> Nintendo, [music] please make this into
+a reality of how many evil clones are
+there and if there is [music] any more
+than we already know, please let us
+know.
+
+Mario and Luigi have smooth [music]
+round mustaches, but Mario has a zigzag
+mustache and while Luigi [music] has an
+L-shaped mustache and while Bowser
+doesn't have a mustache, Waluigi does
+and they look very similar to Waluigi.
+[music]
+Mario, Luigi, Wario, Waluigi
+Mario, [music] Luigi, WARIO, WALUIGI,
+BOWSER
+>> [music]
+>> AND WALUIGI
+
+I believe that Bowser deserves to become
+one of the heroes [music] because he's
+been a villain for long and see him
+introduce
+>> [music]
+>> a new villain like Wart, while Bowser
+would be much better than seeing Bowser
+kidnap the princess again.
+Mario, [music] Luigi, Wario and Waluigi
+must all work together to stop Bowser.
+Mario, [music] Luigi, Wario and Waluigi
+team up with Bowser
+to stop
+Wart Bowser.
+>> [music]
+>> Now [music] let's end this
+song now.
+M A R I O W A L U I G I Bowser
+
+Mario, [music]
+Luigi, Wario, Waluigi, Bowser
+and Waluigi
+have the three
+evil clones [music] and I don't think we
+know if there is any more characters
+with evil clones and
+Mario says wow.
+Luigi says wee.
+Wario [music] says
+WAH. WALUIGI SAYS WAH.
+WAWARIO SAYS WAH.
+WAWARIO SAYS WAH.
+Wawario says wah.
+>> [music]
+>> So what's the scenario? Luigi,
+Wario, Waluigi, Bowser,
+>> [music]
+>> and Wawario.
+Mario, Luigi, Wario, Waluigi, [music]
+Bowser, and Wawario.
+Wawario. [music]
+>> [music]`,
+        context: "Handed across the central reading table of the Archive Hall on the rainy night of 3 Aethel, 1035 BF by courier-auditor Mr. T ('I got what you wanted'). Waluigi cracked the paper under his palm at 'Wario Bowser', threw his pen across the vault when Mr. T added 'Wawaluigi — two Wa\'s', and scored a black line straight through 'Waluigi' before storming into the rain.",
+        critique: "THIRTY LINES OF SLANDER! It calls Wario Mario's cousin, claims Bowser looks very similar to Waluigi, brags that I wasn't in Mario Kart 64 or Super Smash Bros., and hands MY signature WAH three times in a row to 'Wawario'! I blacked my name off the original sheet and kept every single syllable in the Jukebox anyway so posterity can prosecute the author! WAH!",
+        notes: "B3 F4 E4 B3"
+      },
+      {
+        id: "song_alone_archive_hall_lament",
+        title: `"Alone" (Beta Luigi's Lament, the Ghost Chorus & Mario's Voice in Italian)`,
+        category: "full",
+        accent: "#38b000",
+        performers: "Beta Luigi, the Archive Hall Ghost Chorus & Mario (Disembodied Voice)",
+        sourceTitle: "The Archive Hall and the Song 'Alone': Two Songs, Ten Thousand Missing Gold, the Third Haunting, and the Courier Who Cleans the Laundry",
+        sourceId: "the_archive_hall_and_the_song_alone",
+        lyrics: `[Ghost Chorus — materialising at the Archive Hall doorway as thunder cracks]
+Fell up high to rock bottom, the guilt in your stomach feels uneasy —
+now he is lost, yet not forgotten.
+Look at him now, look what you have done, Luigi.
+
+[Humming on re-entry — memories of King Boo's chasm]
+How can I call myself a hero?
+When I couldn't even save the one — my big bro.
+
+[Holding the live Fire Flower — approaching Wario]
+Lost his life, I face, so why strife, so why still loom?
+He's already lost to his doom.
+
+[After crushing the working Fire Flower underfoot — weeping beneath the cap]
+I'm trying, bro, I swear I'm trying!
+Oh Mario, I'm sorry, there's no use defying!
+The guilt in my heart tears me apart!
+Why'd you depart?!
+All I've ever wanted was to restart!
+
+[Behind the spectral barrier — dark bags beneath hollow eyes]
+You were my number one, bro — now the guilt takes number two whole!
+My cowardice cost your life, yet you can't move on to the afterlife!
+Oh Mario, oh Mario, where did you go?
+I am sorry, bro, you must be so lost and alone.
+After all the wasted years, I still can't face my own fears —
+now I stay sitting here, forced to wipe my own tears.
+
+[Beneath the fifteen-foot crimson ghost]
+This was my only chance, the only time I saw the ball in my court,
+and yet I missed the shot even with all of his support...
+Oh what a failure I have become, how could I let someone down so wholesome.
+
+YOU WERE THEIR EVERYTHING, THE HAPPINESS YOU'D BRING TO THE LAND —
+NOW ALL OF YOUR BLOOD IS ON MY HANDS.
+OH. GOD. NO.
+Why did I let you go? Please come back home.
+
+[As the spectral ring closes in from every aisle]
+He would always tell me there is another tomorrow!
+I cannot see! I cannot breathe — I'm suffocating.
+I hear their calls, I hear them all, the ghosts are waiting.
+I face the wrath of reality — my brother is never gonna come back home to me.
+
+No matter how much I try to restore it, no matter how much I pray for it,
+life will never be the same without him — life lost to a fate so grim.
+I left in the final hour — why did Luigi sit and cower?!
+Couldn't face the fear of the ghost, left when he needed me the most!
+What kind of brother am I, who would leave their bro to die?
+I am simply not worthy, a hero for sure not me —
+wish I was home back in bed, I hear his voice in my head.
+
+[Disembodied Duet — Mario's faint voice answers from empty air]
+Mario's voice: "Luigi, where did you go? I'm stranded, lost and alone."
+Beta Luigi: "Oh, Mario, where do I go? The kingdom's lost and alone."
+
+Mario's voice (clearer): "Luigi, where did you go? Ti perdono. Vai avanti."
+Beta Luigi (sobbing harder): "Oh... Mario... I TRY, BUT I JUST CAN'T MOVE ON!"
+
+Mario's voice: "Tocca a te salvarli."
+Beta Luigi: "WASN'T READY — STILL HAD MUCH TO IMPROVE ON!"
+
+Mario's voice: "Mario non c'è più — non farmi morire invano."
+Beta Luigi: "We still had so much left to do—"
+
+Mario's voice: "Mostra loro che sei il fratello..."
+Beta Luigi: "—still had so much to prove to you!"
+
+Mario's voice: "...di Mario! Sei Luigi!"
+
+[Silence — every ghost vanishes at once; whispered on the stone flags]
+Every last story has its end, no matter how much I try to pretend.
+Now Luigi's fate left unknown — they laugh at me, but I'll make them atone,
+and this time I'll be sure to do it alone.`,
+        context: "Performed across the third haunting of the week inside the unguarded Archive Hall on 3 Aethel, 1035 BF while Wario, Waluigi, and Mr. T watched from behind the oak stacks. Beta Luigi crushed a live Fire Flower underfoot mid-song, wept beneath a fifteen-foot angry red ghost, heard Mario forgive and charge him in Italian ('Ti perdono. Vai avanti'), pulled a single bound book off the Archive Hall shelf, and walked out alone.",
+        critique: "Do NOT look for jokes in this box. Night before outside the clinic, three copies of Mr. L sang about burning the bridge while Mario drowned. Inside the stacks twenty-four hours later, this wreck crushed live fire under his heel, knocked me onto my knees beside my own scattered notes, drew Mario's real voice out of empty stone in Italian, and walked out carrying a physical book under his arm. Read every line twice.",
+        notes: "D4 F4 A4 G4 F4 D4"
       }];

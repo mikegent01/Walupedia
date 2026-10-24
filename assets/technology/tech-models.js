@@ -408,6 +408,16 @@
     ]),
   ];
   T.remote.view = {yaw:0.35, pitch:0.45};
+  T.emergency_button = (P)=>[
+    box(0.92,1.3,0.18,[0,0.65,0],'body'),
+    box(0.76,0.16,0.07,[0,1.12,0.13],'trim'),
+    box(0.56,0.62,0.08,[0,0.53,0.14],'trim'),
+    tor(0.245,0.035,[0,0.55,0.22],'trim',{r:[X,0,0]}),
+    sph(0.18,[0,0.55,0.25],'button',{e:0.12}),
+    box(0.42,0.07,0.035,[0,0.13,0.13],'label'),
+    box(0.92,0.1,0.18,[0,0.02,0],'body'),
+  ];
+  T.emergency_button.view = {yaw:0.32, pitch:0.2};
 
   /* The EMERGENCY EXIT coffee machine: pot on the plate, the red button with
      its label, steam going up into the vent it popped. */
