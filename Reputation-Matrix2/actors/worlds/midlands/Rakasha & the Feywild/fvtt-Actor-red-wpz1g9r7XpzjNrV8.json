@@ -1131,6 +1131,26 @@
     },
     "midi-qol": {
       "onUseMacroParts": {}
+    },
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician",
+          "assassin",
+          "disciplined"
+        ],
+        "reasons": [
+          "Creature type \"fey\" → skirmisher",
+          "Creature type \"fey\" → tactician",
+          "Sneak Attack detected",
+          "Keyword \"commander\" in name/biography → disciplined"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1792808109398,
+        "manuallyOverridden": false
+      }
     }
   },
   "_stats": {
