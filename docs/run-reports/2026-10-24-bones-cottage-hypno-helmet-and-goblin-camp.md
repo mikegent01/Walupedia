@@ -54,4 +54,4 @@ Five reference-based, 1376×768 JPEGs were added under `Reputation-Matrix2/asset
 **Known unrelated validation debt:** `check-technology.py` reports five existing verbatim-quote mismatches in `tech_wario_transport_helicopter` and `tech_paulos_courier_pistol`, both citing `the_rot_zone_at_star_hill`. The new technology entries’ quotes validate. `test-session-loot.py` reports 37 passes and one existing missing-actor-path failure; its missing paths are unrelated to this filing.
 
 ## Pull Request
-This filing is intended to update the existing open **PR #94** on `arena/eb96791b-walupedia`; no duplicate PR is being opened.
+Committed as `4899bd86` on `arena/eb96791b-walupedia` and pushed to `origin`. The filing is included in the existing open **PR #94**, whose title and description were updated to cover both the Archive Hall and Bones filings; no duplicate PR was opened.
