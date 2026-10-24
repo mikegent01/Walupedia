@@ -399,6 +399,18 @@ def generate(world, party_only=True, filed_on=None, now=None, root_rm=RM, invent
     exported = table_items(world_dir, manifest, root=os.path.dirname(root_rm))
     previous = previous or {}
     filed = dict(previous.get("filed") or {})
+    # A generated file may be rebuilt when a new holding is added. Keep each
+    # existing sheet item's original filedOn date rather than stamping every
+    # still-pending item with today's date again.
+    previous_filed_on = {}
+    for change in previous.get("changes") or []:
+        actor_id = (change.get("match") or {}).get("_id")
+        for old_item in change.get("addItems") or []:
+            flags = ((old_item.get("flags") or {}).get("waluipedia") or {})
+            item_id = flags.get("inventoryItem")
+            filed_date = flags.get("filedOn")
+            if actor_id and item_id and filed_date:
+                previous_filed_on[f"{actor_id}/{item_id}"] = filed_date
     declined = {f"{d.get('actorId')}/{d.get('itemId')}": d for d in previous.get("declined") or [] if isinstance(d, dict)}
     report = {"added": [], "present": [], "declined": [], "skipped": [], "problems": []}
     changes = []
@@ -459,8 +471,9 @@ def generate(world, party_only=True, filed_on=None, now=None, root_rm=RM, invent
                 report["declined"].append(f"{label}: dropped at the table after {first} (packet applied {applied_at}) — now declined")
                 continue
             filed.setdefault(key, now)
+            item_filed_on = previous_filed_on.get(key) or (str(first)[:10] if first else None) or filed_on
             add.append(item_doc(item_id, item, {**holding, "_holder": holder}, actor, row.get("name") or holder,
-                                event_ids(item, events), filed_on, lib))
+                                event_ids(item, events), item_filed_on, lib))
             report["added"].append(f"{label}: {add[-1]['type']} / {add[-1]['img']}")
         if add:
             changes.append({"match": {"_id": actor.get("_id"), "name": actor.get("name")}, "addItems": add})

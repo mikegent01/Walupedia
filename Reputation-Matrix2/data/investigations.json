@@ -2378,7 +2378,7 @@
         "mushroom_civil_war"
       ],
       "opened": "25 Harvestide, 1040 BF",
-      "lastFiled": "5 Aethel, 1040 BF",
+      "lastFiled": "5 Aethel, 1040 BF — latest in-world record; the 2 Aethel Bones account was added retrospectively.",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🍄",
       "accent": "#e74c3c",
@@ -2404,6 +2404,10 @@
         {
           "point": "The temple guards were told to leave two days early.",
           "detail": "They abandoned their posts before the raid and nobody was punished. That is a planned withdrawal dressed up as a security failure."
+        },
+        {
+          "point": "Bones measured a map for one hour after escaping Fawful’s pursuit.",
+          "detail": "The account gives no route, region, scale, destination, or map origin. The docket preserves the gap rather than turning the map into a location claim."
         }
       ],
       "background": [
@@ -2459,6 +2463,12 @@
           "id": "th_pipe_gate",
           "title": "Who the Junction actually reports to",
           "text": "A Bowser Bros sign, a guildmaster who does not live in a shack, a Magikoopa who leaves. The pipes are a government or a costume."
+        },
+        {
+          "id": "th_mcw_dragon_claim_and_ritual",
+          "title": "Fawful claimed dragons; the ritual result is still unverified",
+          "state": "open",
+          "text": "Bones reports Fawful’s “I HAVE DRAGONS” declaration, later sacrifice preparations, and a dragon at an unnamed goblin camp. The account does not connect the dragon to the ritual by a demonstrated mechanism, establish that the ritual succeeded, or identify the camp dragon. Treat these as a lead across scenes, not a proved chain."
         }
       ],
       "leads": [
@@ -2546,6 +2556,17 @@
           "exhibits": [
             "ex_restricted_notice"
           ]
+        },
+        {
+          "id": "lead_mcw_recover_map_details",
+          "title": "Recover the map Bones measured without presuming its route",
+          "state": "open",
+          "priority": "low",
+          "objective": "Find the same map or a reliable copy and establish its origin, marks, scale, and destination from the object itself.",
+          "why": "Bones spent an hour measuring a map, but the filing contains no route or scale. The original could turn an otherwise blank continuity gap into testable evidence; until it is recovered, it cannot point the investigation toward any named place.",
+          "exhibits": [
+            "ex_mcw_bones_map_docket"
+          ]
         }
       ],
       "sessions": [
@@ -2578,6 +2599,12 @@
           "label": "The shack that was not a guildhouse",
           "date": "5 Aethel, 1040 BF",
           "event": "warp_pipe_junction_restricted_city"
+        },
+        {
+          "id": "s_mcw_bones_cottage",
+          "label": "The locked cottage, Fawful’s dragon claim, and the untranscribed map",
+          "date": "2 Aethel, 1040 BF — estimated next-day continuation; exact hour unknown; added retrospectively after the 5 Aethel record",
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon"
         }
       ],
       "relatedEvents": [
@@ -2589,7 +2616,8 @@
         "campaign_songs_archive",
         "the_arrangement",
         "glazed_congress_founding",
-        "warp_pipe_junction_restricted_city"
+        "warp_pipe_junction_restricted_city",
+        "bones_cottage_hypno_helmet_and_goblin_dragon"
       ],
       "exhibits": [
         {
@@ -2934,6 +2962,29 @@
             "characters": [
               "big_r",
               "scribe_dewdrop"
+            ]
+          }
+        },
+        {
+          "id": "ex_mcw_bones_map_docket",
+          "propId": "prop_bones_one_hour_map",
+          "session": "s_mcw_bones_cottage",
+          "icon": "🗺️",
+          "kind": "map",
+          "category": "cartographic evidence",
+          "title": "The One-Hour Map Docket",
+          "secured": "2 Aethel, 1040 BF — Bones’s final tree-rest; the map’s origin is not recorded",
+          "custody": "Bones is the last recorded holder; transfer into the archive is not described. This docket records only the report.",
+          "visual": "<div style=\"position:relative;height:132px;border-radius:10px;overflow:hidden;background:linear-gradient(135deg,#d7c6a0,#eee3c7);color:#392e1e;font-family:serif\"><div style=\"position:absolute;inset:10px;border:1px solid rgba(57,46,30,.4);border-radius:5px\"></div><div style=\"position:absolute;left:0;right:0;top:38px;text-align:center;font-size:19px;font-weight:800;letter-spacing:.12em\">MAP · ONE HOUR</div><div style=\"position:absolute;left:0;right:0;top:70px;text-align:center;font-size:11px;letter-spacing:.12em\">ROUTE NOT TRANSCRIBED</div><div style=\"position:absolute;left:0;right:0;bottom:13px;text-align:center;font-size:9px;letter-spacing:.1em\">NO SCALE · NO DESTINATION · NO MARKS RECONSTRUCTED</div></div>",
+          "dc": 4,
+          "onRecord": "The account says Bones had a map and spent one hour measuring it. It supplies no route, region, scale, destination, origin, or description of the marks. [[roll:4|What does the duration prove?|It supports that Bones deliberately worked with the map rather than merely glancing at it; that still says nothing about what the map shows.|One hour can describe elapsed time without telling us how much was measured. The map remains uninterpretable from this docket alone.]]",
+          "analysis": "The duration is the only measurement preserved in the source. It might reflect a detailed survey, a difficult page, or simply the time Bones chose to spend. Without the map, none of those readings can be tested. The docket does not redraw the route, infer a scale, or place the camp. [[roll:5|Treat the hour as evidence of a method, not a destination|The next useful step is to recover the object and compare its marks against independently established geography.|A measured hour can be a pause, not a method. Until the map itself is available, even that distinction is unresolved.]]",
+          "links": {
+            "events": [
+              "bones_cottage_hypno_helmet_and_goblin_dragon"
+            ],
+            "characters": [
+              "bones"
             ]
           }
         }
@@ -5889,7 +5940,7 @@
         "bowser_castle_assault"
       ],
       "opened": "18 Harvestide, 1035 BF — inferred archival placement",
-      "lastFiled": "18 Harvestide, 1035 BF — historical assault record; exact hour unrecorded",
+      "lastFiled": "2 Aethel, 1040 BF — retrospective field report; a possible dragon comparison, not an identity finding.",
       "archivist": "Waluigi, Auditor-General",
       "icon": "🐢",
       "accent": "#d46b32",
@@ -5922,6 +5973,12 @@
           "title": "A throne before a godhood claim",
           "state": "open",
           "text": "Fawthful states the sequence plainly: ruler first, god after. The dragon, the traitors, and the evacuation pressure all make more sense if the castle is a first seat to be occupied rather than a target to be burned for its own sake. The file does not yet prove how the second step would work."
+        },
+        {
+          "id": "th_bowser_camp_dragon_identity",
+          "title": "The goblin-camp dragon is not yet the Castle dragon",
+          "state": "open",
+          "text": "Bones reports a dragon at an unnamed goblin camp and recalls a comparison to the dragon used at Bowser’s Castle before 1035. No stable marking, custody record, or independent witness joins the two sightings. The retreat order already on file records a Castle dragon; this new event creates a comparison to test, not a retroactive identification of The Supplied Dragon."
         }
       ],
       "leads": [
@@ -5946,6 +6003,17 @@
           "exhibits": [
             "ex_castle_switch_label"
           ]
+        },
+        {
+          "id": "lead_compare_camp_dragon_to_castle_record",
+          "title": "Test the camp dragon against the 1035 Castle record",
+          "state": "open",
+          "priority": "low",
+          "objective": "Compare Bones’s goblin-camp account with the existing Castle retreat order and establish whether any stable identifying trait or custody trail links the dragons.",
+          "why": "The new witness recalls a resemblance to a dragon used at Bowser’s Castle before 1035, but supplies no distinguishing feature. The Castle file contains the retreat order for the historical dragon; comparing primary details is the only safe way to test the match without converting memory into identity.",
+          "exhibits": [
+            "ex_castle_retreat_order"
+          ]
         }
       ],
       "sessions": [
@@ -5960,11 +6028,18 @@
           "label": "The dragon at Bowser’s Castle",
           "date": "18 Harvestide, 1035 BF — continuing from the throne-room breach; exact hour unrecorded",
           "event": "the_assault_on_bowsers_castle"
+        },
+        {
+          "id": "s_bowser_bones_dragon_claim",
+          "label": "A possible Castle-dragon comparison from the goblin camp",
+          "date": "2 Aethel, 1040 BF — retrospective Bones field account; exact hour unknown; identity not established",
+          "event": "bones_cottage_hypno_helmet_and_goblin_dragon"
         }
       ],
       "relatedEvents": [
         "bowser_throne_room_compromise",
-        "the_assault_on_bowsers_castle"
+        "the_assault_on_bowsers_castle",
+        "bones_cottage_hypno_helmet_and_goblin_dragon"
       ],
       "exhibits": [
         {

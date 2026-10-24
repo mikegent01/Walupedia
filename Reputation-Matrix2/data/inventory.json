@@ -1492,6 +1492,107 @@
       ],
       "waluigi": "Some of us take notes when the dead come through the plaster. Some of us wave blank contracts.",
       "description": "Char-rimmed paper smelling of smoke and rain ink, stuffed into Waluigi's coat pocket between hauntings."
+    },
+    "bones_bean_guard_disguise_1040": {
+      "name": "Bones’s Borrowed Bean Guard Outer Disguise",
+      "type": "Disguise / Infiltration Gear",
+      "rarity": "Unrated — borrowed session clothing",
+      "icon": "👕",
+      "visibility": "known",
+      "summary": "Borrowed from an unnamed guard during the 2 Aethel escape. Bones kept the outer clothes as a disguise and deliberately left the shorts behind.",
+      "relatedArticles": [
+        "bones",
+        "bones_cottage_hypno_helmet_and_goblin_dragon",
+        "fawful_forces"
+      ],
+      "color": "#526d4d",
+      "obtained": "Taken from an unnamed man in Fawful’s compound; exact uniform, rank, insignia, and identity are not recorded.",
+      "features": [
+        "Worn as an outer Bean guard disguise during escape.",
+        "The shorts were intentionally left behind and are not part of this item.",
+        "No guard identity, rank, or unit designation is established."
+      ],
+      "history": [
+        "Taken during the 2 Aethel, 1040 BF account.",
+        "Bones was last recorded sleeping in the trees while still wearing the disguise."
+      ],
+      "waluigi": "A disguise can be incomplete and still get you through a window. The shorts remain where Bones left them.",
+      "description": "A borrowed set of outer guard clothes used by Bones as a Bean disguise. The source explicitly says he took the guard’s clothes but left the shorts. No name, rank, insignia, exact garment list, or original unit is recorded; the registry does not invent any. At the last session beat, Bones was still wearing the disguise while sleeping in the trees.",
+      "foundry": {
+        "type": "equipment",
+        "subtype": "clothing",
+        "img": "icons/equipment/chest/shirt-collared-green.webp",
+        "weight": 2,
+        "aliases": [
+          "Bean guard clothes",
+          "Bean guard outer disguise"
+        ],
+        "system": {
+          "equipped": true
+        }
+      }
+    },
+    "bones_measured_route_map_1040": {
+      "name": "Bones’s Untranscribed Map — One Hour Measured",
+      "type": "Map / Field Evidence",
+      "rarity": "Unrated — contents not transcribed",
+      "icon": "🗺️",
+      "visibility": "known",
+      "summary": "Bones spent one hour measuring a map. Its origin, route, region, scale, and destination are not in the report.",
+      "relatedArticles": [
+        "bones",
+        "bones_cottage_hypno_helmet_and_goblin_dragon"
+      ],
+      "color": "#a79060",
+      "obtained": "Held by Bones at the final beat of the 2 Aethel account; where he got it is not recorded.",
+      "features": [
+        "One hour of measuring is recorded.",
+        "No route, region, scale, destination, or marks are transcribed.",
+        "The archive map docket is deliberately incomplete."
+      ],
+      "history": [
+        "Present in Bones’s final tree-rest; no transfer into archive custody is described."
+      ],
+      "waluigi": "One hour is a duration, not a scale. The map stays blank until somebody reads the object.",
+      "description": "A map Bones had with him at the end of the 2 Aethel field account. He spent one hour measuring it. The source does not say where the map came from or what route, region, scale, marks, or destination it contains. The accompanying docket records the known duration only; no map lines have been reconstructed.",
+      "foundry": {
+        "type": "loot",
+        "img": "icons/tools/navigation/map-marked-green.webp",
+        "weight": 0.1,
+        "aliases": [
+          "Untranscribed field map"
+        ]
+      }
+    },
+    "bones_shortsword_session_use_1040": {
+      "name": "Bones’s Existing Shortsword — Session Use Record",
+      "type": "Existing Weapon / Session Use Alias",
+      "rarity": "Standard Foundry equipment — not a new item",
+      "icon": "⚔️",
+      "visibility": "known",
+      "summary": "Aliases Bones’s already-equipped standard Shortsword in the live Foundry actor; it records a poison-assisted strike, not a duplicate weapon or a poison item.",
+      "relatedArticles": [
+        "bones",
+        "bones_cottage_hypno_helmet_and_goblin_dragon"
+      ],
+      "color": "#6f747a",
+      "obtained": "No new weapon was acquired. The live Bones actor already carries an equipped standard Shortsword.",
+      "features": [
+        "The session records Bones stabbing a hulking Bean while hoping unnamed poison would work.",
+        "The poison’s name and effect are not established.",
+        "The target’s outcome is not confirmed.",
+        "This registry entry aliases the existing Shortsword; do not add a second blade or a poison item."
+      ],
+      "history": [
+        "Existing actor Shortsword used in the 2 Aethel, 1040 BF account; no separate weapon acquired."
+      ],
+      "waluigi": "The blade is already on the sheet. The poison is not named. Waluigi is adding a use note, not a second sword.",
+      "description": "Session-use record for Bones’s existing standard Shortsword. The live Foundry actor already contains an equipped item named “Shortsword”; this registry key aliases that same item so the event can be filed against it. Bones used it in a poison-assisted strike against an unnamed hulking Bean. The poison is unnamed, its effect is unconfirmed, and the registry does not create a duplicate sword or poison item.",
+      "foundry": {
+        "aliases": [
+          "Shortsword"
+        ]
+      }
     }
   },
   "inventories": {
@@ -1801,6 +1902,21 @@
       {
         "itemId": "bones_legion_uniform",
         "status": "used in Aegis infiltration",
+        "known": true
+      },
+      {
+        "itemId": "bones_bean_guard_disguise_1040",
+        "status": "Worn as an outer Bean guard disguise at the final tree-rest; shorts intentionally left behind.",
+        "known": true
+      },
+      {
+        "itemId": "bones_measured_route_map_1040",
+        "status": "Held by Bones at the final beat; measured for one hour, contents not transcribed.",
+        "known": true
+      },
+      {
+        "itemId": "bones_shortsword_session_use_1040",
+        "status": "Existing equipped standard Shortsword; used in a poison-assisted strike, with poison and outcome unconfirmed. No duplicate item.",
         "known": true
       }
     ],
