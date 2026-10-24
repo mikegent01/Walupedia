@@ -100,6 +100,7 @@
 /* Static build: served from the repository root (python3 start.py). The cast
    and the scenes are read straight out of the archive JSON; the model is
    reached at the workflow server, or at whatever endpoint ⚙ is set to. */
+var WF = 'http://' + (location.hostname || '127.0.0.1') + ':8787';
 window.CHATROOM_CONFIG = {
   mode: 'static',
   castUrl: 'Reputation-Matrix2/data/characters.json',
@@ -114,11 +115,13 @@ window.CHATROOM_CONFIG = {
   clockUrl: 'Reputation-Matrix2/data/currentDate.json',
   // The static build talks to the workflow server for disk saves, the same
   // way it does for the model.
-  saveUrl: 'http://127.0.0.1:8787/api/chatroom-save',
-  savesUrl: 'http://127.0.0.1:8787/api/chatroom-saves',
-  replyUrl: 'http://127.0.0.1:8787/api/roleplay',
-  suggestUrl: 'http://127.0.0.1:8787/api/suggest-cast',
-  healthUrl: 'http://127.0.0.1:8787/api/health',
+  // The host is whatever served this page, so a phone on the tailnet reaches
+  // the workflow server on the PC instead of on itself.
+  saveUrl: WF + '/api/chatroom-save',
+  savesUrl: WF + '/api/chatroom-saves',
+  replyUrl: WF + '/api/roleplay',
+  suggestUrl: WF + '/api/suggest-cast',
+  healthUrl: WF + '/api/health',
   staticRoot: 'Reputation-Matrix2/',
 };
 </script>

@@ -250,6 +250,8 @@ def print_tailnet_tip(port: int, host: str) -> None:
     if host in ("0.0.0.0", "::"):
         print("            phones on the tailnet can read the archive at")
         print("            http://%s:%d/" % (ts_ip, port))
+        print("            and the chatroom (with --workflow) at")
+        print("            http://%s:%d/roleplay" % (ts_ip, WORKFLOW_PORT))
     else:
         print("            re-run with --host 0.0.0.0 and phones on the tailnet")
         print("            can read the archive at http://%s:%d/" % (ts_ip, port))
