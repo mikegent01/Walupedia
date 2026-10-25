@@ -34,7 +34,15 @@
 - **No inventory transfer:** the session names X.O.'s staff and Rhelmon's Anchor, but does not establish end-of-session custody. Neither was added to a character's inventory.
 - **No new character articles** for the color/designation labels, pending roster or identity confirmation.
 - **No XP or numerical reputation changes:** none were supplied, and the event does not give an auditable award or score.
-- **No separate commentary or article-analysis object:** the event already carries scene-level Waluigi notes and an argument about the missing-detachment report, blackout, Perot's treatment, ship ownership, and the unresolved exit. A second filing would repeat the same interpretation rather than add new evidence.
+- **No separate article-analysis object:** the user requested a Waluigi's Cut commentary as a follow-up; it is filed below. No analysis was requested.
+
+## Follow-up — requested Waluigi's Cut
+
+- Added `the_intake_drone_and_the_unfinished_escape_commentary` at `Reputation-Matrix2/data/stores/commentaries/the_intake_drone_and_the_unfinished_escape_commentary.json`; rebuilt `data/commentaries.json` and registered the shard in the manifest.
+- The 10-section screening-desk read follows the event's sequence, beginning with Remi's unconfirmed high five and ending at the wall. Waluigi's snark, quoted dialogue, and stage directions are woven into each beat. The conceit is explicitly a reading of the transcript, not an invented camera recording.
+- **Uncertainty is retained:** the missing Toads remain missing, Perot's outcome unknown, ship movement after the blackout unknown, and Remi's escape incomplete. `relatedArticles` is empty, per the commentary quarantine rule.
+- Retrospective desk date: `5 Aethel, 1040 BF`, `TC:1040-09-05/COM`; no hour is invented.
+- **Track stats:** 10 sections, 3,329 words against a 3,615-word source (0.92×); Waluigi/1k 18.3, CAPS/1k 27.6, WAH 10. The new track has no checker errors or new warnings.
 
 ## Verification
 
