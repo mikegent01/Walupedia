@@ -1443,4 +1443,18 @@ and this time I'll be sure to do it alone.`,
         context: "Performed across the third haunting of the week inside the unguarded Archive Hall on 3 Aethel, 1035 BF while Wario, Waluigi, and Mr. T watched from behind the oak stacks. Beta Luigi crushed a live Fire Flower underfoot mid-song, wept beneath a fifteen-foot angry red ghost, heard Mario forgive and charge him in Italian ('Ti perdono. Vai avanti'), pulled a single bound book off the Archive Hall shelf, and walked out alone.",
         critique: "Do NOT look for jokes in this box. Night before outside the clinic, three copies of Mr. L sang about burning the bridge while Mario drowned. Inside the stacks twenty-four hours later, this wreck crushed live fire under his heel, knocked me onto my knees beside my own scattered notes, drew Mario's real voice out of empty stone in Italian, and walked out carrying a physical book under his arm. Read every line twice.",
         notes: "D4 F4 A4 G4 F4 D4"
-      }];
+      },
+      {
+        id: "song_toads_who_will_kick_your_ass",
+        title: "The Toads Who Will Kick Your Ass (Shipboard Chant)",
+        category: "toad",
+        accent: "#3f8fd0",
+        performers: "Toad Rangers aboard the TOADALNAEC (individual singers unrecorded)",
+        sourceTitle: "The Intake Drone, the Blackout, and the Escape That Did Not Finish",
+        sourceId: "the_intake_drone_and_the_unfinished_escape",
+        lyrics: "We are the Toads who will kick your ass.",
+        context: "Sung by the Toads while Archie followed Remi through the darkened ship. The record supplies this line only.",
+        critique: "A marching refrain delivered during a search for a prisoner. Waluigi is not grading the harmony; nobody gave him a score.",
+        notes: "One recorded line; tune and continuation unknown."
+      },
+];

@@ -116,10 +116,11 @@ const ACCOUNTABILITY_DOCKET = {
             ],
             evidence: [
                 "After-action reports",
-                "Witness accounts"
+                "Witness accounts",
+                "Eager's 1 Aethel, 1040 BF testimony aboard the TOADALNAEC"
             ],
-            notes: "Awakened from coma. Immediately rejoined combat operations in the Silent Grove. Current whereabouts: Feywild fracture.",
-            last_seen: "Day 21 - Silent Grove",
+            notes: "Awakened from coma and rejoined combat operations in the Silent Grove. On 1 Aethel, 1040 BF, Eager said he had been sent without a detachment and could not locate Rodger or Toad Lee. The interrogators' claim that the Pond Patrol had been missing three weeks is not independently confirmed.",
+            last_seen: "1 Aethel, 1040 BF - released after questioning aboard the TOADALNAEC; later location unrecorded",
             bounty: null,
             added: "Day 18",
             speaker_note: "Eager's heart was in the right place. His body paid the price, and he paid it again."

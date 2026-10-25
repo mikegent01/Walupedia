@@ -2211,6 +2211,61 @@
         "goblin camp",
         "unverified identity"
       ]
+    },
+    {
+      "id": "tech_toadalnaec_intake_drone",
+      "name": "The TOADALNAEC Intake Drone",
+      "kind": "construct",
+      "tier": "industrial",
+      "icon": "🔒",
+      "territory": {
+        "nation": null,
+        "plane": "material",
+        "location": "vigilance",
+        "label": "Aboard the old Vigilance, now the TOADALNAEC — engine room and interior passages"
+      },
+      "origin": {
+        "faction": "liberated_toads",
+        "maker": "Unknown; the account does not identify its maker.",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "the_intake_drone_and_the_unfinished_escape",
+        "date": "1 Aethel, 1040 BF — same-day continuation; hour unknown",
+        "year": 1040,
+        "timeCode": "TC:1040-09-01/MAT",
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Last seen containing Remi during transfer to the engine room; its condition and location after the blackout are not recorded.",
+      "summary": "A Toad-held drone that closes bars around a person and carries the prisoner toward the TOADALNAEC engine room.",
+      "record": "The session shows the intake drone opening, taking Remi in, and closing bars around her. It is moved toward the engine room, where the Toads place her in a field with Perot on overwatch. The account does not say whether the drone itself loses power or what becomes of it after Remi removes X.O.’s staff.",
+      "quotes": [
+        {
+          "event": "the_intake_drone_and_the_unfinished_escape",
+          "text": "The bars close."
+        },
+        {
+          "event": "the_intake_drone_and_the_unfinished_escape",
+          "text": "The power immediately goes out."
+        }
+      ],
+      "pressure": 1,
+      "tension": [],
+      "model": {
+        "recipe": "drone",
+        "palette": {
+          "body": "#3f6b75",
+          "eye": "#f0c75e",
+          "metal": "#626975"
+        }
+      },
+      "tags": [
+        "toadalnaec",
+        "intake",
+        "detention",
+        "drone"
+      ]
     }
   ]
 }
