@@ -13957,6 +13957,15 @@ window.CHATROOM_CONFIG = {
         (col ? ' — in “' + RP.clip(r.sceneName || r.title, 30) + '”' : '');
     }
 
+    // A sheet that is in the scene but whose person fell out of the cast
+    // (the card shows, the Next: chip does not) is seated again.
+    Object.keys(r.states || {}).forEach(function (id) {
+      var s = r.states[id];
+      if (id === RP.PLAYER_ID || !s || s.present === false) return;
+      if ((r.cast || []).some(function (c) { return c.id === id; })) return;
+      if (castById[id]) RP.addToRoom(r, castById[id]);
+    });
+
     // Who answers next, and the two things you always want to press.
     // Row one: who is up — you, then the faces that can speak next (drag
     // one to the edge of the stage to start a second scene with them).
