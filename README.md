@@ -519,10 +519,7 @@ Rules for planar dates:
 `Reputation-Matrix2/app/core/margin-gutter.js` runs after an event or battle renders on a
 viewport of 900px or more. Nothing is left under the article: Link Graph, the wire and margins,
 the apparatus panes, Connected Systems and Reader Controls move into a sticky right-hand panel.
-Its top box, *In this passage*, follows the reader — it shows the record card (the same one the
-hover preview draws, `linkCardHtml()`) for whatever the paragraph on screen links to, plus that
-paragraph's comments, with a thread from each inline link to its card or Link Graph chip. Field
-plates sit inline. It only rearranges existing DOM; below 900px the old band layout stands.
+Its top box, *In this passage*, follows the reader — it shows a live excerpt of the paragraph at the reading line, plus hover-style cards (`linkCardHtml()`) for linked records of any type: people, places, events, factions, objects and more. If a crowded cast would fill the panel, it reserves a card for a non-character record so the setting or action stays in view. Margin comments travel with the passage, and threads run from inline links to their cards or Link Graph chips. Field plates sit inline. It only rearranges existing DOM; below 900px the old band layout stands.
 Test: `node tools/tests/test-margin-gutter.mjs`.
 
 ### Running deadlines — the clock moves when you file, not when you remember

@@ -6,10 +6,12 @@
  * and, on a viewport of MIN_W or more, turns that tail into a sticky side
  * panel that follows the reader:
  *
- *   In this passage   the record card (the same one the hover preview draws)
- *                     for whoever and whatever the paragraph being read
- *                     names, plus the margin comments on that paragraph. It
- *                     changes as the page scrolls, under the section's title.
+ *   In this passage   a short live scene-beat excerpt, record cards (the same
+ *                     ones the hover preview draws) for people and things the
+ *                     paragraph names, plus its margin comments. It changes
+ *                     as the page scrolls, under the section's title. When a
+ *                     crowded cast fills the panel, a non-character record
+ *                     gets a slot so the place, event or object stays visible.
  *   The stack         Link Graph, the wire, the apparatus panes, Connected
  *                     Systems and Reader Controls. A box opens by itself and
  *                     rises to the top when the passage on screen names
@@ -22,13 +24,13 @@
  *   Field plates      set inline through the sections instead of in a
  *                     gallery at the foot.
  *
- * It only rearranges DOM that already exists and reads window.linkCardHtml;
- * no data is read or written. Below MIN_W it does nothing and the old band
- * layout stands.
+ * It rearranges the existing article UI and renders transient card metadata
+ * exposed by the page; it never mutates source records. Below MIN_W it does
+ * nothing and the old band layout stands.
  */
 (function(){
   'use strict';
-  var MIN_W = 900, MAX_CARDS = 4, MAX_LINES = 10, READ_LINE = 0.38, NEAR_BLOCKS = 3;
+  var MIN_W = 900, MAX_CARDS = 5, MAX_LINES = 10, READ_LINE = 0.38, NEAR_BLOCKS = 3;
   var PALETTE = ['#ffb84d', '#5ad1ff', '#ff7ab8', '#7ee08a', '#c79bff', '#ff8a5c', '#4fe0c8', '#f5e663'];
   var SVG = 'http://www.w3.org/2000/svg';
   var state = null, raf = 0;
@@ -37,6 +39,11 @@
   function qsa(r, s){ return Array.prototype.slice.call(r.querySelectorAll(s)); }
   function el(tag, cls, txt){ var n = document.createElement(tag); if(cls) n.className = cls; if(txt != null) n.textContent = txt; return n; }
   function norm(s){ return String(s || '').replace(/\s+/g, ' ').trim().toLowerCase(); }
+  function excerpt(s, max){
+    s = String(s || '').replace(/\s+/g, ' ').trim();
+    if(s.length <= max) return s;
+    return s.slice(0, max - 1).replace(/\s+\S*$/, '') + '…';
+  }
 
   /* One colour per record, dealt in order of first appearance so records that
      share a passage differ, and kept for the life of the page. */
@@ -149,6 +156,28 @@
     try{ return typeof window.linkCardHtml === 'function' ? (window.linkCardHtml(id, { side: true }) || '') : ''; }
     catch(e){ return ''; }
   }
+  function cardMeta(id){
+    try{ return typeof window.linkCardMeta === 'function' ? (window.linkCardMeta(id) || null) : null; }
+    catch(e){ return null; }
+  }
+  function isPerson(item){
+    var m = item.meta || {};
+    return m.typeKey === 'characters' || m.kind === 'member' || m.kind === 'bearer';
+  }
+  /* Keep the first thing the reader meets, but reserve a slot for a place,
+     event, faction, object, or other non-character record when one is present.
+     A crowded cast can otherwise push every part of the scene off the panel. */
+  function selectFocus(items){
+    if(items.length <= MAX_CARDS) return items;
+    var out = [], used = {};
+    function take(item){
+      if(item && !used[item.id] && out.length < MAX_CARDS){ used[item.id] = 1; out.push(item); }
+    }
+    take(items[0]);
+    take(items.filter(function(item){ return !isPerson(item); })[0]);
+    items.forEach(take);
+    return out;
+  }
 
   function noteNode(mark){
     var ai = Number(mark.getAttribute('data-ai'));
@@ -169,7 +198,7 @@
     if(!state) return;
     if(!document.body.contains(state.A)){ unmount(); return; }
     var blocks = visibleBlocks();
-    var focus = [], seen = {}, onScreen = [], marks = [], nearText = '';
+    var focus = [], candidates = [], seen = {}, onScreen = [], marks = [], nearText = '';
     blocks.forEach(function(b, bi){
       if(bi < NEAR_BLOCKS) nearText += ' ' + b.text;
       qsa(b.node, 'a.xlink[data-id]').forEach(function(a){
@@ -178,14 +207,18 @@
         onScreen.push({ id: id, a: a });
         if(seen[id]) return;
         seen[id] = 1;
-        if(focus.length < MAX_CARDS) focus.push({ id: id, a: a });
+        candidates.push({ id: id, a: a, meta: cardMeta(id) });
       });
       if(bi < 2) qsa(b.node, '.annot[data-ai]').forEach(function(m){ if(marks.length < 3) marks.push(m); });
     });
+    focus = selectFocus(candidates);
     if(state.pin && !seen[state.pin.id]) state.pin = null;
     if(state.pin){
       focus = [state.pin].concat(focus.filter(function(f){ return f.id !== state.pin.id; })).slice(0, MAX_CARDS);
     }
+    var beat = blocks.length ? excerpt(blocks[0].displayText, 210) : '';
+    if(beat !== state.beatText.textContent) state.beatText.textContent = beat;
+    state.beat.hidden = !beat;
     var sec = currentSection();
     var key = focus.map(function(f){ return f.id; }).join('|') + '#' + marks.map(function(m){ return m.getAttribute('data-ai'); }).join('|');
     if(key !== state.key){ state.key = key; renderLive(focus, marks); }
@@ -207,8 +240,12 @@
     focus.forEach(function(f, i){
       var html = cardHtml(f.id);
       if(!html) return;
-      var c = el('div', 'mg-pcard mg-in' + (i ? ' mg-pcard--mini' : ''));
+      var c = el('div', 'mg-pcard mg-in' + (i >= 2 ? ' mg-pcard--mini' : ''));
       c.setAttribute('data-id', f.id);
+      if(f.meta){
+        if(f.meta.kind) c.setAttribute('data-kind', f.meta.kind);
+        if(f.meta.typeKey) c.setAttribute('data-type-key', f.meta.typeKey);
+      }
       c.style.setProperty('--mg-c', colourOf(f.id));
       c.innerHTML = html;
       c.addEventListener('click', function(){ f.a.click(); });
@@ -307,7 +344,8 @@
     if(!state) return;
     var a = e.target.closest && e.target.closest('a.xlink[data-id]');
     if(!a || !state.card.contains(a)) return;
-    state.pin = { id: a.getAttribute('data-id'), a: a };
+    var id = a.getAttribute('data-id');
+    state.pin = { id: id, a: a, meta: cardMeta(id) };
     schedule();
   }
   /* A box the reader opens or closes by hand is theirs: stop managing it. */
@@ -345,9 +383,12 @@
     var live = el('section', 'mg-live');
     live.appendChild(el('div', 'mg-live-h', '👁 In this passage'));
     var where = el('div', 'mg-live-where'); where.hidden = true;
-    var empty = el('p', 'mg-live-empty', 'People, places and records named in the paragraph you are reading appear here as you scroll.');
+    var beat = el('div', 'mg-live-beat'); beat.hidden = true;
+    beat.appendChild(el('b', 'mg-live-beat-label', '⚡ Scene beat'));
+    var beatText = el('span', 'mg-live-beat-text'); beat.appendChild(beatText);
+    var empty = el('p', 'mg-live-empty', 'Linked people, places, events, factions and objects appear here as you read.');
     var cards = el('div', 'mg-live-cards');
-    live.appendChild(where); live.appendChild(empty); live.appendChild(cards);
+    live.appendChild(where); live.appendChild(beat); live.appendChild(empty); live.appendChild(cards);
     side.appendChild(live);
     var built = buildStack(A, rail);
     side.appendChild(built.node);
@@ -370,12 +411,12 @@
       return { node: node, names: namesOf(node), user: false, count: count };
     });
     state = {
-      A: A, card: card, side: side, cards: cards, empty: empty, where: where, svg: svg,
+      A: A, card: card, side: side, cards: cards, empty: empty, where: where, beat: beat, beatText: beatText, svg: svg,
       chips: chips, chipById: chipById, cardById: {}, noteByMark: [], key: null, pin: null, sec: undefined,
       boxes: boxes,
       heads: qsa(card, ':scope > h2[id]'),
       blocks: qsa(card, '.prose p, .prose li, .prose blockquote, .wnote, .wiki-lead').map(function(n){
-        return { node: n, text: norm(n.textContent) };
+        return { node: n, text: norm(n.textContent), displayText: String(n.textContent || '').replace(/\s+/g, ' ').trim() };
       })
     };
     window.addEventListener('scroll', schedule, { passive: true });

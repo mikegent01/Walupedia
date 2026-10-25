@@ -25097,6 +25097,10 @@ async function loadData(){
      Exposed on window so the active side panel (margin-gutter.js) draws the
      same card for the passage being read; the two cannot drift. */
   window.linkCardHtml=linkCardHtml;
+  window.linkCardMeta=function(id){
+    const p=LINK_PREVIEW[id];
+    return p?{name:p.name||'',kind:p.kind||'',typeKey:p.typeKey||''}:null;
+  };
   function linkCardHtml(id,opts){
     const p=LINK_PREVIEW[id];
     if(!p) return '';

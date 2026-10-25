@@ -1,8 +1,8 @@
 // DOM contract of margin-gutter.js (the active side): on a wide viewport the
 // rail boxes and the apparatus panes leave the foot of the page for a sticky
-// side panel, the passage on screen puts its record cards and comments in the
-// panel, Link Graph chips light up, field plates move inline; below the
-// breakpoint nothing changes.
+// side panel, the current scene beat and linked people/things appear there,
+// non-character records survive a crowded cast, Link Graph chips light up,
+// field plates move inline; below the breakpoint nothing changes.
 //   npm install jsdom@26.1.0 --no-save && node tools/tests/test-margin-gutter.mjs
 import { readFileSync } from 'node:fs';
 import assert from 'node:assert';
@@ -11,7 +11,7 @@ import { JSDOM } from 'jsdom';
 const src = readFileSync(new URL('../../Reputation-Matrix2/app/core/margin-gutter.js', import.meta.url), 'utf8');
 const page = `<div class="article-layout record-wide-layout"><div>
   <div class="card">
-    <h2 id="s0">The Door</h2><div class="prose"><p>Hjumpik met <span class="annot" data-ai="0">the waiter</span> <a class="xlink" data-id="brad">Brad</a> and <a class="xlink" data-id="corn">Cornburary</a>.</p></div>
+    <h2 id="s0">The Door</h2><div class="prose"><p>Hjumpik met <span class="annot" data-ai="0">the waiter</span> <a class="xlink" data-id="brad">Brad</a>, <a class="xlink" data-id="corn">Cornburary</a>, <a class="xlink" data-id="archie">Archie</a>, <a class="xlink" data-id="markop">Markop</a>, <a class="xlink" data-id="eager">Eager</a> and <a class="xlink" data-id="remi">Remi</a> at the <a class="xlink" data-id="vigilance">Vigilance</a>.</p></div>
     <h2 id="s1">The Card Room</h2><div class="prose"><p>Nobody is named here.</p></div>
     <h2 id="h-fieldgallery">Field Plates</h2>
     <div class="field-gal-grid"><a class="field-gal-item"><img alt=""><span>one</span></a><a class="field-gal-item"><img alt=""><span>two</span></a></div>
@@ -34,7 +34,10 @@ function run(width){
   // jsdom has no layout: put everything on screen.
   w.Element.prototype.getBoundingClientRect = () => ({ top: 200, bottom: 240, left: 100, right: 300, width: 200, height: 40 });
   w.ANNOT_ACTIVE = [{ quote: 'the waiter', comments: [{ author: 'Archie', text: 'He tips badly.' }, { author: 'Eager', text: 'Agreed.' }] }];
-  w.linkCardHtml = (id, o) => (id === 'brad' || id === 'corn') ? `<div class="lp-head">card:${id}:${o && o.side}</div>` : '';
+  w.linkCardHtml = (id, o) => `<div class="lp-head">card:${id}:${o && o.side}</div>`;
+  w.linkCardMeta = id => id === 'vigilance'
+    ? { kind: 'article', typeKey: 'locations' }
+    : { kind: 'article', typeKey: 'characters' };
   w.eval(src);
   w.MarginGutter.mount();
   return w.document;
@@ -50,9 +53,13 @@ assert(!d.querySelector('.rail-band'), 'nothing left in the bottom band');
 assert(d.querySelector('.apparatus-band').hidden, 'old apparatus band hidden');
 assert(side.querySelector('#xp-session'), 'anchored ids survive the move (XP lede deep link)');
 const cards = [...side.querySelectorAll('.mg-pcard')];
-assert.deepStrictEqual(cards.map(c => c.getAttribute('data-id')), ['brad', 'corn'], 'cards for the links in the passage');
+assert.deepStrictEqual(cards.map(c => c.getAttribute('data-id')), ['brad', 'vigilance', 'corn', 'archie', 'markop'], 'a place gets a slot even when a crowded cast comes first');
 assert(/card:brad:true/.test(cards[0].textContent), 'card drawn by the shared hover-card builder');
-assert(cards[1].classList.contains('mg-pcard--mini'), 'second card is compact');
+assert.strictEqual(cards[1].getAttribute('data-type-key'), 'locations', 'non-character type is exposed on the card');
+assert(!cards[1].classList.contains('mg-pcard--mini'), 'the first non-character record stays full-size');
+assert(cards[2].classList.contains('mg-pcard--mini'), 'later cards are compact');
+const beat = side.querySelector('.mg-live-beat');
+assert(beat && /Hjumpik met/.test(beat.textContent) && /Vigilance/.test(beat.textContent), 'scene beat follows the paragraph at the reading line');
 const note = side.querySelector('.mg-note');
 assert(note && /Archie/.test(note.textContent) && /\+1 more/.test(note.textContent), 'comment on the passage shown beside it');
 assert(side.querySelector('.lg-chip[data-id="brad"]').classList.contains('mg-chip-on'), 'chip for an on-screen link lights up');
