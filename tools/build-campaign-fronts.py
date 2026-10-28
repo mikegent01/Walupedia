@@ -8,16 +8,18 @@ Fire after The Tape and the Wario Files was filed, and the Feyward front still
 pointed at the Library Reclamation after the Doorway session. Every future
 session would have had the same failure mode.
 
-So the covers are now *derived*. A session's campaign comes from its
+So the covers are now *derived*. A session's campaign normally comes from its
 `timeCode` suffix, which the date guide already requires and
-`tools/check-timecodes.py` already validates:
+`tools/check-timecodes.py` already validates. An explicit registered `arcId`
+can override that clock bucket when a session belongs to a named follow-on arc:
 
     SHD -> Shadeward      FEY -> Feyward
     MAT -> Mario          SUBJ -> Subjective
-    KIV -> Kivotos      EBO -> Mount Ebott
+    KIV -> Kivotos        EBO -> Mount Ebott
+    toadalnaec_saga -> TOADALNAEC Saga
 
-The newest filed event per suffix wins, "newest" being position in
-`events.json` (last = newest), which is the same ordering the Recent
+The newest filed event per resulting campaign wins, "newest" being position
+in `events.json` (last = newest), which is the same ordering the Recent
 Adventures feed uses. One cover per campaign: a campaign holding two cards
 pushes another campaign off the strip entirely.
 
@@ -50,6 +52,12 @@ CAMPAIGNS = {
     "EBO": "Mount Ebott",
 }
 
+# Explicit event arcs take precedence over the default clock bucket. Keep this
+# registry narrow: only an arc with a real front of its own belongs here.
+ARC_CAMPAIGNS = {
+    "toadalnaec_saga": "TOADALNAEC Saga",
+}
+
 
 def load(name):
     with (DATA / name).open(encoding="utf-8") as fh:
@@ -68,6 +76,12 @@ def slug(event_id):
 def suffix_of(event):
     tc = event.get("timeCode") or ""
     return tc.rsplit("/", 1)[-1] if "/" in tc else ""
+
+
+def campaign_of(event):
+    """Return an explicit arc front when registered, else the clock front."""
+    arc_campaign = ARC_CAMPAIGNS.get(event.get("arcId"))
+    return arc_campaign or CAMPAIGNS.get(suffix_of(event))
 
 
 def blurb(text, limit=210):
@@ -100,8 +114,7 @@ def build_covers(events):
     """Newest filed, imaged event per campaign -> a cover row. Plus notes."""
     newest, notes = {}, []
     for idx, ev in enumerate(events):
-        suf = suffix_of(ev)
-        camp = CAMPAIGNS.get(suf)
+        camp = campaign_of(ev)
         if not camp:
             continue
         # Recovered/backfilled events belong in the archive, not in a current
