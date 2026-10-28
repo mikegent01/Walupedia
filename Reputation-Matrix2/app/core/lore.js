@@ -235,6 +235,28 @@ feywild_attic: {
             negative: ['Massive reputation damage', 'Ship nearly destroyed']
         }
     },
+    toadalnaec_saga: {
+        id: 'toadalnaec_saga',
+        name: 'The TOADALNAEC Saga',
+        description: 'A follow-on to the resolved Vigilance Saga: the Toads claim the old airship under its new name, and the first shipboard crisis ends with Remi still searching for an exit.',
+        icon: '🍄',
+        status: 'active',
+        startDate: { day: 1, monthIndex: 8, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'renaming', name: 'The Ship Changes Hands', description: 'The Toads claim the old Vigilance as the TOADALNAEC; authority aboard and Speaker L’s status are disputed.' },
+            { id: 'intake', name: 'The Intake Drone', description: 'Remi is confined aboard ship while the Toads question Eager and Salam.' },
+            { id: 'blackout', name: 'The Blackout', description: 'Remi removes X.O.’s staff from the field and the ship loses power; the vessel’s movement is not recorded.' },
+            { id: 'unfinished_escape', name: 'The Unfinished Escape', description: 'Remi remains in conflict, blinded and invisible, feeling along a wall; her escape and the ship’s condition remain unresolved.' }
+        ],
+        currentPhase: 3,
+        themes: ['shipboard', 'survival', 'leadership', 'unfinished-escape'],
+        keyFactions: ['liberated_toads'],
+        consequences: {
+            positive: ['The Toads hold the ship under the name TOADALNAEC'],
+            negative: ['The ship loses power; Remi’s escape and Perot’s condition remain unresolved']
+        }
+    },
     supernatural_sovereignty: {
         id: 'supernatural_sovereignty',
         name: 'The Supernatural Sovereignty Crisis',
