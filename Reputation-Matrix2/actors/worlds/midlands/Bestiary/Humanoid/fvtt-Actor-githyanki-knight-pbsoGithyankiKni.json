@@ -4712,6 +4712,26 @@
   "sort": 75000,
   "flags": {
     "dnd5e": {},
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "brute",
+          "tactician"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "Innate Spellcasting detected",
+          "High HP (91) melee combatant → brute/frontliner",
+          "Spell list: 4× self-buff spells → tactician",
+          "Keyword \"mind flayer\" in name/biography → tactician"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1793549735106,
+        "manuallyOverridden": false
+      }
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",

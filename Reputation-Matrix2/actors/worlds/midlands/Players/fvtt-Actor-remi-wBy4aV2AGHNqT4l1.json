@@ -30577,54 +30577,6 @@
   ],
   "effects": [
     {
-      "origin": "Actor.wBy4aV2AGHNqT4l1.Item.HFsIv3RAl0ETLLCw",
-      "disabled": false,
-      "img": "https://cdn.5e.tools/2024/img/items/XDMG/Staff%20of%20Thunder%20and%20Lightning.webp",
-      "name": "Staff of Thunder and Lightning Template",
-      "duration": {
-        "value": 1,
-        "units": "seconds",
-        "expiry": "updateWorldTime",
-        "expired": false
-      },
-      "flags": {
-        "dae": {
-          "stackable": "noneName",
-          "expiryMode": "delete",
-          "specialDuration": []
-        }
-      },
-      "start": {
-        "time": 30,
-        "combat": "tAXQH3N3yXvqtz6A",
-        "combatant": "upyQmw0DIsKpz2e9",
-        "initiative": 20,
-        "round": 2,
-        "turn": 0
-      },
-      "_id": "rYx9QO1Ac5FPfB1L",
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "description": "",
-      "tint": "#ffffff",
-      "transfer": false,
-      "statuses": [],
-      "showIcon": 1,
-      "folder": null,
-      "sort": 0,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1792944939763,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
       "name": "Hunter's Mark",
       "img": "icons/skills/targeting/crosshair-scope-sniper-green.webp",
       "origin": "Scene.TM4C48PfgzMq4HAy.Token.CJmO0NmWR7FkxiJS.Actor.h61wBPqcx8cedQfX.ActiveEffect.Yo2J8zR2dBZsqPlT",
@@ -30634,7 +30586,7 @@
       "system": {
         "changes": []
       },
-      "disabled": false,
+      "disabled": true,
       "duration": {
         "value": 3600,
         "units": "seconds",
@@ -30687,55 +30639,6 @@
         "turn": 1
       },
       "folder": null
-    },
-    {
-      "name": "Marked",
-      "img": "systems/dnd5e/icons/svg/statuses/marked.svg",
-      "_id": "dnd5emarked00000",
-      "statuses": [
-        "marked"
-      ],
-      "showIcon": 2,
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "tAXQH3N3yXvqtz6A",
-        "combatant": "CoZLY9ibLwOEQdOL",
-        "initiative": 10,
-        "round": 2,
-        "turn": 1
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "description": "",
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
-      "folder": null,
-      "sort": 0,
-      "flags": {
-        "dae": {
-          "autoCreated": true,
-          "specialDuration": []
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1792945003057,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
     },
     {
       "name": "Blinded",
@@ -30795,164 +30698,6 @@
       },
       "showIcon": 1,
       "folder": null
-    },
-    {
-      "name": "Blinded",
-      "img": "systems/dnd5e/icons/svg/statuses/blinded.svg",
-      "_id": "dnd5eblinded0000",
-      "statuses": [
-        "blinded"
-      ],
-      "showIcon": 2,
-      "description": "@Embed[Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.uDogReMO6QtH6NDw inline]",
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "tAXQH3N3yXvqtz6A",
-        "combatant": "wI1fPM54Ir3H3OXu",
-        "initiative": 6,
-        "round": 3,
-        "turn": 1
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
-      "folder": null,
-      "sort": 0,
-      "flags": {
-        "dae": {
-          "specialDuration": []
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1792945623461,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
-      "name": "Concentrating: Invisibility",
-      "img": "systems/dnd5e/icons/svg/statuses/concentrating.svg",
-      "_id": "LCTVwptiL616yuBC",
-      "description": "<p>You are maintaining concentration on the effects of the 'Invisibility' Spell.</p><hr><p>@Embed[Actor.wBy4aV2AGHNqT4l1.Item.XEuShHyxqQGAfotc inline]</p>",
-      "duration": {
-        "value": 3600,
-        "units": "seconds",
-        "expiry": "turnStart",
-        "expired": false
-      },
-      "flags": {
-        "dnd5e": {
-          "activity": {
-            "type": "utility",
-            "id": "dnd5eactivity000",
-            "uuid": "Actor.wBy4aV2AGHNqT4l1.Item.XEuShHyxqQGAfotc.Activity.dnd5eactivity000"
-          },
-          "item": {
-            "type": "spell",
-            "id": "XEuShHyxqQGAfotc",
-            "uuid": "Actor.wBy4aV2AGHNqT4l1.Item.XEuShHyxqQGAfotc"
-          },
-          "scaling": 0,
-          "spellLevel": 2
-        },
-        "dae": {
-          "specialDuration": []
-        }
-      },
-      "origin": "Actor.wBy4aV2AGHNqT4l1.Item.XEuShHyxqQGAfotc",
-      "statuses": [
-        "concentrating"
-      ],
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "tAXQH3N3yXvqtz6A",
-        "combatant": "upyQmw0DIsKpz2e9",
-        "initiative": 16,
-        "round": 4,
-        "turn": 0
-      },
-      "tint": "#ffffff",
-      "transfer": false,
-      "showIcon": 1,
-      "folder": null,
-      "sort": 0,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1792945821398,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
-      "name": "Invisible",
-      "img": "systems/dnd5e/icons/svg/statuses/invisible.svg",
-      "_id": "dnd5einvisible00",
-      "statuses": [
-        "invisible"
-      ],
-      "showIcon": 2,
-      "description": "@Embed[Compendium.dnd5e.content24.JournalEntry.phbAppendixCRule.JournalEntryPage.MQIZ1zRLWRcNOtPN inline]",
-      "type": "base",
-      "system": {
-        "changes": []
-      },
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "tAXQH3N3yXvqtz6A",
-        "combatant": "upyQmw0DIsKpz2e9",
-        "initiative": 16,
-        "round": 4,
-        "turn": 0
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": null,
-        "expired": false
-      },
-      "origin": null,
-      "tint": "#ffffff",
-      "transfer": false,
-      "folder": null,
-      "sort": 0,
-      "flags": {
-        "dae": {
-          "specialDuration": []
-        }
-      },
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1792945845953,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
     }
   ],
   "folder": "0A40B9PdH5WzraZl",

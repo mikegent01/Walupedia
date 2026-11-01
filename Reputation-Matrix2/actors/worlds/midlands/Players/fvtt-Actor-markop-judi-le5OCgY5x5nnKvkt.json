@@ -534,7 +534,7 @@
     "tools": {},
     "spells": {
       "spell1": {
-        "value": 2,
+        "value": 1,
         "override": null
       },
       "spell2": {
@@ -616,7 +616,7 @@
       "hp": {
         "value": 77,
         "max": 77,
-        "temp": 0,
+        "temp": null,
         "tempmax": 0,
         "bonuses": {
           "level": "",
@@ -4054,7 +4054,7 @@
           "max": "1",
           "recovery": [],
           "autoDestroy": false,
-          "spent": 0
+          "spent": 1
         },
         "damage": {
           "base": {
@@ -24926,75 +24926,6 @@
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1792338388317,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      }
-    },
-    {
-      "_id": "dnd5ereaction000",
-      "name": "Reaction used",
-      "system": {
-        "changes": [
-          {
-            "key": "flags.midi-qol.actions.reaction",
-            "type": "override",
-            "value": true,
-            "phase": "initial"
-          },
-          {
-            "key": "flags.midi-qol.actions.reactionsUsed",
-            "type": "override",
-            "value": 1,
-            "phase": "initial"
-          },
-          {
-            "key": "flags.midi-qol.actions.reactionCombatRound",
-            "type": "override",
-            "value": 1,
-            "phase": "initial"
-          }
-        ]
-      },
-      "img": "modules/midi-qol/icons/reaction.svg",
-      "flags": {
-        "dae": {
-          "specialDuration": [
-            "shortRest"
-          ]
-        }
-      },
-      "statuses": [
-        "reaction"
-      ],
-      "showIcon": 2,
-      "type": "base",
-      "disabled": false,
-      "start": {
-        "time": 30,
-        "combat": "XBOiIpLK8Ua7zeDy",
-        "combatant": "Gb1oX9r4cuUAZKC5",
-        "initiative": 20,
-        "round": 1,
-        "turn": 0
-      },
-      "duration": {
-        "value": null,
-        "units": "seconds",
-        "expiry": "targetStart",
-        "expired": false
-      },
-      "description": "",
-      "origin": "Actor.le5OCgY5x5nnKvkt",
-      "tint": "#ffffff",
-      "transfer": false,
-      "folder": null,
-      "sort": 0,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1792339257287,
         "compendiumSource": null,
         "duplicateSource": null,
         "exportSource": null

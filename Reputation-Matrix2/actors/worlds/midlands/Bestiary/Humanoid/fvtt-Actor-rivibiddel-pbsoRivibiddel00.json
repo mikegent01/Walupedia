@@ -3620,6 +3620,28 @@
   "sort": 0,
   "flags": {
     "dnd5e": {},
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician",
+          "disciplined",
+          "assassin"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "Innate Spellcasting detected",
+          "Spell list: 3× self-buff spells → tactician",
+          "Keyword \"mind flayer\" in name/biography → tactician",
+          "Keyword \"duergar\" in name/biography → disciplined",
+          "Keyword \"drow\" in name/biography → assassin"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1793550287154,
+        "manuallyOverridden": false
+      }
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",
