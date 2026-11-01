@@ -257,6 +257,24 @@ feywild_attic: {
             negative: ['The ship loses power; Remi’s escape and Perot’s condition remain unresolved']
         }
     },
+    toadalnaec_claim: {
+        id: 'toadalnaec_claim',
+        name: 'The TOADALNAEC Claim',
+        description: 'A provisional new arc following the TOADALNAEC Saga and The TOADALNAEC and the Three Lies. Its opening record is breakfast beneath the Legionlance: the ship remains contested, Rivers’ custody is unclear, and Green T makes unverified claims about Speaker L. The record does not yet establish a defining turn or the arc’s direction.',
+        predecessorArcId: 'toadalnaec_saga',
+        icon: '⚖️',
+        status: 'active',
+        startDate: { day: 2, monthIndex: 8, year: 1040 },
+        endDate: null,
+        phases: [
+            { id: 'unsettled_claim', name: 'An Unsettled Claim', description: 'The ship, Rivers’ custody, and Green T’s account remain disputed; no outcome or political authority is established.' },
+            { id: 'direction_not_established', name: 'Direction Not Yet Established', description: 'Placeholder only. No later event has established what this arc becomes.' }
+        ],
+        currentPhase: 0,
+        themes: ['political', 'contested-authority', 'unresolved'],
+        keyFactions: ['liberated_toads'],
+        consequences: { positive: [], negative: [] }
+    },
     supernatural_sovereignty: {
         id: 'supernatural_sovereignty',
         name: 'The Supernatural Sovereignty Crisis',

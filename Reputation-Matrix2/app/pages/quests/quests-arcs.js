@@ -33,6 +33,11 @@ const ARC_IMAGES = {
         panel: 'assets/images/arcs/raventree-manor.png',
         header: 'assets/images/arcs/raventree-header.png',
         fallback: 'assets/images/arcs/default-ruins.png'
+    },
+    toadalnaec_claim: {
+        panel: 'assets/images/events/toadalnaec-breakfast/breakfast-under-the-legionlance.jpg',
+        header: 'assets/images/events/toadalnaec-breakfast/breakfast-under-the-legionlance.jpg',
+        fallback: 'assets/images/arcs/default-nature.png'
     }
 };
 
@@ -275,7 +280,8 @@ function getArcTagline(arcId) {
     const taglines = {
         'shadowfell_estate': 'The Vampire\'s Banquet',
         'feywild_attic': 'The Chaos Garden',
-        'raventree_manor': 'The Nexus of Ruin'
+        'raventree_manor': 'The Nexus of Ruin',
+        'toadalnaec_claim': 'A ship without a settled claim'
     };
     return taglines[arcId] || '';
 }
