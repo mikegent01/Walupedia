@@ -54,6 +54,30 @@ bar and chips are controls, not picks.
 
 Settings persist in `localStorage` under `waluipedia-tts`.
 
+## Sharing an 8 GB GPU with LM Studio (VRAM swap)
+
+An 8B chat model and the voice model don't fit on an 8 GB card together.
+When the card runs out, the driver spills into system RAM and both slow to a
+crawl. With **Swap VRAM with LM Studio** ticked in ⚙️ (on by default), the
+GPU goes to whichever one is needed right now:
+
+* **Read aloud** asks `start.py` (`POST /panel/api/vram {"want":"tts"}`) to
+  run `lms unload --all` before the first chunk.
+* The **chatroom** asks for `lm` before each model call, which unloads the
+  studio through its `/unload_models` endpoint. Before speaking it asks for
+  `tts`, after waiting for any model call still running. Who holds the GPU is
+  kept in `localStorage['waluipedia-vram']`, so a swap only happens when the
+  holder changes.
+* Each side reloads on its next request. The studio loads lazily. LM Studio
+  needs **just-in-time model loading** turned on (Developer → Server
+  settings), and it reloads with the model's *saved default* load settings
+  (GPU offload, context length), so save your settings as the default.
+
+Expect a few seconds per swap. That's nothing for an article, but you'll
+notice it on every chat turn that is also spoken. Pages not served by
+`start.py` skip the swap. `/unload_models` lives in the studio's
+`qwen_app/ui.py`, so restart the studio once to pick it up.
+
 ## Where the voice reaches
 
 The 🔊 chip is on every page with prose worth hearing: **articles, commentary

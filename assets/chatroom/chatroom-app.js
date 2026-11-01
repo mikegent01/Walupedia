@@ -471,7 +471,46 @@
       .then(function (r) { return done(true, r); }, function (e) { return done(false, e); });
   }
 
+  /* VRAM swap (docs/QWEN_TTS_BRIDGE.md): an 8 GB card cannot hold the chat
+   * model and the voice at once — the driver spills to system RAM and both
+   * crawl. Before using one, ask start.py to unload the other; it reloads
+   * lazily on its next request. Who holds the GPU is shared with the main
+   * site's read-aloud through localStorage, so the swap only fires on a
+   * change. The LLM is never pulled out from under a running call. */
+  var vram = { off: false, lmBusy: 0, queue: Promise.resolve() };
+  function vramFor(want) {
+    var saved = {};
+    try { saved = JSON.parse(window.localStorage.getItem('waluipedia-tts') || '{}'); } catch (e) { saved = {}; }
+    var holder = null;
+    try { holder = window.localStorage.getItem('waluipedia-vram'); } catch (e) { holder = null; }
+    if (vram.off || saved.swap === false || holder === want) return Promise.resolve();
+    var idle = function () {
+      return vram.lmBusy === 0 ? Promise.resolve() : new Promise(function (resolve) {
+        var timer = window.setInterval(function () { if (vram.lmBusy === 0) { window.clearInterval(timer); resolve(); } }, 250);
+      });
+    };
+    var step = vram.queue.then(function () { return want === 'tts' ? idle() : null; }).then(function () {
+      return fetch('/panel/api/vram', { method: 'POST', body: JSON.stringify({ want: want }) });
+    }).then(function (res) {
+      if (!res.ok) { vram.off = true; return; }   // not served by start.py
+      try { window.localStorage.setItem('waluipedia-vram', want); } catch (e) { /* private window */ }
+    }).catch(function () { /* a failed swap must not stop the scene */ });
+    vram.queue = step;
+    return step;
+  }
+
   function callModel(system, messages, opts) {
+    return vramFor('lm').then(function () {
+      vram.lmBusy++;
+      var settle = function () { vram.lmBusy--; };
+      var call;
+      try { call = callModelNow(system, messages, opts); } catch (e) { settle(); throw e; }
+      call.then(settle, settle);
+      return call;
+    });
+  }
+
+  function callModelNow(system, messages, opts) {
     var route = routeFor(opts);
     var url = route.url;
     var patience = (opts && opts.utility) ? 240000 : 600000;
@@ -499,7 +538,8 @@
           // is off per-request; servers that do not know the parameter
           // ignore it, and the /no_think soft switch rides as the backstop.
           chat_template_kwargs: { enable_thinking: false },
-        }, samplers())),
+        }, samplers(), opts && opts.schema ? { response_format: opts.schema } : {},
+          opts && opts.stop && opts.stop.length ? { stop: opts.stop } : {})),
       }, patience).then(function (r) {
         return r.json().then(function (value) {
           if (!r.ok || value.error) {
@@ -5330,7 +5370,15 @@
       return m.role === 'char' || m.role === 'world' || m.role === 'user';
     })[0];
     var lastWasWorld = lastMsg && lastMsg.role === 'world';
-    return callModel(RP.directorPrompt(r, speaker), [{ role: 'user', content: 'Who speaks next?' }], { tokens: 40, utility: true })
+    var ask = [{ role: 'user', content: 'Who speaks next?' }];
+    // Constrained to the cast, WORLD or USER; a server that refuses
+    // response_format is asked again in plain text. The grammar lets a
+    // model pad the braces with whitespace, so the budget has headroom.
+    return callModel(RP.directorPrompt(r, speaker), ask, { tokens: 100, utility: true, schema: RP.directorSchema(r, speaker) })
+      .catch(function (e) {
+        if (e && e.stopped) throw e;
+        return callModel(RP.directorPrompt(r, speaker), ask, { tokens: 40, utility: true });
+      })
       .then(function (text) { return RP.parseDirector(text, r, speaker); })
       .catch(function () { return { next: 'user', reason: 'the director could not be reached' }; })
       .then(function (decision) {
@@ -5410,8 +5458,11 @@
     // What the cast may cite: whatever the recent turns are actually about,
     // filtered to filings whose dates have already passed in this scene.
     var recent = RP.historyFor(r, 4).map(function (m) { return m.content; }).join(' ');
-    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 6 });
     var dug = searchForTurn(r, speaker, recent);
+    // A filing already quoted below is not listed again as citable — the
+    // same record twice is prompt a small model reads instead of the scene.
+    var found = RP.citableFor(archiveIndex, r, state, { query: recent + ' ' + (r.scene || ''), limit: 4 });
+    found.citable = found.citable.filter(function (x) { return !dug.some(function (d) { return d.id === x.r.id; }); });
     if (opts.searched) recent = recent + ' ' + opts.searched;
     var opts2 = {
       fate: fate, archive: archive, recent: recent, notes: r.lastNotes || [],
@@ -5458,9 +5509,15 @@
     // Turn count first, then the character budget: a long chat should cost
     // turns, not paragraphs, and one monologue must not evict ten turns.
     var historySource = retry ? { kind: r.kind, cast: r.cast, recapAt: r.recapAt, messages: r.messages.slice(0, opts.retryIndex) } : r;
+    // A group turn sees the scene as its speaker does: only their own
+    // turns are the model's, everyone else's arrive labelled.
+    var playerLabel = (RP.playerCharacter(r) || {}).name || RP.personaSheet(state).name || 'The player';
+    var groupView = r.kind === 'group' && !worldTurn ? { viewer: speaker.id, player: playerLabel } : null;
+    var turnStops = groupView ? RP.speakerStops((r.cast || []).concat(r.away || []).map(function (c) { return c && c.name; })
+      .concat([playerLabel]), speaker.name) : null;
     var history = cacheSplit
-      ? RP.packHistoryStepped(RP.historyFor(historySource), Number(state.settings.historyChars) || RP.HISTORY_BUDGET, { maxTurns: lookBack })
-      : RP.packHistory(RP.historyFor(historySource, lookBack), Number(state.settings.historyChars) || RP.HISTORY_BUDGET);
+      ? RP.packHistoryStepped(RP.historyFor(historySource, 0, groupView), Number(state.settings.historyChars) || RP.HISTORY_BUDGET, { maxTurns: lookBack })
+      : RP.packHistory(RP.historyFor(historySource, lookBack, groupView), Number(state.settings.historyChars) || RP.HISTORY_BUDGET);
     if (!history.length) history = [{ role: 'user', content: '(The scene opens. Begin in character.)' }];
     // ➤ Continue sends no line of the reader's: without this the history
     // ends on a character's turn and the model is asked to extend it.
@@ -5479,13 +5536,13 @@
      *  and whatever is left is trimmed back to a full stop rather than
      *  shown as a dangling fragment. */
     function complete(sys, msgs, tries) {
-      return callModel(sys, msgs, { tokens: tokensFor(worldTurn) }).then(function (text) {
+      return callModel(sys, msgs, { tokens: tokensFor(worldTurn), stop: turnStops }).then(function (text) {
         var cleaned = RP.stripSpeaker(text, speaker.name).trim();
         if (!RP.looksTruncated(cleaned) || (tries || 0) >= 3) return cleaned;
         return callModel(sys, msgs.concat([
           { role: 'assistant', content: cleaned },
           { role: 'user', content: RP.continueNudge(cleaned) },
-        ]), { tokens: tokensFor(worldTurn) })
+        ]), { tokens: tokensFor(worldTurn), stop: turnStops })
           .then(function (rest) {
             return RP.stitch(cleaned, RP.stripSpeaker(rest, speaker.name).trim());
           })
@@ -5496,7 +5553,7 @@
             return callModel(sys, msgs.concat([
               { role: 'assistant', content: joined },
               { role: 'user', content: RP.continueNudge(joined) + ' One or two sentences at most.' },
-            ]), { tokens: 200 })
+            ]), { tokens: 200, stop: turnStops })
               .then(function (rest) { return RP.stitch(joined, RP.stripSpeaker(rest, speaker.name).trim()); })
               .catch(function () { return joined; });
           });
@@ -6306,7 +6363,9 @@
         return /^https?:/.test(path) ? path : cfg.endpoint + '/gradio_api/file=' + encodeURI(path);
       });
     }
-    return attempt('/gradio_api/call').catch(function (e) {
+    return vramFor('tts').then(function () {
+      return attempt('/gradio_api/call');
+    }).catch(function (e) {
       if (e && e.studio) throw e;
       return attempt('/call');
     });

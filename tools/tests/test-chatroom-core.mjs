@@ -197,6 +197,40 @@ check('director: NEXT picks the named character', RP.parseDirector('NEXT: The Ti
 check('director: USER hands the scene back', RP.parseDirector('USER', group, sans).next === 'user');
 check('director: an unreadable answer hands back rather than guessing', RP.parseDirector('uhh maybe someone?', group, sans).next === 'user');
 check('director: it may never re-pick the character who just spoke', RP.parseDirector('NEXT: Sans', group, sans).next === 'user');
+check('group history: only the speaker’s own turns are the model’s; the rest arrive labelled', (() => {
+  const room = { kind: 'group', cast: [{ id: 'wa', name: 'Wario' }, { id: 'wl', name: 'Waluigi' }], messages: [
+    { id: '1', role: 'char', charId: 'wa', text: 'Open up!' },
+    { id: '2', role: 'char', charId: 'wl', text: 'Let me in!' },
+    { id: '3', role: 'user', text: 'What is this place?' },
+  ] };
+  const h = RP.chatShape(RP.historyFor(room, 0, { viewer: 'wa', player: 'Mr. T' }), 'Wario');
+  const merged = h.map(m => m.content).join('\n');
+  return h.filter(m => m.role === 'assistant').every(m => !/Waluigi/.test(m.content)) &&
+    h.some(m => m.role === 'assistant' && m.content === 'Open up!') &&
+    h[h.length - 1].role === 'user' && /Waluigi: Let me in!/.test(h[h.length - 1].content) &&
+    /Mr\. T: What is this place\?/.test(merged);
+})());
+check('group history: without a viewer it is unchanged (director, recaps)', (() => {
+  const room = { kind: 'group', cast: [{ id: 'wa', name: 'Wario' }], messages: [{ id: '1', role: 'char', charId: 'wa', text: 'Open up!' }] };
+  return RP.historyFor(room)[0].role === 'assistant' && RP.historyFor(room)[0].content === 'Wario: Open up!';
+})());
+check('group stops: a new line for anyone else ends the turn, never the speaker’s own name',
+  (() => { const s = RP.speakerStops(['Wario', 'Waluigi', 'Mr. T', 'wario', ''], 'Wario');
+    return s.includes('\nWaluigi:') && s.includes('\nMr. T:') && s.includes('\nNarration:') && !s.some(x => /wario/i.test(x)); })());
+check('director: the schema allows the cast but not the last speaker, plus WORLD and USER',
+  (() => { const e = RP.directorSchema(group, sans).json_schema.schema.properties.next.enum;
+    return e.includes('The Timber Gang') && !e.includes('Sans') && e.includes('WORLD') && e.includes('USER'); })());
+check('director: a constrained JSON answer picks the character', RP.parseDirector('{"next": "The Timber Gang"}', group, sans).next === 'timber_gang');
+check('director: a constrained JSON WORLD moves the scene', RP.parseDirector('{"next":"WORLD"}', group, sans).next === 'world');
+check('director: a constrained JSON USER hands back', RP.parseDirector('{"next":"USER"}', group, sans).next === 'user');
+check('director: broken JSON hands back rather than guessing', RP.parseDirector('{"next": "The Tim', group, sans).next === 'user');
+check('director: the character the player is starred as is never handed the turn',
+  (() => { const room = { cast: [{ id: 'mrt', name: 'Mr. T' }, { id: 'w', name: 'Wario' }, { id: 'l', name: 'Waluigi' }], messages: [], youPlay: 'mrt' };
+    return !RP.directorSchema(room, { id: 'w' }).json_schema.schema.properties.next.enum.includes('Mr. T') &&
+      !RP.directorPrompt(room, { id: 'w' }).includes('- Mr. T') &&
+      RP.parseDirector('{"next":"Mr. T"}', room, { id: 'w' }).next === 'user'; })());
+check('director: a name with a full stop still matches',
+  RP.parseDirector('{ "next": "Mr. T" }', { cast: [{ id: 'mrt', name: 'Mr. T' }, { id: 'w', name: 'Wario' }], messages: [] }, { id: 'w' }).next === 'mrt');
 check('director: chain length counts character turns since the player', RP.chainLength(group) === 1);
 group.messages.push({ id: 'd3', role: 'char', charId: 'timber_gang', text: '*spits*', at: 3 });
 group.messages.push({ id: 'd4', role: 'char', charId: 'rebel_scout', text: 'we heard them stop.', at: 4 });
@@ -2106,6 +2140,24 @@ check('search: it returns the passage that matched, not the whole filing', (() =
   const hit = searched[0];
   return hit.snippet.includes('twenty-eight for') && hit.snippet.length < 400 &&
     !hit.snippet.includes('pays by the trunk');
+})());
+check('search: a word in most of the archive does not fetch filings, and words match whole', (() => {
+  const events = [{ id: 'accord', name: 'The Accord Signing', summary: 'Wario signs the Contract of Accord in the Feywild.' }];
+  for (let i = 0; i < 30; i++) events.push({ id: 'door' + i, name: 'Filing ' + i, summary: 'Waluigi bangs on a door. Waluigi again, at the door.' });
+  const idx = RP.buildIndex({ events, factions: [], whatifs: [], posts: [] }, {});
+  const prose = 'Waluigi: *My fist hits the door again* Let me in! Wario: *slams the door* Where did Luigi go? ' +
+    'And what is this Contract of Accord you dragged us into the Feywild for?';
+  const hits = RP.searchArchive(idx, prose, { limit: 3 });
+  return hits.length === 1 && hits[0].id === 'accord' &&
+    RP.searchArchive(idx, 'luigi', { limit: 3 }).length === 0;     // "luigi" is not inside "waluigi"
+})());
+check('search: names in the prose outweigh rare ordinary words', (() => {
+  const idx = RP.buildIndex({ events: [
+    { id: 'verity', name: 'A Lecture', summary: 'His voice cracked and he kept hovering by the ragged door.' },
+    { id: 'hall', name: 'The Archive Hall', summary: 'Mr. T carried the Contract of Accord out of the Archive Hall.' },
+  ], factions: [], whatifs: [], posts: [] }, {});
+  const hits = RP.searchArchive(idx, 'My voice cracked, hovering by the ragged door. Mr. T, what is the Contract of Accord?', { limit: 2 });
+  return hits[0].id === 'hall';
 })());
 check('search: a query with nothing behind it finds nothing',
   RP.searchArchive(searchIndex, 'zzzz qqqq', { limit: 3 }).length === 0);

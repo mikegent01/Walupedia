@@ -1071,26 +1071,50 @@
 
   /** Chat history in the model's own shape. Scene cards, fired beats and the
    *  page's own failure notices are never sent: the model sees only play. */
-  RP.historyFor = function (room, limit) {
+  RP.historyFor = function (room, limit, opts) {
     var group = room && room.kind === 'group';
+    // Seen through one speaker's eyes. Every character's turn used to go out
+    // as the model's own, and chatShape merged neighbours, so the model was
+    // shown single replies reading "Waluigi: … Wario: …" — and wrote three
+    // people a turn. Now only the speaker's own turns are the model's; the
+    // others, the narration and the player arrive labelled, from outside.
+    var viewer = group && opts && opts.viewer ? opts.viewer : '';
     var from = Math.max(0, Number((room && room.recapAt) || 0));
     // A muted turn stays on screen and stays out of the model's head: that
     // is how you take something back without deleting it.
     var out = (room && room.messages ? room.messages : []).filter(function (m) {
       return visible(m) && !m.muted;
     }).map(function (m) {
-      if (m.role === 'user') return { role: 'user', content: RP.textOf(m) };
-      if (m.role === 'world') return { role: 'assistant', content: 'Narration: ' + RP.textOf(m) };
+      if (m.role === 'user') {
+        return { role: 'user', content: (viewer ? (opts.player || 'The player') + ': ' : '') + RP.textOf(m) };
+      }
+      if (m.role === 'world') return { role: viewer ? 'user' : 'assistant', content: 'Narration: ' + RP.textOf(m) };
       var name = '';
       if (group) {
         var who = (room.cast || []).filter(function (c) { return c.id === m.charId; })[0];
         name = who ? who.name + (m.same ? ' (at the same moment)' : '') + ': ' : '';
+      }
+      if (viewer) {
+        return m.charId === viewer ? { role: 'assistant', content: RP.textOf(m) } : { role: 'user', content: name + RP.textOf(m) };
       }
       return { role: 'assistant', content: name + RP.textOf(m) };
     });
     // Anything before the recap point is covered by the recap itself.
     if (from) out = out.slice(from);
     return limit ? out.slice(-limit) : out;
+  };
+
+  /** Where a group turn must stop: the moment the model starts a line for
+   *  somebody else ("\nWaluigi:"), the turn is over. A newline is required,
+   *  so a name inside the prose ("Wario: he never listens") is untouched. */
+  RP.speakerStops = function (names, speakerName) {
+    var seen = {};
+    return (names || []).concat(['Narration', 'Narrator']).filter(function (n) {
+      var key = String(n || '').trim().toLowerCase();
+      if (!key || key === String(speakerName || '').toLowerCase() || seen[key]) return false;
+      seen[key] = 1;
+      return true;
+    }).slice(0, 12).map(function (n) { return '\n' + String(n).trim() + ':'; });
   };
 
   /** The history in the shape every chat template accepts: it opens and
@@ -2118,8 +2142,16 @@
 
   /** The question put to the model after every group reply: does this scene
    *  keep going between the characters, or does it need the player? */
+  /** Who the director may hand the turn to: never whoever just spoke, and
+   *  never the character the player is starred as — that is the player. */
+  RP.directorCast = function (room, lastSpeaker) {
+    return (room.cast || []).filter(function (c) {
+      return (!lastSpeaker || c.id !== lastSpeaker.id) && (!room.youPlay || c.id !== room.youPlay);
+    });
+  };
+
   RP.directorPrompt = function (room, lastSpeaker) {
-    var cast = (room.cast || []).filter(function (c) { return !lastSpeaker || c.id !== lastSpeaker.id; });
+    var cast = RP.directorCast(room, lastSpeaker);
     var recent = RP.historyFor(room, 6).map(function (m) { return (m.role === 'user' ? 'PLAYER: ' : '') + m.content; }).join('\n');
     return [
       'You are directing a group roleplay scene. Decide who speaks next.',
@@ -2135,12 +2167,35 @@
       '   — choose this when a character is being addressed, contradicted, or plainly has to answer.',
       'WORLD',
       '   — choose this when nobody needs to speak but the scene should move: time passing, weather, an arrival, '
-      + 'a noise, the place itself doing something.',
+      + 'a noise, the place itself doing something — or the player asked about the place, what they see, or '
+      + 'something none of the characters could know.',
       'USER',
       '   — choose this when the scene is waiting on the player: they were asked something, the exchange has '
       + 'run its course, a decision is theirs, or the characters are starting to repeat each other.',
       'Prefer USER when in doubt. Never pick the character who just spoke.',
     ].join('\n');
+  };
+
+  /** The director's answer as a JSON schema the server enforces with a
+   *  grammar. A small roleplay model asked for "one line" wrote a paragraph
+   *  of reasons, ran out of its 40 tokens before any NEXT:, and every turn
+   *  fell back to USER — the world never got a turn. Constrained, it can
+   *  only write one of the allowed answers. */
+  RP.directorSchema = function (room, lastSpeaker) {
+    var names = RP.directorCast(room, lastSpeaker).map(function (c) { return c.name; });
+    return {
+      type: 'json_schema',
+      json_schema: {
+        name: 'director',
+        strict: true,
+        schema: {
+          type: 'object',
+          properties: { next: { type: 'string', enum: names.concat(['WORLD', 'USER']) } },
+          required: ['next'],
+          additionalProperties: false,
+        },
+      },
+    };
   };
 
   /** Read the director's answer. Anything unrecognisable hands back to the
@@ -2150,18 +2205,30 @@
       return { next: 'user', reason: 'the scene has run several turns without you' };
     }
     var value = String(text || '').trim();
+    // The constrained answer, {"next": "Wario"}, read as the line it stands
+    // for. Only a closed string counts: a reply cut off mid-name is no pick.
+    if (/^\{/.test(value)) {
+      var json = /"next"\s*:\s*"([^"]+)"/.exec(value);
+      var picked = json ? json[1].trim() : '';
+      value = !picked ? '' : /^(WORLD|USER)$/i.test(picked) ? picked.toUpperCase() : 'NEXT: ' + picked;
+    }
     if (/^\s*WORLD\s*$/im.test(value)) return { next: 'world', reason: 'the scene moves on its own' };
     var match = /NEXT\s*:\s*([^\n]+)/i.exec(value);
     if (!match) return { next: 'user', reason: 'the scene is waiting on you' };
-    var wanted = match[1].replace(/["'.*]/g, '').trim().toLowerCase();
+    // Both sides lose the same punctuation, or "Mr. T" never matches "Mr. T".
+    var bare = function (s) { return String(s).replace(/["'.*]/g, '').trim().toLowerCase(); };
+    var wanted = bare(match[1]);
     if (!wanted || wanted === 'user' || wanted === 'player') return { next: 'user', reason: 'the scene is waiting on you' };
     if (wanted === 'world' || wanted === 'the world' || wanted === 'narration') {
       return { next: 'world', reason: 'the scene moves on its own' };
     }
     var hit = (room.cast || []).filter(function (c) {
-      return c.name.toLowerCase() === wanted || wanted.indexOf(c.name.toLowerCase()) >= 0 || c.name.toLowerCase().indexOf(wanted) >= 0;
+      var name = bare(c.name);
+      return name === wanted || wanted.indexOf(name) >= 0 || name.indexOf(wanted) >= 0;
     })[0];
-    if (!hit || (lastSpeaker && hit.id === lastSpeaker.id)) return { next: 'user', reason: 'the scene is waiting on you' };
+    if (!hit || (lastSpeaker && hit.id === lastSpeaker.id) || (room.youPlay && hit.id === room.youPlay)) {
+      return { next: 'user', reason: 'the scene is waiting on you' };
+    }
     return { next: hit.id, reason: 'answering ' + ((lastSpeaker && lastSpeaker.name) || 'the last turn') };
   };
 
@@ -7019,15 +7086,88 @@
 
   var STOP = /^(the|and|for|with|that|this|from|into|what|when|where|who|whom|whose|which|about|there|their|they|them|then|than|have|has|had|was|were|been|being|does|did|done|will|would|could|should|shall|may|might|must|can|are|is|it|its|his|her|our|your|you|i|a|an|of|to|in|on|at|by|as|or|if|but|not|no|yes|do|so|up|out|off|over|under|again|once|here|now)$/i;
 
-  RP.searchTerms = function (query) {
+  RP.searchTerms = function (query, limit) {
     var seen = {};
     return String(query || '').toLowerCase().split(/[^a-z0-9']+/)
       .filter(function (t) {
         if (t.length < 3 || STOP.test(t) || seen[t]) return false;
         seen[t] = 1;
         return true;
-      }).slice(0, 12);
+      }).slice(0, limit || 12);
   };
+
+  /** How rare each word is across the archive. The turn-by-turn search
+   *  used to take the first twelve words of the last four turns —
+   *  "waluigi fist hits door let stop hovering…" — and count any filing
+   *  that contained them, by substring, so "luigi" matched every Waluigi
+   *  record and "door" fetched The Charred Note at Waluigi's Door. Now a
+   *  word in half the archive (wario, door) counts for little, a word in
+   *  five filings (accord, feywild) carries the search, and words match
+   *  whole. Cached on the index, which is a new array on every rebuild. */
+  RP.termWeights = function (index) {
+    if (index && index._weights) return index._weights;
+    var list = index || [], n = list.length, df = {}, tokens = new Map();
+    list.forEach(function (r) {
+      var set = {};
+      String(r.words || '').split(/[^a-z0-9']+/).forEach(function (t) {
+        if (t.length < 3 || set[t]) return;
+        set[t] = 1;
+        df[t] = (df[t] || 0) + 1;
+      });
+      tokens.set(r, set);
+    });
+    var commonAt = Math.max(5, n * 0.1);
+    var weights = {
+      df: function (t) { return df[t] || 0; },
+      common: function (t) { return (df[t] || 0) > commonAt; },
+      of: function (t) { return df[t] ? Math.log(1 + n / df[t]) * (df[t] > commonAt ? 0.25 : 1) : 0; },
+      has: function (r, t) { var set = tokens.get(r); return Boolean(set && set[t]); },
+      /** The query's words the archive can answer: names first, then
+       *  rarest first. */
+      pick: function (terms, k, proper) {
+        var rank = function (t) { return (proper && proper[t] ? -1e6 : 0) + df[t]; };
+        return terms.filter(function (t) { return df[t]; })
+          .sort(function (a, b) { return rank(a) - rank(b); }).slice(0, k || 24);
+      },
+    };
+    if (index) Object.defineProperty(index, '_weights', { value: weights, enumerable: false });
+    return weights;
+  };
+
+  /** Words capitalised mid-sentence — names, places, things with titles
+   *  (Feywild, Accord, Luigi). Rare prose words ("cracked", "hovering")
+   *  are rare in every archive and say nothing about which filing this
+   *  is; the proper nouns do. */
+  RP.properTerms = function (query) {
+    var out = {};
+    var re = /([^.!?\s"“*(\[]\s+)([A-Z][a-z0-9']{2,})/g, m;
+    while ((m = re.exec(String(query || '')))) {
+      var t = m[2].toLowerCase();
+      if (!STOP.test(t)) out[t] = 1;
+      re.lastIndex = m.index + m[1].length;
+    }
+    return out;
+  };
+
+  /** One record against the weighted terms: the score, and how many of the
+   *  words it matched were rare ones. A record matched only by common
+   *  words (the cast's names, "door") is noise, not a source. */
+  RP.scoreRecord = function (r, terms, weights, proper) {
+    var name = String(r.name || '').toLowerCase();
+    var score = 0, rare = [];
+    terms.forEach(function (t) {
+      if (!weights.has(r, t)) return;
+      var w = weights.of(t) * (proper && proper[t] ? 3 : 1);
+      score += w;
+      if (new RegExp('(^|[^a-z0-9])' + t.replace(/[^a-z0-9']/g, '') + '($|[^a-z0-9])').test(name)) score += w;   // a name match is worth more
+      if (!weights.common(t)) rare.push(t);
+    });
+    return { score: score, rare: rare };
+  };
+
+  /** A long query (a turn's prose) needs two rare words to land on a
+   *  record; a short one (a [[LOOKUP:]]) needs one. */
+  function rareNeeded(terms) { return terms.length <= 3 ? 1 : 2; }
 
   /** The best few sentences inside a body of prose for these terms. */
   RP.bestPassage = function (body, terms, size) {
@@ -7050,8 +7190,11 @@
    *  actually matched, not the whole filing. */
   RP.searchArchive = function (index, query, opts) {
     opts = opts || {};
-    var terms = RP.searchTerms(query);
+    var weights = RP.termWeights(index);
+    var proper = RP.properTerms(query);
+    var terms = weights.pick(RP.searchTerms(query, 400), 24, proper);
     if (!terms.length) return [];
+    var need = rareNeeded(terms);
     var scored = [];
     var when = opts.scene ? (typeof opts.scene === 'string' ? RP.parseWahDate(opts.scene) : opts.scene) : null;
     (index || []).forEach(function (r) {
@@ -7059,16 +7202,10 @@
       // Nothing from after the scene. Reading tomorrow's filing tonight is
       // how a chat ends up quoting a battle that has not happened.
       if (when && r.date && RP.timeRelation(when, r.date).rel === 'future') return;
-      var hay = r.words || '';
-      var score = 0;
-      terms.forEach(function (t) {
-        var at = hay.indexOf(t);
-        if (at < 0) return;
-        score += 1;
-        if (String(r.name || '').toLowerCase().indexOf(t) >= 0) score += 2;   // a name match is worth more
-      });
-      if (!score) return;
-      scored.push({ r: r, score: score });
+      var hit = RP.scoreRecord(r, terms, weights, proper);
+      if (hit.rare.length < need) return;
+      var names = hit.rare.filter(function (t) { return proper[t]; });
+      scored.push({ r: r, score: hit.score, rare: names.length ? names : hit.rare });
     });
     return scored.sort(function (a, b) { return b.score - a.score; })
       .slice(0, opts.limit || 4)
@@ -7076,8 +7213,9 @@
         return {
           id: x.r.id, kind: x.r.kind, name: x.r.name,
           date: x.r.date ? RP.formatWahDate(x.r.date) : '',
-          snippet: RP.bestPassage(x.r.body || x.r.text, terms, opts.size || 320),
-          score: x.score,
+          // The passage is cut around the words that made it a match.
+          snippet: RP.bestPassage(x.r.body || x.r.text, x.rare, opts.size || 320),
+          score: Math.round(x.score * 10) / 10,
         };
       });
   };
@@ -8136,16 +8274,19 @@
   RP.citableFor = function (index, room, state, opts) {
     opts = opts || {};
     var scene = RP.sceneDate(room, state);
-    var terms = String(opts.query || '').toLowerCase().split(/[^a-z0-9]+/)
-      .filter(function (t) { return t.length > 3; }).slice(0, 24);
-    var castNames = (room.cast || []).map(function (c) { return c.name.toLowerCase(); });
+    // Scored by rarity, like the search: the cast's own names used to be
+    // worth +3 each, so every filing that mentioned Wario and Waluigi
+    // outranked the one this scene is actually about.
+    var weights = RP.termWeights(index);
+    var proper = RP.properTerms(opts.query);
+    var terms = weights.pick(RP.searchTerms(opts.query, 400), 24, proper);
+    var need = rareNeeded(terms);
     var ok = [], blocked = [];
     (index || []).forEach(function (r) {
       if (r.noncanon) return;
       var rel = r.date && scene ? RP.timeRelation(scene, r.date) : null;
-      var score = 0;
-      castNames.forEach(function (n) { if (r.words.indexOf(n) >= 0) score += 3; });
-      terms.forEach(function (t) { if (r.words.indexOf(t) >= 0) score += 1; });
+      var hit = RP.scoreRecord(r, terms, weights, proper);
+      var score = hit.rare.length >= need ? hit.score : 0;
       if (rel && rel.rel === 'future') {
         if (score > 0) blocked.push({ r: r, rel: rel, score: score });
         return;
