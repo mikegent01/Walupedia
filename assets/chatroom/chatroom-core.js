@@ -7020,6 +7020,8 @@
     var protectedFrom = parts.length;
     var worldDirection = RP.directionBlock(room);
     if (worldDirection) parts.push(worldDirection);
+    var worldHouse = RP.mansionBlock ? RP.mansionBlock(room) : '';
+    if (worldHouse) parts.push(worldHouse);
     if (opts.ambient) parts.push(RP.liveBlock(room, null, false));
     if (room.mechanics !== 'off') {
       var sheets = RP.stateBlock(room, RP.PLAYER_ID);
@@ -9510,6 +9512,9 @@
     if (continuation) parts.push(continuation);
     var direction = RP.directionBlock(room);
     if (direction) parts.push(direction);
+    // 🏚 A planned adventure: the current room, the party, the keys.
+    var house = RP.mansionBlock ? RP.mansionBlock(room) : '';
+    if (house) parts.push(house);
     var moment = RP.momentBlock(room, RP.normChar(speaker || {}), opts.moment);
     if (moment) parts.push(moment);
     var audience = RP.audienceBlock(room, RP.normChar(speaker || {}).id,
@@ -10056,11 +10061,22 @@
     return true;
   };
 
+  /** How many undo steps per chat survive a reload. Every step is a full copy
+   *  of the chat, so twelve of them made a 300 KB chat weigh 5 MB and filled
+   *  the browser's ~5 MB store; the full twelve stay in memory for the session. */
+  RP.SAVED_UNDO = 2;
+
   /** Write the state back, newest 30 rooms only. */
   RP.saveState = function (store, state) {
     var rooms = (state.rooms || []).slice().sort(function (a, b) {
       return (b.updated || 0) - (a.updated || 0);
-    }).slice(0, 30);
+    }).slice(0, 30).map(function (r) {
+      if (!r || (!(r.undo || []).length && !(r.redo || []).length)) return r;
+      var lean = Object.assign({}, r);
+      lean.undo = (r.undo || []).slice(-RP.SAVED_UNDO);
+      lean.redo = [];
+      return lean;
+    });
     var value = {
       version: 1,
       user: state.user, settings: state.settings, active: state.active,
@@ -10082,15 +10098,10 @@
       store.setItem(RP.KEY, JSON.stringify(value));
       return true;
     } catch (e) {
-      // Out of quota: drop the oldest rooms until it fits rather than losing
-      // the lore and the memory, which are much smaller and much harder to redo.
-      for (var keep = 10; keep >= 1; keep = Math.floor(keep / 2)) {
-        try {
-          value.rooms = rooms.slice(0, keep);
-          store.setItem(RP.KEY, JSON.stringify(value));
-          return true;
-        } catch (e2) { /* keep shrinking */ }
-      }
+      // Out of quota. This used to write a copy cut down to the newest 10, 5,
+      // 2 or 1 rooms, which silently threw the rest of the chats away on
+      // the next load. Leave the last good copy alone and say it failed:
+      // the caller saves to disk instead.
       return false;
     }
   };

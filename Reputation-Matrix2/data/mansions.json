@@ -1,0 +1,622 @@
+{
+  "_about": "Planned adventures for the chatroom's 🏚 Adventures tab. Source: docs/sessions/feywild-mansion-plan.md. The GM's truth (§1 of the plan) is deliberately NOT in this file: nothing here is hidden from the model, so nothing here may spoil the twist.",
+  "mansions": [
+    {
+      "id": "feywild_house",
+      "name": "The Feywild House",
+      "premise": "Beta Luigi has opened the door of the house in the Feywild. Five areas deep, the party will find keys, ghosts and a crown that should not be where it is.",
+      "date": "3 Aethel, 1035 BF",
+      "sourceId": "the_feywild_house_and_the_open_threshold",
+      "party": ["wario", "waluigi", "mr_t", "beta_luigi", "jory_dobbs"],
+      "guide": "professor_e_gadd",
+      "start": "foyer",
+      "scene": "A haunted house in the Feywild, entered through the door Beta Luigi opened. Ghosts live in its rooms; most doors are locked and every key opens exactly one. Professor E. Gadd is already inside and acts as the party's guide.",
+      "rules": [
+        "Only the current room exists. Never name, describe or hint at a room the party has not entered.",
+        "A locked door stays locked. Nobody opens, breaks or blasts it without the named key, whatever they try.",
+        "Keep the marching order exactly as listed. Traps and the first ghost hit the FRONT; ambushes from behind hit the REAR.",
+        "Ghosts are played by the narration. Each room's ghosts behave the way the room describes.",
+        "What can be found in a room is found only when someone actually searches or fights for it. Describe it plainly and let the party draw the conclusion; never explain what a clue means.",
+        "Anyone listed as elsewhere or captured is not in this room and does not speak."
+      ],
+      "areas": [
+        { "n": 1, "name": "Area 1 — the east wing, upstairs" },
+        { "n": 2, "name": "Area 2 — the ground floor" },
+        { "n": 3, "name": "Area 3 — the west wing" },
+        { "n": 4, "name": "Area 4 — the top floor, the roof and the cellars" },
+        { "n": 5, "name": "Area 5 — the Secret Altar" }
+      ],
+      "items": {
+        "key_anteroom": { "label": "Anteroom key", "kind": "key" },
+        "key_master_bedroom": { "label": "Master Bedroom key", "kind": "key" },
+        "key_nursery": { "label": "Nursery key", "kind": "key" },
+        "area_key_1": { "label": "Area Key — Area 2", "kind": "area" },
+        "key_bathroom": { "label": "Bathroom key", "kind": "key" },
+        "key_ball_room": { "label": "Ball Room key", "kind": "key" },
+        "key_storage": { "label": "Storage Room key", "kind": "key" },
+        "hidden_switch": { "label": "The switch behind the crates", "kind": "secret" },
+        "three_stones": { "label": "3 Stones", "kind": "stones", "effect": "Three carved stones that fit something sealed." },
+        "key_mirror": { "label": "Mirror Room key", "kind": "key" },
+        "fire_medal": { "label": "Fire Medal", "kind": "medal", "effect": "Fire burst attack; lights candles." },
+        "key_conservatory": { "label": "Conservatory key", "kind": "key" },
+        "key_dining": { "label": "Dining Room key", "kind": "key" },
+        "water_medal": { "label": "Water Medal", "kind": "medal", "effect": "Water spray; douses fire ghosts." },
+        "area_key_2": { "label": "Area Key — Area 3", "kind": "area" },
+        "key_nana": { "label": "Nana's Room key", "kind": "key" },
+        "key_tea_room": { "label": "Tea Room key", "kind": "key" },
+        "ice_medal": { "label": "Ice Medal", "kind": "medal", "effect": "Freeze attack." },
+        "key_safari": { "label": "Safari Room key", "kind": "key" },
+        "area_key_3": { "label": "Area Key — Area 4", "kind": "area" },
+        "key_breaker": { "label": "Breaker Room key", "kind": "key" },
+        "key_cold_storage": { "label": "Cold Storage key", "kind": "key" },
+        "key_pipe_room": { "label": "Pipe Room key", "kind": "key" },
+        "key_armory": { "label": "Armory key", "kind": "key" },
+        "key_clockwork": { "label": "Clockwork Room key", "kind": "key" },
+        "key_ceramics": { "label": "Ceramics Studio key", "kind": "key" },
+        "key_roof": { "label": "Roof key", "kind": "key" },
+        "key_sitting_room": { "label": "Sitting Room key", "kind": "key" },
+        "key_guest_room": { "label": "Guest Room key", "kind": "key" },
+        "key_sealed_room": { "label": "Sealed Room key", "kind": "key" },
+        "key_artist_studio": { "label": "Artist's Studio key", "kind": "key" },
+        "area_key_4": { "label": "Area Key — the Secret Altar", "kind": "area" }
+      },
+      "shop": {
+        "name": "Gadd's Cart",
+        "room": "foyer",
+        "note": "Prices and stock are loose on purpose — Egadd can invent more, at his own prices.",
+        "stock": [
+          { "id": "mushroom", "label": "Healing mushroom", "price": 50, "effect": "Closes a wound." },
+          { "id": "patch_kit", "label": "Vacuum patch kit", "price": 100, "effect": "A field repair for a Poltergust." },
+          { "id": "spirit_lantern", "label": "Spirit lantern", "price": 150, "effect": "Shows ghosts that are hiding." },
+          { "id": "boo_charm", "label": "Boo-ward charm", "price": 200, "effect": "One Boo grab slips off." }
+        ]
+      },
+      "rooms": [
+        { "id": "foyer", "name": "Foyer", "floor": "Floor 1+2", "area": 1, "ghosts": "None. Egadd waits here.", "about": "A tall double-height hall, dust in the chandelier, a grand stair going up. Egadd's cart of gadgets is parked by the stairs. This is the safe room: nothing attacks here.", "beats": ["egadd_greets"] },
+        { "id": "parlor", "name": "Parlor", "floor": "Floor 2", "area": 1, "ghosts": "The Doorman — a stiff, polite ghost who won't let anyone past without a reason.", "about": "Velvet chairs, a cold fireplace, a guest book with fresh signatures.", "rewards": ["key_anteroom"] },
+        { "id": "anteroom", "name": "Anteroom", "floor": "Floor 2", "area": 1, "ghosts": "None.", "about": "A narrow waiting room with doors off it. One door, to a wardrobe room, will not move at all.", "needs": ["key_anteroom"] },
+        { "id": "study", "name": "Study", "floor": "Floor 2", "area": 1, "ghosts": "Neville — reads in his chair and hates being interrupted.", "about": "Bookshelves to the ceiling, a rocking chair still rocking.", "via": ["anteroom"], "rewards": ["key_master_bedroom"] },
+        { "id": "master_bedroom", "name": "Master Bedroom", "floor": "Floor 2", "area": 1, "ghosts": "Lydia — brushes her hair at the mirror and does not like a draught.", "about": "A four-poster bed and a vanity. Curtains stir. A door leads out to a balcony.", "needs": ["key_master_bedroom"], "rewards": ["key_nursery"] },
+        { "id": "balcony_2f", "name": "Balcony (2F)", "floor": "Floor 2", "area": 1, "ghosts": "None.", "about": "Wet stone, Feywild stars, a long drop to the garden.", "via": ["master_bedroom"], "clue": "c5" },
+        { "id": "nursery", "name": "Nursery", "floor": "Floor 2", "area": 1, "ghosts": "Chauncey — a giant ghost baby who wants to play, and throws a tantrum when he loses.", "about": "A rocking horse, a crib, toys that move on their own. This is the first boss.", "needs": ["key_nursery"], "rewards": ["area_key_1"] },
+
+        { "id": "washroom", "name": "Washroom", "floor": "Floor 1", "area": 2, "ghosts": "None.", "about": "A sink, a towel rack, a key left on the soap dish.", "rewards": ["key_bathroom"] },
+        { "id": "bathroom", "name": "Bathroom", "floor": "Floor 1", "area": 2, "ghosts": "Soapy Sal — a bubbly ghost who hides in the bath foam.", "about": "A clawfoot tub full of grey foam.", "needs": ["key_bathroom"], "rewards": ["key_ball_room"] },
+        { "id": "ball_room", "name": "Ball Room", "floor": "Floor 1", "area": 2, "ghosts": "The Floating Whirlindas — a dancing couple who can only be caught mid-spin — and The Wallflower, who never dances.", "about": "A huge dance floor, a dead chandelier, an orchestra pit with no orchestra.", "needs": ["key_ball_room"], "rewards": ["key_storage"] },
+        { "id": "storage_room", "name": "Storage Room", "floor": "Floor 1", "area": 2, "ghosts": "Rattling crates, nothing with a face.", "about": "Crates and covered furniture. The back wall sounds hollow; there is a switch behind the crates.", "needs": ["key_storage"], "rewards": ["hidden_switch"] },
+        { "id": "hidden_room", "name": "Hidden Room", "floor": "Floor 1", "area": 2, "ghosts": "None.", "about": "A dark room behind the wall, a chest on a plinth.", "needs": ["hidden_switch"], "rewards": ["three_stones"], "money": 300 },
+        { "id": "fortune_teller", "name": "Fortune-Teller's Room", "floor": "Floor 1", "area": 2, "ghosts": "Madame Clairvoya — a fortune teller in a crystal ball. She will read things the party brings her, but she wants proof to read.", "about": "Beads, incense, a crystal ball that clouds when anyone lies. She gives the Mirror Room key now and asks them to come back with what they find.", "rewards": ["key_mirror"] },
+        { "id": "mirror_room", "name": "Mirror Room", "floor": "Floor 1", "area": 2, "ghosts": "Vain Vesper — lives in the reflections and only attacks people who look away.", "about": "Every wall a mirror. The reflections are a beat late.", "needs": ["key_mirror"], "rewards": ["fire_medal"] },
+        { "id": "laundry_room", "name": "Laundry Room", "floor": "Floor 1", "area": 2, "ghosts": "Mrs. Wringer — folds and folds, and wrings anyone who gets in the way.", "about": "Washtubs and a mangle. A butler's door at the back, its candles unlit.", "money": 120 },
+        { "id": "butlers_room", "name": "Butler's Room", "floor": "Floor 1", "area": 2, "ghosts": "Shivers — the old butler, wandering with a candle. Only shows himself once the candles are lit.", "about": "A narrow room, a row of unlit candles, a ring of servants' bells.", "needs": ["fire_medal"], "rewards": ["key_conservatory"] },
+        { "id": "conservatory", "name": "Conservatory", "floor": "Floor 1", "area": 2, "ghosts": "Melody Pianissima — plays the piano and asks the party to name the tune.", "about": "Glass walls, dead plants, a grand piano that plays itself.", "needs": ["key_conservatory"], "rewards": ["key_dining"] },
+        { "id": "dining_room", "name": "Dining Room", "floor": "Floor 1", "area": 2, "ghosts": "Mr. Luggs — eats without stopping and gets violent when the food runs out.", "about": "A long table laid for a feast, plates refilling themselves. A door to the kitchen.", "needs": ["key_dining"], "money": 200 },
+        { "id": "kitchen", "name": "Kitchen", "floor": "Floor 1", "area": 2, "ghosts": "Chef Scorch — a ghost made of stove-fire.", "about": "Ovens, hanging pans, a back door to the yard. A cellar hatch in the floor is bolted from below.", "via": ["dining_room"], "rewards": ["water_medal"] },
+        { "id": "boneyard", "name": "Boneyard", "floor": "Floor 1", "area": 2, "ghosts": "Spooky — a ghost guard dog who chases anyone without a reason to be there.", "about": "A muddy yard behind a gate that a fire ghost has welded shut; water cools it open.", "needs": ["water_medal"], "via": ["kitchen"] },
+        { "id": "graveyard", "name": "Graveyard", "floor": "Floor 1", "area": 2, "ghosts": "Bogmire — a ghost of black mud who splits into shadows. Second boss.", "about": "Leaning headstones, fog to the knee, one fresh grave.", "via": ["boneyard"], "rewards": ["area_key_2"], "beats": ["vacuum_breaks"] },
+
+        { "id": "billiards_room", "name": "Billiards Room", "floor": "Floor 1", "area": 3, "ghosts": "Slim Bankshot — a ghost who plays pool with anything round.", "about": "Green baize, cues on the wall, balls that roll by themselves. A door into a projection room.", "money": 150 },
+        { "id": "projection_room", "name": "Projection Room", "floor": "Floor 1", "area": 3, "ghosts": "The Usher — shushes, and swells if anyone talks during the film.", "about": "Rows of seats, a flickering screen, a reel threaded and waiting.", "via": ["billiards_room"], "clue": "c1" },
+        { "id": "courtyard", "name": "Courtyard", "floor": "Floor 1", "area": 3, "ghosts": "Gardener Mulch — buries things and doesn't remember where.", "about": "A dry fountain, a well, overgrown hedges.", "money": 150 },
+        { "id": "rec_room", "name": "Rec Room", "floor": "Floor 1", "area": 3, "ghosts": "Biff Atlas — a weightlifting ghost who wants a sparring partner.", "about": "Punching bags, dumbbells, a mat.", "via": ["courtyard"], "money": 150 },
+        { "id": "twins_room", "name": "The Twins' Room", "floor": "Floor 2", "area": 3, "ghosts": "Henry and Orville — twin ghost boys who make everyone play hide-and-seek.", "about": "Two beds, toy soldiers, a toy box that rattles. The game they start pulls the party apart.", "clue": "c2", "beats": ["the_split"] },
+        { "id": "astral_hall", "name": "Astral Hall", "floor": "Floor 2", "area": 3, "ghosts": "The Stargazer — a quiet Boo who maps the sky.", "about": "A hall painted with constellations that drift. Stairs up to an observatory.", "via": ["twins_room"] },
+        { "id": "observatory", "name": "Observatory", "floor": "Floor 2", "area": 3, "ghosts": "None.", "about": "A brass telescope and charts pinned everywhere.", "via": ["astral_hall"], "clue": "c3" },
+        { "id": "bathroom_2f", "name": "Bathroom (2F)", "floor": "Floor 2", "area": 3, "ghosts": "Miss Petunia — bathing, and furious at intruders.", "about": "Steam, a shower curtain, a key in the soap.", "rewards": ["key_nana"] },
+        { "id": "washroom_2f", "name": "Washroom (2F)", "floor": "Floor 2", "area": 3, "ghosts": "None — but the Boos like to wait here.", "about": "A cracked mirror and a dripping tap." },
+        { "id": "nanas_room", "name": "Nana's Room", "floor": "Floor 2", "area": 3, "ghosts": "Nana — an old ghost knitting, happy to gossip.", "about": "A rocking chair, balls of yarn, a cup of tea gone cold.", "needs": ["key_nana"], "rewards": ["key_tea_room"], "clue": "c4" },
+        { "id": "tea_room", "name": "Tea Room", "floor": "Floor 2", "area": 3, "ghosts": "Earl Grey-Mist — a frosty ghost who insists on manners.", "about": "A tea service frozen mid-pour.", "needs": ["key_tea_room"], "rewards": ["ice_medal"] },
+        { "id": "fortune_teller_return", "name": "Fortune-Teller's Room (return)", "floor": "Floor 1", "area": 3, "ghosts": "Madame Clairvoya, ready to read what they brought.", "about": "She reads the film, the twins' riddle and the star chart, and gives a prophecy that only makes sense later.", "clues": ["c1", "c2", "c3"], "rewards": ["key_safari"], "beats": ["regroup"] },
+        { "id": "safari_room", "name": "Safari Room", "floor": "Floor 3", "area": 3, "ghosts": "Big Game Bertram — a hunter ghost who wants a trophy.", "about": "Mounted heads that blink, and stairs up to the third-floor balcony.", "needs": ["key_safari"] },
+        { "id": "balcony_3f", "name": "Balcony (3F)", "floor": "Floor 3", "area": 3, "ghosts": "Boolossus — a giant Boo made of many Boos; freeze it and it bursts apart. Third boss.", "about": "A wide stone balcony, wind, the Feywild sky very close.", "needs": ["ice_medal"], "via": ["safari_room"], "rewards": ["area_key_3"] },
+
+        { "id": "cellar", "name": "Cellar", "floor": "Basement", "area": 4, "ghosts": "The Coalman — shovels coal into nothing.", "about": "Down through the kitchen hatch. Coal, cobwebs, a breaker room door.", "rewards": ["key_breaker"] },
+        { "id": "breaker_room", "name": "Breaker Room", "floor": "Basement", "area": 4, "ghosts": "Sparky Phil — an electric ghost who lives in the fuse box.", "about": "A wall of switches. Throwing the main breaker puts the whole house in the dark.", "needs": ["key_breaker"], "rewards": ["key_cold_storage"], "flags": ["blackout"], "beats": ["blackout"] },
+        { "id": "cold_storage", "name": "Cold Storage", "floor": "Basement", "area": 4, "ghosts": "Sir Weston — an ice ghost, a frozen explorer.", "about": "Ice on every surface, sides of meat hanging.", "needs": ["key_cold_storage"], "rewards": ["key_pipe_room"] },
+        { "id": "pipe_room", "name": "Pipe Room", "floor": "Basement", "area": 4, "ghosts": "Drip and Drizzle — two ghosts who live in the leaks.", "about": "Pipes running up into the dark, toward the top of the house.", "needs": ["key_pipe_room"], "rewards": ["key_armory"] },
+        { "id": "telephone_room", "name": "Telephone Room", "floor": "Floor 3", "area": 4, "ghosts": "The Operator — connects calls nobody placed.", "about": "Dozens of telephones, all ringing.", "money": 200, "clue": "c6" },
+        { "id": "armory", "name": "Armory", "floor": "Floor 3", "area": 4, "ghosts": "The Hollow Guard — empty suits of armour.", "about": "Racks of weapons, an old cannon.", "needs": ["key_armory"], "rewards": ["key_clockwork"] },
+        { "id": "clockwork_room", "name": "Clockwork Room", "floor": "Floor 3", "area": 4, "ghosts": "The Clockwork Soldiers — wind-up toys marching in step.", "about": "Gears in the walls, a ticking you feel in your teeth.", "needs": ["key_clockwork"], "rewards": ["key_ceramics"] },
+        { "id": "ceramics_studio", "name": "Ceramics Studio", "floor": "Floor 3", "area": 4, "ghosts": "Jarvis — a ghost who hides in a pot and plays a guessing game.", "about": "Shelves of vases and jars.", "needs": ["key_ceramics"], "rewards": ["key_roof"] },
+        { "id": "roof", "name": "Roof", "floor": "Roof", "area": 4, "ghosts": "The Weathervane — a spinning ghost who blows people toward the edge.", "about": "Slates, chimneys, wind.", "needs": ["key_roof"], "rewards": ["key_sitting_room"] },
+        { "id": "sitting_room", "name": "Sitting Room", "floor": "Floor 2", "area": 4, "ghosts": "Lady Doily — fussy, and burns hot when her furniture is touched.", "about": "Lace and china, nothing out of place.", "needs": ["key_sitting_room"], "rewards": ["key_guest_room"] },
+        { "id": "guest_room", "name": "Guest Room", "floor": "Floor 2", "area": 4, "ghosts": "Sue Pea — sleeps on the ceiling and hates being woken.", "about": "The bed is on the ceiling. So is she.", "needs": ["key_guest_room"], "money": 250 },
+        { "id": "wardrobe_room", "name": "Wardrobe Room", "floor": "Floor 2", "area": 4, "ghosts": "Uncle Grimmly — only appears in the dark, and only to people who look at him.", "about": "The door that would not move in Area 1 swings open in the blackout. Wardrobes, mirrors, mothballs.", "flag": "blackout", "rewards": ["key_sealed_room", "key_artist_studio"] },
+        { "id": "sealed_room", "name": "Sealed Room", "floor": "Floor 2", "area": 4, "ghosts": "Specimen 7 — a lab ghost left behind in a tank.", "about": "A door with three stone sockets. Behind it: a laboratory.", "needs": ["key_sealed_room", "three_stones"], "clue": "c7" },
+        { "id": "artist_studio", "name": "The Artist's Studio", "floor": "Floor 3", "area": 4, "ghosts": "Vincent Van Gore — paints ghosts who climb out of their canvases. Fourth boss.", "about": "Easels and portraits. Some of the portraits are of people, not ghosts.", "needs": ["key_artist_studio"], "rewards": ["area_key_4"] },
+
+        { "id": "secret_altar", "name": "Secret Altar", "floor": "Basement", "area": 5, "ghosts": "King Boo.", "about": "Steps down to a gate, and beyond it an altar lit by painted light.", "beats": ["reunion", "king_boo_attacks"] }
+      ],
+      "clues": [
+        { "id": "c1", "title": "The film reel", "found": "A home movie: King Boo, gentle for once, teaching a small Boo in a little crown how to haunt." },
+        { "id": "c2", "title": "The twins' riddle", "found": "Henry and Orville say the Prince always won hide-and-seek — \"but now he's hiding in a box that hums, and he won't come out.\"" },
+        { "id": "c3", "title": "The star chart", "found": "A chart with one night circled in red ink and a note beside it: the little crown went dark." },
+        { "id": "c4", "title": "Nana's gossip", "found": "Nana, between stitches: royal ectoplasm mends any wound, dearie. Any wound at all. People have come asking." },
+        { "id": "c5", "title": "The torn chart", "found": "A torn page from Dr. Toad's Star Hill Clinic, blown against the railing: Luigi — deteriorating." },
+        { "id": "c6", "title": "The calls", "found": "Every phone replays the same voice, King Boo's, asking one ghost after another: who took my son?" },
+        { "id": "c7", "title": "The sealed laboratory", "found": "Extraction notes in a neat old hand, a rack of glass vials with one missing, and a note addressed to \"Dr. D.\"" }
+      ],
+      "beats": [
+        { "id": "egadd_greets", "title": "Egadd greets them", "room": "foyer", "text": "Professor E. Gadd is waiting just inside the door, thrilled and nervous in equal measure. He greets the party, says he has been studying this house, and offers to guide them. He asks them to decide who goes first and who watches the back." },
+        { "id": "vacuum_breaks", "title": "Egadd's vacuum breaks", "room": "graveyard", "text": "Mid-fight, Egadd's vacuum shrieks, sparks and dies. He insists on fixing it alone and turns his back. Whoever is LAST in the marching order sees into his open bag: a small prince's crown, alone among the tools. Egadd snaps the bag shut and changes the subject." },
+        { "id": "the_split", "title": "The party splits", "room": "twins_room", "action": "split", "text": "The twins' game closes doors and drops floors between them. The front of the line and the back of the line are cut off from each other and have to go on alone." },
+        { "id": "jory_taken", "title": "Jory is taken", "action": "capture", "target": "jory_dobbs", "text": "Boos pour out of the walls around Jory Dobbs, too many to fight. They drag him into the dark and he is gone. No one can follow." },
+        { "id": "regroup", "title": "The groups reunite", "room": "fortune_teller_return", "action": "regroup", "text": "Both halves of the party find their way back to the Fortune-Teller's room and see each other again." },
+        { "id": "blackout", "title": "Blackout", "room": "breaker_room", "text": "The main breaker goes and the whole house drops into darkness. Somewhere upstairs, a door that would not move clicks open." },
+        { "id": "reunion", "title": "Mario is already out", "room": "secret_altar", "action": "cutscene", "add": ["mario"], "text": "At the gate of the Secret Altar, Mario is standing there. Not in a painting. Free. King Boo is nowhere to be seen." },
+        { "id": "king_boo_attacks", "title": "King Boo attacks", "room": "secret_altar", "add": ["king_boo"], "text": "After the reunion and a little banter, King Boo rises from the altar, enormous and furious, and attacks. This is the final battle." },
+        { "id": "paintings_release", "title": "The paintings release", "action": "free", "text": "King Boo is beaten. Every painting in the house tears open and the people trapped inside spill out — Jory Dobbs among them." },
+        { "id": "the_reveal", "title": "The truth comes out", "text": "With King Boo beaten, everything they found points the same way: the crown, the humming box, the missing vial, the note to Dr. D. Egadd is confronted. Let him answer in his own words." }
+      ],
+      "cutscene": {
+        "title": "Reunion at the gate",
+        "lines": [
+          {
+            "who": "beta_luigi",
+            "text": "Mario? Oh... Are you an illusion just to mock me? I'm well aware that I have failed... Leave me be..."
+          },
+          {
+            "who": "mario",
+            "text": "I... Know it must be hard to believe... But your eyes do not deceive you... It's-a me..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Mario's gone. And it's all my fault. I wasn't strong enough. To save him from cruel fate."
+          },
+          {
+            "who": "mario",
+            "text": "Save me from cruel fate"
+          },
+          {
+            "who": "mario",
+            "text": "But it's all okay"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "And now I'm alone"
+          },
+          {
+            "who": "mario",
+            "text": "No need for self hate"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Just outside his grave"
+          },
+          {
+            "who": "mario",
+            "text": "You're still my bro"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Beyond the gates"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "But... How?"
+          },
+          {
+            "who": "mario",
+            "text": "I managed to find a way"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "You can't be my brother, he was taken by the others"
+          },
+          {
+            "who": "mario",
+            "text": "Left the painting, made my escape and..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "And my brotherly devotion couldn't conquer all my fear"
+          },
+          {
+            "who": "mario",
+            "text": "Ran out the mansion quickly"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Oh, I don't know what I could say, to those whose hopes and dreams once laid upon the shoulders of my brother"
+          },
+          {
+            "who": "mario",
+            "text": "And now I found you here so sickly..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Oh they must feel so betrayed"
+          },
+          {
+            "who": "mario",
+            "text": "There's no need to put yourself down"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "But I can feel your hand on"
+          },
+          {
+            "who": "mario",
+            "text": "Everything has turned around"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "my shoulder but this cannot be..."
+          },
+          {
+            "who": "mario",
+            "text": "As you can see, I am free"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I saw Mario"
+          },
+          {
+            "who": "mario",
+            "text": "Don't feel-a shame"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "fade into the void"
+          },
+          {
+            "who": "mario",
+            "text": "When you chose to flee"
+          },
+          {
+            "who": "mario",
+            "text": "I can understand your fear"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "but what is it I see? Impossible, are you not gone?"
+          },
+          {
+            "who": "mario",
+            "text": "I'll forever hold you dear"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Has the King of Boos not won?"
+          },
+          {
+            "who": "mario",
+            "text": "Even the king of all those boos"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "And if you ARE here, I haven't failed?"
+          },
+          {
+            "who": "mario",
+            "text": "Can't keep me from my bro"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "How did you escape the final one? Yes... There's always been a reason"
+          },
+          {
+            "who": "mario",
+            "text": "You did everything you could"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "That Luigi plays the second fiddle"
+          },
+          {
+            "who": "mario",
+            "text": "Farther than anybody else would?"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I can't believe you're in front of me, not even a little"
+          },
+          {
+            "who": "mario",
+            "text": "Please put all of your guilt to rest"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I'm so happy that you're still here"
+          },
+          {
+            "who": "mario",
+            "text": "You are the very best... Truth be told, I too was in fear"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "That king boo caught you too"
+          },
+          {
+            "who": "mario",
+            "text": "I wouldn't let my cowardice rule my heart"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Your loud screams that I could-a hear"
+          },
+          {
+            "who": "mario",
+            "text": "Glad to that he was a fool"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "To think he could-a capture you"
+          },
+          {
+            "who": "mario",
+            "text": "But I can't change the fact"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "No one can get their hands on you"
+          },
+          {
+            "who": "mario",
+            "text": "That terror just tears love apart"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "You are too slippery..."
+          },
+          {
+            "who": "mario",
+            "text": "Do not cry, Luigi"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Mario, why did I leave you?"
+          },
+          {
+            "who": "mario",
+            "text": "You still tried to save me"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "And I can't, Luigi turned tail in fear, like always"
+          },
+          {
+            "who": "mario",
+            "text": "be more thankful to you brother..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Even in my weakness"
+          },
+          {
+            "who": "mario",
+            "text": "Luigi, you didn't leave me"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Hopelessness and meekness"
+          },
+          {
+            "who": "mario",
+            "text": "Your courage is what got you to free me..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "You, my bro still stood by my side, still unfazed"
+          },
+          {
+            "who": "mario",
+            "text": "We will always fight together"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I'm,"
+          },
+          {
+            "who": "mario",
+            "text": "No matter the time or day"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "not you..."
+          },
+          {
+            "who": "mario",
+            "text": "No matter how far we are, we will be back in some way"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "My knees buckle 'neath the weight"
+          },
+          {
+            "who": "mario",
+            "text": "Can't you see no matter how hard they tried to beat us it's subpar? They can't break our bond it still grows, we're the Mario Bros..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "They, of trying to support my brother... will not, with no questions asked, you always lifted up my courage, now just shards of green glass, be beating me. How are you not disgusted that you've wasted"
+          },
+          {
+            "who": "mario",
+            "text": "that easily, bro"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "All your time and effort on a worm defaced? Oh, I don't deserve your forgiveness"
+          },
+          {
+            "who": "mario",
+            "text": "You don't have to apologize to me"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "You could have been lost in the void,"
+          },
+          {
+            "who": "mario",
+            "text": "Any wrong doings you have nothing..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "no thanks to me"
+          },
+          {
+            "who": "mario",
+            "text": "I see a heart of a gold man"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Oh... Mario, I'm so, so sorry..."
+          },
+          {
+            "who": "mario",
+            "text": "You could have been turned into a painting like me, bro..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "How is it you don't despise me..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I still repeat the moment I thought I lost you, I still repeat the final blow that cost you. I wasn't strong enough to stand my ground against my fear to save you, bro..."
+          },
+          {
+            "who": "mario",
+            "text": "I still repeat the moment of the man in green, being the most bravest I have ever seen. The Boos didn't know what they had to face, my brother and my saving grace..."
+          },
+          {
+            "who": "mario",
+            "text": "There's no need to be down"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I'd have given anything to see you"
+          },
+          {
+            "who": "mario",
+            "text": "There's no need for that frown"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I'd have traded anything to free you"
+          },
+          {
+            "who": "mario",
+            "text": "Your dark cloud, we will erase"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "And I'd never, ever doubt you"
+          },
+          {
+            "who": "mario",
+            "text": "Then that king Boo, we will chase..."
+          },
+          {
+            "who": "mario",
+            "text": "You still are the very best, you deserve love and life. Come on my bro, get some rest"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I'd have given up mine, ended the strife. But now you're back"
+          },
+          {
+            "who": "mario",
+            "text": "We will fight another day"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "But I still choked"
+          },
+          {
+            "who": "mario",
+            "text": "But there's one thing I have to say"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "In my own tears, I am soaked..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Oh, Mario..."
+          },
+          {
+            "who": "mario",
+            "text": "Luigi... What's the matter? Where did you go? You miss me?"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Without you"
+          },
+          {
+            "who": "mario",
+            "text": "It's okay"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I'd be lost and alone..."
+          },
+          {
+            "who": "mario",
+            "text": "Luigi... Wipe-a those tears... I'm here for"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Oh,"
+          },
+          {
+            "who": "mario",
+            "text": "You, my bro..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Mario..."
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I wish I wasn't so worthless..."
+          },
+          {
+            "who": "mario",
+            "text": "You are not worthless at all bro,"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Then maybe I wouldn't have almost lost you..."
+          },
+          {
+            "who": "mario",
+            "text": "You are the best in the whole world... I'm just so happy that we're back"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Mario, I'm so, so, sorry..."
+          },
+          {
+            "who": "mario",
+            "text": "The red and green in this world,"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "I'm-a just so happy you survived!"
+          },
+          {
+            "who": "mario",
+            "text": "is what it's been lacking... This whole time!"
+          },
+          {
+            "who": "",
+            "text": "(Instrumental)"
+          },
+          {
+            "who": "mario",
+            "text": "Come back home, I won't block another... Shine your own tone... Because you, are my brother... Way to go... Number one!"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Number... one?"
+          },
+          {
+            "who": "beta_luigi",
+            "text": "Mario..."
+          }
+        ]
+      }
+    }
+  ]
+}

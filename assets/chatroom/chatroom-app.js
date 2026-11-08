@@ -60,8 +60,22 @@
 
   function save() {
     syncLinked();
-    RP.saveState(window.localStorage, state);
+    if (!RP.saveState(window.localStorage, state)) browserFull();
     window.setTimeout(autosave, 0);      // never in the way of a render
+  }
+
+  /** The browser's store (about 5 MB a site) said no. Nothing written since
+   *  survives a refresh unless it goes to disk, so from here on every change
+   *  is written to disk shortly after it happens — and the reader is told. */
+  var localFull = false;
+  function browserFull() {
+    if (localFull) return;
+    localFull = true;
+    window.setTimeout(function () {
+      toast(CFG.saveUrl
+        ? '⚠ Browser storage is full — saving to disk instead. Delete old chats to free it up.'
+        : '⚠ Browser storage is full and there is no disk to save to — ⬇ Download a backup now.');
+    }, 0);
   }
 
   /** Two linked scenes are one world. Anyone with a sheet in both — HP,
@@ -296,6 +310,13 @@
     backfills = RP.backfillsFrom(archive, castById, state, 10)
       .map(function (gap) { return RP.whatIfFromBackfill(gap, castById); })
       .filter(function (s) { return s && RP.scenarioQuality(s) > 0; });
+  }
+
+  /** 🏚 The GM's planned houses (data/mansions.json). */
+  function loadMansions() {
+    if (!CFG.mansionsUrl || !RP.mansion) return Promise.resolve();
+    return getJSON(CFG.mansionsUrl).then(function (data) { RP.mansion.setPlans(data); })
+      .catch(function (error) { console.warn('adventures unavailable', error); });
   }
 
   function loadCollections() {
@@ -627,6 +648,7 @@
     { id: 'book', ico: '📓', label: 'Lore book' },
     { id: 'continue', ico: '⏭', label: 'Continue' },
     { id: 'whatif', ico: '❓', label: 'What If' },
+    { id: 'adventures', ico: '🏚', label: 'Adventures' },
     { id: 'backfills', ico: '🧱', label: 'Backfills' },
     { id: 'wire', ico: '📡', label: 'Wire' },
     { id: 'collections', ico: '🗂', label: 'Collections' },
@@ -1097,10 +1119,47 @@
   }
 
   /** Autosave: quiet, throttled, and off unless asked for. */
+  function autosaveOn() { return (state.settings.autosave || 'on') === 'on'; }
+
+  var diskTimer = 0;
+  var diskWarned = false;
   function autosave() {
-    if ((state.settings.autosave || 'off') === 'off' || !CFG.saveUrl) return;
+    if (!CFG.saveUrl) return;
+    if (!(state.rooms || []).length) return;   // an empty browser has nothing worth writing over a save
+    if (localFull) {
+      // The disk is the only copy now: write soon after every change, not once a minute.
+      window.clearTimeout(diskTimer);
+      diskTimer = window.setTimeout(function () {
+        saveToDisk('chatroom', true).then(function (out) {
+          if (out || diskWarned) return;
+          diskWarned = true;   // both copies failing must never be silent
+          toast('⚠ Could not save to disk either — restart the workflow server, or ⬇ Download a backup now.');
+        });
+      }, 1500);
+      return;
+    }
+    if (!autosaveOn()) return;
     if (Date.now() - lastSaveAt < 60000) return;
     saveToDisk('chatroom', true);
+  }
+
+  /** On open: if the disk save has chats newer than this browser's copy
+   *  (because the browser was full when they were written), merge them in. */
+  function pullNewerFromDisk() {
+    if (!CFG.saveUrl) return;
+    getJSON(CFG.saveUrl + '?name=chatroom').then(function (out) {
+      var disk = out && out.state;
+      if (!disk || !Array.isArray(disk.rooms)) return;
+      var mine = {};
+      (state.rooms || []).forEach(function (r) { if (r && r.id) mine[r.id] = r.updated || 0; });
+      var newer = disk.rooms.filter(function (r) {
+        return r && r.id && (!(r.id in mine) || (r.updated || 0) > mine[r.id]);
+      }).length;
+      if (!newer) return;
+      RP.importBundle(state, disk, 'merge');
+      save(); render();
+      toast('💾 Brought back ' + newer + (newer === 1 ? ' chat' : ' chats') + ' from the disk save.');
+    }).catch(function () { /* no save yet, or no server — the browser copy stands */ });
   }
 
   /** What the model is actually being sent — size, blocks, and the text. */
@@ -1332,13 +1391,14 @@
       '<p class="emptynote">Everything lives in this browser’s storage, and a cleared cache takes it with it. ' +
       '<b>Save to disk</b> writes the whole state — chats, memory, lore book, cards, episodes — as a real file ' +
       'beside the workflow server (<code>workflow/saves/</code>), keeping the last ten versions behind it. ' +
-      'Autosave does the same quietly, at most once a minute. The download is the same bundle if you would rather ' +
+      'Autosave (on by default) does the same quietly, at most once a minute — and after every change once the ' +
+      'browser’s storage is full. On open, any chats the disk has newer than the browser are merged back in. The download is the same bundle if you would rather ' +
       'keep it yourself.</p>' +
       '<div class="castbar">' +
       '<button class="pill primary" id="diskSave">💾 Save to disk</button>' +
       '<button class="pill" id="diskRestore">📂 Restore from disk</button>' +
-      '<button class="pill' + ((state.settings.autosave || 'off') === 'on' ? ' primary' : '') + '" id="diskAuto">' +
-        ((state.settings.autosave || 'off') === 'on' ? '⏱ Autosave is on' : '⏱ Autosave is off') + '</button>' +
+      '<button class="pill' + (autosaveOn() ? ' primary' : '') + '" id="diskAuto">' +
+        (autosaveOn() ? '⏱ Autosave is on' : '⏱ Autosave is off') + '</button>' +
       '<span class="chip" id="saveBadge" hidden></span>' +
       '</div>';
 
@@ -1402,6 +1462,7 @@
       : tab === 'book' ? renderBook()
       : tab === 'continue' ? renderContinuations()
       : tab === 'whatif' ? renderWhatIfs()
+      : tab === 'adventures' && RP.mansionUI ? RP.mansionUI.dash()
       : tab === 'backfills' ? renderBackfills()
       : tab === 'wire' ? renderWire()
       : tab === 'collections' ? renderCollections()
@@ -1421,6 +1482,7 @@
       b.onclick = function () { openScene(scenes.filter(function (s) { return s.id === b.dataset.scene; })[0]); };
     });
     var on = function (id, fn) { var node = $(id); if (node) node.onclick = fn; };
+    if (RP.mansionUI) RP.mansionUI.wireDash(box, mansionCtx());
     on('groupBtn', function () { castPicker({ title: 'Group chat', note: 'Pick everyone who is in the room.' }, function (picked) { startGroup(picked); }); });
     on('randomBtn', function () { if (cast.length) startSolo(cast[Math.floor(Math.random() * cast.length)]); });
     box.querySelectorAll('[data-ifplay]').forEach(function (b) {
@@ -1640,7 +1702,7 @@
     on('diskSave', function () { saveToDisk('chatroom'); });
     on('diskRestore', restoreFromDisk);
     on('diskAuto', function () {
-      state.settings.autosave = (state.settings.autosave || 'off') === 'off' ? 'on' : 'off';
+      state.settings.autosave = autosaveOn() ? 'off' : 'on';
       save(); renderDash();
       toast(state.settings.autosave === 'on'
         ? 'Autosave on — the whole state is written to disk at most once a minute.'
@@ -3695,6 +3757,18 @@
   // walks out, who goes off to a second scene.
   var dockTab = 'cast';
   var DOCK_TABS = [['cast', '👥 Cast'], ['scene', '🎬 Scene'], ['memory', '🧠 Memory'], ['voice', '🔊 Voice'], ['share', '⬇ Share']];
+  // 🏚 An adventure chat gets the House tab first: rooms, keys, beats.
+  function dockTabsFor(r) {
+    return r && r.mansion && RP.mansionUI ? [['mansion', '🏚 House']].concat(DOCK_TABS) : DOCK_TABS;
+  }
+  /** The page's helpers, handed to chatroom-mansion.js. */
+  function mansionCtx() {
+    return {
+      castById: castById, room: room, save: save, render: render, toast: toast,
+      startGroup: startGroup, directRoom: directRoom,
+      setDock: function (t) { dockTab = t; dockSide = ''; },
+    };
+  }
   // With two scenes up, the dock serves one of them at a time: '' is the
   // front scene, 'b' the one at the side.
   var dockSide = '';
@@ -3725,11 +3799,12 @@
       '<div class="by">By @' + esc(c.handle || 'waluipedia') + '</div>' +
       '<div class="by">' + plays + (plays === 1 ? ' interaction' : ' interactions') + ' · ' +
       r.cast.length + (r.cast.length === 1 ? ' in the cast' : ' in the cast') + '</div></div></div>' +
-      '<div class="dock-tabs" role="tablist">' + DOCK_TABS.map(function (t) {
+      '<div class="dock-tabs" role="tablist">' + dockTabsFor(r).map(function (t) {
         return '<button data-dock="' + t[0] + '" class="' + (dockTab === t[0] ? 'on' : '') + '" role="tab" ' +
           'aria-selected="' + (dockTab === t[0] ? 'true' : 'false') + '">' + t[1] + '</button>';
       }).join('') + '</div>' +
-      (dockTab === 'scene' ? dockScene(r, other, style)
+      (dockTab === 'mansion' && r.mansion && RP.mansionUI ? RP.mansionUI.dock(r)
+        : dockTab === 'scene' ? dockScene(r, other, style)
         : dockTab === 'memory' ? dockMemory(r, c, mem, pinned)
         : dockTab === 'voice' ? dockVoice(r)
         : dockTab === 'share' ? dockShare(r, other)
@@ -4716,6 +4791,7 @@
       b.onclick = function () { dockSide = b.dataset.dockside; render(); };
     });
     wireSeats($('charpanel'), r);
+    if (dockTab === 'mansion' && r.mansion && RP.mansionUI) RP.mansionUI.wireDock($('charpanel'), r, mansionCtx());
     on('dkInvite', function () { invitePicker(r); });
     on('dkPlayAs', function () { playAsPicker(r); });
     $('charpanel').querySelectorAll('[data-walk]').forEach(function (b) {
@@ -7613,6 +7689,7 @@
   wireShell();
   render();
   checkHealth();
+  pullNewerFromDisk();
   // A portrait whose file is gone shows initials, not a broken image.
   // Image errors do not bubble; they are caught on the way down.
   document.addEventListener('error', function (e) {
@@ -7669,7 +7746,7 @@
   }
 
   loadCast()
-    .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections()]); })
+    .then(function () { return Promise.all([loadScenes(), loadWire(), loadCollections(), loadMansions()]); })
     .then(loadArchive)
     .then(function () {
       buildBoard(); render();

@@ -5,6 +5,7 @@ Sources (hand-written):
     assets/chatroom/chatroom.shell.html   markup
     assets/chatroom/chatroom.css          skin
     assets/chatroom/chatroom-core.js      pure logic  → window.RP
+    assets/chatroom/chatroom-mansion.js   🏚 planned adventures (RP.mansion)
     assets/chatroom/chatroom-app.js       page wiring
 
 Outputs (generated — never hand-edit):
@@ -53,6 +54,7 @@ window.CHATROOM_CONFIG = {
   factionsUrl: 'Reputation-Matrix2/data/factions.json',
   congressUrl: 'Reputation-Matrix2/data/congress.json',
   clockUrl: 'Reputation-Matrix2/data/currentDate.json',
+  mansionsUrl: 'Reputation-Matrix2/data/mansions.json',
   // The static build talks to the workflow server for disk saves, the same
   // way it does for the model.
   // The host is whatever served this page, so a phone on the tailnet reaches
@@ -72,6 +74,7 @@ window.CHATROOM_CONFIG = {
   mode: 'server',
   castUrl: '/api/characters',
   voicesUrl: '/rm/data/voices.json',
+  mansionsUrl: '/rm/data/mansions.json',
   scenesUrl: '/api/scenes',
   wireUrl: '/api/wahwire',
   wireProfilesUrl: '',
@@ -96,6 +99,7 @@ def build_static() -> str:
     head = '<link rel="stylesheet" href="assets/chatroom/chatroom.css">'
     scripts = (
         '<script id="rp-logic" src="assets/chatroom/chatroom-core.js"></script>\n'
+        '<script id="rp-mansion" src="assets/chatroom/chatroom-mansion.js"></script>\n'
         '<script id="rp-app" src="assets/chatroom/chatroom-app.js"></script>'
     )
     page = (shell
@@ -111,6 +115,7 @@ def build_server() -> str:
     head = "<style>\n" + read("chatroom.css") + "</style>"
     scripts = (
         '<script id="rp-logic">\n' + read("chatroom-core.js") + "</script>\n"
+        '<script id="rp-mansion">\n' + read("chatroom-mansion.js") + "</script>\n"
         '<script id="rp-app">\n' + read("chatroom-app.js") + "</script>"
     )
     page = (shell

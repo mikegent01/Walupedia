@@ -2801,3 +2801,25 @@ log filters by kind, and the archive's own sidebar now links the chatroom
 
 Both carry a generated-file banner. `tools/build-chatroom.py --check` is the
 gate; a PR whose pages do not match their sources is a broken PR.
+
+## 🏚 Adventures — houses the GM planned
+
+A planned adventure is a house the GM wrote room by room in
+`Reputation-Matrix2/data/mansions.json` (logic: `assets/chatroom/chatroom-mansion.js`,
+test: `node tools/tests/test-chatroom-mansion.mjs`). The model plays the people and the ghosts;
+the doors, keys, clues and big moments come from the plan. The first one is
+`docs/sessions/feywild-mansion-plan.md`.
+
+- **Start:** 🏚 Adventures → *Enter the house*. The party and the guide are seated and the
+  🏚 House dock tab opens.
+- **Marching order:** arrange it with ↑ ↓ and *Lock in this order*. No door opens until it is
+  set; the model is told to keep it.
+- **Doors:** every room of an open area is listed; 🔒 rooms say what they need on hover. An
+  Area Key opens the next area, and rooms of a locked area are not shown at all.
+- **🔍 Clear the room:** the GM's call that the ghosts are beaten or the room is searched. It
+  hands over the room's keys, coins and clue.
+- **Beats:** ★ beats belong to the current room; the others (Jory is taken, the paintings
+  release, the reveal) can be fired at any moment. Split / regroup / capture / free move cast
+  members in and out of the scene. The reunion plays the song word for word, one card a line.
+- **What the model sees:** only the current room, the party, the key ring, the clues already
+  found and the house rules. The GM's truth is never in the data file, so it cannot leak.

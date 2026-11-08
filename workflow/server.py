@@ -539,7 +539,7 @@ def archive_bundle() -> dict[str, Any]:
 
 
 SAVE_DIR = Path(__file__).resolve().parent / "saves"
-SAVE_MAX_BYTES = 12_000_000        # a chatroom bundle is JSON, not a disk image
+SAVE_MAX_BYTES = 64_000_000        # the disk is the overflow once the browser's ~5 MB is full
 SAVE_KEEP = 10                     # timestamped backups kept beside the live file
 
 
@@ -564,6 +564,14 @@ def chatroom_save(payload: dict[str, Any]) -> dict[str, Any]:
         raise ValueError("that save is too large")
     SAVE_DIR.mkdir(parents=True, exist_ok=True)
     path = _save_path(payload.get("name"))
+    # A fresh browser (empty storage) must not autosave over a save full of chats.
+    if path.exists() and not bundle.get("rooms") and not payload.get("force"):
+        try:
+            had = len(json.loads(path.read_text(encoding="utf-8")).get("rooms") or [])
+        except Exception:  # noqa: BLE001 - unreadable file: let the new save through
+            had = 0
+        if had:
+            raise ValueError(f"refusing to replace a save with {had} chats by one with none")
     if path.exists():
         stamp = time.strftime("%Y%m%d-%H%M%S")
         backup = path.with_name(f"{path.stem}.{stamp}.bak.json")
@@ -727,8 +735,10 @@ def read_body(handler: BaseHTTPRequestHandler) -> dict[str, Any]:
         size = int(handler.headers.get("Content-Length", "0"))
     except ValueError as error:
         raise ValueError("invalid request length") from error
-    if size <= 0 or size > MAX_BODY:
-        raise ValueError("request body must be between 1 byte and 2 MB")
+    # A chatroom save is the whole state — far past 2 MB once the browser is full.
+    limit = SAVE_MAX_BYTES if handler.path == "/api/chatroom-save" else MAX_BODY
+    if size <= 0 or size > limit:
+        raise ValueError(f"request body must be between 1 byte and {limit // (1024 * 1024)} MB")
     value = json.loads(handler.rfile.read(size))
     if not isinstance(value, dict):
         raise ValueError("request body must be a JSON object")

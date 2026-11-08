@@ -11294,7 +11294,7 @@
           },
           "cr": 1,
           "biography": {
-            "value": "<p><em>Waluipedia cast sheet — X.O..</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 → CR 1 as a priest. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Divine Daughter</strong> — Iron Fists Guild</p><p>Status: Active — wielding influence within the Iron Fists Guild through her mother Commander G</p><p>X.O. is Commander G's daughter and a destabilizing influence within the Iron Fists Guild's Swiftsoul Chapter. She exhibits profound narcissistic entitlement, a god complex that would embarrass actual deities, and a tendency to view Guild operations as theatrical performances staged for her personal amusement. Her demands for dramatic, often cruel, operational protocols may be responsible for the chaotic nature of the Swiftsoul incident—including the elaborate framing of Archie Miser.</p><h3>Evidence</h3><ul><li><strong>Mace</strong> — “The Divine Daughter”</li><li><strong>Shadow Step</strong> — “The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of”</li><li><strong>Leadership</strong> — “Active — wielding influence within the Iron Fists Guild through her mother Commander G”</li><li><strong>Keen Records</strong> — “Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme”</li><li><strong>Spellcasting</strong> — “The Divine Daughter”</li></ul><p>Article: <code>#/article/xo</code> (characters). Site sheet: <code>#/sheets/xo</code>.</p>",
+            "value": "<p><em>Waluipedia cast sheet — X.O..</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 → CR 1 as a priest. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Divine Daughter</strong> — Iron Fists Guild</p><p>Status: Active — wielding influence within the Iron Fists Guild through her mother Commander G</p><p>X.O. is Commander G's daughter and a destabilizing influence within the Iron Fists Guild's Swiftsoul Chapter. She exhibits profound narcissistic entitlement, a god complex that would embarrass actual deities, and a tendency to view Guild operations as theatrical performances staged for her personal amusement. Her demands for dramatic, often cruel, operational protocols may be responsible for the chaotic nature of the Swiftsoul incident—including the elaborate framing of Archie Miser.</p><h3>Evidence</h3><ul><li><strong>Staff</strong> — “They show X.O. already had a central role in the earlier Vigilance story; they do not explain how her staff later came to be on the TOADALNAEC or establish that she is present in either Aethel scene.”</li><li><strong>Shadow Step</strong> — “The Swiftsoul incident bears hallmarks of X.O.'s influence: - The 'Burn Notice' protocol was reportedly demanded by X.O. for dramatic effect, overruling more pragmatic options - The elaborate framing of”</li><li><strong>Hidden in Plain Sight</strong> — “That breakfast filing also describes an unnamed, disguised woman who resembles X.O. Resemblance is not identification: she gives no name, and the archive establishes no relationship.”</li><li><strong>Leadership</strong> — “Active — wielding influence within the Iron Fists Guild through her mother Commander G”</li><li><strong>Spellcasting</strong> — “The Divine Daughter”</li></ul><p>Article: <code>#/article/xo</code> (characters). Site sheet: <code>#/sheets/xo</code>.</p>",
             "public": ""
           }
         },
@@ -11616,13 +11616,13 @@
       },
       "items": [
         {
-          "_id": "BKSUElyFHKNEZT1T",
-          "name": "Mace",
+          "_id": "S6WWzbMStwBAn0hl",
+          "name": "Staff",
           "type": "weapon",
-          "img": "icons/weapons/maces/mace-round-steel.webp",
+          "img": "icons/weapons/staves/staff-ornate-purple.webp",
           "system": {
             "description": {
-              "value": "<p>Mace; melee weapon attack.</p>",
+              "value": "<p>Staff; melee weapon attack.</p><p><em>Record:</em> “They show X.O. already had a central role in the earlier Vigilance story; they do not explain how her staff later came to be on the TOADALNAEC or establish that she is present in either Aethel scene.”</p>",
               "chat": ""
             },
             "source": {
@@ -11659,10 +11659,12 @@
             },
             "damage": {
               "versatile": {
-                "number": null,
-                "denomination": null,
+                "number": 1,
+                "denomination": 8,
                 "bonus": "",
-                "types": [],
+                "types": [
+                  "bludgeoning"
+                ],
                 "custom": {
                   "enabled": false,
                   "formula": ""
@@ -11700,7 +11702,9 @@
               "dt": null,
               "conditions": ""
             },
-            "properties": [],
+            "properties": [
+              "ver"
+            ],
             "type": {
               "value": "simpleM",
               "baseItem": ""
@@ -11852,6 +11856,46 @@
           }
         },
         {
+          "_id": "nC2jtrjboLBsGFKv",
+          "name": "Hidden in Plain Sight",
+          "type": "feat",
+          "img": "icons/magic/perception/shadow-stealth-eyes-purple.webp",
+          "system": {
+            "description": {
+              "value": "<p>Advantage on Dexterity (Stealth) checks, and a Deception check made to pass as someone else is made with advantage while the disguise holds.</p>",
+              "chat": ""
+            },
+            "type": {
+              "value": "monster",
+              "subtype": ""
+            },
+            "activation": {},
+            "duration": {},
+            "target": {},
+            "range": {},
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "activities": {},
+            "source": {
+              "custom": "Waluipedia campaign",
+              "book": "",
+              "page": "",
+              "license": "",
+              "revision": 1,
+              "rules": "2024"
+            }
+          },
+          "effects": [],
+          "flags": {},
+          "sort": 300000,
+          "ownership": {
+            "default": 0
+          }
+        },
+        {
           "_id": "CBv1u4LFKDF9kD4b",
           "name": "Leadership",
           "type": "feat",
@@ -11878,46 +11922,6 @@
                   "type": "recoverAll"
                 }
               ]
-            },
-            "activities": {},
-            "source": {
-              "custom": "Waluipedia campaign",
-              "book": "",
-              "page": "",
-              "license": "",
-              "revision": 1,
-              "rules": "2024"
-            }
-          },
-          "effects": [],
-          "flags": {},
-          "sort": 300000,
-          "ownership": {
-            "default": 0
-          }
-        },
-        {
-          "_id": "rsWBzwduVSiozsuB",
-          "name": "Keen Records",
-          "type": "feat",
-          "img": "icons/tools/scribal/ink-quill-pink.webp",
-          "system": {
-            "description": {
-              "value": "<p>Has advantage on Intelligence (History) and (Investigation) checks about anything it has filed, and can recall any document it has read in the last year word for word.</p>",
-              "chat": ""
-            },
-            "type": {
-              "value": "monster",
-              "subtype": ""
-            },
-            "activation": {},
-            "duration": {},
-            "target": {},
-            "range": {},
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
             },
             "activities": {},
             "source": {
@@ -12000,9 +12004,9 @@
           },
           "evidence": [
             {
-              "feature": "Mace",
-              "quote": "The Divine Daughter",
-              "source": "title"
+              "feature": "Staff",
+              "quote": "They show X.O. already had a central role in the earlier Vigilance story; they do not explain how her staff later came to be on the TOADALNAEC or establish that she is present in either Aethel scene.",
+              "source": "article"
             },
             {
               "feature": "Shadow Step",
@@ -12010,13 +12014,13 @@
               "source": "article"
             },
             {
-              "feature": "Leadership",
-              "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
+              "feature": "Hidden in Plain Sight",
+              "quote": "That breakfast filing also describes an unnamed, disguised woman who resembles X.O. Resemblance is not identification: she gives no name, and the archive establishes no relationship.",
               "source": "article"
             },
             {
-              "feature": "Keen Records",
-              "quote": "Underworld analysts use the term 'Kamidere' to describe X.O.'s personality type: someone who genuinely believes themselves to be divine or semi-divine, expects worship from those around them, and reacts with extreme",
+              "feature": "Leadership",
+              "quote": "Active — wielding influence within the Iron Fists Guild through her mother Commander G",
               "source": "article"
             },
             {
