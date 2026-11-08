@@ -155,7 +155,7 @@ function render(){renderRooms();const r=room(),box=$("chat");
   <div class="starters">
    <button class="starter" data-go="file"><b>📜 File a session</b><span>Paste or attach the transcript</span></button>
    <button class="starter" data-go="edit"><b>✎ Edit an event</b><span>Pick one, say what to change</span></button>
-   <button class="starter" data-go="image"><b>🖼 Images</b><span>Prompt sheet per the guide, then ComfyUI</span></button>
+   <button class="starter" data-go="image"><b>🖼 Images</b><span>Prompt sheet per the guide, then an image model</span></button>
    <button class="starter" data-go="commentary"><b>📽️ Commentary track</b><span>Waluigi's Cut — heckling the tape as it plays</span></button>
    <button class="starter" data-go="analysis"><b>🗂️ Analysis track</b><span>The morning after, at the desk, claim by claim</span></button>
    <button class="starter" data-go="chat"><b>💬 Just talk</b><span>Ask about the archive</span></button>
@@ -190,7 +190,7 @@ function cardHtml(m,i){const c=m.card,res=c.result||{},running=c.status==="runni
    if(id&&!res.error&&(c.kind==="file"||c.kind==="continue"||c.kind==="edit"||c.kind==="render"))a.push(`<a class="act primary" href="${SITE}#/article/${encodeURIComponent(id)}" target="_blank" rel="noopener">Open on site</a>`);
    if(id&&!res.error&&(c.kind==="file"||c.kind==="continue"||c.kind==="edit"))a.push(`<button class="act" data-act="edit" data-i="${i}">Edit this event</button>`,`<button class="act" data-act="sheet" data-i="${i}">Plan images</button>`,`<button class="act" data-act="commentary" data-i="${i}">Commentary track</button>`,`<button class="act" data-act="analysis" data-i="${i}">Analysis track</button>`);
    if((c.kind==="commentary"||c.kind==="analysis")&&res.route)a.push(`<a class="act primary" href="${SITE}${res.route}" target="_blank" rel="noopener">Open on site</a>`,`<button class="act" data-act="${c.kind}" data-i="${i}">Write it again</button>`);
-   if(c.kind==="sheet"&&res.slots)a.push(`<button class="act primary" data-act="render" data-i="${i}">Render chosen slots in ComfyUI</button>`,`<button class="act" data-act="sheet" data-i="${i}">New sheet</button>`);
+   if(c.kind==="sheet"&&res.slots)a.push(`<button class="act primary" data-act="render" data-i="${i}">Render chosen slots</button>`,`<button class="act" data-act="sheet" data-i="${i}">New sheet</button>`);
    if(res.error&&(c.kind==="file"||c.kind==="continue")&&c.job&&!c.continued&&!c.undone)a.push(`<button class="act primary" data-act="continue" data-i="${i}">Continue from where it stopped</button>`);
    if(res.undo&&!c.undone)a.push(`<button class="act danger" data-act="undo" data-i="${i}">Undo this run</button>`);
    if(a.length)h+=`<div class="actions">${a.join("")}</div>`}

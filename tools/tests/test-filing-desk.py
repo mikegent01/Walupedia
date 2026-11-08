@@ -29,6 +29,14 @@ def check(name: str, cond: bool, detail: str = "") -> None:
         FAILS.append(name)
 
 
+def _raises(fn) -> bool:
+    try:
+        fn()
+    except Exception:
+        return True
+    return False
+
+
 def tree() -> Path:
     root = Path(tempfile.mkdtemp(prefix="desk-test-"))
     data = root / "Reputation-Matrix2" / "data"
@@ -167,7 +175,68 @@ def main() -> int:
               and di._mentions("Herniva smiles", {"name": "Herniva Saltmere", "id": "herniva"}) > 0)
         portraits = root / "Reputation-Matrix2" / "portraits"
         portraits.mkdir(parents=True, exist_ok=True)
-        (portraits / "donkey_kong.png").write_bytes(b"png")
+        (portraits / "donkey_kong.png").write_bytes(b"portrait-bytes")
+
+        # Direct image API adapter: no ComfyUI lookup; edits send the canonical portrait as multipart.
+        api_settings = {"backend": "direct", "baseUrl": "http://image.test/v1", "model": "test-image",
+                        "generationPath": "/images/generations", "editPath": "/images/edits",
+                        "imageField": "image[]", "size": "1344x768", "timeout": 2, "apiKey": "secret"}
+        class FakeResponse:
+            headers = {"Content-Type": "application/json"}
+            def __enter__(self): return self
+            def __exit__(self, *args): return False
+            def read(self): return json.dumps({"data": [{"b64_json": "aW1hZ2UtYnl0ZXM=", "mime_type": "image/png"}]}).encode()
+        captured = []
+        original_urlopen = di.urllib.request.urlopen
+        def fake_urlopen(req, timeout):
+            captured.append(req)
+            return FakeResponse()
+        di.urllib.request.urlopen = fake_urlopen
+        try:
+            generated, ext = di.direct_image(api_settings, "A dark archive plate")
+            edited, edit_ext = di.direct_image(api_settings, "Keep the character identity", portraits / "donkey_kong.png")
+        finally:
+            di.urllib.request.urlopen = original_urlopen
+        check("direct API uses image generations for plates and decodes returned image bytes",
+              generated == b"image-bytes" and ext == ".png" and captured[0].full_url.endswith("/images/generations")
+              and json.loads(captured[0].data)["model"] == "test-image")
+        check("direct API sends portrait references to image edits (not ComfyUI/MOSS text-only)",
+              edited == b"image-bytes" and edit_ext == ".png" and captured[1].full_url.endswith("/images/edits")
+              and b'name="image[]"' in captured[1].data and b"portrait-bytes" in captured[1].data
+              and captured[1].get_header("Authorization") == "Bearer secret")
+        workflow = root / "workflow"
+        workflow.mkdir(exist_ok=True)
+        (workflow / "desk-models.json").write_text(json.dumps({"image": {"backend": "direct",
+            "baseUrl": "http://image.test/v1", "model": "test-image"}}), encoding="utf-8")
+        di.sheet_path(store, rep["id"]).parent.mkdir(parents=True, exist_ok=True)
+        (di.sheet_path(store, rep["id"]).with_suffix(".json")).write_text(json.dumps({"slots": [
+            {"render": True, "cast": {"id": "donkey_kong", "name": "Donkey Kong", "portrait": "Reputation-Matrix2/portraits/donkey_kong.png"}},
+            {"render": False, "cast": None}]}), encoding="utf-8")
+        preflight = di.render_preflight(store, rep["id"], [1])
+        check("direct image preflight validates endpoint and portrait without requiring ComfyUI",
+              preflight["backend"] == "direct" and preflight["model"] == "test-image")
+        check("render preflight rejects an explicitly empty selection", _raises(lambda: di.render_preflight(store, rep["id"], [])))
+        (workflow / "desk-models.json").write_text(json.dumps({"comfy": {"portraitRule": True}}), encoding="utf-8")
+        class FakeComfyModule:
+            class Comfy:
+                @staticmethod
+                def discover(): return object()
+        old_ready, old_plates, old_moss = di.comfy_ready, di._plates_module, di.moss_files
+        di.comfy_ready = lambda _store: "http://comfy.test"
+        di._plates_module = lambda _store: FakeComfyModule
+        di.moss_files = lambda _comfy: {"unet": "moss"}
+        try:
+            try:
+                di.render_preflight(store, rep["id"], [1])
+                moss_preflight_error = ""
+            except ValueError as error:
+                moss_preflight_error = str(error)
+        finally:
+            di.comfy_ready, di._plates_module, di.moss_files = old_ready, old_plates, old_moss
+        check("MOSS portraitRule failure is reported in preflight before any model unload",
+              "text-to-image" in moss_preflight_error and "would all be skipped" in moss_preflight_error)
+        (workflow / "desk-models.json").write_text(json.dumps({"image": {"backend": "direct",
+            "baseUrl": "http://image.test/v1", "model": "test-image"}}), encoding="utf-8")
 
         def img_llm(system, prompt, max_tokens, role):
             if prompt.startswith("An archive article has these story parts"):
@@ -192,6 +261,25 @@ def main() -> int:
               "No people" in slots[0]["prompt"] and "No people" not in slots[1]["prompt"])
         check("plan: camera differs per slot", len({s["camera"] for s in slots}) == len(slots))
         check("plan: house register opens every prompt", all(s["prompt"].startswith(di.REGISTER) for s in slots))
+        rendered_refs = []
+        old_direct, old_compress, old_plates = di.direct_image, di._compress, di._plates_module
+        def fake_direct(settings, prompt, reference=None):
+            rendered_refs.append(reference)
+            return b"synthetic-image", ".png"
+        def fake_compress(src, dst):
+            dst.write_bytes(b"compressed-image")
+            return "mock size"
+        def no_comfy(_store):
+            raise AssertionError("direct backend must not discover ComfyUI")
+        di.direct_image, di._compress, di._plates_module = fake_direct, fake_compress, no_comfy
+        try:
+            direct_result = di.render(store, rep["id"], [2], settings=di.render_preflight(store, rep["id"], [2]))
+        finally:
+            di.direct_image, di._compress, di._plates_module = old_direct, old_compress, old_plates
+        check("direct render bypasses ComfyUI, passes the canonical portrait, and wires the result",
+              direct_result["engine"] == "direct" and len(direct_result["images"]) == 1
+              and rendered_refs == [portraits / "donkey_kong.png"]
+              and store.get("events", rep["id"])["description"].count("assets/images/events/") == 1)
         di._wire(store, rep["id"], [{"part": 0, "image": "assets/images/events/x/l-01-lead.jpg", "caption": "Lead cap", "alt": "A"},
                                     {"part": 2, "image": "assets/images/events/x/l-02-jetpack.jpg", "caption": "A [bad] cap", "alt": "B"}])
         ev3 = store.get("events", rep["id"])

@@ -9,7 +9,7 @@
    six-part anatomy. Camera and distance rotate per slot so no two plates could
    swap captions; the setting is carried in words, never a scene reference.
 2. The person reviews the sheet (and can edit each prompt or skip a slot).
-3. `render()` spends one ComfyUI generation per chosen slot, compresses to JPEG
+3. `render()` spends one image-model request per chosen slot (direct OpenAI-compatible API or ComfyUI), compresses to JPEG
    (≤1600 px, ~300 KB), saves to assets/images/events/<slug>/<prefix>-NN-<subject>.jpg
    and wires it: the lead to the record's image/imageCaption/image_alt, each
    section plate as a `![caption](path)` figure under its part heading.
@@ -17,17 +17,23 @@
 """
 from __future__ import annotations
 
+import base64
 import importlib.util
 import io
 import json
+import mimetypes
+import os
 import random
 import re
+import urllib.error
+import urllib.request
+import uuid
 from pathlib import Path
 from typing import Any, Callable
 
 from desk_store import Store, slug
 
-LAST_COMFY = ""   # the ComfyUI the last render used (the desk frees it afterwards)
+LAST_COMFY = ""   # set only when this render used ComfyUI
 REGISTER = "Moody painterly digital concept art, dark fantasy archive plate, wide cinematic 16:9."
 FINISH = "Oil-painting texture, atmospheric depth, high detail."
 SCENE_NEGATIVE = "text, letters, watermark, signature, border, frame, extra limbs, blurry"
@@ -344,14 +350,150 @@ def comfy_ready(store: Store) -> str:
     return comfy.url
 
 
+def image_settings(store: Store) -> dict[str, Any]:
+    """Resolve the image backend from workflow/desk-models.json and environment overrides.
+
+    The direct backend speaks the OpenAI Images API: generations for place/object plates,
+    edits with a portrait multipart reference for character plates. ComfyUI remains the
+    backwards-compatible backend unless explicitly configured otherwise.
+    """
+    try:
+        cfg = json.loads((store.root / "workflow" / "desk-models.json").read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        cfg = {}
+    raw = cfg.get("image") if isinstance(cfg.get("image"), dict) else {}
+    base_url = str(os.environ.get("DESK_IMAGE_BASE_URL") or raw.get("baseUrl") or "").rstrip("/")
+    backend = os.environ.get("DESK_IMAGE_BACKEND") or raw.get("backend") or ("direct" if base_url else "comfy")
+    return {
+        "backend": str(backend).strip().lower(),
+        "baseUrl": base_url,
+        "model": str(os.environ.get("DESK_IMAGE_MODEL") or raw.get("model") or ""),
+        "apiKey": os.environ.get(str(raw.get("apiKeyEnv") or "DESK_IMAGE_API_KEY"), ""),
+        "apiKeyEnv": str(raw.get("apiKeyEnv") or "DESK_IMAGE_API_KEY"),
+        "size": str(raw.get("size") or "1344x768"),
+        "timeout": max(1, int(raw.get("timeout") or 600)),
+        "generationPath": str(raw.get("generationPath") or "/images/generations"),
+        "editPath": str(raw.get("editPath") or "/images/edits"),
+        "imageField": str(raw.get("imageField") or "image[]"),
+        "releaseLMStudio": bool(raw.get("releaseLMStudio", True)),
+    }
+
+
+def render_preflight(store: Store, event_id: str, chosen: list[int] | None = None) -> dict[str, Any]:
+    """Validate the chosen slots/backend before the API unloads any chat models."""
+    prompt_file = sheet_path(store, event_id).with_suffix(".json")
+    if not prompt_file.exists():
+        raise ValueError("plan the images first — the prompt sheet comes before any generation")
+    sheet = json.loads(prompt_file.read_text(encoding="utf-8"))
+    slots = sheet.get("slots") or []
+    todo = [n for n in (chosen if chosen is not None else
+                        [i for i, slot in enumerate(slots, 1) if slot.get("render", True)])
+            if isinstance(n, int) and 1 <= n <= len(slots)]
+    if not todo:
+        raise ValueError("no slots chosen")
+    settings = image_settings(store)
+    if settings["backend"] in ("openai", "openai-compatible", "direct"):
+        settings["backend"] = "direct"
+        if not settings["baseUrl"] or not settings["model"]:
+            raise ValueError("direct image backend needs image.baseUrl and image.model in workflow/desk-models.json "
+                             "(or DESK_IMAGE_BASE_URL and DESK_IMAGE_MODEL)")
+        for n in todo:
+            cast = slots[n - 1].get("cast")
+            if cast:
+                portrait = store.root / str(cast.get("portrait") or "")
+                if not cast.get("portrait") or not portrait.is_file():
+                    raise ValueError(f"slot {n} needs the portrait reference for {cast.get('name') or cast.get('id')}; "
+                                     "restore it before rendering")
+        return settings
+    if settings["backend"] != "comfy":
+        raise ValueError(f"unknown image backend {settings['backend']!r}; use 'direct' or 'comfy'")
+
+    url = comfy_ready(store)
+    # Fail before unloading the chat model instead of silently returning an empty render
+    # when a text-only MOSS graph is configured to skip every portrait-dependent slot.
+    plates = _plates_module(store)
+    comfy = plates.Comfy.discover()
+    try:
+        cfg = json.loads((store.root / "workflow" / "desk-models.json").read_text(encoding="utf-8"))
+        ccfg = cfg.get("comfy") or {}
+    except (OSError, ValueError, AttributeError):
+        ccfg = {}
+    if bool(ccfg.get("portraitRule")) and moss_files(comfy):
+        selected_cast = [n for n in todo if slots[n - 1].get("cast")]
+        if selected_cast:
+            raise ValueError("ComfyUI's selected MOSS-Image model is text-to-image and cannot use character portraits; "
+                             "these slots would all be skipped by portraitRule. Configure the direct image backend "
+                             "with an image-edit-capable model, or use the reference-capable Qwen graph.")
+    settings["comfyUrl"] = url
+    return settings
+
+
+def _image_ext(data: bytes, mime: str = "") -> str:
+    if data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ".png"
+    if data.startswith(b"\xff\xd8\xff"):
+        return ".jpg"
+    if data[:4] == b"RIFF" and data[8:12] == b"WEBP":
+        return ".webp"
+    return mimetypes.guess_extension(mime.split(";", 1)[0]) or ".png"
+
+
+def direct_image(settings: dict[str, Any], prompt: str, reference: Path | None = None) -> tuple[bytes, str]:
+    """Call an OpenAI-compatible image endpoint; use /images/edits when a portrait is supplied."""
+    edit = reference is not None
+    endpoint = settings["baseUrl"] + settings["editPath" if edit else "generationPath"]
+    token = settings.get("apiKey") or ""
+    headers = {"Authorization": f"Bearer {token}"} if token else {}
+    fields = {"model": settings["model"], "prompt": prompt, "size": settings["size"], "n": "1"}
+    if reference:
+        boundary = "----FilingDesk" + uuid.uuid4().hex
+        chunks: list[bytes] = []
+        for key, value in fields.items():
+            chunks.extend((f"--{boundary}\r\nContent-Disposition: form-data; name=\"{key}\"\r\n\r\n{value}\r\n".encode(),))
+        mime = mimetypes.guess_type(reference.name)[0] or "application/octet-stream"
+        chunks.append((f"--{boundary}\r\nContent-Disposition: form-data; name=\"{settings['imageField']}\"; "
+                       f"filename=\"{reference.name}\"\r\nContent-Type: {mime}\r\n\r\n").encode())
+        chunks.extend((reference.read_bytes(), b"\r\n", f"--{boundary}--\r\n".encode()))
+        body = b"".join(chunks)
+        headers["Content-Type"] = f"multipart/form-data; boundary={boundary}"
+    else:
+        body = json.dumps(fields).encode("utf-8")
+        headers["Content-Type"] = "application/json"
+    req = urllib.request.Request(endpoint, data=body, headers=headers, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=settings["timeout"]) as response:
+            payload = json.loads(response.read())
+    except urllib.error.HTTPError as error:
+        detail = error.read()[:600].decode("utf-8", "replace")
+        raise ValueError(f"image model answered {error.code}: {detail}") from error
+    except Exception as error:  # noqa: BLE001
+        raise ValueError(f"could not reach direct image model at {endpoint}: {error}") from error
+    rows = payload.get("data") or []
+    if not rows:
+        raise ValueError("direct image model returned no images (expected OpenAI Images API data[0])")
+    image = rows[0]
+    if image.get("b64_json"):
+        data = base64.b64decode(image["b64_json"], validate=True)
+        return data, _image_ext(data, image.get("mime_type", "image/png"))
+    if image.get("url"):
+        try:
+            with urllib.request.urlopen(image["url"], timeout=settings["timeout"]) as response:
+                data = response.read()
+                mime = response.headers.get("Content-Type", "")
+        except Exception as error:  # noqa: BLE001
+            raise ValueError(f"could not download the generated image: {error}") from error
+        return data, _image_ext(data, mime)
+    raise ValueError("direct image model response has neither data[0].b64_json nor data[0].url")
+
+
 def _compress(src: Path, dst: Path) -> str:
-    """Guide: JPEG, ≤1600 px, quality 82, under ~300 KB. Without Pillow the PNG is kept."""
+    """Guide: JPEG, ≤1600 px, quality 82, under ~300 KB. Without Pillow keep the source image."""
     try:
         from PIL import Image
     except ImportError:
-        dst = dst.with_suffix(".png")
+        dst = dst.with_suffix(src.suffix or ".png")
         dst.write_bytes(src.read_bytes())
-        return f"Pillow missing — kept PNG ({dst.stat().st_size // 1024} KB), compress by hand"
+        return f"Pillow missing — kept {dst.suffix[1:].upper()} ({dst.stat().st_size // 1024} KB), compress by hand"
     img = Image.open(src).convert("RGB")
     img.thumbnail((1600, 1600))
     for q in (82, 74, 66, 58):
@@ -365,26 +507,32 @@ def _compress(src: Path, dst: Path) -> str:
 
 def render(store: Store, event_id: str, chosen: list[int] | None = None,
            prompts: dict[str, str] | None = None,
-           emit: Callable[[str, str], None] = lambda k, t: None) -> dict[str, Any]:
-    """Render the chosen slots (1-based; default: every slot marked render) and wire them."""
+           emit: Callable[[str, str], None] = lambda k, t: None,
+           settings: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Render chosen slots (1-based; default: every slot marked render) and wire them."""
     sheet_file = sheet_path(store, event_id).with_suffix(".json")
     if not sheet_file.exists():
         raise ValueError("plan the images first — the prompt sheet comes before any generation")
     sheet = json.loads(sheet_file.read_text(encoding="utf-8"))
     slots = sheet["slots"]
-    todo = [n for n in (chosen or [i for i, s in enumerate(slots, 1) if s.get("render", True)])
-            if 1 <= n <= len(slots)]
+    todo = [n for n in (chosen if chosen is not None else
+                        [i for i, s in enumerate(slots, 1) if s.get("render", True)])
+            if isinstance(n, int) and 1 <= n <= len(slots)]
     if not todo:
         raise ValueError("no slots chosen")
-    plates = _plates_module(store)
-    comfy = plates.Comfy.discover()
+    settings = settings or render_preflight(store, event_id, todo)
+    backend = settings.get("backend", "comfy")
+    plates = comfy = renderer = None
     global LAST_COMFY
-    LAST_COMFY = comfy.url
-    if not comfy.alive():
-        raise ValueError(f"ComfyUI is not answering at {comfy.url} — start it, then render again")
-    # Which graph: the reference-capable Qwen-Image one when its files are here, else MOSS-Image
-    # (text-to-image only). desk-models.json "comfy": {"engine": "moss" | "qwen"} pins it.
-    moss = moss_files(comfy)
+    LAST_COMFY = ""
+    if backend == "comfy":
+        plates = _plates_module(store)
+        comfy = plates.Comfy.discover()
+        LAST_COMFY = comfy.url
+        if not comfy.alive():
+            raise ValueError(f"ComfyUI is not answering at {comfy.url} — start it, then render again")
+    # Which Comfy graph: reference-capable Qwen when its files are present, else MOSS text-only.
+    moss = moss_files(comfy) if comfy else None
     try:
         comfy_cfg = json.loads((store.root / "workflow" / "desk-models.json").read_text(encoding="utf-8")).get("comfy") or {}
     except (OSError, ValueError, AttributeError):
@@ -393,14 +541,15 @@ def render(store: Store, event_id: str, chosen: list[int] | None = None,
     # The user's choice (2026-11-08): with a text-only model, draw characters from their archive
     # record rather than skip them. "portraitRule": true restores the skip.
     portrait_rule = bool(comfy_cfg.get("portraitRule", False))
-    use_moss = bool(moss) and (pin == "moss" or (pin != "qwen" and not qwen_files_present(plates, comfy)))
-    renderer = None
-    if use_moss:
+    use_moss = backend == "comfy" and bool(moss) and (pin == "moss" or (pin != "qwen" and not qwen_files_present(plates, comfy)))
+    if backend == "comfy" and use_moss:
         emit("step", f"ComfyUI has MOSS-Image ({moss['unet']}), not the Qwen-Image files — rendering text-to-image; "
                      + ("slots with a character in frame are skipped (portraitRule is on)" if portrait_rule else
                         "characters are drawn from their archive description, not their portrait"))
-    else:
+    elif backend == "comfy":
         renderer = plates.Renderer(comfy, models=comfy_models(store, plates, comfy, emit))
+    else:
+        emit("step", f"direct image model · {settings['model']} at {settings['baseUrl']}")
     rel_dir = f"assets/images/events/{event_id.replace('_', '-')}"
     folder = store.root / "Reputation-Matrix2" / rel_dir
     raw_dir = store.backup_dir / "renders" / event_id
@@ -418,12 +567,17 @@ def render(store: Store, event_id: str, chosen: list[int] | None = None,
             emit("step", f"slot {n} skipped — {s['cast']['name']} must come from their portrait (portraitRule)")
             continue
         if use_moss and s.get("cast"):
-            # no reference image: describe the figure from the archive so MOSS has something to go on
+            # Backwards-compatible text-only MOSS path. A direct image edit receives the portrait itself.
             who = character_line(store, plates, s["cast"])
             prompt = prompt.replace(REGISTER, REGISTER + " " + who, 1) if REGISTER in prompt else who + " " + prompt
             from_text.append(f"slot {n} ({s['cast']['name']})")
         emit("step", f"rendering slot {n}/{len(slots)} — {s['slot']} {s['heading']}")
-        if use_moss:
+        if backend == "direct":
+            reference = store.root / s["cast"]["portrait"] if s.get("cast") else None
+            data, ext = direct_image(settings, prompt, reference)
+            raw = raw_dir / f"{n:02d}{ext}"
+            raw.write_bytes(data)
+        elif use_moss:
             wf = moss_graph(prompt, MOSS_NEGATIVE + (", " + avoid if avoid else ""), seed,
                             f"desk/{event_id}-{n:02d}", moss)
         elif s.get("cast"):
@@ -436,13 +590,14 @@ def render(store: Store, event_id: str, chosen: list[int] | None = None,
         else:
             emit("step", f"slot {n}: this ComfyUI graph needs a reference portrait — skipped")
             continue
-        raw = raw_dir / f"{n:02d}.png"
-        comfy.run(wf, str(raw))
+        if backend == "comfy":
+            raw = raw_dir / f"{n:02d}.png"
+            comfy.run(wf, str(raw))
         subject = slug(s["heading"] if s["slot"] != "lead" else "lead", 28).replace("_", "-")
         dst = folder / f"{_prefix(event_id)}-{n:02d}-{subject}.jpg"
         size = _compress(raw, dst)
         if not dst.exists():
-            dst = dst.with_suffix(".png")
+            dst = dst.with_suffix(raw.suffix or ".png")
         made.append({"slot": n, "part": s["part"], "image": f"{rel_dir}/{dst.name}", "caption": s["caption"],
                      "alt": s["alt"], "seed": seed, "size": size})
         emit("step", f"slot {n} saved — {dst.name} ({size})")
@@ -455,7 +610,7 @@ def render(store: Store, event_id: str, chosen: list[int] | None = None,
     if skipped:
         note += (" Skipped (portraitRule): " + ", ".join(skipped) + ".")
     return {"id": event_id, "images": made, "skipped": skipped, "fromText": from_text,
-            "engine": "moss" if use_moss else "qwen", "note": note}
+            "engine": "direct" if backend == "direct" else ("moss" if use_moss else "qwen"), "note": note}
 
 
 def _wire(store: Store, event_id: str, made: list[dict[str, Any]]) -> None:

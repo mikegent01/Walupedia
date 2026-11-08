@@ -159,19 +159,30 @@ def start(kind: str, payload: dict[str, Any], lm_completion: Callable[..., str],
                 elif kind == "render":
                     chosen = [int(n) for n in payload.get("slots") or [] if str(n).isdigit()]
                     prompts = {str(k): str(v) for k, v in (payload.get("prompts") or {}).items() if str(v).strip()}
-                    emit("step", f"ComfyUI answering at {desk_image.comfy_ready(store)}")
-                    # one GPU: the chat model leaves VRAM for the whole render, and comes back after
-                    rows, notes = desk_vram.free_lm(base)
+                    event_id = str(payload["id"]).strip()
+                    # Validate the selected backend, portrait inputs, and slots before touching VRAM.
+                    image_settings = desk_image.render_preflight(store, event_id, chosen)
+                    is_comfy = image_settings["backend"] == "comfy"
+                    if is_comfy:
+                        emit("step", f"ComfyUI answering at {image_settings['comfyUrl']}")
+                    else:
+                        emit("step", f"direct image model ready · {image_settings['model']}")
+                    # A single GPU may require the chat LLM to be released; direct backends can opt out.
+                    rows, notes = desk_vram.free_lm(base) if is_comfy or image_settings["releaseLMStudio"] else ([], [])
                     for n in notes:
                         emit("step", n)
                     try:
-                        emit("step", "rendering in ComfyUI (one generation per slot; minutes each)")
-                        result = desk_image.render(store, str(payload["id"]).strip(), chosen or None, prompts, emit)
+                        if is_comfy:
+                            emit("step", "rendering in ComfyUI (one generation per slot; minutes each)")
+                        else:
+                            emit("step", "rendering directly through the configured image model API")
+                        result = desk_image.render(store, event_id, chosen, prompts, emit, settings=image_settings)
                     finally:
-                        comfy_url = os.environ.get("COMFY_URL", "") or desk_image.LAST_COMFY
-                        if comfy_url:
-                            for n in desk_vram.free_comfy(comfy_url):
-                                emit("step", n)
+                        if is_comfy:
+                            comfy_url = os.environ.get("COMFY_URL", "") or desk_image.LAST_COMFY
+                            if comfy_url:
+                                for n in desk_vram.free_comfy(comfy_url):
+                                    emit("step", n)
                         for n in desk_vram.restore_lm(base, rows):
                             emit("step", n)
                     if os.environ.get("DESK_SKIP_CHECKS") != "1":

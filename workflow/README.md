@@ -104,25 +104,37 @@ the portrait-holder the slot actually names; people with no portrait are left
 out of frame and flagged ("commission a portrait first"); a beat that is about
 someone with no portrait is unticked rather than drawn with another face; place
 and object plates say "no people"; camera and distance rotate per slot so no
-two plates could swap captions; a scene image is never a reference. In the
-card, untick slots or edit prompts, then **Render chosen slots**: LM Studio
-unloads, ComfyUI renders each slot, the PNG is compressed to JPEG (≤1600 px,
-~300 KB, needs Pillow — `start.py`'s Python has it) at
-`assets/images/events/<slug>/<prefix>-NN-<subject>.jpg`, ComfyUI frees its
-memory and the chat model reloads. The lead goes on the record
-(`image`/`imageCaption`/`image_alt`); each section plate becomes a
-`![caption](path)` figure after its part's first paragraph. **Which ComfyUI
-graph:** the Qwen-Image graph (portrait references) when its model files are
-installed; otherwise, if ComfyUI has MOSS-Image, the MOSS text-to-image
-template in API form (1344×768, its recommended negative, skip-layer 22).
-MOSS takes no reference image, so a character in frame is drawn from their
-archive record instead (name, title, race and the established-look caption, if
-the record has one); the card lists those slots so each face can be checked
-against `portraits/`. `"comfy": {"portraitRule": true}` skips them instead. Loader files are read from the server (a missing default falls back to
-what the loader offers); pin them, or the engine, in `desk-models.json` under
-`"comfy": {"engine": "moss"|"qwen", "unet", "clip", "vae"}`. Section plates
-render through `mdToHtml()` as captioned figures, and edits keep them in place. Every image shows in
-the card with **Re-roll slot N**. Look at each one before keeping it (guide
+two plates could swap captions; a scene image is never a reference.
+In the card, untick slots or edit prompts, then **Render chosen slots**. The
+Desk supports two backends:
+
+- **Direct OpenAI-compatible Images API** (preferred when the model endpoint
+  accepts image edits): configure `"image": {"backend": "direct", "baseUrl":
+  "http://127.0.0.1:PORT/v1", "model": "YOUR-IMAGE-MODEL"}` in
+  `desk-models.json`, or set `DESK_IMAGE_BASE_URL` and `DESK_IMAGE_MODEL`.
+  Optional `apiKeyEnv` names the environment variable holding the API key
+  (default `DESK_IMAGE_API_KEY`); credentials are not stored in the JSON file.
+  Place/object plates call `/images/generations`; character plates call
+  `/images/edits` and attach the slot's canonical portrait as `image[]`, so a
+  text-only MOSS model can no longer silently skip portrait-dependent slots.
+  `editPath`, `generationPath`, `imageField`, `size`, `timeout`, and
+  `releaseLMStudio` can be overridden under `image`. Set `releaseLMStudio` to
+  false for a remote image service that does not share the LM Studio GPU.
+- **ComfyUI** remains the backward-compatible default when no direct image
+  endpoint is configured. Qwen-Image can use portrait references; MOSS-Image
+  is text-only. If `portraitRule` would make selected MOSS slots all skip, the
+  Desk now detects that during preflight—before unloading LM Studio—and tells
+  you to select a reference-capable backend instead of reporting a misleading
+  successful empty run.
+
+The chosen backend is preflighted before any model is unloaded. For either
+backend, images are compressed to JPEG (≤1600 px, ~300 KB, needs Pillow —
+`start.py`'s Python has it) at
+`assets/images/events/<slug>/<prefix>-NN-<subject>.jpg`. The lead goes on the
+record (`image`/`imageCaption`/`image_alt`); each section plate becomes a
+`![caption](path)` figure after its part's first paragraph. The LM Studio model
+is restored after rendering when it was released. Every generated image shows
+in the card with **Re-roll slot N**. Look at each one before keeping it (guide
 step 4). Undo restores the record; image files stay on disk.
 
 **Commentary and analysis tracks** (`desk_tracks.py`). Pick an event and the
