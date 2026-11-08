@@ -23142,297 +23142,6 @@
       }
     },
     {
-      "name": "Vivesna's Ivory Wand",
-      "type": "weapon",
-      "img": "icons/weapons/staves/staff-ornate-purple.webp",
-      "system": {
-        "description": {
-          "value": "<p>This pale ivory wand that has been used by Vivesna for decades. It feels perpetually cool to the touch, and gives an uneasy sensation to the wielder.</p><p>When this wand is used as a spellcasting focus, Necromancy spells attack rolls gain a +1 bonus.</p><p><strong>Spellcasting Focus</strong>. An arcane focus is a special item designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus, using it in place of any material component which does not list a cost.</p>",
-          "chat": ""
-        },
-        "source": {
-          "custom": "PHB pg. 151",
-          "revision": 1,
-          "rules": "2024"
-        },
-        "quantity": 1,
-        "weight": {
-          "value": 1,
-          "units": "lb"
-        },
-        "price": {
-          "value": 10,
-          "denomination": "gp"
-        },
-        "attunement": "",
-        "rarity": "common",
-        "identified": true,
-        "cover": null,
-        "range": {
-          "value": null,
-          "long": null,
-          "units": "ft"
-        },
-        "uses": {
-          "max": "",
-          "spent": 0,
-          "recovery": []
-        },
-        "damage": {
-          "versatile": {
-            "number": null,
-            "denomination": null,
-            "bonus": "",
-            "types": [],
-            "custom": {
-              "enabled": false,
-              "formula": ""
-            },
-            "scaling": {
-              "mode": "",
-              "number": null,
-              "formula": ""
-            }
-          },
-          "base": {
-            "types": [],
-            "custom": {
-              "enabled": false
-            },
-            "scaling": {
-              "number": 1
-            }
-          }
-        },
-        "armor": {
-          "value": 10
-        },
-        "hp": {
-          "value": 0,
-          "max": 0,
-          "dt": null,
-          "conditions": ""
-        },
-        "properties": [
-          "foc",
-          "mgc"
-        ],
-        "unidentified": {
-          "description": ""
-        },
-        "type": {
-          "value": "simpleM",
-          "baseItem": ""
-        },
-        "container": null,
-        "attuned": false,
-        "activities": {
-          "dnd5eactivity000": {
-            "_id": "dnd5eactivity000",
-            "type": "utility",
-            "activation": {
-              "type": "action",
-              "value": 1,
-              "condition": "",
-              "override": false
-            },
-            "consumption": {
-              "targets": [],
-              "scaling": {
-                "allowed": false,
-                "max": ""
-              },
-              "spellSlot": true
-            },
-            "description": {
-              "chatFlavor": ""
-            },
-            "duration": {
-              "concentration": false,
-              "value": "",
-              "units": "inst",
-              "special": "",
-              "override": false
-            },
-            "effects": [],
-            "range": {
-              "units": "self",
-              "special": "",
-              "override": false
-            },
-            "target": {
-              "template": {
-                "count": "",
-                "contiguous": false,
-                "type": "",
-                "size": "",
-                "width": "",
-                "height": "",
-                "units": "ft",
-                "stationary": false
-              },
-              "affects": {
-                "count": "",
-                "type": "",
-                "choice": false,
-                "special": ""
-              },
-              "prompt": true,
-              "override": false
-            },
-            "uses": {
-              "spent": 0,
-              "max": "",
-              "recovery": []
-            },
-            "roll": {
-              "formula": "",
-              "name": "",
-              "prompt": false,
-              "visible": false
-            },
-            "sort": 0,
-            "flags": {},
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "img": null,
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityId": "none",
-            "otherActivityAsParentType": true
-          }
-        },
-        "identifier": "vivesnas-ivory-wand",
-        "crew": {
-          "value": []
-        },
-        "ammunition": {},
-        "equipped": false,
-        "proficient": null
-      },
-      "effects": [],
-      "folder": "4edUBO1QohYk4728",
-      "sort": 150000,
-      "flags": {
-        "core": {},
-        "dnd5e": {},
-        "item-durability": {
-          "durability": 100,
-          "maxDurability": 100,
-          "max": 120,
-          "cur": 120
-        },
-        "team-initiative": {
-          "max": 120,
-          "cur": 120
-        },
-        "world": {
-          "itemDurability": {
-            "max": 120,
-            "cur": 120
-          },
-          "durability": {
-            "cur": 500,
-            "max": 500
-          }
-        },
-        "item-piles": {
-          "item": {}
-        },
-        "scene-packer": {
-          "hash": "32d1e385617519090c79af49ba8cad52ccb15c90"
-        }
-      },
-      "_stats": {
-        "compendiumSource": "Compendium.dnd5e.items.KA2P6I48iOWlnboO",
-        "duplicateSource": null,
-        "exportSource": null,
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1788730402512
-      },
-      "_id": "DvjljqA1HB6lEYoJ",
-      "ownership": {
-        "default": 0
-      }
-    },
-    {
       "name": "Entropy regulator ring",
       "type": "equipment",
       "img": "icons/equipment/finger/ring-cabochon-gold-red.webp",
@@ -28672,1244 +28381,6 @@
       "sort": 0
     },
     {
-      "_id": "HFsIv3RAl0ETLLCw",
-      "name": "Staff of Thunder and Lightning",
-      "type": "weapon",
-      "system": {
-        "activities": {
-          "dnd5eactivity000": {
-            "type": "attack",
-            "activation": {
-              "type": "action",
-              "override": false
-            },
-            "damage": {
-              "includeBase": true,
-              "critical": {},
-              "parts": []
-            },
-            "_id": "dnd5eactivity000",
-            "target": {
-              "template": {
-                "contiguous": false,
-                "stationary": false,
-                "units": "ft"
-              },
-              "affects": {
-                "choice": false
-              },
-              "override": false,
-              "prompt": true
-            },
-            "img": null,
-            "sort": 0,
-            "consumption": {
-              "scaling": {
-                "allowed": false
-              },
-              "spellSlot": true,
-              "targets": []
-            },
-            "description": {},
-            "duration": {
-              "units": "inst",
-              "concentration": false,
-              "override": false
-            },
-            "effects": [],
-            "flags": {},
-            "range": {
-              "units": "self",
-              "override": false
-            },
-            "uses": {
-              "spent": 0,
-              "recovery": []
-            },
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "attack": {
-              "critical": {},
-              "flat": false,
-              "type": {}
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "attackMode": "oneHanded",
-            "ammunition": "",
-            "otherActivityUuid": "",
-            "attackRollPerTarget": "default",
-            "fumbleThreshold": 1
-          },
-          "dnd5eactivity001": {
-            "name": "Thunder",
-            "type": "save",
-            "activation": {
-              "type": "",
-              "override": false
-            },
-            "consumption": {
-              "targets": [
-                {
-                  "type": "activityUses",
-                  "value": "1",
-                  "scaling": {}
-                }
-              ],
-              "scaling": {
-                "allowed": false
-              },
-              "spellSlot": true
-            },
-            "uses": {
-              "recovery": [
-                {
-                  "period": "dawn",
-                  "type": "recoverAll"
-                }
-              ],
-              "max": "1",
-              "spent": 0
-            },
-            "target": {
-              "affects": {
-                "count": "1",
-                "type": "creature",
-                "choice": false
-              },
-              "template": {
-                "contiguous": false,
-                "stationary": false,
-                "units": "ft"
-              },
-              "override": false,
-              "prompt": true
-            },
-            "damage": {
-              "onSave": "half",
-              "critical": {
-                "allow": false
-              },
-              "parts": []
-            },
-            "save": {
-              "ability": [
-                "con"
-              ],
-              "dc": {
-                "formula": "17",
-                "calculation": "initial"
-              }
-            },
-            "effects": [
-              {
-                "_id": "staffOfThunderAn",
-                "level": {},
-                "onSave": false
-              }
-            ],
-            "_id": "dnd5eactivity001",
-            "img": null,
-            "sort": 0,
-            "description": {},
-            "duration": {
-              "units": "inst",
-              "concentration": false,
-              "override": false
-            },
-            "flags": {},
-            "range": {
-              "units": "self",
-              "override": false
-            },
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "friendlySave": "default"
-          },
-          "dnd5eactivity002": {
-            "name": "Lightning",
-            "type": "damage",
-            "activation": {
-              "type": "",
-              "override": false
-            },
-            "consumption": {
-              "targets": [
-                {
-                  "type": "activityUses",
-                  "value": "1",
-                  "scaling": {}
-                }
-              ],
-              "scaling": {
-                "allowed": false
-              },
-              "spellSlot": true
-            },
-            "uses": {
-              "recovery": [
-                {
-                  "period": "dawn",
-                  "type": "recoverAll"
-                }
-              ],
-              "max": "1",
-              "spent": 1
-            },
-            "target": {
-              "affects": {
-                "count": "1",
-                "type": "creature",
-                "choice": false
-              },
-              "template": {
-                "contiguous": false,
-                "stationary": false,
-                "units": "ft"
-              },
-              "override": false,
-              "prompt": true
-            },
-            "damage": {
-              "parts": [
-                {
-                  "number": 2,
-                  "denomination": 6,
-                  "types": [
-                    "lightning"
-                  ],
-                  "custom": {
-                    "enabled": false
-                  },
-                  "scaling": {
-                    "number": 1
-                  }
-                }
-              ],
-              "critical": {
-                "allow": false
-              }
-            },
-            "_id": "dnd5eactivity002",
-            "img": null,
-            "sort": 0,
-            "description": {},
-            "duration": {
-              "units": "inst",
-              "concentration": false,
-              "override": false
-            },
-            "effects": [],
-            "flags": {},
-            "range": {
-              "units": "self",
-              "override": false
-            },
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            }
-          },
-          "dnd5eactivity003": {
-            "name": "Thunder & Lightning",
-            "type": "save",
-            "activation": {
-              "type": "bonus",
-              "override": false
-            },
-            "consumption": {
-              "targets": [
-                {
-                  "type": "activityUses",
-                  "value": "1",
-                  "scaling": {}
-                }
-              ],
-              "scaling": {
-                "allowed": false
-              },
-              "spellSlot": true
-            },
-            "uses": {
-              "recovery": [
-                {
-                  "period": "dawn",
-                  "type": "recoverAll"
-                }
-              ],
-              "max": "1",
-              "spent": 0
-            },
-            "target": {
-              "affects": {
-                "count": "1",
-                "type": "creature",
-                "choice": false
-              },
-              "template": {
-                "contiguous": false,
-                "stationary": false,
-                "units": "ft"
-              },
-              "override": false,
-              "prompt": true
-            },
-            "damage": {
-              "parts": [
-                {
-                  "number": 2,
-                  "denomination": 6,
-                  "types": [
-                    "lightning"
-                  ],
-                  "custom": {
-                    "enabled": false
-                  },
-                  "scaling": {
-                    "number": 1
-                  }
-                },
-                {
-                  "types": [],
-                  "custom": {
-                    "enabled": false
-                  },
-                  "scaling": {
-                    "number": 1
-                  }
-                }
-              ],
-              "onSave": "full",
-              "critical": {
-                "allow": false
-              }
-            },
-            "save": {
-              "ability": [
-                "con"
-              ],
-              "dc": {
-                "formula": "17",
-                "calculation": "initial"
-              }
-            },
-            "effects": [
-              {
-                "_id": "staffOfThunderAn",
-                "level": {},
-                "onSave": false
-              }
-            ],
-            "_id": "dnd5eactivity003",
-            "img": null,
-            "sort": 0,
-            "description": {},
-            "duration": {
-              "units": "inst",
-              "concentration": false,
-              "override": false
-            },
-            "flags": {},
-            "range": {
-              "units": "self",
-              "override": false
-            },
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "friendlySave": "default"
-          },
-          "dnd5eactivity004": {
-            "name": "Lightning Strike",
-            "type": "save",
-            "activation": {
-              "type": "action",
-              "override": false
-            },
-            "consumption": {
-              "targets": [
-                {
-                  "type": "activityUses",
-                  "value": "1",
-                  "scaling": {}
-                }
-              ],
-              "scaling": {
-                "allowed": false
-              },
-              "spellSlot": true
-            },
-            "uses": {
-              "recovery": [
-                {
-                  "period": "dawn",
-                  "type": "recoverAll"
-                }
-              ],
-              "max": "1",
-              "spent": 1
-            },
-            "target": {
-              "template": {
-                "units": "ft",
-                "type": "line",
-                "size": "120",
-                "width": "5",
-                "contiguous": false,
-                "stationary": false
-              },
-              "affects": {
-                "type": "creature",
-                "choice": false
-              },
-              "override": false,
-              "prompt": true
-            },
-            "damage": {
-              "parts": [
-                {
-                  "number": 9,
-                  "denomination": 6,
-                  "types": [
-                    "lightning"
-                  ],
-                  "custom": {
-                    "enabled": false
-                  },
-                  "scaling": {
-                    "number": 1
-                  }
-                }
-              ],
-              "onSave": "half",
-              "critical": {
-                "allow": false
-              }
-            },
-            "save": {
-              "ability": [
-                "dex"
-              ],
-              "dc": {
-                "formula": "17",
-                "calculation": "initial"
-              }
-            },
-            "_id": "dnd5eactivity004",
-            "img": null,
-            "sort": 0,
-            "description": {},
-            "duration": {
-              "units": "inst",
-              "concentration": false,
-              "override": false
-            },
-            "effects": [],
-            "flags": {},
-            "range": {
-              "units": "self",
-              "override": false
-            },
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "friendlySave": "default"
-          },
-          "dnd5eactivity005": {
-            "name": "Thunderclap",
-            "type": "save",
-            "activation": {
-              "type": "action",
-              "override": false
-            },
-            "consumption": {
-              "targets": [
-                {
-                  "type": "activityUses",
-                  "value": "1",
-                  "scaling": {}
-                }
-              ],
-              "scaling": {
-                "allowed": false
-              },
-              "spellSlot": true
-            },
-            "uses": {
-              "recovery": [
-                {
-                  "period": "dawn",
-                  "type": "recoverAll"
-                }
-              ],
-              "max": "1",
-              "spent": 0
-            },
-            "target": {
-              "template": {
-                "units": "ft",
-                "type": "radius",
-                "size": "60",
-                "contiguous": false,
-                "stationary": false
-              },
-              "affects": {
-                "type": "creature",
-                "choice": false
-              },
-              "override": false,
-              "prompt": true
-            },
-            "damage": {
-              "parts": [
-                {
-                  "number": 2,
-                  "denomination": 6,
-                  "types": [
-                    "thunder"
-                  ],
-                  "custom": {
-                    "enabled": false
-                  },
-                  "scaling": {
-                    "number": 1
-                  }
-                }
-              ],
-              "onSave": "half",
-              "critical": {
-                "allow": false
-              }
-            },
-            "save": {
-              "ability": [
-                "con"
-              ],
-              "dc": {
-                "formula": "17",
-                "calculation": "initial"
-              }
-            },
-            "effects": [
-              {
-                "_id": "staffOfThunderA1",
-                "level": {},
-                "onSave": false
-              }
-            ],
-            "_id": "dnd5eactivity005",
-            "img": null,
-            "sort": 0,
-            "description": {},
-            "duration": {
-              "units": "inst",
-              "concentration": false,
-              "override": false
-            },
-            "flags": {},
-            "range": {
-              "units": "self",
-              "override": false
-            },
-            "visibility": {
-              "level": {},
-              "requireAttunement": false,
-              "requireIdentification": false,
-              "requireMagic": false
-            },
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "friendlySave": "default"
-          }
-        },
-        "uses": {
-          "spent": 0,
-          "recovery": [
-            {
-              "period": "dawn",
-              "type": "recoverAll"
-            }
-          ],
-          "max": "1"
-        },
-        "description": {
-          "value": "<div class=\"ve-rd__b  ve-rd__b--2\"><p>This staff can be wielded as a magic Quarterstaff that grants a +2 bonus to attack rolls and damage rolls made with it. It also has the following additional properties. Once one of these properties is used, it can't be used again until the next dawn.</p><div data-roll-name-ancestor=\"Lightning\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"1\"> <span class=\"entry-title-inner \">Lightning.</span></span> When you hit with a melee attack using the staff, you can cause the target to take an extra [[/damage 2d6 type=lightning]] damage (no action required).</p></div><div data-roll-name-ancestor=\"Thunder\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"2\"> <span class=\"entry-title-inner \">Thunder.</span></span> When you hit with a melee attack using the staff, you can cause the staff to emit a crack of thunder audible out to 300 feet (no action required). The target you hit must succeed on a [[/save ability=con dc=17]] saving throw or have the &amp;Reference[condition=Stunned] condition until the end of your next turn.</p></div><div data-roll-name-ancestor=\"Thunder and Lightning\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"3\"> <span class=\"entry-title-inner \">Thunder and Lightning.</span></span> Immediately after you hit with a melee attack using the staff, you can take a @variantrule[Bonus Action|XPHB] to use the Lightning and Thunder properties (see above) at the same time. Doing so doesn't expend the daily use of those properties, only the use of this one.</p></div><div data-roll-name-ancestor=\"Lightning Strike\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"4\"> <span class=\"entry-title-inner \">Lightning Strike.</span></span> You can take a @action[Magic|XPHB] action to cause a bolt of lightning to leap from the staff's tip in a @variantrule[Line [Area of Effect]|XPHB|Line] that is 5 feet wide and 120 feet long. Each creature in that @variantrule[Line [Area of Effect]|XPHB|Line] makes a [[/save ability=dex dc=17]] saving throw, taking [[/damage 9d6 type=lightning]] damage on a failed save or half as much damage on a successful one.</p></div><div data-roll-name-ancestor=\"Thunderclap\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"5\"> <span class=\"entry-title-inner \">Thunderclap.</span></span> You can take a @action[Magic|XPHB] action to cause the staff to produce a thunderclap audible out to 600 feet. Every creature within a 60-foot @variantrule[Emanation [Area of Effect]|XPHB|Emanation] originating from you makes a [[/save ability=con dc=17]] saving throw. On a failed save, a creature takes [[/damage 2d6 type=thunder]] damage and has the &amp;Reference[condition=Deafened] condition for 1 minute. On a successful save, a creature takes half as much damage only.</p></div><div data-roll-name-ancestor=\"Mastery: Topple\" data-source=\"XPHB\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"6\"> <span class=\"entry-title-inner ve-help-subtle\" title=\"Source: Player’s Handbook (2024), p214\">Mastery: Topple.</span></span> If you hit a creature with this weapon, you can force the creature to make a Constitution saving throw (DC <span class=\"ve-rd__dc\">8</span> plus the ability modifier used to make the attack roll and your @variantrule[Proficiency|XPHB|Proficiency Bonus]). On a failed save, the creature has the &amp;Reference[condition=Prone] condition.</p></div></div>",
-          "chat": ""
-        },
-        "identifier": "staff-of-thunder-and-lightning",
-        "source": {
-          "custom": "",
-          "book": "DMG 2024",
-          "page": "311",
-          "license": "",
-          "rules": "2024",
-          "revision": 1
-        },
-        "identified": true,
-        "unidentified": {
-          "description": ""
-        },
-        "container": null,
-        "quantity": 1,
-        "weight": {
-          "value": 4,
-          "units": "lb"
-        },
-        "price": {
-          "value": 40000,
-          "denomination": "gp"
-        },
-        "rarity": "veryRare",
-        "attunement": "required",
-        "attuned": true,
-        "equipped": true,
-        "armor": {
-          "value": null
-        },
-        "cover": null,
-        "hp": {
-          "value": null,
-          "max": null,
-          "dt": null,
-          "conditions": ""
-        },
-        "type": {
-          "value": "simpleM",
-          "baseItem": "quarterstaff"
-        },
-        "ammunition": {},
-        "damage": {
-          "base": {
-            "number": 1,
-            "denomination": 6,
-            "types": [
-              "bludgeoning"
-            ],
-            "custom": {
-              "enabled": false
-            },
-            "scaling": {
-              "number": 1
-            },
-            "bonus": ""
-          },
-          "versatile": {
-            "number": null,
-            "denomination": 0,
-            "types": [],
-            "custom": {
-              "enabled": false
-            },
-            "scaling": {
-              "number": 1
-            },
-            "bonus": ""
-          }
-        },
-        "magicalBonus": "2",
-        "properties": [
-          "mgc",
-          "ver"
-        ],
-        "proficient": null,
-        "range": {
-          "value": null,
-          "long": null,
-          "reach": null,
-          "units": "ft"
-        },
-        "mastery": "topple",
-        "crew": {
-          "value": []
-        }
-      },
-      "img": "https://cdn.5e.tools/2024/img/items/XDMG/Staff%20of%20Thunder%20and%20Lightning.webp",
-      "ownership": {
-        "default": 0,
-        "7BMT1Aux3QVtq027": 3
-      },
-      "flags": {
-        "plutonium": {
-          "page": "items.html",
-          "source": "XDMG",
-          "hash": "staff%20of%20thunder%20and%20lightning_xdmg"
-        },
-        "dnd5e": {
-          "last": {
-            "dnd5eactivity002": {
-              "damageType": {
-                "0": "lightning"
-              }
-            },
-            "dnd5eactivity000": {
-              "attackMode": "oneHanded"
-            },
-            "dnd5eactivity004": {
-              "damageType": {
-                "0": "lightning"
-              }
-            }
-          }
-        }
-      },
-      "effects": [
-        {
-          "_id": "staffOfThunderAn",
-          "name": "Stunned",
-          "img": "https://cdn.5e.tools/2024/img/items/XDMG/Staff%20of%20Thunder%20and%20Lightning.webp",
-          "description": "",
-          "system": {
-            "changes": []
-          },
-          "statuses": [
-            "stunned"
-          ],
-          "disabled": false,
-          "duration": {
-            "value": 1,
-            "units": "turns",
-            "expiry": "turnStart",
-            "expired": false
-          },
-          "transfer": false,
-          "flags": {
-            "plutonium": {
-              "dedupeId": "stunned"
-            }
-          },
-          "type": "base",
-          "start": null,
-          "origin": null,
-          "tint": "#ffffff",
-          "showIcon": 1,
-          "folder": null,
-          "sort": 0,
-          "_stats": {
-            "coreVersion": "14.367",
-            "systemId": "dnd5e",
-            "systemVersion": "5.3.3",
-            "createdTime": 1792942382312,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          }
-        },
-        {
-          "_id": "staffOfThunderA1",
-          "name": "Deafened",
-          "img": "https://cdn.5e.tools/2024/img/items/XDMG/Staff%20of%20Thunder%20and%20Lightning.webp",
-          "description": "",
-          "system": {
-            "changes": []
-          },
-          "statuses": [
-            "deafened"
-          ],
-          "disabled": false,
-          "duration": {
-            "value": 60,
-            "units": "seconds",
-            "expiry": "turnStart",
-            "expired": false
-          },
-          "transfer": false,
-          "flags": {
-            "plutonium": {
-              "dedupeId": "deafened"
-            }
-          },
-          "type": "base",
-          "start": null,
-          "origin": null,
-          "tint": "#ffffff",
-          "showIcon": 1,
-          "folder": null,
-          "sort": 0,
-          "_stats": {
-            "coreVersion": "14.367",
-            "systemId": "dnd5e",
-            "systemVersion": "5.3.3",
-            "createdTime": 1792942382312,
-            "compendiumSource": null,
-            "duplicateSource": null,
-            "exportSource": null
-          }
-        }
-      ],
-      "_stats": {
-        "systemVersion": "5.3.3",
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "createdTime": 1792942382312,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
-      },
-      "folder": null,
-      "sort": 0
-    },
-    {
       "name": "Lightning Bolt",
       "system": {
         "description": {
@@ -30428,6 +28899,277 @@
         "createdTime": 1792944907074,
         "exportSource": null,
         "compendiumSource": "Compendium.dnd5e.spells24.Item.phbsplThunderwav"
+      }
+    },
+    {
+      "name": "Vivesna's Ivory Wand",
+      "type": "weapon",
+      "img": "icons/weapons/staves/staff-ornate-purple.webp",
+      "system": {
+        "description": {
+          "value": "<p>This pale ivory wand that has been used by Vivesna for decades. It feels perpetually cool to the touch, and gives an uneasy sensation to the wielder.</p><p>When this wand is used as a spellcasting focus, Necromancy spells attack rolls gain a +1 bonus.</p><p><strong>Spellcasting Focus</strong>. An arcane focus is a special item designed to channel the power of arcane spells. A sorcerer, warlock, or wizard can use such an item as a spellcasting focus, using it in place of any material component which does not list a cost.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "PHB pg. 151",
+          "revision": 1,
+          "rules": "2014"
+        },
+        "quantity": 1,
+        "weight": {
+          "value": 1,
+          "units": "lb"
+        },
+        "price": {
+          "value": 10,
+          "denomination": "gp"
+        },
+        "attunement": "",
+        "rarity": "common",
+        "identified": true,
+        "cover": null,
+        "range": {
+          "value": null,
+          "long": null,
+          "units": "ft",
+          "reach": null
+        },
+        "uses": {
+          "max": "",
+          "recovery": [],
+          "spent": 0
+        },
+        "damage": {
+          "versatile": {
+            "number": null,
+            "denomination": null,
+            "bonus": "",
+            "types": [],
+            "custom": {
+              "enabled": false,
+              "formula": ""
+            },
+            "scaling": {
+              "mode": "",
+              "number": null,
+              "formula": ""
+            }
+          },
+          "base": {
+            "number": null,
+            "denomination": null,
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            },
+            "bonus": ""
+          }
+        },
+        "armor": {
+          "value": 10
+        },
+        "hp": {
+          "value": 0,
+          "max": 0,
+          "dt": null,
+          "conditions": ""
+        },
+        "properties": [
+          "foc",
+          "mgc"
+        ],
+        "proficient": 0,
+        "unidentified": {
+          "description": ""
+        },
+        "type": {
+          "value": "simpleM",
+          "baseItem": ""
+        },
+        "container": null,
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "condition": "",
+              "override": false
+            },
+            "consumption": {
+              "targets": [],
+              "scaling": {
+                "allowed": false,
+                "max": ""
+              },
+              "spellSlot": true
+            },
+            "description": {
+              "chatFlavor": ""
+            },
+            "duration": {
+              "concentration": false,
+              "value": "",
+              "units": "inst",
+              "special": "",
+              "override": false
+            },
+            "effects": [],
+            "range": {
+              "units": "self",
+              "special": "",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "max": "",
+              "recovery": []
+            },
+            "roll": {
+              "formula": "",
+              "name": "",
+              "prompt": false,
+              "visible": false
+            },
+            "sort": 0,
+            "img": null,
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "vivesnas-ivory-wand",
+        "ammunition": {},
+        "mastery": "",
+        "crew": {
+          "value": []
+        },
+        "attuned": false,
+        "equipped": false
+      },
+      "effects": [],
+      "folder": "4edUBO1QohYk4728",
+      "sort": 150000,
+      "flags": {
+        "core": {},
+        "dnd5e": {}
+      },
+      "_stats": {
+        "compendiumSource": "Compendium.dnd5e.items.KA2P6I48iOWlnboO",
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1794156596485
+      },
+      "_id": "vOjN1x5OOFCDwPcV",
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
       }
     },
     {

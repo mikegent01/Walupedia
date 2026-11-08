@@ -1239,6 +1239,28 @@
   "flags": {
     "core": {},
     "dnd5e": {},
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "disciplined",
+          "fearless",
+          "controller",
+          "skirmisher",
+          "assassin"
+        ],
+        "reasons": [
+          "Creature type \"construct\" → disciplined",
+          "Creature type \"construct\" → fearless",
+          "Keyword \"spellcaster\" in name/biography → controller",
+          "Keyword \"scout\" in name/biography → skirmisher",
+          "Keyword \"spy\" in name/biography → assassin"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1794155867138,
+        "manuallyOverridden": false
+      }
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",

@@ -3081,6 +3081,27 @@
   "flags": {
     "core": {},
     "dnd5e": {},
+    "5e-npc-combat-automation": {
+      "aiProfile": {
+        "archetypes": [
+          "skirmisher",
+          "tactician",
+          "zealot",
+          "coward"
+        ],
+        "reasons": [
+          "Spellcasting detected",
+          "Spellcaster with low HP and no melee → skirmisher repositioning",
+          "Spell list: 2× self-buff spells → tactician",
+          "Keyword \"fanatic\" in name/biography → zealot",
+          "Keyword \"prey\" in name/biography → coward"
+        ],
+        "confidence": 1,
+        "version": 3,
+        "timestamp": 1794155869856,
+        "manuallyOverridden": false
+      }
+    },
     "waluipedia-mass-import": {
       "folderPath": [
         "Bestiary",
