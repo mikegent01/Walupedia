@@ -42,6 +42,7 @@ CAMERAS = ("wide establishing shot from a distance", "mid shot at eye level, sub
            "close on hands and faces", "over-the-shoulder view", "low angle looking up",
            "high angle looking down across the scene", "tight detail shot of the key object")
 IMG_LINE = re.compile(r"(?m)^!\[[^\]]*\]\((assets/images/events/[^)]+)\)\s*\n?")
+ARTICLE_IMAGE = re.compile(r"!\[([^\]]*)\]\((assets/images/events/[^)]+)\)")
 
 
 def slot_budget(parts: int, words: int) -> int:
@@ -484,6 +485,154 @@ def direct_image(settings: dict[str, Any], prompt: str, reference: Path | None =
             raise ValueError(f"could not download the generated image: {error}") from error
         return data, _image_ext(data, mime)
     raise ValueError("direct image model response has neither data[0].b64_json nor data[0].url")
+
+
+def _normal_image_ref(value: Any) -> str:
+    ref = str(value or "").strip().replace("\\", "/").lstrip("/")
+    if ref.startswith("rm/"):
+        ref = ref[3:]
+    if ref.startswith("Reputation-Matrix2/"):
+        ref = ref[len("Reputation-Matrix2/"):]
+    return ref
+
+
+def _event_image_file(store: Store, reference: str) -> Path:
+    """Resolve a record image only within the site's event-art tree."""
+    relative = _normal_image_ref(reference)
+    if not relative.startswith("assets/images/events/"):
+        raise ValueError("only images stored in assets/images/events can be edited")
+    root = (store.root / "Reputation-Matrix2" / "assets" / "images" / "events").resolve()
+    path = (store.root / "Reputation-Matrix2" / relative).resolve()
+    try:
+        path.relative_to(root)
+    except ValueError as error:
+        raise ValueError("image path is outside the event-art directory") from error
+    if not path.is_file():
+        raise ValueError(f"image file is missing: {relative}")
+    return path
+
+
+def event_images(store: Store, event_id: str) -> dict[str, Any]:
+    """List the event's lead, gallery, and inline section images for the Desk editor."""
+    rec = store.get("events", event_id)
+    if not rec:
+        raise ValueError(f"no event {event_id!r}")
+    found: list[dict[str, str]] = []
+    seen: set[str] = set()
+
+    def add(value: Any, caption: str, kind: str) -> None:
+        ref = _normal_image_ref(value)
+        if not ref or ref in seen:
+            return
+        try:
+            _event_image_file(store, ref)
+        except ValueError:
+            return
+        seen.add(ref)
+        found.append({"image": ref, "caption": str(caption or "").strip(), "kind": kind})
+
+    add(rec.get("image"), rec.get("imageCaption") or rec.get("name") or "Lead image", "lead")
+    for item in rec.get("gallery") or []:
+        if isinstance(item, dict):
+            add(item.get("image"), item.get("caption") or item.get("alt") or "Gallery image", "gallery")
+        elif isinstance(item, str):
+            add(item, "Gallery image", "gallery")
+    for caption, ref in ARTICLE_IMAGE.findall(rec.get("description") or ""):
+        add(ref, caption or "Section image", "section")
+    return {"id": event_id, "images": found}
+
+
+def image_edit_preflight(store: Store, event_id: str, source: str) -> tuple[dict[str, Any], Path]:
+    """Check that an image belongs to this event and an image-edit capable API is configured."""
+    available = event_images(store, event_id)["images"]
+    canonical = _normal_image_ref(source)
+    if canonical not in {row["image"] for row in available}:
+        raise ValueError("choose an image currently attached to this event")
+    settings = image_settings(store)
+    if settings["backend"] not in ("direct", "openai", "openai-compatible"):
+        raise ValueError("editing an article image requires the direct image API; ComfyUI/MOSS text-to-image "
+                         "cannot edit the selected image")
+    settings["backend"] = "direct"
+    if not settings["baseUrl"] or not settings["model"]:
+        raise ValueError("direct image backend needs image.baseUrl and image.model in workflow/desk-models.json "
+                         "(or DESK_IMAGE_BASE_URL and DESK_IMAGE_MODEL)")
+    return settings, _event_image_file(store, canonical)
+
+
+def edit_image(store: Store, event_id: str, source: str, instruction: str,
+               emit: Callable[[str, str], None] = lambda k, t: None,
+               settings: dict[str, Any] | None = None) -> dict[str, Any]:
+    """Generate a new image from an attached article image plus an edit instruction.
+
+    The source file and record stay untouched; the caller can show the preview and then
+    explicitly apply it to the article (which is separately undoable).
+    """
+    if not instruction.strip():
+        raise ValueError("describe the image change")
+    settings, source_file = image_edit_preflight(store, event_id, source) if settings is None else (
+        settings, _event_image_file(store, source))
+    rec = store.get("events", event_id)
+    if rec is None:
+        raise ValueError(f"no event {event_id!r}")
+    emit("step", f"editing {Path(source).name} with {settings['model']}")
+    payload, ext = direct_image(settings, instruction.strip(), source_file)
+    rel_dir = f"assets/images/events/{event_id.replace('_', '-')}"
+    folder = store.root / "Reputation-Matrix2" / rel_dir
+    folder.mkdir(parents=True, exist_ok=True)
+    raw_dir = store.backup_dir / "renders" / event_id
+    raw_dir.mkdir(parents=True, exist_ok=True)
+    token = uuid.uuid4().hex[:10]
+    raw = raw_dir / f"edit-{token}{ext}"
+    raw.write_bytes(payload)
+    target = folder / f"edit-{Path(source_file).stem}-{token}.jpg"
+    size = _compress(raw, target)
+    if not target.exists():
+        target = target.with_suffix(raw.suffix or ".png")
+    edited_ref = f"{rel_dir}/{target.name}"
+    emit("step", f"image edit ready — {target.name} ({size}); preview it before applying")
+    return {"id": event_id, "source": _normal_image_ref(source), "image": edited_ref,
+            "prompt": instruction.strip(), "size": size, "preview": True}
+
+
+def apply_image_edit(store: Store, event_id: str, source: str, replacement: str) -> dict[str, Any]:
+    """Replace the exact source reference in the event lead/gallery/markdown with a generated edit."""
+    rec = store.get("events", event_id)
+    if rec is None:
+        raise ValueError(f"no event {event_id!r}")
+    images = event_images(store, event_id)["images"]
+    old = _normal_image_ref(source)
+    if old not in {row["image"] for row in images}:
+        raise ValueError("the source image is no longer attached to this event")
+    new = _normal_image_ref(replacement)
+    new_file = _event_image_file(store, new)
+    event_folder = (store.root / "Reputation-Matrix2" / "assets" / "images" /
+                    "events" / event_id.replace("_", "-")).resolve()
+    try:
+        new_file.relative_to(event_folder)
+    except ValueError as error:
+        raise ValueError("the edited image must be in this event's image folder") from error
+    changed = False
+    if _normal_image_ref(rec.get("image")) == old:
+        rec["image"] = new
+        changed = True
+    gallery = rec.get("gallery") or []
+    for index, item in enumerate(gallery):
+        if isinstance(item, dict) and _normal_image_ref(item.get("image")) == old:
+            item["image"] = new
+            changed = True
+        elif isinstance(item, str) and _normal_image_ref(item) == old:
+            gallery[index] = new
+            changed = True
+    desc = rec.get("description") or ""
+    pattern = re.compile(r"(!\[[^\]]*\]\()" + re.escape(old) + r"(\))")
+    desc, count = pattern.subn(lambda match: match.group(1) + new + match.group(2), desc)
+    if count:
+        rec["description"] = desc
+        changed = True
+    if not changed:
+        raise ValueError("could not find the source image reference in the event record")
+    store.upsert("events", rec)
+    return {"id": event_id, "source": old, "image": new, "applied": True}
 
 
 def _compress(src: Path, dst: Path) -> str:

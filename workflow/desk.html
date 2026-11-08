@@ -74,7 +74,8 @@ textarea.prompt-edit{width:100%;min-height:90px;margin-top:8px;background:#0c0e1
 .mode.on{border-color:var(--accent);color:var(--text);background:rgba(139,124,246,.16)}
 .target{display:none;align-items:center;gap:6px;margin-left:6px}
 .target.show{display:flex}
-.target input{background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--text);padding:4px 9px;font-size:12px;width:260px}
+.target input,.target select{background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--text);padding:4px 9px;font-size:12px;width:260px}
+.image-pick{display:none}.image-pick.show{display:block}
 .composer{max-width:860px;margin:auto;border:1px solid #4a5160;background:var(--panel);border-radius:14px;padding:9px}
 .composer:focus-within{border-color:var(--accent)}
 .composer.drop{border-color:var(--accent2);border-style:dashed}
@@ -114,9 +115,10 @@ textarea.prompt-edit{width:100%;min-height:90px;margin-top:8px;background:#0c0e1
         <button class="mode" data-mode="file">File a session</button>
         <button class="mode" data-mode="edit">Edit an event</button>
         <button class="mode" data-mode="image">Images</button>
+        <button class="mode" data-mode="image-edit">Edit image</button>
         <button class="mode" data-mode="commentary">Commentary</button>
         <button class="mode" data-mode="analysis">Analysis</button>
-        <div class="target" id="target"><input id="eventPick" list="eventList" placeholder="event id or name…" autocomplete="off"><datalist id="eventList"></datalist></div>
+        <div class="target" id="target"><input id="eventPick" list="eventList" placeholder="event id or name…" autocomplete="off"><datalist id="eventList"></datalist><select id="imagePick" class="image-pick" aria-label="Article image"><option value="">Choose an article image…</option></select></div>
       </div>
       <form class="composer" id="composer">
         <div class="file-chip" id="fileChip"></div>
@@ -177,7 +179,9 @@ function cardHtml(m,i){const c=m.card,res=c.result||{},running=c.status==="runni
       <div class="slot-meta">Caption: ${esc(s.caption||"")}</div>
       <textarea class="prompt-edit" id="prompt-${i}-${n+1}">${esc(s.prompt||"")}</textarea></div>`).join("");
     h+=`<details><summary>Full prompt sheet (markdown)</summary><pre>${esc(res.sheet)}</pre></details>`}
-  if(c.kind==="render"&&res.images?.length){h+=`<div class="plates">${res.images.map(m=>`<figure><img class="plate" src="/rm/${esc(m.image)}?v=${m.seed}" alt="${esc(m.alt||"")}"><figcaption>Slot ${m.slot} · ${esc(m.caption||"")}<br><small>${esc(m.image)} · ${esc(m.size||"")}</small><br><button class="act" data-act="reroll" data-slot="${m.slot}" data-i="${i}">Re-roll slot ${m.slot}</button></figcaption></figure>`).join("")}</div><div class="text" style="color:var(--muted);font-size:12px">${esc(res.note||"")}</div>`}
+  if(c.kind==="render"&&res.images?.length){h+=`<div class="plates">${res.images.map(m=>`<figure><img class="plate" src="/rm/${esc(m.image)}?v=${m.seed}" alt="${esc(m.alt||"")}"><figcaption>Slot ${m.slot} · ${esc(m.caption||"")}<br><small>${esc(m.image)} · ${esc(m.size||"")}</small><br><button class="act" data-act="reroll" data-slot="${m.slot}" data-i="${i}">Re-roll slot ${m.slot}</button> <button class="act" data-act="edit-image" data-image="${esc(m.image)}" data-i="${i}">Edit image</button></figcaption></figure>`).join("")}</div><div class="text" style="color:var(--muted);font-size:12px">${esc(res.note||"")}</div>`}
+  if(c.kind==="image_edit"&&res.image){h+=`<div class="plates"><figure><img class="plate" src="/rm/${esc(res.image)}?v=${encodeURIComponent(res.image)}" alt="Edited image preview"><figcaption>Image edit preview<br><small>Based on ${esc(res.source||"")} · ${esc(res.size||"")}</small><br>${res.applied?'<span class="pill ok">applied to article</span>':`<button class="act primary" data-act="apply-image" data-i="${i}">Use this version in article</button>`}</figcaption></figure></div>`}
+  if(c.kind==="image_apply"&&res.image){h+=`<div class="plates"><figure><img class="plate" src="/rm/${esc(res.image)}?v=${encodeURIComponent(res.image)}" alt="Updated article image"><figcaption>Applied to the article · ${esc(res.image)}</figcaption></figure></div>`}
   if(res.notes?.length)h+=`<ul class="list">${res.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
   if(res.warnings?.length)h+=`<ul class="list manual">${res.warnings.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
   if(res.readability)h+=`<details><summary>Readability (advisory)</summary><pre>${esc(res.readability)}</pre></details>`;
@@ -187,7 +191,7 @@ function cardHtml(m,i){const c=m.card,res=c.result||{},running=c.status==="runni
   if(res.touched?.length)h+=`<details><summary>Files touched (${res.touched.length})</summary><pre>${esc(res.touched.join("\n"))}</pre></details>`;
   if(res.report)h+=`<details><summary>Run report</summary><pre>${esc(res.report)}</pre></details>`;
   if(!running){const id=res.id||c.event;const a=[];
-   if(id&&!res.error&&(c.kind==="file"||c.kind==="continue"||c.kind==="edit"||c.kind==="render"))a.push(`<a class="act primary" href="${SITE}#/article/${encodeURIComponent(id)}" target="_blank" rel="noopener">Open on site</a>`);
+   if(id&&!res.error&&(c.kind==="file"||c.kind==="continue"||c.kind==="edit"||c.kind==="render"||c.kind==="image_apply"))a.push(`<a class="act primary" href="${SITE}#/article/${encodeURIComponent(id)}" target="_blank" rel="noopener">Open on site</a>`);
    if(id&&!res.error&&(c.kind==="file"||c.kind==="continue"||c.kind==="edit"))a.push(`<button class="act" data-act="edit" data-i="${i}">Edit this event</button>`,`<button class="act" data-act="sheet" data-i="${i}">Plan images</button>`,`<button class="act" data-act="commentary" data-i="${i}">Commentary track</button>`,`<button class="act" data-act="analysis" data-i="${i}">Analysis track</button>`);
    if((c.kind==="commentary"||c.kind==="analysis")&&res.route)a.push(`<a class="act primary" href="${SITE}${res.route}" target="_blank" rel="noopener">Open on site</a>`,`<button class="act" data-act="${c.kind}" data-i="${i}">Write it again</button>`);
    if(c.kind==="sheet"&&res.slots)a.push(`<button class="act primary" data-act="render" data-i="${i}">Render chosen slots</button>`,`<button class="act" data-act="sheet" data-i="${i}">New sheet</button>`);
@@ -198,13 +202,18 @@ function cardHtml(m,i){const c=m.card,res=c.result||{},running=c.status==="runni
 
 // ---------- modes ----------
 function setMode(m){mode=m;document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("on",b.dataset.mode===m));
-  $("target").classList.toggle("show",(m==="edit"||m==="image"||m==="commentary"||m==="analysis"));
-  const r=room();if((m==="edit"||m==="image"||m==="commentary"||m==="analysis")&&r.event&&!$("eventPick").value)$("eventPick").value=r.event;
-  $("input").placeholder={auto:"Message the desk, paste a session, or drop a transcript file",chat:"Talk to the local model",file:"Paste the transcript. Notes for the filer (framing, what is a flashback…) go first, then a line of ---, then the transcript. Or attach the file and type the notes here.",edit:"What should change? e.g. “tighten the summary and add Waluigi’s take on the duel”",image:"Optional notes for the picture, then send to write the prompt sheet",commentary:"Optional notes for the cut (a conceit, a running gag), then send to write the commentary track",analysis:"Optional notes for the analysis (an angle, a grudge), then send to write the analysis track"}[m];
-  if((m==="edit"||m==="image"||m==="commentary"||m==="analysis"))loadEvents();updateSend()}
+  $("target").classList.toggle("show",(m==="edit"||m==="image"||m==="image-edit"||m==="commentary"||m==="analysis"));
+  $("imagePick").classList.toggle("show",m==="image-edit");
+  const r=room();if((m==="edit"||m==="image"||m==="image-edit"||m==="commentary"||m==="analysis")&&r.event&&!$("eventPick").value)$("eventPick").value=r.event;
+  $("input").placeholder={auto:"Message the desk, paste a session, or drop a transcript file",chat:"Talk to the local model",file:"Paste the transcript. Notes for the filer (framing, what is a flashback…) go first, then a line of ---, then the transcript. Or attach the file and type the notes here.",edit:"What should change? e.g. “tighten the summary and add Waluigi’s take on the duel”",image:"Optional notes for the picture, then send to write the prompt sheet", "image-edit":"Describe how to change the selected article image",commentary:"Optional notes for the cut (a conceit, a running gag), then send to write the commentary track",analysis:"Optional notes for the analysis (an angle, a grudge), then send to write the analysis track"}[m];
+  if((m==="edit"||m==="image"||m==="image-edit"||m==="commentary"||m==="analysis"))loadEvents();
+  if(m==="image-edit")loadEventImages($("eventPick").value.trim());updateSend()}
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 let evTimer=0;async function loadEvents(q=""){try{const d=await fetch(`/api/desk/events?q=${encodeURIComponent(q)}`).then(r=>r.json());$("eventList").innerHTML=(d.events||[]).map(e=>`<option value="${esc(e.id)}">${esc(e.name||"")} — ${esc(e.date||"")}</option>`).join("")}catch(e){}}
-$("eventPick").oninput=()=>{clearTimeout(evTimer);evTimer=setTimeout(()=>loadEvents($("eventPick").value),250)};
+$("eventPick").oninput=()=>{clearTimeout(evTimer);evTimer=setTimeout(()=>{loadEvents($("eventPick").value);if(mode==="image-edit")loadEventImages($("eventPick").value.trim())},250)};
+async function loadEventImages(id){const select=$("imagePick");select.innerHTML='<option value="">Choose an article image…</option>';if(!id)return;
+  try{const d=await fetch(`/api/desk/images?id=${encodeURIComponent(id)}`).then(r=>r.json());select.innerHTML='<option value="">Choose an article image…</option>'+(d.images||[]).map(x=>`<option value="${esc(x.image)}">${esc(x.kind)} · ${esc(x.caption||x.image)}</option>`).join("")}
+  catch(e){select.innerHTML='<option value="">Could not load images</option>'}}
 
 // ---------- attachments ----------
 function attach(file){if(!file)return;if(file.size>2*1024*1024){alert("That file is over 2 MB.");return}
@@ -221,12 +230,13 @@ comp.onsubmit=e=>{e.preventDefault();send()};
 function push(msg){room().messages.push(msg);save();render();return room().messages.length-1}
 async function post(url,body){const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const v=await r.json();if(!r.ok||v.error)throw new Error(v.error||"request failed");return v}
 function decide(text){if(mode!=="auto")return mode;if(attached)return"file";
-  const m=text.match(/^\/(edit|image|file|commentary|analysis)\b\s*(\S+)?/i);if(m)return m[1].toLowerCase();
+  const m=text.match(/^\/(edit|image-edit|image|file|commentary|analysis)\b\s*(\S+)?/i);if(m)return m[1].toLowerCase();
   if(text.length>1500&&/\n/.test(text))return"file";return"chat"}
 async function send(){if(busy)return;let text=$("input").value.trim();const kind=decide(text);
-  const slash=text.match(/^\/(edit|image|file|commentary|analysis)\b\s*(\S+)?\s*([\s\S]*)$/i);let target=$("eventPick").value.trim()||room().event;
+  const slash=text.match(/^\/(edit|image-edit|image|file|commentary|analysis)\b\s*(\S+)?\s*([\s\S]*)$/i);let target=$("eventPick").value.trim()||room().event;
   if(slash){if(slash[1].toLowerCase()!=="file"&&slash[2]){target=slash[2];text=slash[3].trim()}else text=(slash[2]?slash[2]+" ":"")+slash[3]}
-  if((kind==="edit"||kind==="image"||kind==="commentary"||kind==="analysis")&&!target){alert("Pick the event first (type its id or name in the box next to the mode).");return}
+  if((kind==="edit"||kind==="image"||kind==="image-edit"||kind==="commentary"||kind==="analysis")&&!target){alert("Pick the event first (type its id or name in the box next to the mode).");return}
+  if(kind==="image-edit"&&!$("imagePick").value){alert("Choose an image attached to this event first.");return}
   const file=attached;$("input").value="";$("input").style.height="auto";attached=null;$("fileChip").classList.remove("show");
   if(kind==="chat")return chat(text);
   if(kind==="file"){let body=file?file.text:text,hints=file?text:"";
@@ -236,6 +246,8 @@ async function send(){if(busy)return;let text=$("input").value.trim();const kind
     return job("file",{text:body,hints},"Filing the session")}
   if(kind==="edit"){push({role:"user",text,tag:`edit ${target}`});room().event=target;return job("edit",{id:target,instruction:text},`Editing ${target}`,target)}
   if(kind==="image"){push({role:"user",text:text||"Plan the images.",tag:`image ${target}`});room().event=target;return job("sheet",{id:target,notes:text},`Prompt sheet for ${target}`,target)}
+  if(kind==="image-edit"){const source=$("imagePick").value;if(!source){alert("Choose an image attached to this event first.");return}
+    push({role:"user",text:`Edit ${source}: ${text}`,tag:`image edit ${target}`});room().event=target;return job("image_edit",{id:target,source,prompt:text},`Editing image for ${target}`,target)}
   if(kind==="commentary"||kind==="analysis"){push({role:"user",text:text||`Write the ${kind} track.`,tag:`${kind} ${target}`});room().event=target;return job(kind,{id:target,notes:text},`${kind==="commentary"?"Commentary track":"Analysis track"} for ${target}`,target)}}
 async function job(kind,body,title,event=""){busy=true;updateSend();const i=push({role:"assistant",card:{kind,title,status:"running",events:[],event},tag:kind});
   try{const{job:id}=await post(`/api/desk/${kind}`,{...body,endpoint:endpoint()});room().messages[i].card.job=id;save();
@@ -246,6 +258,9 @@ async function job(kind,body,title,event=""){busy=true;updateSend();const i=push
 async function action(act,i,btn){if(busy)return;const m=room().messages[i],c=m.card,res=c.result||{},id=res.id||c.event;
   if(act==="edit"){room().event=id;$("eventPick").value=id;setMode("edit");$("input").focus();return}
   if(act==="sheet"){push({role:"user",text:"Plan the images.",tag:`image ${id}`});return job("sheet",{id},`Prompt sheet for ${id}`,id)}
+  if(act==="edit-image"){room().event=id;$("eventPick").value=id;setMode("image-edit");await loadEventImages(id);$("imagePick").value=btn?.dataset.image||"";$("input").focus();return}
+  if(act==="apply-image"){if(res.applied)return;push({role:"user",text:"Apply this image edit to the article.",tag:`apply image ${id}`});await job("image_apply",{id,source:res.source,image:res.image},`Applying image edit to ${id}`,id);
+    const appliedCard=room().messages.slice(i+1).reverse().find(x=>x.card?.kind==="image_apply");if(appliedCard?.card.status==="done"&&!appliedCard.card.result?.error){res.applied=true;save();render()}return}
   if(act==="commentary"||act==="analysis"){const src=res.source||id;push({role:"user",text:`Write the ${act} track.`,tag:`${act} ${src}`});return job(act,{id:src},`${act==="commentary"?"Commentary track":"Analysis track"} for ${src}`,src)}
   if(act==="render"){const slots=[],prompts={};(res.slots||[]).forEach((s,n)=>{const k=n+1,box=document.getElementById(`slot-${i}-${k}`),ta=document.getElementById(`prompt-${i}-${k}`);if(box?.checked)slots.push(k);if(ta&&ta.value.trim()!==String(s.prompt||"").trim())prompts[k]=ta.value});
     if(!slots.length){alert("Tick at least one slot.");return}

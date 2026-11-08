@@ -875,6 +875,16 @@ class Handler(BaseHTTPRequestHandler):
         if parsed.path == "/api/desk/events":
             json_response(self, desk_api.events(parse_qs(parsed.query).get("q", [""])[0]))
             return
+        if parsed.path == "/api/desk/images":
+            event_id = parse_qs(parsed.query).get("id", [""])[0]
+            if not event_id:
+                json_response(self, {"error": "an event id is required"}, status=400)
+            else:
+                try:
+                    json_response(self, desk_api.image_options(event_id))
+                except Exception as error:  # noqa: BLE001
+                    json_response(self, {"error": str(error)}, status=404)
+            return
         if parsed.path == "/api/agent/status":
             job_id = parse_qs(parsed.query).get("job", [""])[0]
             with LOCK:
@@ -910,7 +920,8 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if self.path.startswith("/api/desk/"):
                 kind = self.path[len("/api/desk/"):]
-                if kind not in ("file", "continue", "edit", "sheet", "render", "commentary", "analysis", "undo"):
+                if kind not in ("file", "continue", "edit", "sheet", "render", "image_edit", "image_apply",
+                                "commentary", "analysis", "undo"):
                     raise ValueError("unknown desk action")
                 json_response(self, desk_api.start(kind, payload, lm_completion, resolve_endpoint))
                 return
