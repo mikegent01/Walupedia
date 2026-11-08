@@ -96,17 +96,23 @@ def _emit(job: dict[str, Any]) -> Callable[[str, str], None]:
 
 def start(kind: str, payload: dict[str, Any], lm_completion: Callable[..., str],
           resolve_endpoint: Callable[[Any], str]) -> dict[str, str]:
-    """kind: file | continue | edit | sheet | render | commentary | analysis | undo"""
+    """kind: file | continue | edit | sheet | render | image_edit | image_apply | commentary | analysis | undo"""
     if kind == "continue":
         old = str(payload.get("job", "")).strip()
         if not old or Store().load_state(old) is None:
             raise ValueError("that run left no checkpoint to continue from (only session filings are checkpointed)")
     if kind == "file" and len(str(payload.get("text", "")).strip()) < 200:
         raise ValueError("paste the session transcript or account (at least a few paragraphs)")
-    if kind in ("edit", "sheet", "render", "commentary", "analysis") and not str(payload.get("id", "")).strip():
+    if kind in ("edit", "sheet", "render", "image_edit", "image_apply", "commentary", "analysis") and not str(payload.get("id", "")).strip():
         raise ValueError("an event id is required")
     if kind == "edit" and not str(payload.get("instruction", "")).strip():
         raise ValueError("say what to change")
+    if kind == "image_edit" and (not str(payload.get("source", "")).strip()
+                                  or not str(payload.get("prompt", "")).strip()):
+        raise ValueError("choose an article image and describe the edit")
+    if kind == "image_apply" and (not str(payload.get("source", "")).strip()
+                                   or not str(payload.get("image", "")).strip()):
+        raise ValueError("the source and edited image are required")
     job = _job(kind)
     emit = _emit(job)
     endpoint = payload.get("endpoint")
@@ -156,6 +162,23 @@ def start(kind: str, payload: dict[str, Any], lm_completion: Callable[..., str],
                 elif kind == "sheet":
                     result = desk_image.plan(store, desk, str(payload["id"]).strip(),
                                              str(payload.get("notes", "")), emit)
+                elif kind == "image_edit":
+                    event_id = str(payload["id"]).strip()
+                    source = str(payload["source"]).strip()
+                    settings, _ = desk_image.image_edit_preflight(store, event_id, source)
+                    rows, notes = desk_vram.free_lm(base) if settings["releaseLMStudio"] else ([], [])
+                    for n in notes:
+                        emit("step", n)
+                    try:
+                        emit("step", "editing the selected article image through the direct image model API")
+                        result = desk_image.edit_image(store, event_id, source, str(payload["prompt"]), emit,
+                                                       settings=settings)
+                    finally:
+                        for n in desk_vram.restore_lm(base, rows):
+                            emit("step", n)
+                elif kind == "image_apply":
+                    result = desk_image.apply_image_edit(store, str(payload["id"]).strip(),
+                                                         str(payload["source"]), str(payload["image"]))
                 elif kind == "render":
                     chosen = [int(n) for n in payload.get("slots") or [] if str(n).isdigit()]
                     prompts = {str(k): str(v) for k, v in (payload.get("prompts") or {}).items() if str(v).strip()}
@@ -234,6 +257,11 @@ def start(kind: str, payload: dict[str, Any], lm_completion: Callable[..., str],
 def status(job_id: str) -> dict[str, Any]:
     with LOCK:
         return dict(JOBS.get(job_id) or {"status": "unknown", "events": []})
+
+
+def image_options(event_id: str) -> dict[str, Any]:
+    """Images currently attached to one event, for the image-edit picker."""
+    return desk_image.event_images(Store(), str(event_id).strip())
 
 
 def events(query: str = "", limit: int = 40) -> dict[str, Any]:

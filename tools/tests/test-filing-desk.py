@@ -292,6 +292,35 @@ def main() -> int:
         p2b = store.get("events", rep["id"])["description"].split("\n## ")[2]
         check("wire: re-roll replaces the part's plate", p2b.count("![") == 1 and "v2" in p2b)
 
+        # Article image edit is a two-step preview/apply flow; the edit uses the current image as input.
+        event_art = root / "Reputation-Matrix2" / "assets" / "images" / "events" / "x"
+        event_art.mkdir(parents=True, exist_ok=True)
+        original_art = event_art / "l-01-lead.jpg"
+        original_art.write_bytes(b"original-article-image")
+        source_ref = "assets/images/events/x/l-01-lead.jpg"
+        attached = di.event_images(store, rep["id"])["images"]
+        edit_inputs = []
+        old_direct, old_compress = di.direct_image, di._compress
+        def fake_edit(settings, prompt, reference=None):
+            edit_inputs.append((prompt, reference.read_bytes() if reference else None))
+            return b"edited-image", ".png"
+        def save_edit(src, dst):
+            dst.write_bytes(src.read_bytes())
+            return "mock edit"
+        di.direct_image, di._compress = fake_edit, save_edit
+        try:
+            preview = di.edit_image(store, rep["id"], source_ref, "Make the lantern glow blue")
+        finally:
+            di.direct_image, di._compress = old_direct, old_compress
+        check("image edit picker lists attached article images and preview leaves article unchanged",
+              any(x["image"] == source_ref for x in attached)
+              and preview["preview"] and store.get("events", rep["id"])["image"] == source_ref
+              and edit_inputs == [("Make the lantern glow blue", b"original-article-image")])
+        applied = di.apply_image_edit(store, rep["id"], source_ref, preview["image"])
+        check("apply swaps only the article image reference and records an undoable store write",
+              applied["applied"] and store.get("events", rep["id"])["image"] == preview["image"]
+              and store.touched)
+
         def keep_llm(system, prompt, max_tokens, role):
             if prompt.startswith("Here is an archive event"):
                 return json.dumps({"fields": {}, "rewriteParts": [2], "partNote": "tighten"})

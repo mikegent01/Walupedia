@@ -133,9 +133,15 @@ backend, images are compressed to JPEG (≤1600 px, ~300 KB, needs Pillow —
 `assets/images/events/<slug>/<prefix>-NN-<subject>.jpg`. The lead goes on the
 record (`image`/`imageCaption`/`image_alt`); each section plate becomes a
 `![caption](path)` figure after its part's first paragraph. The LM Studio model
-is restored after rendering when it was released. Every generated image shows
-in the card with **Re-roll slot N**. Look at each one before keeping it (guide
-step 4). Undo restores the record; image files stay on disk.
+is restored after rendering when it was released. Generated plates are shown
+inline in the chat card with **Re-roll slot N** and **Edit image** actions.
+The **Edit image** mode can also select any local image currently attached to
+an event, send that image plus an edit instruction to the direct image model,
+and show the new result inline as a preview. **Use this version in article**
+applies it to the lead/gallery/section reference; that record edit is undoable.
+The original is left in place until you apply the preview. Look at each image
+before keeping it (guide step 4). Undo restores the record; generated image
+files stay on disk.
 
 **Commentary and analysis tracks** (`desk_tracks.py`). Pick an event and the
 **Commentary** or **Analysis** mode, or press the button on a filing card;
