@@ -111,10 +111,61 @@ unloads, ComfyUI renders each slot, the PNG is compressed to JPEG (≤1600 px,
 `assets/images/events/<slug>/<prefix>-NN-<subject>.jpg`, ComfyUI frees its
 memory and the chat model reloads. The lead goes on the record
 (`image`/`imageCaption`/`image_alt`); each section plate becomes a
-`![caption](path)` figure after its part's first paragraph (`mdToHtml()`
-renders it as a captioned figure; edits keep it in place). Every image shows in
+`![caption](path)` figure after its part's first paragraph. **Which ComfyUI
+graph:** the Qwen-Image graph (portrait references) when its model files are
+installed; otherwise, if ComfyUI has MOSS-Image, the MOSS text-to-image
+template in API form (1344×768, its recommended negative, skip-layer 22).
+MOSS takes no reference image, so a character in frame is drawn from their
+archive record instead (name, title, race and the established-look caption, if
+the record has one); the card lists those slots so each face can be checked
+against `portraits/`. `"comfy": {"portraitRule": true}` skips them instead. Loader files are read from the server (a missing default falls back to
+what the loader offers); pin them, or the engine, in `desk-models.json` under
+`"comfy": {"engine": "moss"|"qwen", "unet", "clip", "vae"}`. Section plates
+render through `mdToHtml()` as captioned figures, and edits keep them in place. Every image shows in
 the card with **Re-roll slot N**. Look at each one before keeping it (guide
 step 4). Undo restores the record; image files stay on disk.
+
+**Commentary and analysis tracks** (`desk_tracks.py`). Pick an event and the
+**Commentary** or **Analysis** mode, or press the button on a filing card;
+optional notes steer the angle. Same models and settings, different prompts:
+
+- *Commentary* (`COMMENTARY_MODE_GUIDE.md`) — the json model picks a framing
+  conceit, subtitle, standfirst and loud headings; the writer retells each
+  story part in order, during-stance, third-person Waluigi heckling every few
+  sentences, quoting the source verbatim, with one concession beat in the back
+  half. Parts are merged to at most 14 sections. Before filing, code measures
+  the `check-commentaries.py` floors per section (≥240 words, Waluigi ≥12/1k,
+  CAPS ≥20/1k, no ledger words, quotes that exist in the source) and rewrites a
+  failing section once. Filed as `stores/commentaries/<event>_commentary.json`.
+- *Analysis* (`ARTICLE_ANALYSES.md`) — the json model plans 5–9 claims, each
+  with a `sourceAnchor` (checked against the event; replaced if not found) and
+  a related filing to cross-reference (filings sharing cast or place); the
+  writer writes the thesis, each claim (desk beat → reaction → two readings →
+  consequence for the other filing → admission → recommendation, first-person,
+  no shouting) and the verdict. Filed as
+  `stores/articleAnalyses/<event>_waluigi_analysis.json`; `check-readability
+  --analysis` runs as advice.
+
+Writing a track again replaces it. `relatedArticles` keeps only ids the archive
+resolves. Both run `build-json-stores`, `check-references` and their own
+checker; warnings about the new record show on the card.
+
+**Speaker labels.** A transcript with no `Name:` lines (a subtitle dump) makes
+the model guess who speaks — the desk warns, and the fix is notes above the
+`---` line saying who is who, what is a flashback and how it ends. Long
+transcripts are condensed with an equal budget per chunk and never cut at the
+tail, so the ending reaches the writer.
+
+**Continue.** A session filing saves a checkpoint after every step
+(`workflow/saves/desk/<job>/state.json`: the digest, facts, profiles, outline,
+the stubs it filed, every story part, the apparatus). When a run fails, its
+card offers **Continue from where it stopped**: a new run reloads the
+checkpoint, skips what is done — the stubs are not filed twice, written parts
+are not rewritten — and takes over the failed run's backup, so its Undo
+reverses both. A JSON reply cut off by the token limit is repaired rather than
+discarded; a JSON step that still fails is asked again with more room, then on
+the writer model; and if the summary/verdict step fails on both, the story is
+filed with placeholder fields and the card says to edit them.
 
 **Undo.** Every run backs up each file it touched (byte for byte) to
 `workflow/saves/desk/<job>/`; **Undo this run** restores them and rebuilds.

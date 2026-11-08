@@ -211,7 +211,9 @@ class Store:
             text = self.read_text(path)
             value = json.loads(text)
             value["latestUpdate"] = {"id": rid, "label": label, "excerpt": excerpt}
-            indent = 2 if text.startswith("{\n  \"") else 4
+            # the file's own indent (CRLF-safe: the old startswith check read 4 on a CRLF copy)
+            found = re.search(r"\n( +)\"", text)
+            indent = len(found.group(1)) if found else 2
             out = json.dumps(value, indent=indent, ensure_ascii=False) + "\n"
             if "\r\n" in text:
                 out = out.replace("\n", "\r\n")
@@ -234,6 +236,25 @@ class Store:
         (folder / "backup.json").write_bytes(json.dumps({"saved": time.time(), "files": self.touched},
                                                         ensure_ascii=False).encode("utf-8"))
         return folder
+
+    def adopt(self, job: str) -> None:
+        """Take over an earlier job's backup (a continued run): its originals become this
+        store's originals, so one Undo of the continuation reverses both runs."""
+        path = self.backup_dir / job / "backup.json"
+        if path.exists():
+            for rel, original in json.loads(path.read_bytes().decode("utf-8"))["files"].items():
+                self.touched.setdefault(rel, original)
+
+    def save_state(self, job: str, state: dict[str, Any]) -> None:
+        folder = self.backup_dir / job
+        folder.mkdir(parents=True, exist_ok=True)
+        tmp = folder / "state.json.tmp"
+        tmp.write_bytes(json.dumps(state, ensure_ascii=False).encode("utf-8"))
+        tmp.replace(folder / "state.json")
+
+    def load_state(self, job: str) -> dict[str, Any] | None:
+        path = self.backup_dir / job / "state.json"
+        return json.loads(path.read_bytes().decode("utf-8")) if path.exists() else None
 
     def undo(self, job: str) -> list[str]:
         """Restore every file this job touched. New files are emptied, never deleted:

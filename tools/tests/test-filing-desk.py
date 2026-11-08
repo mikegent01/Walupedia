@@ -75,7 +75,8 @@ def fake_llm(system: str, prompt: str, max_tokens: int, role: str) -> str:
                            "participants": [{"name": "Donkey Kong", "role": "finds it"},
                                             {"name": "Funky Kong", "role": "flies in"},
                                             {"name": "xx_gorb99", "role": "player"}],
-                           "date": {"stated": True, "year": 1041, "month": 1, "day": 2, "hour": 21, "clock": "MAT"}})
+                           "date": {"stated": True, "year": 1041, "month": 1, "day": 2, "hour": 21, "clock": "MAT"},
+                           "type": "political drama\n\neconomic collapse\n- war"})
     if prompt.startswith("Write short character records"):
         return json.dumps({"characters": [{"name": "Funky Kong", "summary": "A pilot."}]})   # wrapped list
     if prompt.startswith("Plan an archive article"):
@@ -83,7 +84,7 @@ def fake_llm(system: str, prompt: str, max_tokens: int, role: str) -> str:
                                      {"heading": "Jetpack", "beats": "Funky lands", "lines": []},
                                      {"heading": "North", "beats": "they leave", "lines": []}]})
     if prompt.startswith("Write Part"):
-        return "## Heading the model should not write\n\n" + ("The dock creaked under the cold torchlight. " * 60) + "\n\nmike watched."
+        return "## Heading the model should not write\n\n**Dock**\n\n" + ("The dock creaked under the cold torchlight. " * 60) + "\n\nmike watched."
     if prompt.startswith("From this article plan"):
         return json.dumps([{"title": "T", "summary": "S", "waluigiAssessment": {"findings": ["1. a"], "recommendation": "b"},
                             "notableFeatures": "one\ntwo", "tags": ["x"]}])   # wrapped object, dict verdict
@@ -128,7 +129,24 @@ def main() -> int:
               "Heading the model" not in ev["description"] and ev["description"].count("\n## ") == 3)
         check("dict verdict flattened to text", isinstance(ev["waluigiAssessment"], str) and "Recommendation: b" in ev["waluigiAssessment"])
         check("notableFeatures kept as a list", ev["notableFeatures"] == ["one", "two"])
-        check("CRLF kept on mainPage write", b"\r\n" in (root / "Reputation-Matrix2/data/mainPage.json").read_bytes())
+        mp = (root / "Reputation-Matrix2/data/mainPage.json").read_bytes()
+        check("CRLF kept on mainPage write", b"\r\n" in mp)
+        check("mainPage keeps its 2-space indent on a CRLF copy", b'\r\n  "latestUpdate"' in mp and b'\r\n    "latestUpdate"' not in mp)
+        check("type flattened to one line", ev["type"] == "political drama / economic collapse / war", ev["type"])
+        check("repeated bold heading stripped", "**Dock**" not in ev["description"])
+
+        # the digest must keep the ending (the DK run lost its cliffhanger to a tail cut)
+        long_t = ("Opening beat. " * 900) + "\nEddie: \"It is not your time.\" THE-ENDING-LINE"
+
+        def digest_llm(system, prompt, max_tokens, role):
+            if prompt.startswith("Summarise this part"):
+                body = prompt.split("PART ", 1)[-1]
+                tail = " THE-ENDING-LINE" if "THE-ENDING-LINE" in body else " beat"
+                return ("- a beat " * 400) + tail        # every note overflows its share
+            return "{}"
+        dg = FilingDesk(store, digest_llm, run_checks=False, digest_chars=4000).digest(long_t)
+        check("digest fits the window", len(dg) <= 4010, str(len(dg)))
+        check("digest keeps the ending line, never cuts the tail", dg.rstrip().endswith("THE-ENDING-LINE"), dg[-200:])
         check("roles grouped: reader → writer → json",
               calls.index("writer") > max(i for i, r in enumerate(calls) if r == "reader")
               and calls.index("json") > max(i for i, r in enumerate(calls) if r == "writer"), str(calls))
@@ -195,6 +213,116 @@ def main() -> int:
         FilingDesk(store, keep_llm, run_checks=False).edit_event(rep["id"], "tighten part 2")
         p2c = store.get("events", rep["id"])["description"].split("\n## ")[2]
         check("edit: part rewrite keeps its plate", "](assets/images/events/x/l-02-jetpack-v2.jpg)" in p2c and "roared" in p2c)
+
+        # ---- commentary + analysis tracks (same desk, different prompts) ----
+        import desk_tracks as dt
+        fixed: list[str] = []
+
+        def track_llm(system, prompt, max_tokens, role):
+            calls.append(role)
+            if prompt.startswith("Plan Waluigi's Cut"):
+                return json.dumps({"conceit": "screening the footage at a projector", "subtitle": "In Which Waluigi Screams",
+                                   "standfirst": "Waluigi watches the dock tape.", "headings": ["THE DOCK", "", "NORTH!"]})
+            if prompt.startswith("Write section") and "Waluigi's Cut" in prompt:
+                return ("Waluigi leans in. STOP THE TAPE. " * 30 + '\n\n"The dock creaked under the cold torchlight." WAH! '
+                        + ('"I am a quote nobody ever said aloud."' if not fixed else "") + " Waluigi was FILED and RULED.")
+            if prompt.startswith("Rewrite this section of Waluigi's commentary"):
+                fixed.append("x")
+                return "Waluigi howls. NO NO NO. " * 40 + '\n\n"The dock creaked under the cold torchlight." WAH!'
+            if prompt.startswith("Plan Waluigi's Article Analysis"):
+                return json.dumps({"subtitle": "The lantern was never the point", "summary": "The dock decided it.",
+                                   "claims": [{"heading": f"Claim {k}", "sourceAnchor": "The dock creaked under the cold torchlight." if k != 2 else "A line nobody wrote",
+                                               "parts": [1], "crossRef": "old_event"} for k in range(1, 6)]})
+            if prompt.startswith("Write the THESIS") or prompt.startswith("Write the VERDICT"):
+                return "The lamp is low. I read it twice. " * 10          # 80 words: must be lengthened
+            if prompt.startswith("This is ") and "it must be at least" in prompt:
+                return "The lamp is low and the tea is cold. I read it again. " * 30
+            if prompt.startswith("Write section") and "of the analysis" in prompt:
+                return "I hold the page to the lamp. I think the dock was the point. " * 40 + "\n\n\"The dock creaked under the cold torchlight.\""
+            return "{}"
+
+        calls.clear()
+        tr = dt.Tracks(store, FilingDesk(store, track_llm, run_checks=False))
+        rc = tr.commentary(rep["id"])
+        com = store.get("commentaries", rc["id"])
+        cblob = " ".join(s["body"] for s in com["sections"])
+        check("commentary: filed one-file-per-id and in the manifest",
+              rc["shard"] == f"commentaries/{rep['id']}_commentary.json" and com["sourceArticle"] == rep["id"])
+        check("commentary: one section per source beat, heading fallback for a blank one",
+              len(com["sections"]) == 3 and com["sections"][1]["heading"] == "JETPACK" and com["sections"][0]["heading"] == "THE DOCK",
+              str([s["heading"] for s in com["sections"]]))
+        check("commentary: invented quote and ledger words rewritten away",
+              "nobody ever said" not in cblob and not re.search(r"\b(filed|ruled)\b", cblob, re.I) and fixed)
+        check("commentary: timeCode on the commentary clock, kicker, pullQuote",
+              com["timeCode"].endswith("/COM") and com["kicker"].startswith("Waluigi's Cut") and com["pullQuote"])
+        check("commentary: notes the <6 sections the short source allows", any("source has only 3 beats" in n for n in tr.notes), tr.notes)
+        check("commentary: plan on json, prose on writer", calls[0] == "json" and set(calls[1:]) == {"writer"}, str(calls[:6]))
+
+        ra = tr.analysis(rep["id"])
+        ana = store.get("articleAnalyses", ra["id"])
+        check("analysis: filed with the guide's fields",
+              all(k in ana for k in ("kicker", "archivist", "filed", "summary", "thesis", "sections", "verdict"))
+              and ana["kicker"] == "Waluigi's Article Analysis" and ana["title"] == ev2["title"])
+        check("analysis: 5 claim sections, each with a sourceAnchor found in the event",
+              len(ana["sections"]) == 5 and all(s["sourceAnchor"] and "nobody wrote" not in s["sourceAnchor"] for s in ana["sections"]))
+        check("analysis: short thesis/verdict lengthened to the 180-word floor",
+              len(ana["thesis"].split()) >= 180 and len(ana["verdict"].split()) >= 180)
+        check("analysis: relatedArticles starts with the source, existing ids only",
+              ana["relatedArticles"][0] == rep["id"] and all(i for i in ana["relatedArticles"]))
+        check("participants as bare id strings (old filings) are accepted",
+              dt.pid("donkey_kong") == "donkey_kong" and dt.pid({"id": "x"}) == "x"
+              and dt.related_events(store, {"id": "z", "participants": ["donkey_kong"], "relatedArticles": []}) is not None)
+        rc2 = tr.commentary(rep["id"])
+        check("tracks: writing it again replaces, never duplicates",
+              store.manifest()["commentaries"]["order"].count(rc2["id"]) == 1)
+
+        # ---- salvage: truncated JSON, apparatus fallback, checkpoint + continue ----
+        cut = '{"title": "T", "summary": "S", "notableFeatures": ["a", "b"], "aftermath": "half a sent'
+        check("parse_json repairs a reply cut off mid-object (not its inner list)",
+              parse_json(cut) == {"title": "T", "summary": "S", "notableFeatures": ["a", "b"]}, str(parse_json(cut)))
+
+        def broken_apparatus(system, prompt, max_tokens, role):
+            if prompt.startswith("From this article plan"):
+                return '["only", "a", "list"]'          # unusable on every model
+            return fake_llm(system, prompt, max_tokens, role)
+        rep_ph = FilingDesk(store, broken_apparatus, run_checks=False).file_session(TRANSCRIPT + " Placeholder run.")
+        ev_ph = store.get("events", rep_ph["id"])
+        check("apparatus failure files the story with placeholders and says so",
+              ev_ph and ev_ph["description"].count("\n## ") == 3 and any("PLACEHOLDERS" in m for m in rep_ph["manual"]))
+
+        saved: dict = {}
+        boom = {"armed": True}
+        writes: list[int] = []
+
+        def dies_at_part_2(system, prompt, max_tokens, role):
+            if prompt.startswith("Write Part"):
+                writes.append(int(prompt.split("Write Part ", 1)[1].split()[0]))
+                if boom["armed"] and prompt.startswith("Write Part 2 "):
+                    raise ValueError("LM Studio answered 500")
+            return fake_llm(system, prompt, max_tokens, role)
+        s2 = ds.Store(root, backup_dir=root / "backups")
+        d2 = FilingDesk(s2, dies_at_part_2, run_checks=False, checkpoint=lambda st: saved.update(json.loads(json.dumps(st))))
+        try:
+            d2.file_session(TRANSCRIPT + " Second session at the dock.")
+            died = False
+        except ValueError:
+            died = True
+        s2.save_backup("failedjob")
+        stub_count = sum(1 for i in s2.manifest()["characters"]["order"] if i.startswith("funky_kong"))
+        check("a failed run leaves a checkpoint with the parts it wrote",
+              died and len(saved.get("body") or []) == 1 and "filed" in saved and saved.get("transcript"))
+        boom["armed"] = False
+        writes.clear()
+        s3 = ds.Store(root, backup_dir=root / "backups")
+        s3.adopt("failedjob")
+        rep3 = FilingDesk(s3, dies_at_part_2, run_checks=False).file_session(saved["transcript"], saved["hints"], state=saved)
+        ev3 = s3.get("events", rep3["id"])
+        check("continue writes only the missing parts", writes == [2, 3], str(writes))
+        check("continue files no duplicate stubs",
+              sum(1 for i in s3.manifest()["characters"]["order"] if i.startswith("funky_kong")) == stub_count)
+        check("continued event has every part", ev3 and ev3["description"].count("\n## ") == 3)
+        check("continue adopts the failed run's originals (one Undo for both)",
+              set(s2.touched) <= set(s3.touched) and all(s3.touched[k] == v for k, v in s2.touched.items()))
 
         store.save_backup("job1")
         ds.Store(root, backup_dir=root / "backups").undo("job1")

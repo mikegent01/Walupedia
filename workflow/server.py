@@ -910,7 +910,7 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if self.path.startswith("/api/desk/"):
                 kind = self.path[len("/api/desk/"):]
-                if kind not in ("file", "edit", "sheet", "render", "undo"):
+                if kind not in ("file", "continue", "edit", "sheet", "render", "commentary", "analysis", "undo"):
                     raise ValueError("unknown desk action")
                 json_response(self, desk_api.start(kind, payload, lm_completion, resolve_endpoint))
                 return

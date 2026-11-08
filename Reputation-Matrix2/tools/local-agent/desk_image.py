@@ -118,6 +118,8 @@ def plan(store: Store, desk: Any, event_id: str, notes: str = "",
     budget = slot_budget(len(parts), _words(rec.get("description") or ""))
     cast = []
     for p in rec.get("participants") or []:
+        # {id, name, role} in new filings; a bare id string in old ones
+        p = p if isinstance(p, dict) else {"id": str(p), "name": str(p).replace("_", " ").title()}
         ref = portrait_for(store, str(p.get("id")))
         cast.append({"id": p.get("id"), "name": p.get("name") or p.get("id"),
                      "portrait": ref.relative_to(store.root).as_posix() if ref else None})
@@ -240,6 +242,99 @@ def _plates_module(store: Store):
     return module
 
 
+def comfy_models(store: Store, plates: Any, comfy: Any, emit: Callable[[str, str], None]) -> dict[str, str]:
+    """The model files THIS ComfyUI has, picked the way the Token Plate Studio picks them: a file
+    pinned in workflow/desk-models.json ("comfy": {"unet", "clip", "vae"}) if the server has it,
+    else the graph's default if present, else the first file the loader offers. Without this the
+    desk sent the Qwen-Image 2.1 defaults to a server that only has other files and got a 400."""
+    pinned: dict[str, str] = {}
+    try:
+        cfg = json.loads((store.root / "workflow" / "desk-models.json").read_text(encoding="utf-8"))
+        pinned = {k: str(v) for k, v in (cfg.get("comfy") or {}).items() if v}
+    except (OSError, ValueError, AttributeError):
+        pass
+    engine = comfy.engine()
+    if engine == "qwen21":
+        defaults = dict(plates.QWEN21_MODELS)
+    elif engine in plates.ENGINES:
+        graph = plates.ENGINES[engine][1]
+        defaults = {k: graph[n]["inputs"][f] for k, n, f in (("unet", "37", "unet_name"), ("clip", "38", "clip_name"),
+                                                               ("vae", "39", "vae_name")) if n in graph}
+    else:
+        return {}
+    loaders = {"unet": ("UNETLoader", "unet_name"), "clip": ("CLIPLoader", "clip_name"), "vae": ("VAELoader", "vae_name")}
+    out: dict[str, str] = {}
+    for key, (node, field) in loaders.items():
+        have = comfy.choices(node, field)
+        for want in (pinned.get(key), defaults.get(key)):
+            if want and (want in have or not have):
+                out[key] = want
+                break
+        else:
+            if have:
+                out[key] = have[0]
+                emit("step", f"ComfyUI has no {defaults.get(key)} — using {have[0]} "
+                             f"(pin another in desk-models.json \"comfy\".{key})")
+    return out
+
+
+MOSS_NEGATIVE = "nsfw, worst quality, bad anatomy, watermark, jpeg artifact"   # MOSS-Image template's recommendation
+
+
+def moss_files(comfy: Any) -> dict[str, str] | None:
+    """MOSS-Image model files on this ComfyUI (text-to-image only, no reference input), or None."""
+    if not comfy.has_node("MOSSImageLayoutPrompt"):
+        return None
+    unets = [u for u in comfy.choices("UNETLoader", "unet_name") if "moss" in u.lower()]
+    clips = comfy.choices("CLIPLoader", "clip_name")
+    vaes = comfy.choices("VAELoader", "vae_name")
+    if not unets or not clips or not vaes:
+        return None
+    return {"unet": next((u for u in unets if "sft" in u.lower()), unets[0]),
+            "clip": next((c for c in clips if "qwen3.5" in c.lower()), clips[0]),
+            "vae": next((v for v in vaes if "flux2" in v.lower()), vaes[0])}
+
+
+def qwen_files_present(plates: Any, comfy: Any) -> bool:
+    have = {k: comfy.choices(n, f) for k, n, f in (("unet", "UNETLoader", "unet_name"),
+                                                  ("clip", "CLIPLoader", "clip_name"), ("vae", "VAELoader", "vae_name"))}
+    return all(plates.QWEN21_MODELS[k] in have[k] for k in have)
+
+
+def moss_graph(prompt: str, negative: str, seed: int, prefix: str, files: dict[str, str],
+               width: int = 1344, height: int = 768, steps: int = 25, cfg: float = 2.5) -> dict[str, Any]:
+    """The MOSS-Image text-to-image template (ComfyUI's image_moss_image_t2i) in API form, without
+    its optional LLM caption rewrite: the desk's prompts are already captions. 1344x768 is the
+    guide's wide 16:9 plate at ~1M pixels in multiples of 16; skip-layer 22 is the official setting."""
+    return {
+        "1": {"class_type": "UNETLoader", "inputs": {"unet_name": files["unet"], "weight_dtype": "default"}},
+        "15": {"class_type": "SkipLayerGuidanceDiTSimple",
+               "inputs": {"model": ["1", 0], "double_layers": "", "single_layers": "22",
+                          "start_percent": 0.0, "end_percent": 0.5}},
+        "2": {"class_type": "CLIPLoader", "inputs": {"clip_name": files["clip"], "type": "moss_image", "device": "default"}},
+        "4": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["2", 0], "text": prompt}},
+        "5": {"class_type": "CLIPTextEncode", "inputs": {"clip": ["2", 0], "text": negative}},
+        "6": {"class_type": "EmptyFlux2LatentImage", "inputs": {"width": width, "height": height, "batch_size": 1}},
+        "7": {"class_type": "KSampler", "inputs": {"model": ["15", 0], "positive": ["4", 0], "negative": ["5", 0],
+                                                   "latent_image": ["6", 0], "seed": seed, "steps": steps, "cfg": cfg,
+                                                   "sampler_name": "er_sde", "scheduler": "simple", "denoise": 1.0}},
+        "3": {"class_type": "VAELoader", "inputs": {"vae_name": files["vae"]}},
+        "8": {"class_type": "VAEDecode", "inputs": {"samples": ["7", 0], "vae": ["3", 0]}},
+        "9": {"class_type": "SaveImage", "inputs": {"images": ["8", 0], "filename_prefix": prefix}},
+    }
+
+
+def character_line(store: Store, plates: Any, cast: dict[str, Any]) -> str:
+    """'Donkey Kong, Donkey Kong the 3rd (Kong): <established look>.' from the character record."""
+    rec = store.get("characters", str(cast.get("id"))) or {}
+    name = rec.get("name") or cast.get("name") or cast.get("id")
+    title = str(rec.get("title") or "").strip()
+    race = str(rec.get("race") or "").split(";")[0].strip()
+    who = name + (f", {title}" if title and title.lower() not in str(name).lower() else "") + (f" ({race})" if race else "")
+    look = plates.look_of(rec) if rec else ""
+    return f"The figure is {who}" + (f": {look}." if look else ".")
+
+
 def comfy_ready(store: Store) -> str:
     """Raise unless ComfyUI answers — checked BEFORE the chat model is unloaded."""
     comfy = _plates_module(store).Comfy.discover()
@@ -287,21 +382,51 @@ def render(store: Store, event_id: str, chosen: list[int] | None = None,
     LAST_COMFY = comfy.url
     if not comfy.alive():
         raise ValueError(f"ComfyUI is not answering at {comfy.url} — start it, then render again")
-    renderer = plates.Renderer(comfy)
+    # Which graph: the reference-capable Qwen-Image one when its files are here, else MOSS-Image
+    # (text-to-image only). desk-models.json "comfy": {"engine": "moss" | "qwen"} pins it.
+    moss = moss_files(comfy)
+    try:
+        comfy_cfg = json.loads((store.root / "workflow" / "desk-models.json").read_text(encoding="utf-8")).get("comfy") or {}
+    except (OSError, ValueError, AttributeError):
+        comfy_cfg = {}
+    pin = comfy_cfg.get("engine", "")
+    # The user's choice (2026-11-08): with a text-only model, draw characters from their archive
+    # record rather than skip them. "portraitRule": true restores the skip.
+    portrait_rule = bool(comfy_cfg.get("portraitRule", False))
+    use_moss = bool(moss) and (pin == "moss" or (pin != "qwen" and not qwen_files_present(plates, comfy)))
+    renderer = None
+    if use_moss:
+        emit("step", f"ComfyUI has MOSS-Image ({moss['unet']}), not the Qwen-Image files — rendering text-to-image; "
+                     + ("slots with a character in frame are skipped (portraitRule is on)" if portrait_rule else
+                        "characters are drawn from their archive description, not their portrait"))
+    else:
+        renderer = plates.Renderer(comfy, models=comfy_models(store, plates, comfy, emit))
     rel_dir = f"assets/images/events/{event_id.replace('_', '-')}"
     folder = store.root / "Reputation-Matrix2" / rel_dir
     raw_dir = store.backup_dir / "renders" / event_id
     folder.mkdir(parents=True, exist_ok=True)
     raw_dir.mkdir(parents=True, exist_ok=True)
-    made = []
+    made, skipped, from_text = [], [], []
     for n in todo:
         s = slots[n - 1]
         prompt = (prompts or {}).get(str(n)) or s["prompt"]
         avoid = ", ".join(map(str, s.get("mustNotAppear") or []))
         negative = SCENE_NEGATIVE + (", " + avoid if avoid else "")
         seed = random.randint(1, 2**31 - 1)
+        if use_moss and s.get("cast") and portrait_rule:
+            skipped.append(f"slot {n} ({s['cast']['name']})")
+            emit("step", f"slot {n} skipped — {s['cast']['name']} must come from their portrait (portraitRule)")
+            continue
+        if use_moss and s.get("cast"):
+            # no reference image: describe the figure from the archive so MOSS has something to go on
+            who = character_line(store, plates, s["cast"])
+            prompt = prompt.replace(REGISTER, REGISTER + " " + who, 1) if REGISTER in prompt else who + " " + prompt
+            from_text.append(f"slot {n} ({s['cast']['name']})")
         emit("step", f"rendering slot {n}/{len(slots)} — {s['slot']} {s['heading']}")
-        if s.get("cast"):
+        if use_moss:
+            wf = moss_graph(prompt, MOSS_NEGATIVE + (", " + avoid if avoid else ""), seed,
+                            f"desk/{event_id}-{n:02d}", moss)
+        elif s.get("cast"):
             ref = store.root / s["cast"]["portrait"]
             name = comfy.upload(str(ref), f"desk_{s['cast']['id']}{ref.suffix}")
             wf = plates.workflow_fill(renderer.wf, prompt, name, f"desk/{event_id}-{n:02d}", seed, negative=negative)
@@ -322,9 +447,15 @@ def render(store: Store, event_id: str, chosen: list[int] | None = None,
                      "alt": s["alt"], "seed": seed, "size": size})
         emit("step", f"slot {n} saved — {dst.name} ({size})")
     _wire(store, event_id, made)
-    return {"id": event_id, "images": made,
-            "note": "Look at every image before keeping it (guide step 4). Undo restores the record; "
-                    "the image files stay on disk for you to delete or keep."}
+    note = ("Look at every image before keeping it (guide step 4). Undo restores the record; "
+            "the image files stay on disk for you to delete or keep.")
+    if from_text:
+        note += (" Drawn from the archive description, not the portrait (MOSS-Image takes no reference): "
+                 + ", ".join(from_text) + " — check each face against portraits/ before keeping it.")
+    if skipped:
+        note += (" Skipped (portraitRule): " + ", ".join(skipped) + ".")
+    return {"id": event_id, "images": made, "skipped": skipped, "fromText": from_text,
+            "engine": "moss" if use_moss else "qwen", "note": note}
 
 
 def _wire(store: Store, event_id: str, made: list[dict[str, Any]]) -> None:

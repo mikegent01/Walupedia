@@ -20,6 +20,7 @@ import urllib.error  # noqa: E402
 import urllib.request  # noqa: E402
 
 import desk_image  # noqa: E402
+import desk_tracks  # noqa: E402
 import desk_vram  # noqa: E402
 from desk_store import Store, norm  # noqa: E402
 from filing_desk import FilingDesk  # noqa: E402
@@ -95,10 +96,14 @@ def _emit(job: dict[str, Any]) -> Callable[[str, str], None]:
 
 def start(kind: str, payload: dict[str, Any], lm_completion: Callable[..., str],
           resolve_endpoint: Callable[[Any], str]) -> dict[str, str]:
-    """kind: file | edit | sheet | render | undo"""
+    """kind: file | continue | edit | sheet | render | commentary | analysis | undo"""
+    if kind == "continue":
+        old = str(payload.get("job", "")).strip()
+        if not old or Store().load_state(old) is None:
+            raise ValueError("that run left no checkpoint to continue from (only session filings are checkpointed)")
     if kind == "file" and len(str(payload.get("text", "")).strip()) < 200:
         raise ValueError("paste the session transcript or account (at least a few paragraphs)")
-    if kind in ("edit", "sheet", "render") and not str(payload.get("id", "")).strip():
+    if kind in ("edit", "sheet", "render", "commentary", "analysis") and not str(payload.get("id", "")).strip():
         raise ValueError("an event id is required")
     if kind == "edit" and not str(payload.get("instruction", "")).strip():
         raise ValueError("say what to change")
@@ -132,12 +137,20 @@ def start(kind: str, payload: dict[str, Any], lm_completion: Callable[..., str],
                 ctx = min(int(roles[r].get("context") or desk_vram.context_length(base, roles[r]["model"]))
                           for r in ("reader", "writer"))
                 # ~3.6 chars per token; keep room for the instructions and the longest reply.
-                desk = FilingDesk(store, llm, emit, digest_chars=int(max(ctx - 4200, 2500) * 3.6))
-                if kind in ("file", "edit", "sheet"):
+                desk = FilingDesk(store, llm, emit, digest_chars=int(max(ctx - 4200, 2500) * 3.6),
+                                  checkpoint=lambda st: store.save_state(job["id"], st))
+                if kind in ("file", "continue", "edit", "sheet", "commentary", "analysis"):
                     emit("step", "models · " + " · ".join(f"{r}: {roles[r]['model']}" for r in ROLES)
                          + f" · prompts sized for {ctx} ctx")
                 if kind == "file":
                     result = desk.file_session(str(payload["text"]), str(payload.get("hints", "")))
+                elif kind == "continue":
+                    old = str(payload["job"]).strip()
+                    state = store.load_state(old) or {}
+                    store.adopt(old)        # one Undo of this run reverses the failed run too
+                    emit("step", f"continuing run {old}")
+                    result = desk.file_session(state.get("transcript", ""), state.get("hints", ""), state=state)
+                    result["continued"] = old
                 elif kind == "edit":
                     result = desk.edit_event(str(payload["id"]).strip(), str(payload["instruction"]))
                 elif kind == "sheet":
@@ -164,6 +177,24 @@ def start(kind: str, payload: dict[str, Any], lm_completion: Callable[..., str],
                     if os.environ.get("DESK_SKIP_CHECKS") != "1":
                         result["checks"] = [{"check": a, "ok": ok, "tail": t}
                                             for a, ok, t in store.build_and_check(checks=("check-references.py",))]
+                elif kind in ("commentary", "analysis"):
+                    tracks = desk_tracks.Tracks(store, desk, emit)
+                    eid = str(payload["id"]).strip()
+                    notes_in = str(payload.get("notes", ""))
+                    result = tracks.commentary(eid, notes_in) if kind == "commentary" else tracks.analysis(eid, notes_in)
+                    result["notes"] = tracks.notes
+                    checks = store.build_and_check(
+                        checks=result.pop("checks_for"),
+                        on_step=lambda a, ok, t: emit("check", f"{'PASS' if ok else 'FAIL'}  {a}"))
+                    result["checks"] = [{"check": a, "ok": ok, "tail": t} for a, ok, t in checks]
+                    # the checkers warn rather than fail: surface the lines about THIS record
+                    full = "\n".join(t for _, _, t in checks)
+                    result["warnings"] = [ln.strip() for ln in full.splitlines()
+                                          if result["id"] in ln and ("warn" in ln.lower() or "error" in ln.lower())]
+                    if kind == "analysis":
+                        ok, tail = store.run_tool(f"check-readability.py --analysis {result['id']}")
+                        result["readability"] = tail
+                    result["ok"] = all(c["ok"] for c in result["checks"])
                 elif kind == "undo":
                     result = {"restored": Store().undo(str(payload.get("job", "")))}
                     for line in result["restored"]:

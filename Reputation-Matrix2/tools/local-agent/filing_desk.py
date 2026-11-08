@@ -22,6 +22,7 @@ import time
 from typing import Any, Callable
 
 import desk_prompts as P
+from desk_store import SPEAKER_RE
 from desk_store import (MONTHS, Store, banned_word_hits, handle_hits, norm, scrub_handles,
                         slug, speaker_handles, time_code)
 
@@ -40,14 +41,63 @@ VOICE = P.VOICE
 DIGEST_CHARS = 14_000
 
 
+def ds_speaker_lines(text: str) -> list[str]:
+    """Speaker-labelled lines ("Name: words") — a subtitle dump has none."""
+    return SPEAKER_RE.findall(text or "")
+
+
 def words(text: str) -> int:
     return len(re.findall(r"\b[\w'’-]+\b", str(text or "")))
 
 
+def _repair_truncated(text: str) -> Any:
+    """A reply cut off by max_tokens: back up to the last complete value and close what is
+    open. Without this, a cut-off object made the parser grab its first complete inner list
+    (the DK run's "expected a JSON object")."""
+    stack: list[str] = []
+    in_str = esc = False
+    cuts: list[tuple[int, list[str]]] = []          # (end index, open brackets) after each complete value
+    for i, c in enumerate(text):
+        if in_str:
+            if esc:
+                esc = False
+            elif c == "\\":
+                esc = True
+            elif c == '"':
+                in_str = False
+            continue
+        if c == '"':
+            in_str = True
+        elif c in "{[":
+            stack.append("}" if c == "{" else "]")
+        elif c in "}]":
+            if stack:
+                stack.pop()
+            if not stack:
+                return json.loads(text[:i + 1])
+            cuts.append((i + 1, list(stack)))
+        elif c == ",":
+            cuts.append((i, list(stack)))
+    for end, open_ in reversed(cuts[-40:]):
+        candidate = text[:end].rstrip().rstrip(",") + "".join(reversed(open_))
+        try:
+            return json.loads(candidate)
+        except ValueError:
+            continue
+    raise ValueError("truncated JSON could not be repaired")
+
+
 def parse_json(text: str) -> Any:
-    """The first balanced JSON object or array in a model reply (fences and <think> stripped)."""
+    """The reply's outer JSON object or array (fences and <think> stripped). A reply cut off
+    mid-object is repaired, not mined for an inner fragment."""
     text = re.sub(r"<think>[\s\S]*?</think>", " ", str(text or ""), flags=re.I)
     text = re.sub(r"```(?:json)?", " ", text)
+    first = min((i for i in (text.find("{"), text.find("[")) if i >= 0), default=-1)
+    if first >= 0:
+        try:
+            return _repair_truncated(text[first:])
+        except ValueError:
+            pass
     for opener, closer in (("{", "}"), ("[", "]")):
         start = text.find(opener)
         while start >= 0:
@@ -79,7 +129,8 @@ def parse_json(text: str) -> Any:
 
 class FilingDesk:
     def __init__(self, store: Store, llm: LLM, emit: Emit | None = None,
-                 run_checks: bool = True, digest_chars: int = DIGEST_CHARS):
+                 run_checks: bool = True, digest_chars: int = DIGEST_CHARS,
+                 checkpoint: Callable[[dict[str, Any]], None] | None = None):
         self.store = store
         self.digest_chars = max(4000, digest_chars)
         self._llm = llm
@@ -87,29 +138,46 @@ class FilingDesk:
         self.run_checks = run_checks
         self.notes: list[str] = []
         self.manual: list[str] = []
+        # Long runs are checkpointed after every step, so a failure late in the run can be
+        # continued (desk_api "continue") instead of starting a 15-minute filing over.
+        self.state: dict[str, Any] = {}
+        self._checkpoint = checkpoint or (lambda st: None)
+
+    def _save(self, **values: Any) -> None:
+        self.state.update(values)
+        self.state["notes"], self.state["manual"] = self.notes, self.manual
+        self._checkpoint(self.state)
 
     # ---- model plumbing ----
     def ask(self, prompt: str, max_tokens: int = 1200, system: str = VOICE, role: str = "json") -> str:
         return self._llm(system, prompt, max_tokens, role)
 
-    def ask_json(self, prompt: str, max_tokens: int = 1200, role: str = "json", shape: type = dict) -> Any:
+    def ask_json(self, prompt: str, max_tokens: int = 1200, role: str = "json", shape: type = dict,
+                 fallback_role: str | None = None) -> Any:
         """JSON of the expected shape. Models wrap objects in lists ([{...}]) and lists in
-        objects ({"characters": [...]}); both are unwrapped here, anything else is retried once."""
-        reply = self.ask(prompt + "\n\nReply with ONLY the JSON, no prose.", max_tokens, role=role)
-        for attempt in (1, 2):
+        objects ({"characters": [...]}); both are unwrapped. A bad reply is asked again from
+        scratch with more room, then (if given) on the fallback model, before it fails."""
+        what = "object" if shape is dict else "list"
+        tries = [(role, max_tokens), (role, int(max_tokens * 1.6))]
+        if fallback_role and fallback_role != role:
+            tries.append((fallback_role, int(max_tokens * 1.6)))
+        error: Exception = ValueError("no reply")
+        for n, (who, budget) in enumerate(tries):
+            if n:
+                self.emit("step", f"model reply was not the JSON asked for ({error}) — asking again"
+                          + (f" on the {who} model" if who != role else " with more room"))
+            reply = self.ask(prompt + f"\n\nReply with ONLY one JSON {what}, no prose. Keep every value short "
+                             "enough that the whole reply fits.", budget, role=who)
             try:
                 value = self._coerce(parse_json(reply), shape)
                 if value is not None:
                     return value
-                error: Exception = ValueError(f"expected a JSON {'object' if shape is dict else 'list'}")
+                error = ValueError(f"expected a JSON {what}")
             except ValueError as exc:
                 error = exc
-            if attempt == 2:
-                raise ValueError(f"the model's reply was not usable JSON: {error}")
-            self.emit("step", "model reply was not the JSON asked for — asking once more")
-            reply = self.ask(f"Your last reply was not usable ({error}). Here it was:\n{reply[:3000]}\n\n"
-                             f"Return the same content as one valid JSON {'object' if shape is dict else 'list'}.",
-                             max_tokens, role=role)
+            snippet = re.sub(r"\s+", " ", str(reply))
+            self.emit("step", f"unusable reply ({len(str(reply))} chars): {snippet[:160]} … {snippet[-120:]}")
+        raise ValueError(f"the model's reply was not usable JSON: {error}")
 
     @staticmethod
     def _coerce(value: Any, shape: type) -> Any:
@@ -153,37 +221,74 @@ class FilingDesk:
         return m.group(1) if m and m.group(1) in FILING_WORLDS else None
 
     # ---- step 0: digest a long transcript ----
-    def digest(self, transcript: str) -> str:
+    def digest(self, transcript: str, hints: str = "") -> str:
+        """Beat notes that fit the window. Each chunk gets an equal share of the budget up
+        front, so the notes never have to be cut — cutting the tail lost the DK ending."""
         size = self.digest_chars
         if len(transcript) <= size:
             return transcript
         chunks = [transcript[i:i + size] for i in range(0, len(transcript), size)]
+        share = size // len(chunks)
         notes = []
         for n, chunk in enumerate(chunks, 1):
             self.emit("step", f"reading transcript part {n}/{len(chunks)}")
-            notes.append(self.ask(
-                "Summarise this part of a session transcript as an ordered list of story beats. For each beat "
-                "give who (character names, not player handles), where, what happened, and copy the lines of "
-                "dialogue that define it verbatim in quotes. Note any stated date or time of day.\n\n"
-                f"PART {n} of {len(chunks)}:\n{chunk}", 1600, role="reader"))
-        joined = "\n\n".join(notes)
-        if len(joined) > size:   # still too big for the window: fold the notes once more
-            self.emit("step", "folding the beat notes to fit the model's context")
-            joined = self.ask("Merge these beat notes into one ordered list, keeping every verbatim quoted line "
-                              "and every stated date or time:\n\n" + joined[: size * 2], 1800, role="reader")
-        return joined[:size]
+            notes.append(self._beats(chunk, n, len(chunks), share, hints))
+        for attempt in range(2):           # a note over its share is redone tighter, not cut
+            fat = [i for i, t in enumerate(notes) if len(t) > share * 1.15]
+            if not fat:
+                break
+            for i in fat:
+                self.emit("step", f"beat notes for part {i + 1} too long — condensing")
+                notes[i] = self._beats(notes[i], i + 1, len(chunks), int(share * (0.8 - 0.2 * attempt)), hints)
+        # last resort: trim the MIDDLE of an over-long note, never its end — each part's
+        # closing beats (and the session's ending) survive like its opening
+        half = max(1, share // 2 - 3)
+        return "\n\n".join(t if len(t) <= share else t[:half] + " … " + t[-half:] for t in notes)
+
+    def _beats(self, text: str, n: int, total: int, share: int, hints: str) -> str:
+        return self.ask(
+            "Summarise this part of a session transcript as an ordered list of story beats, in at most "
+            f"{max(80, share // 6)} words. For each beat give who (character names, not player handles), "
+            "where, what happened, and copy the one line of dialogue that defines it verbatim in quotes. "
+            "Note any stated date or time of day. Keep the LAST beats as carefully as the first: how this "
+            "part ends matters most.\n"
+            + (f"The filer's framing (who is who, what is a flashback): {hints[:600]}\n" if hints else "")
+            + f"\nPART {n} of {total}:\n{text}", max(400, int(share / 3.2)), role="reader")
 
     # ---- the session filing ----
-    def file_session(self, transcript: str, hints: str = "") -> dict[str, Any]:
+    def file_session(self, transcript: str, hints: str = "", state: dict[str, Any] | None = None) -> dict[str, Any]:
+        """File a session. With `state` from an earlier, failed run, every step it finished is
+        reused: the digest, facts, character profiles, outline, the stubs already written to
+        the stores and every story part already written."""
+        st = self.state = dict(state or {})
+        if st:
+            self.notes, self.manual = list(st.get("notes") or []), list(st.get("manual") or [])
+            done = [k for k in ("account", "facts", "stubs", "parts", "filed", "body", "meta") if k in st]
+            self.emit("step", f"continuing an earlier run — reusing: {', '.join(done)}"
+                      + (f" ({len(st.get('body') or [])} story parts already written)" if st.get("body") else ""))
+        st.setdefault("transcript", transcript)
+        st.setdefault("hints", hints)
+        self._save()
         store = self.store
         chars, locs = self._index("characters"), self._index("locations")
         handles = speaker_handles(transcript, set(chars), store.root)
         now = store.current_date()
-        account = self.digest(transcript)
+        labelled = len(ds_speaker_lines(transcript))
+        if labelled < 3 and not hints.strip() and "account" not in st:
+            msg = ("this transcript has no speaker labels and no filer's notes — the model has to guess who "
+                   "says what. Undo and re-file with notes above a --- line (who is speaking, what is a "
+                   "flashback, how it ends) if any attribution is wrong")
+            self.emit("step", "warning: " + msg)
+            self.notes.append(msg)
+        if "account" in st:
+            account = st["account"]
+        else:
+            account = self.digest(transcript, hints)
+            self._save(account=account)
 
         # ---------- reader model: facts, cast, outline ----------
-        self.emit("step", "1/8 extracting who, where and when")
-        facts = self.ask_json(
+        self.emit("step", "1/8 extracting who, where and when" + (" (reused)" if "facts" in st else ""))
+        facts = st.get("facts") or self.ask_json(
             "From this session account, extract the filing facts as JSON with keys:\n"
             '{"name": short article name, "world": one of ' + "/".join(FILING_WORLDS) + ' (material = the '
             'ordinary world), "location": main place name, "newLocations": [{"name","type","region","summary"}] '
@@ -195,6 +300,7 @@ class FilingDesk:
             f"World clock today: {now[2]} {MONTHS[now[1]-1]} {now[0]} BF.\n"
             f"Speaker labels that are players/GM, never characters: {', '.join(sorted(handles))}.\n"
             + (f"Filer's hints: {hints}\n" if hints else "") + f"\nACCOUNT:\n{account}", 1500, role="reader")
+        self._save(facts=facts)
 
         loc_name = str(facts.get("location") or "").strip()
         loc = self._resolve(loc_name, locs) if loc_name else None
@@ -203,7 +309,8 @@ class FilingDesk:
         tc, window, later, tnotes = time_code(facts.get("date") or {}, world, now)
         self.notes += tnotes
         y, m, d = (int(x) for x in re.match(r"TC:(\d+)-(\d+)-(\d+)", tc).groups())
-        event_id = store.unique_id("events", slug(facts.get("name") or "session"))
+        event_id = st.get("event_id") or store.unique_id("events", slug(facts.get("name") or "session"))
+        self._save(event_id=event_id)
 
         participants, unknown = [], []
         for p in facts.get("participants") or []:
@@ -217,8 +324,8 @@ class FilingDesk:
                     participants.append({"id": rec["id"], "name": rec.get("name") or nm, "role": role})
             else:
                 unknown.append((nm, role))
-        stubs: dict[str, dict[str, Any]] = {}
-        if unknown:
+        stubs: dict[str, dict[str, Any]] = dict(st.get("stubs") or {})
+        if unknown and "stubs" not in st and "filed" not in st:
             self.emit("step", "2/8 profiling new characters")
             got = self.ask_json(
                 "Write short character records for these people from the account. JSON list of "
@@ -226,19 +333,64 @@ class FilingDesk:
                 + "\n".join(f"- {nm}: {role}" for nm, role in unknown)
                 + f"\n\nACCOUNT:\n{account[: self.digest_chars // 2]}", 1400, role="reader", shape=list)
             stubs = {norm(s.get("name")): s for s in got if isinstance(s, dict)} if isinstance(got, list) else {}
+            self._save(stubs=stubs)
 
         n_parts = max(P.PARTS_MIN, min(P.PARTS_MAX, round(words(transcript) / P.WORDS_PER_PART_OF_ACCOUNT)))
-        self.emit("step", f"3/8 outlining {n_parts} parts")
-        cast_names = ", ".join([p["name"] for p in participants] + [nm for nm, _ in unknown])
-        plan = self.ask_json(P.outline_prompt(n_parts, account, cast_names, hints), 2200, role="reader")
-        parts = [p for p in (plan.get("parts") if isinstance(plan, dict) else plan) or []
-                 if isinstance(p, dict) and p.get("heading")]
-        if not parts:
-            raise ValueError("the model returned no outline parts")
-        if len(parts) != n_parts:
-            self.notes.append(f"outline came back with {len(parts)} parts (asked for {n_parts})")
+        if st.get("parts"):
+            parts = st["parts"]
+            self.emit("step", f"3/8 outline reused ({len(parts)} parts)")
+        else:
+            self.emit("step", f"3/8 outlining {n_parts} parts")
+            cast_names = ", ".join([p["name"] for p in participants] + [nm for nm, _ in unknown])
+            plan = self.ask_json(P.outline_prompt(n_parts, account, cast_names, hints), 2200, role="reader")
+            parts = [p for p in (plan.get("parts") if isinstance(plan, dict) else plan) or []
+                     if isinstance(p, dict) and p.get("heading")]
+            if not parts:
+                raise ValueError("the model returned no outline parts")
+            if len(parts) != n_parts:
+                self.notes.append(f"outline came back with {len(parts)} parts (asked for {n_parts})")
+            self._save(parts=parts)
 
         # ---------- deterministic: locations + characters on file ----------
+        if "filed" in st:
+            participants, loc = st["filed"]["participants"], st["filed"]["loc"]
+            self.emit("step", "4/8 locations and characters already filed (reused)")
+        else:
+            participants, loc = self._file_stubs(st, facts, loc, loc_name, locs, unknown, stubs, participants,
+                                                 handles, event_id, world)
+
+        # ---------- writer model: the story, part by part ----------
+        body: list[str] = list(st.get("body") or [])
+        prev_tail, short = "", []
+        if body:
+            last = body[-1].split("\n", 1)[-1]
+            paras = [p for p in last.split("\n\n") if p.strip() and not p.lstrip().startswith("*")]
+            prev_tail = (paras[-1] if paras else last)[-400:]
+        for i, part in enumerate(parts, 1):
+            if i <= len(body):
+                continue                 # written by the earlier run
+            aside = (i % 6) != 4          # ~1 part in 6 runs clean (guide §5)
+            self.emit("step", f"5/8 writing part {i}/{len(parts)} — {part['heading']}")
+            ahead = " | ".join(str(p.get("beats") or p["heading"]) for p in parts[i:])
+            text = self.ask(P.part_prompt(i, len(parts), part, prev_tail, account, aside, ahead, hints[:800]),
+                            1100, role="writer")
+            text = self._clean_part(text)
+            if words(text) < P.PART_MIN:
+                self.emit("step", f"part {i} is {words(text)} words — asking for the full length")
+                longer = self._clean_part(self.ask(P.expand_prompt(text, words(text)), 1100, role="writer"))
+                if words(longer) > words(text):
+                    text = longer
+            if words(text) < P.PART_MIN:
+                short.append(f"{i} ({words(text)}w)")
+            body.append(f"## {part['heading'].strip()}\n\n{text}")
+            self._save(body=body)
+            paras = [p for p in text.split("\n\n") if p.strip() and not p.lstrip().startswith("*")]
+            prev_tail = (paras[-1] if paras else text)[-400:]
+        return self._finish(st, facts, parts, body, short, participants, loc, loc_name, world, tc, window,
+                            later, y, m, d, event_id, hints, handles)
+
+    def _file_stubs(self, st, facts, loc, loc_name, locs, unknown, stubs, participants, handles, event_id, world):
+        store = self.store
         self.emit("step", "4/8 filing locations and characters")
         new_locs = list(facts.get("newLocations") or [])
         place = re.split(r"[,(;]| - | — ", loc_name)[0].strip()   # the stub is the place, not "X, the dock"
@@ -274,26 +426,12 @@ class FilingDesk:
             participants.append({"id": rid, "name": nm, "role": role})
             self.notes.append(f"new character stub: {rid}")
         self.manual.append("XP awards: not filed by the desk — add rows to the ledger by hand (xpAwards is empty)")
+        self._save(filed={"participants": participants, "loc": loc})
+        return participants, loc
 
-        # ---------- writer model: the story, part by part ----------
-        body, prev_tail, short = [], "", []
-        for i, part in enumerate(parts, 1):
-            aside = (i % 6) != 4          # ~1 part in 6 runs clean (guide §5)
-            self.emit("step", f"5/8 writing part {i}/{len(parts)} — {part['heading']}")
-            ahead = " | ".join(str(p.get("beats") or p["heading"]) for p in parts[i:])
-            text = self.ask(P.part_prompt(i, len(parts), part, prev_tail, account, aside, ahead, hints[:800]),
-                            1100, role="writer")
-            text = self._clean_part(text)
-            if words(text) < P.PART_MIN:
-                self.emit("step", f"part {i} is {words(text)} words — asking for the full length")
-                longer = self._clean_part(self.ask(P.expand_prompt(text, words(text)), 1100, role="writer"))
-                if words(longer) > words(text):
-                    text = longer
-            if words(text) < P.PART_MIN:
-                short.append(f"{i} ({words(text)}w)")
-            body.append(f"## {part['heading'].strip()}\n\n{text}")
-            paras = [p for p in text.split("\n\n") if p.strip() and not p.lstrip().startswith("*")]
-            prev_tail = (paras[-1] if paras else text)[-400:]
+    def _finish(self, st, facts, parts, body, short, participants, loc, loc_name, world, tc, window,
+                later, y, m, d, event_id, hints, handles) -> dict[str, Any]:
+        store = self.store
         if short:
             self.notes.append(f"parts under {P.PART_MIN} words after one retry: {', '.join(short)}")
         opener = f"*Filed from a session account. {window}*"
@@ -305,8 +443,24 @@ class FilingDesk:
         # ---------- json model: apparatus ----------
         self.emit("step", "6/8 summary, aftermath and Waluigi's verdict")
         plan_text = "\n".join(f"{i}. {p['heading']}: {p.get('beats')}" for i, p in enumerate(parts, 1))
-        meta = self.ask_json(P.APPARATUS + f"\n\nPLAN:\n{plan_text}\n\nOPENING OF THE ARTICLE:\n"
-                             + description[:3000], 1800)
+        # The whole arc, not the opening: the DK run's summary only covered its first scene.
+        ending = body[-1].split("\n", 1)[-1][-1600:] if body else ""
+        meta = st.get("meta")
+        if not meta:
+            try:
+                meta = self.ask_json(
+                    P.APPARATUS + " The summary, outcome and verdict cover the WHOLE session from its first beat "
+                    "to its last — above all how it ends.\n"
+                    + (f"The filer's framing: {hints[:600]}\n" if hints else "")
+                    + f"\nPLAN (every part, in order):\n{plan_text}\n\nHOW THE ARTICLE ENDS:\n{ending}",
+                    2600, fallback_role="writer")
+            except ValueError as error:
+                # Never throw away a written story over its summary: file with placeholders.
+                self.emit("step", f"apparatus failed on both models ({error}) — filing with placeholders")
+                meta = self._placeholder_meta(facts, parts)
+                self.manual.append("summary, outcome, status, aftermath and Waluigi's verdict are PLACEHOLDERS "
+                                   "(the model's JSON failed) — use Edit this event to write them")
+            self._save(meta=meta)
         related = []
         for rid in [p["id"] for p in participants] + ([loc["id"]] if loc else []):
             if rid not in related:
@@ -316,7 +470,9 @@ class FilingDesk:
             "title": meta.get("title") or facts.get("name") or "",
             "date": f"{d} {MONTHS[m-1]} {y} BF", "timeCode": tc, "timeWindow": window,
             "laterDated": True if later else None,
-            "era": facts.get("era") or "", "type": facts.get("type") or "Session Transcript",
+            # one line each: the DK run came back with "political drama\n\neconomic collapse\n…"
+            "era": " / ".join(self._lines(facts.get("era"))),
+            "type": " / ".join(self._lines(facts.get("type"))) or "Session Transcript",
             "location": (loc.get("name") if loc else loc_name), "status": meta.get("status") or "",
             "summary": meta.get("summary") or "", "description": description,
             "outcome": meta.get("outcome") or "", "image": "", "imageCaption": meta.get("imageCaption") or "",
@@ -345,9 +501,26 @@ class FilingDesk:
         return self._report("filed", event_id, shard, checks)
 
     @staticmethod
+    def _placeholder_meta(facts: dict[str, Any], parts: list[dict[str, Any]]) -> dict[str, Any]:
+        beats = [str(p.get("beats") or p.get("heading")) for p in parts]
+        summary = " ".join(beats[:1] + beats[-1:])
+        return {"title": facts.get("name") or "", "summary": " ".join(summary.split()[:80]),
+                "outcome": " ".join(beats[-1].split()[:50]) if beats else "",
+                "status": "Filed by the local desk; summary fields are placeholders awaiting an edit.",
+                "aftermath": "", "waluigiAssessment": "", "imageCaption": "", "image_alt": "",
+                "notableFeatures": [str(p.get("heading")) for p in parts][:8], "tags": []}
+
+    @staticmethod
+    def _lines(value: Any) -> list[str]:
+        items = value if isinstance(value, list) else re.split(r"\n+|\s*/\s*|;\s*", str(value or ""))
+        return [s.strip(" -•,") for s in map(str, items) if s.strip(" -•,")]
+
+    @staticmethod
     def _clean_part(text: str) -> str:
         text = re.sub(r"</?div[^>]*>", "", str(text or ""))
         text = re.sub(r"(?m)^#{1,6} .*\n+", "", text, count=1) if text.lstrip().startswith("#") else text
+        # a model that repeats the heading as a bold line ("**The Voicemail Scam**")
+        text = re.sub(r"^\s*\*\*[^*\n]{1,90}\*\*\s*\n+", "", text)
         return text.strip()
 
     # ---- editing an existing event ----

@@ -114,6 +114,8 @@ textarea.prompt-edit{width:100%;min-height:90px;margin-top:8px;background:#0c0e1
         <button class="mode" data-mode="file">File a session</button>
         <button class="mode" data-mode="edit">Edit an event</button>
         <button class="mode" data-mode="image">Images</button>
+        <button class="mode" data-mode="commentary">Commentary</button>
+        <button class="mode" data-mode="analysis">Analysis</button>
         <div class="target" id="target"><input id="eventPick" list="eventList" placeholder="event id or name…" autocomplete="off"><datalist id="eventList"></datalist></div>
       </div>
       <form class="composer" id="composer">
@@ -154,6 +156,8 @@ function render(){renderRooms();const r=room(),box=$("chat");
    <button class="starter" data-go="file"><b>📜 File a session</b><span>Paste or attach the transcript</span></button>
    <button class="starter" data-go="edit"><b>✎ Edit an event</b><span>Pick one, say what to change</span></button>
    <button class="starter" data-go="image"><b>🖼 Images</b><span>Prompt sheet per the guide, then ComfyUI</span></button>
+   <button class="starter" data-go="commentary"><b>📽️ Commentary track</b><span>Waluigi's Cut — heckling the tape as it plays</span></button>
+   <button class="starter" data-go="analysis"><b>🗂️ Analysis track</b><span>The morning after, at the desk, claim by claim</span></button>
    <button class="starter" data-go="chat"><b>💬 Just talk</b><span>Ask about the archive</span></button>
   </div></div>`;box.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{setMode(b.dataset.go);$("input").focus()});return}
   box.innerHTML=r.messages.map((m,i)=>`<article class="msg ${m.role}"><div class="avatar">${m.role==="user"?"You":"W"}</div><div class="bubble"><div class="who">${m.role==="user"?"You":"Filing Desk"}${m.tag?` · ${esc(m.tag)}`:""}</div>${m.card?cardHtml(m,i):`<div class="text">${esc(m.text)}</div>`}${m.file?`<span class="attach">📎 ${esc(m.file)}</span>`:""}</div></article>`).join("");
@@ -175,25 +179,29 @@ function cardHtml(m,i){const c=m.card,res=c.result||{},running=c.status==="runni
     h+=`<details><summary>Full prompt sheet (markdown)</summary><pre>${esc(res.sheet)}</pre></details>`}
   if(c.kind==="render"&&res.images?.length){h+=`<div class="plates">${res.images.map(m=>`<figure><img class="plate" src="/rm/${esc(m.image)}?v=${m.seed}" alt="${esc(m.alt||"")}"><figcaption>Slot ${m.slot} · ${esc(m.caption||"")}<br><small>${esc(m.image)} · ${esc(m.size||"")}</small><br><button class="act" data-act="reroll" data-slot="${m.slot}" data-i="${i}">Re-roll slot ${m.slot}</button></figcaption></figure>`).join("")}</div><div class="text" style="color:var(--muted);font-size:12px">${esc(res.note||"")}</div>`}
   if(res.notes?.length)h+=`<ul class="list">${res.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
+  if(res.warnings?.length)h+=`<ul class="list manual">${res.warnings.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
+  if(res.readability)h+=`<details><summary>Readability (advisory)</summary><pre>${esc(res.readability)}</pre></details>`;
   if(res.manual?.length)h+=`<ul class="list manual">${res.manual.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
   const failed=(res.checks||[]).filter(x=>!x.ok);if(failed.length)h+=failed.map(f=>`<details open><summary>✗ ${esc(f.check)}</summary><pre>${esc(f.tail)}</pre></details>`).join("");
   if(res.restored)h+=`<ul class="list">${res.restored.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
   if(res.touched?.length)h+=`<details><summary>Files touched (${res.touched.length})</summary><pre>${esc(res.touched.join("\n"))}</pre></details>`;
   if(res.report)h+=`<details><summary>Run report</summary><pre>${esc(res.report)}</pre></details>`;
   if(!running){const id=res.id||c.event;const a=[];
-   if(id&&(c.kind==="file"||c.kind==="edit"||c.kind==="render"))a.push(`<a class="act primary" href="${SITE}#/article/${encodeURIComponent(id)}" target="_blank" rel="noopener">Open on site</a>`);
-   if(id&&(c.kind==="file"||c.kind==="edit"))a.push(`<button class="act" data-act="edit" data-i="${i}">Edit this event</button>`,`<button class="act" data-act="sheet" data-i="${i}">Plan images</button>`);
+   if(id&&!res.error&&(c.kind==="file"||c.kind==="continue"||c.kind==="edit"||c.kind==="render"))a.push(`<a class="act primary" href="${SITE}#/article/${encodeURIComponent(id)}" target="_blank" rel="noopener">Open on site</a>`);
+   if(id&&!res.error&&(c.kind==="file"||c.kind==="continue"||c.kind==="edit"))a.push(`<button class="act" data-act="edit" data-i="${i}">Edit this event</button>`,`<button class="act" data-act="sheet" data-i="${i}">Plan images</button>`,`<button class="act" data-act="commentary" data-i="${i}">Commentary track</button>`,`<button class="act" data-act="analysis" data-i="${i}">Analysis track</button>`);
+   if((c.kind==="commentary"||c.kind==="analysis")&&res.route)a.push(`<a class="act primary" href="${SITE}${res.route}" target="_blank" rel="noopener">Open on site</a>`,`<button class="act" data-act="${c.kind}" data-i="${i}">Write it again</button>`);
    if(c.kind==="sheet"&&res.slots)a.push(`<button class="act primary" data-act="render" data-i="${i}">Render chosen slots in ComfyUI</button>`,`<button class="act" data-act="sheet" data-i="${i}">New sheet</button>`);
+   if(res.error&&(c.kind==="file"||c.kind==="continue")&&c.job&&!c.continued&&!c.undone)a.push(`<button class="act primary" data-act="continue" data-i="${i}">Continue from where it stopped</button>`);
    if(res.undo&&!c.undone)a.push(`<button class="act danger" data-act="undo" data-i="${i}">Undo this run</button>`);
    if(a.length)h+=`<div class="actions">${a.join("")}</div>`}
   return h+"</div>"}
 
 // ---------- modes ----------
 function setMode(m){mode=m;document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("on",b.dataset.mode===m));
-  $("target").classList.toggle("show",m==="edit"||m==="image");
-  const r=room();if((m==="edit"||m==="image")&&r.event&&!$("eventPick").value)$("eventPick").value=r.event;
-  $("input").placeholder={auto:"Message the desk, paste a session, or drop a transcript file",chat:"Talk to the local model",file:"Paste the transcript. Notes for the filer (framing, what is a flashback…) go first, then a line of ---, then the transcript. Or attach the file and type the notes here.",edit:"What should change? e.g. “tighten the summary and add Waluigi’s take on the duel”",image:"Optional notes for the picture, then send to write the prompt sheet"}[m];
-  if(m==="edit"||m==="image")loadEvents();updateSend()}
+  $("target").classList.toggle("show",(m==="edit"||m==="image"||m==="commentary"||m==="analysis"));
+  const r=room();if((m==="edit"||m==="image"||m==="commentary"||m==="analysis")&&r.event&&!$("eventPick").value)$("eventPick").value=r.event;
+  $("input").placeholder={auto:"Message the desk, paste a session, or drop a transcript file",chat:"Talk to the local model",file:"Paste the transcript. Notes for the filer (framing, what is a flashback…) go first, then a line of ---, then the transcript. Or attach the file and type the notes here.",edit:"What should change? e.g. “tighten the summary and add Waluigi’s take on the duel”",image:"Optional notes for the picture, then send to write the prompt sheet",commentary:"Optional notes for the cut (a conceit, a running gag), then send to write the commentary track",analysis:"Optional notes for the analysis (an angle, a grudge), then send to write the analysis track"}[m];
+  if((m==="edit"||m==="image"||m==="commentary"||m==="analysis"))loadEvents();updateSend()}
 document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
 let evTimer=0;async function loadEvents(q=""){try{const d=await fetch(`/api/desk/events?q=${encodeURIComponent(q)}`).then(r=>r.json());$("eventList").innerHTML=(d.events||[]).map(e=>`<option value="${esc(e.id)}">${esc(e.name||"")} — ${esc(e.date||"")}</option>`).join("")}catch(e){}}
 $("eventPick").oninput=()=>{clearTimeout(evTimer);evTimer=setTimeout(()=>loadEvents($("eventPick").value),250)};
@@ -206,19 +214,19 @@ const comp=$("composer");["dragenter","dragover"].forEach(t=>comp.addEventListen
 ["dragleave","drop"].forEach(t=>comp.addEventListener(t,e=>{e.preventDefault();comp.classList.remove("drop")}));comp.addEventListener("drop",e=>attach(e.dataTransfer.files[0]));
 
 // ---------- sending ----------
-function updateSend(){$("send").disabled=busy||!($("input").value.trim()||attached||mode==="image")}
+function updateSend(){$("send").disabled=busy||!($("input").value.trim()||attached||mode==="image"||mode==="commentary"||mode==="analysis")}
 $("input").oninput=()=>{const t=$("input");t.style.height="auto";t.style.height=Math.min(t.scrollHeight,220)+"px";updateSend()};
 $("input").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();if(!$("send").disabled)send()}};
 comp.onsubmit=e=>{e.preventDefault();send()};
 function push(msg){room().messages.push(msg);save();render();return room().messages.length-1}
 async function post(url,body){const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const v=await r.json();if(!r.ok||v.error)throw new Error(v.error||"request failed");return v}
 function decide(text){if(mode!=="auto")return mode;if(attached)return"file";
-  const m=text.match(/^\/(edit|image|file)\b\s*(\S+)?/i);if(m)return m[1].toLowerCase();
+  const m=text.match(/^\/(edit|image|file|commentary|analysis)\b\s*(\S+)?/i);if(m)return m[1].toLowerCase();
   if(text.length>1500&&/\n/.test(text))return"file";return"chat"}
 async function send(){if(busy)return;let text=$("input").value.trim();const kind=decide(text);
-  const slash=text.match(/^\/(edit|image|file)\b\s*(\S+)?\s*([\s\S]*)$/i);let target=$("eventPick").value.trim()||room().event;
+  const slash=text.match(/^\/(edit|image|file|commentary|analysis)\b\s*(\S+)?\s*([\s\S]*)$/i);let target=$("eventPick").value.trim()||room().event;
   if(slash){if(slash[1].toLowerCase()!=="file"&&slash[2]){target=slash[2];text=slash[3].trim()}else text=(slash[2]?slash[2]+" ":"")+slash[3]}
-  if((kind==="edit"||kind==="image")&&!target){alert("Pick the event first (type its id or name in the box next to the mode).");return}
+  if((kind==="edit"||kind==="image"||kind==="commentary"||kind==="analysis")&&!target){alert("Pick the event first (type its id or name in the box next to the mode).");return}
   const file=attached;$("input").value="";$("input").style.height="auto";attached=null;$("fileChip").classList.remove("show");
   if(kind==="chat")return chat(text);
   if(kind==="file"){let body=file?file.text:text,hints=file?text:"";
@@ -227,9 +235,10 @@ async function send(){if(busy)return;let text=$("input").value.trim();const kind
     push({role:"user",text:file?(hints||"File this session."):(body.length>600?body.slice(0,600)+`\n… (${body.length.toLocaleString()} chars)`:body),title:file?file.name:body.slice(0,44),file:file?.name,tag:"file a session"});
     return job("file",{text:body,hints},"Filing the session")}
   if(kind==="edit"){push({role:"user",text,tag:`edit ${target}`});room().event=target;return job("edit",{id:target,instruction:text},`Editing ${target}`,target)}
-  if(kind==="image"){push({role:"user",text:text||"Plan the images.",tag:`image ${target}`});room().event=target;return job("sheet",{id:target,notes:text},`Prompt sheet for ${target}`,target)}}
+  if(kind==="image"){push({role:"user",text:text||"Plan the images.",tag:`image ${target}`});room().event=target;return job("sheet",{id:target,notes:text},`Prompt sheet for ${target}`,target)}
+  if(kind==="commentary"||kind==="analysis"){push({role:"user",text:text||`Write the ${kind} track.`,tag:`${kind} ${target}`});room().event=target;return job(kind,{id:target,notes:text},`${kind==="commentary"?"Commentary track":"Analysis track"} for ${target}`,target)}}
 async function job(kind,body,title,event=""){busy=true;updateSend();const i=push({role:"assistant",card:{kind,title,status:"running",events:[],event},tag:kind});
-  try{const{job:id}=await post(`/api/desk/${kind}`,{...body,endpoint:endpoint()});
+  try{const{job:id}=await post(`/api/desk/${kind}`,{...body,endpoint:endpoint()});room().messages[i].card.job=id;save();
     while(true){await new Promise(r=>setTimeout(r,700));const s=await fetch(`/api/desk/status?job=${id}`).then(r=>r.json());const m=room().messages[i];if(!m)break;
       m.card.events=s.events||[];m.card.status=s.status;if(s.status!=="running"){m.card.result=s.result||{};if(m.card.result.id)room().event=m.card.result.id;save();render();break}render()}}
   catch(e){const m=room().messages[i];m.card.status="error";m.card.result={error:e.message};save();render()}
@@ -237,10 +246,12 @@ async function job(kind,body,title,event=""){busy=true;updateSend();const i=push
 async function action(act,i,btn){if(busy)return;const m=room().messages[i],c=m.card,res=c.result||{},id=res.id||c.event;
   if(act==="edit"){room().event=id;$("eventPick").value=id;setMode("edit");$("input").focus();return}
   if(act==="sheet"){push({role:"user",text:"Plan the images.",tag:`image ${id}`});return job("sheet",{id},`Prompt sheet for ${id}`,id)}
+  if(act==="commentary"||act==="analysis"){const src=res.source||id;push({role:"user",text:`Write the ${act} track.`,tag:`${act} ${src}`});return job(act,{id:src},`${act==="commentary"?"Commentary track":"Analysis track"} for ${src}`,src)}
   if(act==="render"){const slots=[],prompts={};(res.slots||[]).forEach((s,n)=>{const k=n+1,box=document.getElementById(`slot-${i}-${k}`),ta=document.getElementById(`prompt-${i}-${k}`);if(box?.checked)slots.push(k);if(ta&&ta.value.trim()!==String(s.prompt||"").trim())prompts[k]=ta.value});
     if(!slots.length){alert("Tick at least one slot.");return}
     push({role:"user",text:`Render slot${slots.length>1?"s":""} ${slots.join(", ")}.`,tag:`render ${id}`});return job("render",{id,slots,prompts},`Rendering ${slots.length} image${slots.length>1?"s":""} for ${id}`,id)}
   if(act==="reroll"){const n=Number(btn?.dataset.slot);push({role:"user",text:`Re-roll slot ${n}.`,tag:`render ${id}`});return job("render",{id,slots:[n]},`Re-rolling slot ${n} for ${id}`,id)}
+  if(act==="continue"){c.continued=true;save();push({role:"user",text:"Continue that filing from where it stopped.",tag:"continue"});return job("continue",{job:c.job},"Continuing the filing")}
   if(act==="undo"){if(!confirm("Undo this run? Every file it changed goes back to how it was, then the bundles are rebuilt."))return;c.undone=true;save();push({role:"user",text:"Undo that run.",tag:"undo"});return job("undo",{job:res.undo},"Undoing the run")}}
 async function chat(text){push({role:"user",text});busy=true;updateSend();const r=room();
   const history=r.messages.filter(m=>!m.card&&!m.error).slice(-13,-1).map(m=>({role:m.role,content:m.text}));

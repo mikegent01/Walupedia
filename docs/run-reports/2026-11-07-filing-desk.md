@@ -45,3 +45,36 @@ None. The desk does not award XP; every filing lists it as left for a person.
 - `start.py --port 8766 --workflow-port 8789 --no-gui`: `GET /desk` with no workflow server → started it, 302 to `:8789/desk` in 3.6 s, page served.
 - `node tools/tests/test-roleplay-server.mjs` — one pre-existing failure ("cast: image URLs point at the static route", data-dependent on the first character's portrait; `characters.json` and the cast code are untouched here).
 - Live filing (reader/json qwen3.5-9b, writer gemma-4-12b-qat): 173 s for a 3-part filing; `build-json-stores --build --check`, `check-references`, `check-exhibits`, `check-timecodes --strict`, `check-home-feed` all PASS; article rendered at `#/article/the_lantern_of_brasswick` with three `walu-aside` callouts, no handles, no raw HTML; undo restored every file byte for byte.
+
+## Addendum — commentary and analysis tracks, DK-run fixes (same day)
+
+**CREATED**
+- `Reputation-Matrix2/tools/local-agent/desk_tracks.py` — commentary track (COMMENTARY_MODE_GUIDE) and analysis track (ARTICLE_ANALYSES) for any filed event; checker floors measured in code with one rewrite per failing section.
+
+**EDITED**
+- `filing_desk.py` — the transcript digest gives every chunk an equal budget and trims the middle of an over-long note, never its tail (the first DK filing lost its ending); the apparatus sees every part's beats plus the ending, not the first 3,000 characters; a no-speaker-label warning; `type`/`era` flattened to one line; a repeated bold heading stripped.
+- `desk_store.py` — `mainPage.json` keeps its own indent on a CRLF copy (it was re-indented to 4 spaces).
+- `desk_image.py` — participants stored as bare id strings (older filings) accepted.
+- `workflow/desk_api.py`, `workflow/server.py`, `workflow/desk.html` — Commentary and Analysis modes, buttons on filing cards, warnings and readability on the result card.
+
+**Verification**
+- `python tools/tests/test-filing-desk.py` — 51/51 PASS.
+- Live on `the_conductors_mutiny` (qwen3.5-9b json, gemma-4-12b-qat writer): commentary 8 sections / 2,803 words, Waluigi/1k 23.2, CAPS/1k 32.1, `check-commentaries` and `check-references` PASS (~8 min); analysis 5 claims / 2,493 words, 4 cross-references, `check-references` and `check-readability` PASS (~4 min). Both undone.
+
+**Not done**
+- The user's desk filing of the DK session (`the_great_banana_disappearance_and_the_inauguration_of_dk3`, uncommitted) has factual errors from the pre-fix run: the caller and the death are attributed to Diddy, "Grandpa Kong" was stubbed instead of Cranky, the ending (sent back from Eddie da Yeti) is missing, and the summary/verdict cover only the opening voicemail. Re-file it (Undo, then file with notes above `---`) rather than commit it.
+- Leftover emptied files from test undos: `stores/commentaries/the_conductors_mutiny_commentary.json`, `stores/articleAnalyses/the_conductors_mutiny_waluigi_analysis.json` (plus the three listed above).
+
+## Addendum — salvaging failed runs (same day)
+
+- A user DK re-filing failed at step 6 after 13 parts (~15 min): the apparatus reply was most likely cut off by `max_tokens`, and `parse_json` then returned the object's first complete inner list. `parse_json` now repairs a truncated object (backs up to the last complete value and closes it); `ask_json` retries with more room, then on a fallback model, and logs the unusable reply; the apparatus gets 2,600 tokens, falls back to the writer model, and files placeholders as a last resort.
+- `filing_desk.py` checkpoints every step (`state.json`); `desk_store.py` `adopt/save_state/load_state`; `desk_api.py`/`server.py` `continue` job; `desk.html` **Continue from where it stopped** on a failed filing card.
+- Tests: 58/58 PASS (truncated-JSON repair, placeholder filing, a run that dies at part 2 continues with parts 2-3 only, no duplicate stubs, one Undo for both runs).
+- Not salvageable: the failed DK run `8cfb67d0f426a4e3` predates checkpoints; its stubs (characters/locations) are on disk and its Undo works. `index.html` still carries the first DK filing's `SITE_UPDATES` entry (one line; `git restore index.html` if the DK filing is abandoned — a re-filing reuses it).
+
+## Addendum — ComfyUI model files and MOSS-Image (2026-11-08)
+
+- A render failed with ComfyUI 400: the desk sent the Qwen-Image 2.1 default files (`qwen_image_2.1_int8_convrot`, `qwen3vl_8b_int8_convrot`, `qwen_image_2.1_vae_bf16`) to a ComfyUI that only has MOSS-Image (`moss_image_sft_int8_convrot`, `qwen3.5_9b_w4a8_gptq`, `flux2-vae_small`).
+- `desk_image.py`: loader files are read from the server (studio rule: default if present, else the loader's first file; `desk-models.json` `"comfy"` pins); when the Qwen files are absent and MOSS is present, the MOSS t2i template is built in API form. MOSS has no reference input, so character slots are skipped and reported (CLAUDE.md: a known character is always drawn from `portraits/`).
+- Verified on the live ComfyUI: one MOSS plate rendered in 40 s to a scratch file (not filed); LM Studio unloaded before and Gemma reloaded after. The test image ignored "empty" and filled the shelves — the guide's look-at-every-image step, and the reason "Must NOT appear" feeds the negative prompt.
+- Tests: `test-filing-desk.py` 58/58 PASS.
