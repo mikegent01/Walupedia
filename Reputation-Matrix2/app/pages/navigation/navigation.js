@@ -262,6 +262,7 @@ const APP_TARGETS = {
     calendar:   '../../../index.html#/calendar',
     mission:    'app/pages/standalone/liberated-toads-event.html',
     quests:     'quests.html',
+    guilds:     'app/pages/guilds/guilds.html',
     shop:       'app/pages/shop/shop.html',
     currency:   'currency.html',
     maps:       'app/pages/maps/maps.html',
@@ -495,12 +496,18 @@ async function initializeTablet() {
         checkForNewPosts();
         await markUpdatedPages(tabletContainer);
         
+        // Resolve links before search indexes the nav, so it stores the real destination.
+        resolveAppTargets(tabletContainer);
+
         // Initialize tablet-specific features
         initTabletControls();
         initSearch();
         initCollapsibleGroups();
         initQuickActions();
-        resolveAppTargets(tabletContainer);
+        const guildNavLink = tabletContainer.querySelector('#main-nav-bar .nav-button[data-app="guilds"]');
+        if (guildNavLink && new URL(guildNavLink.href).pathname === window.location.pathname) {
+            guildNavLink.style.display = 'none';
+        }
         initSpringboard();
         
         // Start time updates
