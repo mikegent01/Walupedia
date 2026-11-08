@@ -18,6 +18,7 @@ let activeNation = Object.keys(NATIONS)[0];
 let activeCategory = RESEARCH_CATEGORIES[0];
 let currentView = 'tree';
 let currentZoom = 1.0;
+let visibleTierCount = 10;
 let globalCycleState = null; // Holds the calculated dynamic cycle
 let showAllFactors = false; // Toggle for showing all driving factors
 
@@ -257,7 +258,7 @@ function updateZoom() {
     if(treeCanvasEl) {
         treeCanvasEl.style.transform = `scale(${currentZoom})`;
         treeCanvasEl.style.transformOrigin = 'top left';
-        const contentWidth = (10 * X_SPACING) + 100;
+        const contentWidth = ((visibleTierCount - 1) * X_SPACING) + NODE_WIDTH + 100;
         const contentHeight = (5 * Y_SPACING) + 100;
         treeCanvasEl.style.width = `${contentWidth}px`;
         treeCanvasEl.style.height = `${contentHeight}px`;
@@ -266,9 +267,12 @@ function updateZoom() {
 
 function renderTree() {
     treeCanvasEl.innerHTML = '';
-    // Pass the global cycle state to get modified costs
+    // Pass the global cycle state to get modified costs. Locked projects are
+    // beyond the nation's current research progress, so keep them out of the
+    // default view until their prerequisites/era make them researchable.
     const treeData = getTechTree(activeNation, activeCategory, state.researchState, globalCycleState);
-    const nodes = Object.values(treeData);
+    const nodes = Object.values(treeData).filter(node => node.status !== 'locked');
+    visibleTierCount = Math.max(1, ...nodes.map(node => node.tier));
 
     renderActiveBanner(nodes);
     renderCycleBanner();
