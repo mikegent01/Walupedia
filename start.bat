@@ -4,6 +4,8 @@ REM The panel starts and stops the rest: workflow server (chat), sheets suite, T
 REM Waluipedia Hub, the Token Plate Studio and the NPC Forge. Ctrl-C here (or Shut down on the panel) stops it.
 REM
 REM   start.bat                 the control panel (python start.py)
+REM   start.bat desk            site + workflow server, opens the Filing Desk (http://localhost:8765/desk)
+REM                             (a plain start works too: /desk starts the workflow server on demand)
 REM   start.bat studio          Token Plate Studio on its own (tools\token-plate-studio.py)
 REM   start.bat forge           NPC Forge on its own (tools\npc-forge.py)
 REM   start.bat plates [args]   the hands-off token-plate batch (tools\make-token-plates.py render --full)
@@ -12,11 +14,18 @@ REM   start.bat --no-gui        anything else goes to start.py (python start.py 
 REM
 REM Renders need Comfy Desktop open (127.0.0.1:8188 by default); the pages have a Start Comfy button too.
 cd /d "%~dp0"
+if /I "%~1"=="desk" goto desk
 if /I "%~1"=="studio" goto studio
 if /I "%~1"=="forge" goto forge
 if /I "%~1"=="plates" goto plates
 if /I "%~1"=="tailscale" goto tailscale
 python start.py %*
+goto end
+
+:desk
+REM open the desk once the servers are up (the workflow server takes a few seconds to import)
+start "" /b cmd /c "timeout /t 6 /nobreak >nul & start "" http://localhost:8765/desk"
+python start.py --workflow --no-browser %2 %3 %4 %5 %6 %7 %8 %9
 goto end
 
 :tailscale

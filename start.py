@@ -517,6 +517,16 @@ def chat_url(site_port: int, workflow_port: int) -> str:
 # --------------------------------------------------------------------------
 PANEL_HTML = ROOT / "tools" / "control-panel.html"
 PANEL_ROUTE = "/panel"
+DESK_ROUTE = "/desk"   # the Filing Desk: redirected to the workflow server, started on demand
+
+
+def desk_answers(port: int) -> bool:
+    """Is a workflow server with the Filing Desk answering on this port?"""
+    try:
+        with urllib.request.urlopen("http://127.0.0.1:%d/api/desk/events?q=" % port, timeout=2) as resp:
+            return resp.status == 200
+    except Exception:
+        return False
 HUB_SCRIPT = ROOT / "Reputation-Matrix2" / "tools" / "hub" / "server.py"
 HUB_PORT = 8777
 FORGE_SCRIPT = ROOT / "tools" / "npc-forge.py"
@@ -591,6 +601,8 @@ class Panel:
             p["tts"] = False
         if args.workflow:
             p["workflow"] = True
+        if args.workflow_port != WORKFLOW_PORT:
+            p["workflow_port"] = args.workflow_port
         if args.no_sheets:
             p["sheets"] = False
         elif args.sheets:
@@ -799,11 +811,51 @@ def make_handler(panel: "Panel"):
             self.end_headers()
             self.wfile.write(data)
 
+        def _desk(self):
+            """/desk on the site port: the Filing Desk lives on the workflow server, so
+            start that if it is down (or restart our own copy if it predates the desk),
+            then redirect there."""
+            wport = int(panel.prefs.get("workflow_port") or WORKFLOW_PORT)
+            if not desk_answers(wport):
+                if port_open("127.0.0.1", wport) and panel.children.get("workflow") is not None:
+                    panel.say("  chat   : the running workflow server has no /desk — restarting it")
+                    panel.stop("workflow")
+                    for _ in range(20):
+                        if not port_open("127.0.0.1", wport):
+                            break
+                        time.sleep(0.25)
+                if not port_open("127.0.0.1", wport):
+                    panel.start("workflow")
+                for _ in range(60):            # the runtime import takes a few seconds
+                    if desk_answers(wport):
+                        break
+                    time.sleep(0.25)
+            if not desk_answers(wport):
+                msg = ("<!doctype html><meta charset=utf-8><title>Filing Desk</title>"
+                       "<body style='font:15px system-ui;background:#111318;color:#f5f7fb;padding:40px'>"
+                       "<h1>Filing Desk is not reachable</h1><p>Something is answering on port %d but it has no "
+                       "<code>/desk</code> — an older workflow server started outside this window. Stop it "
+                       "(close its terminal, or the panel's chat switch) and open this page again; it will "
+                       "start the current one.</p></body>" % wport).encode("utf-8")
+                self.send_response(503)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(msg)))
+                self.end_headers()
+                self.wfile.write(msg)
+                return
+            host = (self.headers.get("Host") or "127.0.0.1").rsplit(":", 1)[0] or "127.0.0.1"
+            self.send_response(302)
+            self.send_header("Location", "http://%s:%d/desk" % (host, wport))
+            self.send_header("Content-Length", "0")
+            self.end_headers()
+
         def do_GET(self):
             path = self.path.split("?", 1)[0]
             query = dict(p.split("=", 1) if "=" in p else (p, "") for p in self.path.split("?", 1)[1].split("&")) if "?" in self.path else {}
             if path in (PANEL_ROUTE, PANEL_ROUTE + "/", PANEL_ROUTE + "/index.html"):
                 return self._page()
+            if path in (DESK_ROUTE, DESK_ROUTE + "/"):
+                return self._desk()
             if path == PANEL_ROUTE + "/api/state":
                 return self._json(200, panel.state())
             if path == PANEL_ROUTE + "/api/log":

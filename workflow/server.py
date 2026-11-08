@@ -709,6 +709,9 @@ def load_runtime():
 
 
 runtime = load_runtime()
+import sys  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import desk_api  # noqa: E402  (the Filing Desk at /desk)
 JOBS: dict[str, dict[str, Any]] = {}
 LOCK = threading.Lock()
 
@@ -858,6 +861,20 @@ class Handler(BaseHTTPRequestHandler):
                 return
             self.send_error(404)
             return
+        if parsed.path == "/desk":
+            data = desk_api.PAGE.read_bytes()
+            self.send_response(200)
+            self.send_header("Content-Type", "text/html; charset=utf-8")
+            self.send_header("Content-Length", str(len(data)))
+            self.end_headers()
+            self.wfile.write(data)
+            return
+        if parsed.path == "/api/desk/status":
+            json_response(self, desk_api.status(parse_qs(parsed.query).get("job", [""])[0]))
+            return
+        if parsed.path == "/api/desk/events":
+            json_response(self, desk_api.events(parse_qs(parsed.query).get("q", [""])[0]))
+            return
         if parsed.path == "/api/agent/status":
             job_id = parse_qs(parsed.query).get("job", [""])[0]
             with LOCK:
@@ -890,6 +907,12 @@ class Handler(BaseHTTPRequestHandler):
                 return
             if self.path == "/api/chatroom-save":
                 json_response(self, chatroom_save(payload))
+                return
+            if self.path.startswith("/api/desk/"):
+                kind = self.path[len("/api/desk/"):]
+                if kind not in ("file", "edit", "sheet", "render", "undo"):
+                    raise ValueError("unknown desk action")
+                json_response(self, desk_api.start(kind, payload, lm_completion, resolve_endpoint))
                 return
             if self.path == "/api/agent/cancel":
                 job_id = str(payload.get("job", ""))

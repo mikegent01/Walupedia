@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Filing Desk</title>
+<style>
+:root{color-scheme:dark;--bg:#111318;--panel:#1a1d24;--panel2:#222631;--line:#353b49;--text:#f5f7fb;--muted:#a9b0bd;--accent:#8b7cf6;--accent2:#62d7bd;--warn:#f2c46b;--danger:#f28b8b}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--text);font:14px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+button{font:inherit}
+.app{height:100%;display:flex}
+.sidebar{width:260px;background:#0c0e12;border-right:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:12px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700}
+.brand-mark{display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:var(--accent);color:#fff;font-weight:900}
+.brand small{display:block;color:var(--muted);font-weight:400;font-size:11px}
+.side-btn{width:100%;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text);padding:9px 12px;text-align:left;cursor:pointer;text-decoration:none;display:block;font-size:13px}
+.side-btn:hover{border-color:var(--accent)}
+.rooms-title{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.rooms{display:flex;flex-direction:column;gap:2px;overflow:auto;flex:1}
+.room-row{display:flex;align-items:center}
+.room{flex:1;min-width:0;border:0;border-radius:7px;background:transparent;color:var(--muted);padding:8px 9px;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.room:hover,.room.active{background:var(--panel2);color:var(--text)}
+.room-x{border:0;background:transparent;color:var(--muted);cursor:pointer;opacity:0;padding:4px 7px;border-radius:6px}
+.room-row:hover .room-x{opacity:1}.room-x:hover{color:var(--danger)}
+.side-foot{color:var(--muted);font-size:12px;display:flex;align-items:center;gap:7px}
+.dot{width:8px;height:8px;border-radius:50%;background:#737b88;flex:0 0 8px}.dot.on{background:var(--accent2)}
+.main{min-width:0;flex:1;display:flex;flex-direction:column}
+.topbar{min-height:56px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:8px 24px;gap:12px}
+.topbar h1{font-size:15px;margin:0}.topbar p{margin:2px 0 0;color:var(--muted);font-size:12px}
+.scroll{flex:1;overflow:auto}
+.chat{max-width:860px;margin:0 auto;padding:30px 24px 230px}
+.empty{max-width:640px;margin:10vh auto 0;text-align:center}
+.empty h2{font-size:27px;margin:0 0 8px}.empty p{color:var(--muted);margin:0 0 18px}
+.starters{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px;text-align:left}
+.starter{border:1px solid var(--line);background:var(--panel);color:var(--text);border-radius:10px;padding:11px 12px;cursor:pointer}
+.starter b{display:block;font-size:13px}.starter span{color:var(--muted);font-size:12px}
+.starter:hover{border-color:var(--accent)}
+.msg{display:flex;gap:12px;margin:0 0 26px}
+.avatar{width:30px;height:30px;flex:0 0 30px;border-radius:9px;display:grid;place-items:center;background:var(--panel2);color:var(--accent2);font-weight:700;font-size:12px}
+.msg.user .avatar{background:#2b2d3c;color:var(--text)}
+.bubble{min-width:0;flex:1}.who{color:var(--muted);font-size:12px;margin-bottom:4px}
+.text{white-space:pre-wrap;overflow-wrap:anywhere}
+.attach{display:inline-block;margin-top:6px;border:1px solid var(--line);border-radius:7px;padding:3px 9px;color:var(--muted);font-size:12px}
+.card{border:1px solid var(--line);background:var(--panel);border-radius:12px;padding:12px 14px;margin-top:4px}
+.card h3{margin:0 0 8px;font-size:14px}
+.steps{list-style:none;margin:0;padding:0;font-size:13px}
+.steps li{padding:2px 0;color:var(--muted)}.steps li.last{color:var(--text)}
+.steps li.pass::before{content:"✓ ";color:var(--accent2)}.steps li.fail::before{content:"✗ ";color:var(--danger)}
+.steps li.err{color:var(--danger)}
+.spinner{display:inline-block;width:10px;height:10px;border:2px solid var(--muted);border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite;margin-right:6px;vertical-align:-1px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.pill{display:inline-block;border-radius:999px;padding:1px 9px;font-size:12px;font-weight:600}
+.pill.ok{background:rgba(98,215,189,.15);color:var(--accent2)}.pill.bad{background:rgba(242,139,139,.15);color:var(--danger)}
+.list{margin:6px 0 0;padding-left:18px;font-size:13px}.list li{margin:2px 0}
+.manual li{color:var(--warn)}
+details{margin-top:8px;font-size:13px}summary{cursor:pointer;color:var(--muted)}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#0c0e12;border:1px solid var(--line);border-radius:8px;padding:10px;font-size:12px;margin:6px 0 0;max-height:420px;overflow:auto}
+.actions{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.act{border:1px solid var(--line);background:var(--panel2);color:var(--text);border-radius:8px;padding:6px 11px;cursor:pointer;font-size:13px;text-decoration:none}
+.act:hover{border-color:var(--accent)}.act.primary{background:var(--accent);border-color:var(--accent);color:#fff}
+.act.danger:hover{border-color:var(--danger);color:var(--danger)}
+.act:disabled{opacity:.45;cursor:default}
+textarea.prompt-edit{width:100%;min-height:90px;margin-top:8px;background:#0c0e12;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px;font:13px/1.45 inherit;resize:vertical}
+.plate{max-width:100%;border-radius:10px;margin-top:8px;border:1px solid var(--line)}
+.slot{border-top:1px solid var(--line);padding:10px 0 4px;margin-top:8px;font-size:13px}
+.slot label{cursor:pointer}.slot-meta{color:var(--muted);font-size:12px;margin-top:3px;overflow-wrap:anywhere}
+.slot code{font-size:11px}
+.plates{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px;margin-top:6px}
+.plates figure{margin:0}.plates figcaption{font-size:12px;color:var(--muted);margin-top:4px}
+.composer-wrap{position:fixed;bottom:0;left:260px;right:0;background:linear-gradient(transparent,var(--bg) 18%);padding:26px 24px 16px}
+.modes{max-width:860px;margin:0 auto 8px;display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.mode{border:1px solid var(--line);background:var(--panel);color:var(--muted);border-radius:999px;padding:4px 12px;cursor:pointer;font-size:12px}
+.mode.on{border-color:var(--accent);color:var(--text);background:rgba(139,124,246,.16)}
+.target{display:none;align-items:center;gap:6px;margin-left:6px}
+.target.show{display:flex}
+.target input{background:var(--panel);border:1px solid var(--line);border-radius:8px;color:var(--text);padding:4px 9px;font-size:12px;width:260px}
+.composer{max-width:860px;margin:auto;border:1px solid #4a5160;background:var(--panel);border-radius:14px;padding:9px}
+.composer:focus-within{border-color:var(--accent)}
+.composer.drop{border-color:var(--accent2);border-style:dashed}
+.row{display:flex;align-items:flex-end;gap:8px}
+.composer textarea{flex:1;min-height:24px;max-height:220px;font:inherit;color:var(--text);background:transparent;border:0;outline:0;resize:none;padding:5px 4px}
+.icon{border:0;border-radius:9px;background:transparent;color:var(--muted);width:34px;height:34px;font-size:17px;cursor:pointer}
+.icon:hover{color:var(--text);background:var(--panel2)}
+.send{border:0;border-radius:9px;background:var(--accent);color:#fff;width:34px;height:34px;font-size:18px;cursor:pointer}
+.send:disabled{opacity:.45;cursor:default}
+.file-chip{display:none;margin:0 0 6px 4px;font-size:12px;color:var(--muted)}
+.file-chip.show{display:block}.file-chip button{border:0;background:transparent;color:var(--muted);cursor:pointer}
+.note{max-width:860px;margin:7px auto 0;color:var(--muted);font-size:11px;text-align:center}
+@media(max-width:760px){.sidebar{display:none}.composer-wrap{left:0;padding:18px 12px 12px}.chat{padding:20px 14px 240px}.topbar{padding:8px 14px}.target input{width:170px}}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">W</div><div>Filing Desk<small>local model · Vigilance Terminal</small></div></div>
+    <button class="side-btn" id="newChat">＋ New conversation</button>
+    <a class="side-btn" href="/">💬 Plain chat</a>
+    <a class="side-btn" href="/roleplay">🎭 Roleplay</a>
+    <div class="rooms-title">Conversations</div>
+    <div class="rooms" id="rooms"></div>
+    <div class="side-foot"><i class="dot" id="dot"></i><span id="lm">Checking local model…</span></div>
+  </aside>
+  <main class="main">
+    <header class="topbar">
+      <div><h1>Filing Desk</h1><p>Send a session and it gets filed. Pick an event and say what to change. Or just talk.</p></div>
+      <button class="act" id="refresh">Refresh model</button>
+    </header>
+    <section class="scroll" id="scroll"><div class="chat" id="chat"></div></section>
+    <div class="composer-wrap">
+      <div class="modes">
+        <button class="mode on" data-mode="auto">Auto</button>
+        <button class="mode" data-mode="chat">Chat</button>
+        <button class="mode" data-mode="file">File a session</button>
+        <button class="mode" data-mode="edit">Edit an event</button>
+        <button class="mode" data-mode="image">Images</button>
+        <div class="target" id="target"><input id="eventPick" list="eventList" placeholder="event id or name…" autocomplete="off"><datalist id="eventList"></datalist></div>
+      </div>
+      <form class="composer" id="composer">
+        <div class="file-chip" id="fileChip"></div>
+        <div class="row">
+          <button type="button" class="icon" id="attach" title="Attach a transcript (.txt, .md, .log, .json)" aria-label="Attach a transcript">📎</button>
+          <input type="file" id="file" accept=".txt,.md,.log,.json,.csv,text/plain" hidden>
+          <textarea id="input" rows="1" placeholder="Message the desk, paste a session, or drop a transcript file"></textarea>
+          <button class="send" id="send" type="submit" disabled aria-label="Send">↑</button>
+        </div>
+      </form>
+      <div class="note" id="note">Runs on your local model. Filings write to the stores and run the checks; every run can be undone.</div>
+    </div>
+  </main>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const KEY="waluipedia-desk-v1",SITE="http://127.0.0.1:8765/";
+let rooms=[],active="",busy=false,mode="auto",attached=null;
+const esc=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const uid=()=>crypto.randomUUID?crypto.randomUUID():String(Date.now()+Math.random());
+const endpoint=()=>{try{return(localStorage.getItem("waluipedia-endpoint")||"").trim()}catch(e){return""}};
+function blank(){return{id:uid(),title:"New conversation",updated:Date.now(),messages:[],event:""}}
+function room(){return rooms.find(r=>r.id===active)}
+function load(){try{const v=JSON.parse(localStorage.getItem(KEY)||"null");rooms=Array.isArray(v?.rooms)?v.rooms:[];active=v?.active||""}catch(e){rooms=[]}
+  if(!rooms.length)rooms=[blank()];if(!room())active=rooms[0].id;render()}
+function save(){const r=room();if(r){r.updated=Date.now();const first=r.messages.find(m=>m.role==="user");if(first&&r.title==="New conversation")r.title=(first.title||first.text||"").replace(/\s+/g," ").slice(0,44)||"Conversation"}
+  rooms.sort((a,b)=>b.updated-a.updated);rooms=rooms.slice(0,40);
+  try{localStorage.setItem(KEY,JSON.stringify({rooms,active}))}catch(e){/* storage full or blocked: the session still works */}renderRooms()}
+function renderRooms(){$("rooms").innerHTML=rooms.map(r=>`<div class="room-row"><button class="room ${r.id===active?"active":""}" data-id="${esc(r.id)}">${esc(r.title)}</button><button class="room-x" data-x="${esc(r.id)}" title="Delete">✕</button></div>`).join("");
+  $("rooms").querySelectorAll(".room").forEach(b=>b.onclick=()=>{if(busy)return;active=b.dataset.id;save();render()});
+  $("rooms").querySelectorAll(".room-x").forEach(b=>b.onclick=()=>{if(busy)return;const r=rooms.find(x=>x.id===b.dataset.x);if(!r||!confirm(`Delete "${r.title}"? The filings it made stay on disk.`))return;rooms=rooms.filter(x=>x.id!==r.id);if(!rooms.length)rooms=[blank()];if(active===r.id)active=rooms[0].id;save();render()})}
+
+// ---------- rendering ----------
+function render(){renderRooms();const r=room(),box=$("chat");
+  if(!r.messages.length){box.innerHTML=`<div class="empty"><h2>What are we filing today?</h2><p>Paste a session or drop a transcript and it goes through the whole filing process: locations, characters, the event, the news queue, the home page, then the checks.</p>
+  <div class="starters">
+   <button class="starter" data-go="file"><b>📜 File a session</b><span>Paste or attach the transcript</span></button>
+   <button class="starter" data-go="edit"><b>✎ Edit an event</b><span>Pick one, say what to change</span></button>
+   <button class="starter" data-go="image"><b>🖼 Images</b><span>Prompt sheet per the guide, then ComfyUI</span></button>
+   <button class="starter" data-go="chat"><b>💬 Just talk</b><span>Ask about the archive</span></button>
+  </div></div>`;box.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>{setMode(b.dataset.go);$("input").focus()});return}
+  box.innerHTML=r.messages.map((m,i)=>`<article class="msg ${m.role}"><div class="avatar">${m.role==="user"?"You":"W"}</div><div class="bubble"><div class="who">${m.role==="user"?"You":"Filing Desk"}${m.tag?` · ${esc(m.tag)}`:""}</div>${m.card?cardHtml(m,i):`<div class="text">${esc(m.text)}</div>`}${m.file?`<span class="attach">📎 ${esc(m.file)}</span>`:""}</div></article>`).join("");
+  box.querySelectorAll("[data-act]").forEach(b=>b.onclick=()=>action(b.dataset.act,Number(b.dataset.i),b));
+  const s=$("scroll");s.scrollTop=s.scrollHeight}
+function stepsHtml(events,running){if(!events?.length)return running?`<ul class="steps"><li class="last"><span class="spinner"></span>starting…</li></ul>`:"";
+  return`<ul class="steps">${events.map((e,i)=>{const last=i===events.length-1;const cls=e.kind==="check"?(e.text.startsWith("PASS")?"pass":"fail"):e.kind==="error"?"err":"";
+   const text=e.kind==="check"?e.text.replace(/^(PASS|FAIL)\s+/,""):e.text;return`<li class="${cls} ${last&&running?"last":""}">${last&&running&&e.kind!=="check"?'<span class="spinner"></span>':""}${esc(text)}</li>`}).join("")}</ul>`}
+function cardHtml(m,i){const c=m.card,res=c.result||{},running=c.status==="running";let h=`<div class="card"><h3>${esc(c.title)} ${running?"":res.error?'<span class="pill bad">failed</span>':(res.ok===false?'<span class="pill bad">checks failed</span>':'<span class="pill ok">done</span>')}</h3>`;
+  h+=stepsHtml(c.events,running);
+  if(res.error)h+=`<pre>${esc(res.error)}</pre>`;
+  if(c.kind==="sheet"&&res.slots){h+=`<div class="text" style="color:var(--muted);font-size:12px">Review each slot against the prose before spending a render (guide step 2). Untick a slot to skip it; edit a prompt to change it.</div>`;
+    h+=res.slots.map((s,n)=>`<div class="slot"><label><input type="checkbox" id="slot-${i}-${n+1}" ${s.render!==false?"checked":""}> <b>Slot ${n+1} · ${esc(s.slot)}</b> — ${esc(s.heading||"")}</label>
+      <div class="slot-meta">${s.cast?`👤 ${esc(s.cast.name)} <code>${esc(s.cast.portrait)}</code>`:"🏛 place / object plate — no people"} · 🎥 ${esc(s.camera)}</div>
+      <div class="slot-meta">Must appear: ${esc((s.mustAppear||[]).join(", "))}</div>
+      ${s.blockedBy?.length?`<div class="slot-meta" style="color:var(--warn)">Unticked: this beat is about ${esc(s.blockedBy.join(", "))}, who has no portrait — commission one (portraits/&lt;id&gt;.png), then plan again</div>`:s.needsPortrait?.length?`<div class="slot-meta" style="color:var(--warn)">Needs a portrait first: ${esc(s.needsPortrait.join(", "))} — left out of frame</div>`:""}
+      <div class="slot-meta">Caption: ${esc(s.caption||"")}</div>
+      <textarea class="prompt-edit" id="prompt-${i}-${n+1}">${esc(s.prompt||"")}</textarea></div>`).join("");
+    h+=`<details><summary>Full prompt sheet (markdown)</summary><pre>${esc(res.sheet)}</pre></details>`}
+  if(c.kind==="render"&&res.images?.length){h+=`<div class="plates">${res.images.map(m=>`<figure><img class="plate" src="/rm/${esc(m.image)}?v=${m.seed}" alt="${esc(m.alt||"")}"><figcaption>Slot ${m.slot} · ${esc(m.caption||"")}<br><small>${esc(m.image)} · ${esc(m.size||"")}</small><br><button class="act" data-act="reroll" data-slot="${m.slot}" data-i="${i}">Re-roll slot ${m.slot}</button></figcaption></figure>`).join("")}</div><div class="text" style="color:var(--muted);font-size:12px">${esc(res.note||"")}</div>`}
+  if(res.notes?.length)h+=`<ul class="list">${res.notes.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
+  if(res.manual?.length)h+=`<ul class="list manual">${res.manual.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
+  const failed=(res.checks||[]).filter(x=>!x.ok);if(failed.length)h+=failed.map(f=>`<details open><summary>✗ ${esc(f.check)}</summary><pre>${esc(f.tail)}</pre></details>`).join("");
+  if(res.restored)h+=`<ul class="list">${res.restored.map(n=>`<li>${esc(n)}</li>`).join("")}</ul>`;
+  if(res.touched?.length)h+=`<details><summary>Files touched (${res.touched.length})</summary><pre>${esc(res.touched.join("\n"))}</pre></details>`;
+  if(res.report)h+=`<details><summary>Run report</summary><pre>${esc(res.report)}</pre></details>`;
+  if(!running){const id=res.id||c.event;const a=[];
+   if(id&&(c.kind==="file"||c.kind==="edit"||c.kind==="render"))a.push(`<a class="act primary" href="${SITE}#/article/${encodeURIComponent(id)}" target="_blank" rel="noopener">Open on site</a>`);
+   if(id&&(c.kind==="file"||c.kind==="edit"))a.push(`<button class="act" data-act="edit" data-i="${i}">Edit this event</button>`,`<button class="act" data-act="sheet" data-i="${i}">Plan images</button>`);
+   if(c.kind==="sheet"&&res.slots)a.push(`<button class="act primary" data-act="render" data-i="${i}">Render chosen slots in ComfyUI</button>`,`<button class="act" data-act="sheet" data-i="${i}">New sheet</button>`);
+   if(res.undo&&!c.undone)a.push(`<button class="act danger" data-act="undo" data-i="${i}">Undo this run</button>`);
+   if(a.length)h+=`<div class="actions">${a.join("")}</div>`}
+  return h+"</div>"}
+
+// ---------- modes ----------
+function setMode(m){mode=m;document.querySelectorAll(".mode").forEach(b=>b.classList.toggle("on",b.dataset.mode===m));
+  $("target").classList.toggle("show",m==="edit"||m==="image");
+  const r=room();if((m==="edit"||m==="image")&&r.event&&!$("eventPick").value)$("eventPick").value=r.event;
+  $("input").placeholder={auto:"Message the desk, paste a session, or drop a transcript file",chat:"Talk to the local model",file:"Paste the transcript. Notes for the filer (framing, what is a flashback…) go first, then a line of ---, then the transcript. Or attach the file and type the notes here.",edit:"What should change? e.g. “tighten the summary and add Waluigi’s take on the duel”",image:"Optional notes for the picture, then send to write the prompt sheet"}[m];
+  if(m==="edit"||m==="image")loadEvents();updateSend()}
+document.querySelectorAll(".mode").forEach(b=>b.onclick=()=>setMode(b.dataset.mode));
+let evTimer=0;async function loadEvents(q=""){try{const d=await fetch(`/api/desk/events?q=${encodeURIComponent(q)}`).then(r=>r.json());$("eventList").innerHTML=(d.events||[]).map(e=>`<option value="${esc(e.id)}">${esc(e.name||"")} — ${esc(e.date||"")}</option>`).join("")}catch(e){}}
+$("eventPick").oninput=()=>{clearTimeout(evTimer);evTimer=setTimeout(()=>loadEvents($("eventPick").value),250)};
+
+// ---------- attachments ----------
+function attach(file){if(!file)return;if(file.size>2*1024*1024){alert("That file is over 2 MB.");return}
+  const fr=new FileReader();fr.onload=()=>{attached={name:file.name,text:String(fr.result||"")};$("fileChip").innerHTML=`📎 ${esc(file.name)} · ${attached.text.length.toLocaleString()} chars <button type="button" id="unattach">✕</button>`;$("fileChip").classList.add("show");$("unattach").onclick=()=>{attached=null;$("fileChip").classList.remove("show");updateSend()};if(mode==="auto"||mode==="chat")setMode("file");updateSend()};fr.readAsText(file)}
+$("attach").onclick=()=>$("file").click();$("file").onchange=e=>{attach(e.target.files[0]);e.target.value=""};
+const comp=$("composer");["dragenter","dragover"].forEach(t=>comp.addEventListener(t,e=>{e.preventDefault();comp.classList.add("drop")}));
+["dragleave","drop"].forEach(t=>comp.addEventListener(t,e=>{e.preventDefault();comp.classList.remove("drop")}));comp.addEventListener("drop",e=>attach(e.dataTransfer.files[0]));
+
+// ---------- sending ----------
+function updateSend(){$("send").disabled=busy||!($("input").value.trim()||attached||mode==="image")}
+$("input").oninput=()=>{const t=$("input");t.style.height="auto";t.style.height=Math.min(t.scrollHeight,220)+"px";updateSend()};
+$("input").onkeydown=e=>{if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();if(!$("send").disabled)send()}};
+comp.onsubmit=e=>{e.preventDefault();send()};
+function push(msg){room().messages.push(msg);save();render();return room().messages.length-1}
+async function post(url,body){const r=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});const v=await r.json();if(!r.ok||v.error)throw new Error(v.error||"request failed");return v}
+function decide(text){if(mode!=="auto")return mode;if(attached)return"file";
+  const m=text.match(/^\/(edit|image|file)\b\s*(\S+)?/i);if(m)return m[1].toLowerCase();
+  if(text.length>1500&&/\n/.test(text))return"file";return"chat"}
+async function send(){if(busy)return;let text=$("input").value.trim();const kind=decide(text);
+  const slash=text.match(/^\/(edit|image|file)\b\s*(\S+)?\s*([\s\S]*)$/i);let target=$("eventPick").value.trim()||room().event;
+  if(slash){if(slash[1].toLowerCase()!=="file"&&slash[2]){target=slash[2];text=slash[3].trim()}else text=(slash[2]?slash[2]+" ":"")+slash[3]}
+  if((kind==="edit"||kind==="image")&&!target){alert("Pick the event first (type its id or name in the box next to the mode).");return}
+  const file=attached;$("input").value="";$("input").style.height="auto";attached=null;$("fileChip").classList.remove("show");
+  if(kind==="chat")return chat(text);
+  if(kind==="file"){let body=file?file.text:text,hints=file?text:"";
+    // Pasted: notes for the filer go above a line of three dashes, the transcript below it.
+    const sep=!file&&body.match(/^([\s\S]{1,2500}?)\n-{3,}\s*\n([\s\S]+)$/);if(sep){hints=sep[1].trim();body=sep[2]}
+    push({role:"user",text:file?(hints||"File this session."):(body.length>600?body.slice(0,600)+`\n… (${body.length.toLocaleString()} chars)`:body),title:file?file.name:body.slice(0,44),file:file?.name,tag:"file a session"});
+    return job("file",{text:body,hints},"Filing the session")}
+  if(kind==="edit"){push({role:"user",text,tag:`edit ${target}`});room().event=target;return job("edit",{id:target,instruction:text},`Editing ${target}`,target)}
+  if(kind==="image"){push({role:"user",text:text||"Plan the images.",tag:`image ${target}`});room().event=target;return job("sheet",{id:target,notes:text},`Prompt sheet for ${target}`,target)}}
+async function job(kind,body,title,event=""){busy=true;updateSend();const i=push({role:"assistant",card:{kind,title,status:"running",events:[],event},tag:kind});
+  try{const{job:id}=await post(`/api/desk/${kind}`,{...body,endpoint:endpoint()});
+    while(true){await new Promise(r=>setTimeout(r,700));const s=await fetch(`/api/desk/status?job=${id}`).then(r=>r.json());const m=room().messages[i];if(!m)break;
+      m.card.events=s.events||[];m.card.status=s.status;if(s.status!=="running"){m.card.result=s.result||{};if(m.card.result.id)room().event=m.card.result.id;save();render();break}render()}}
+  catch(e){const m=room().messages[i];m.card.status="error";m.card.result={error:e.message};save();render()}
+  finally{busy=false;updateSend()}}
+async function action(act,i,btn){if(busy)return;const m=room().messages[i],c=m.card,res=c.result||{},id=res.id||c.event;
+  if(act==="edit"){room().event=id;$("eventPick").value=id;setMode("edit");$("input").focus();return}
+  if(act==="sheet"){push({role:"user",text:"Plan the images.",tag:`image ${id}`});return job("sheet",{id},`Prompt sheet for ${id}`,id)}
+  if(act==="render"){const slots=[],prompts={};(res.slots||[]).forEach((s,n)=>{const k=n+1,box=document.getElementById(`slot-${i}-${k}`),ta=document.getElementById(`prompt-${i}-${k}`);if(box?.checked)slots.push(k);if(ta&&ta.value.trim()!==String(s.prompt||"").trim())prompts[k]=ta.value});
+    if(!slots.length){alert("Tick at least one slot.");return}
+    push({role:"user",text:`Render slot${slots.length>1?"s":""} ${slots.join(", ")}.`,tag:`render ${id}`});return job("render",{id,slots,prompts},`Rendering ${slots.length} image${slots.length>1?"s":""} for ${id}`,id)}
+  if(act==="reroll"){const n=Number(btn?.dataset.slot);push({role:"user",text:`Re-roll slot ${n}.`,tag:`render ${id}`});return job("render",{id,slots:[n]},`Re-rolling slot ${n} for ${id}`,id)}
+  if(act==="undo"){if(!confirm("Undo this run? Every file it changed goes back to how it was, then the bundles are rebuilt."))return;c.undone=true;save();push({role:"user",text:"Undo that run.",tag:"undo"});return job("undo",{job:res.undo},"Undoing the run")}}
+async function chat(text){push({role:"user",text});busy=true;updateSend();const r=room();
+  const history=r.messages.filter(m=>!m.card&&!m.error).slice(-13,-1).map(m=>({role:m.role,content:m.text}));
+  try{const{job:id}=await post("/api/chat",{text,endpoint:endpoint(),messages:history,run:r.run||""});
+    while(true){await new Promise(res=>setTimeout(res,300));const v=await fetch(`/api/agent/status?job=${encodeURIComponent(id)}`).then(x=>x.json());if(v.status==="running")continue;
+      if(v.run)r.run=v.run;const a=[...(v.events||[])].reverse().find(e=>e.kind==="assistant");const t=a?a.text:(v.message||"No answer came back.").replace(/^(APPROVAL_REQUIRED|QUESTION):\s*/,"");
+      push({role:"assistant",text:t,error:/^(LM Studio|The local model)/.test(t)});break}}
+  catch(e){push({role:"assistant",text:e.message,error:true})}finally{busy=false;updateSend()}}
+async function health(){try{const d=await fetch("/api/health").then(r=>r.json());const on=!!d.lm_studio?.online;$("dot").classList.toggle("on",on);
+  let host="";try{host=new URL(endpoint()||d.lm_studio?.default||"").host}catch(e){}$("lm").textContent=on?`Model online · ${host}`:"Model offline — start LM Studio"}catch(e){$("lm").textContent="Desk server unreachable"}}
+$("newChat").onclick=()=>{if(busy)return;const r=blank();rooms.unshift(r);active=r.id;save();render();$("input").focus()};
+$("refresh").onclick=health;load();health();
+</script>
+</body>
+</html>

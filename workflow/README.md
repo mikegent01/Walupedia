@@ -55,6 +55,87 @@ never overwrites it. Deleting asks for confirmation, switches to the next chat
 (or creates a new one), and cannot be undone. Both are blocked while a reply is
 in flight. Chats live in `localStorage`, capped at the 30 most recent.
 
+## Filing Desk — `/desk`
+
+`http://127.0.0.1:8787/desk` files sessions and edits events with the local
+models. It is a chat page: paste a transcript (or attach / drop the file) and
+it runs the filing process; pick an event and say what to change; or just talk
+(plain chat goes to the chat-first runtime above).
+
+**File a session.** Notes for the filer (framing, "the middle is a
+flashback", "ends on a cliffhanger") go above a line of `---`, the transcript
+below it; with an attached file, type the notes in the box. The desk runs, in
+`docs/SESSION_FILING_PROCESS.md` order: facts and date → location and
+character stubs → outline → the story part by part → summary, aftermath and
+Waluigi's verdict → event + manifest + `pending-news-articles.json` +
+`mainPage.json latestUpdate` + `SITE_UPDATES` → `build-json-stores.py --build
+--check`, `check-references`, `check-exhibits`, `check-timecodes --strict`,
+`check-home-feed`. A failed check gets one model repair pass on the short
+prose fields.
+
+**What code decides, not the model:** ids, shards (a world with no shard of
+its own goes to `material`; a full shard gets a `-b`/`-c` sibling), the
+manifest, the time code (no stated date → the world clock's day, hour
+estimated and said so in `timeWindow`; a stated later date → `laterDated`),
+participants and related articles, part count (≈ one part per 220 transcript
+words, 3–14) and the 350–450-word part band from `STORY_FORMAT_GUIDE.md`
+(`desk_prompts.py` holds the condensed rules). Rule zero: `mike`, handle-like
+speaker labels and `workflow/desk-handles.json` (a JSON list you can create)
+are scrubbed from every field.
+
+**Left for a person** (listed on every run): XP rows, campaign cover /
+featured article, investigation arc links, exhibits.
+
+**Edit an event.** The model sees the short fields and the list of story
+parts, changes short fields directly and rewrites only the parts the change
+needs, one at a time — the whole story never goes through the model, so a
+short context cannot truncate it. A rewrite that comes back much shorter is
+refused.
+
+**Images** (`IMAGE_GENERATION_GUIDE.md`). **Plan images** writes the prompt
+sheet first and spends nothing. The number of slots follows the guide's table
+— short event (≤3 parts / <1,500 words) 2, normal session 4, long filing 5–7 —
+as the lead plus the clearest section beats; the model picks the visually
+distinct parts and may pick fewer (never filler). Each slot carries source
+lines, must appear, cast, must NOT appear, text, camera, caption and a prompt
+in the guide's six-part anatomy (house register first, oil-painting finish
+last). Code, not the model, decides the people rules: the reference portrait is
+the portrait-holder the slot actually names; people with no portrait are left
+out of frame and flagged ("commission a portrait first"); a beat that is about
+someone with no portrait is unticked rather than drawn with another face; place
+and object plates say "no people"; camera and distance rotate per slot so no
+two plates could swap captions; a scene image is never a reference. In the
+card, untick slots or edit prompts, then **Render chosen slots**: LM Studio
+unloads, ComfyUI renders each slot, the PNG is compressed to JPEG (≤1600 px,
+~300 KB, needs Pillow — `start.py`'s Python has it) at
+`assets/images/events/<slug>/<prefix>-NN-<subject>.jpg`, ComfyUI frees its
+memory and the chat model reloads. The lead goes on the record
+(`image`/`imageCaption`/`image_alt`); each section plate becomes a
+`![caption](path)` figure after its part's first paragraph (`mdToHtml()`
+renders it as a captioned figure; edits keep it in place). Every image shows in
+the card with **Re-roll slot N**. Look at each one before keeping it (guide
+step 4). Undo restores the record; image files stay on disk.
+
+**Undo.** Every run backs up each file it touched (byte for byte) to
+`workflow/saves/desk/<job>/`; **Undo this run** restores them and rebuilds.
+Files the run created are emptied, not deleted — delete those by hand.
+
+**Models.** `workflow/desk-models.json` picks a model per role and is read per
+job: `reader` (digest, facts, outline), `writer` (story parts), `json`
+(apparatus, guards, edit plans). Calls are grouped so a filing swaps models at
+most twice; `swap: true` unloads the others first (one GPU). Prompts are sized
+to the smaller of the reader's and writer's context. The 2026-11-07 bake-off:
+qwen3.5-9b extracts and outlines ~4× faster than Gemma with valid JSON but as
+a writer ignored part scope and asides; gemma-4-12b-qat kept scope, verbatim
+lines and the `*WAH!` aside; anubis-mini-8b wrote the richest prose but broke
+the rules. Raise the context in the file (16384+) if VRAM allows — longer
+transcripts then need fewer digest passes.
+
+Code: `Reputation-Matrix2/tools/local-agent/` (`filing_desk.py` pipeline,
+`desk_store.py` shards/undo/checks/time codes, `desk_prompts.py`,
+`desk_image.py`, `desk_vram.py`) and `workflow/desk_api.py` (jobs).
+Tests: `python tools/tests/test-filing-desk.py` (fake model, temp store).
+
 ## Roleplay — the chatroom
 
 `http://127.0.0.1:8787/roleplay` (linked from the assistant's sidebar) is a

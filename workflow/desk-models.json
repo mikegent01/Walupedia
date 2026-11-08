@@ -1,0 +1,7 @@
+{
+  "_comment": "Which LM Studio model runs each Filing Desk role. reader = digest the transcript, extract facts, outline the parts; writer = the story parts; json = summary/aftermath/verdict, guards and edit plans. context = the context length to load it with (null = keep LM Studio's). swap = unload the other models before loading a role's model (one GPU). Bake-off 2026-11-07: qwen3.5-9b extracts and outlines ~4x faster than Gemma with valid JSON, but as a writer it ignored part scope and asides; gemma-4-12b-qat kept scope, verbatim lines and the WAH! aside; anubis-mini-8b writes rich prose but broke the rules.",
+  "swap": true,
+  "reader": {"model": "qwen/qwen3.5-9b", "context": 8192},
+  "writer": {"model": "google/gemma-4-12b-qat", "context": 8192},
+  "json": {"model": "qwen/qwen3.5-9b", "context": 8192}
+}
