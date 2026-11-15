@@ -18,6 +18,7 @@ import { playSound } from '../../core/common.js';
 import { getReputation, getGenericFactionAssessment } from '../../systems/reputation.js';
 import { getIntelForFaction } from '../../../systems/common.js';
 import { LORE_DATA } from '../../core/lore.js';
+import { renderGhostlightBoard, handleGhostlightClick, renderSeat, GHOSTLIGHT_COUNT } from './ghostlight-board.js';
 
 // ============================================
 // REPUTATION BRIDGE FUNCTIONS
@@ -45,7 +46,7 @@ function directoryRepToGuildRep(directoryRep) {
 function renderServicesTab(guild, playerData, repTier) {
     const services = guild.services || [];
     const user = state.loggedInUser;
-    const isMember = playerData?.rank !== null;
+    const isMember = playerData?.rank != null;
     
     return `
         <div class="tab-content services-tab">
@@ -334,6 +335,8 @@ let currentFilter = 'all';
 let currentCategory = null;
 let selectedGuild = null;
 let currentTab = 'overview';
+let contractDifficulty = 'all';
+let contractGuild = 'all';
 
 // ============================================
 // INITIALIZATION
@@ -356,6 +359,7 @@ function render() {
             ${currentView === 'guild-detail' ? renderGuildDetail() : ''}
             ${currentView === 'contracts' ? renderContractsBoard() : ''}
             ${currentView === 'politics' ? renderPoliticsView() : ''}
+            ${currentView === 'ghostlight' ? renderGhostlightBoard({ guilds: { ...GUILD_DATA, ...CHARTER_DATA }, user: state.loggedInUser }) : ''}
         </div>
         ${renderModal()}
     `;
@@ -383,6 +387,11 @@ function renderHeader() {
                     <span class="nav-icon">🏠</span>
                     <span class="nav-label">Dashboard</span>
                 </button>
+                <button class="nav-btn nav-btn-ghostlight ${currentView === 'ghostlight' ? 'active' : ''}" data-view="ghostlight">
+                    <span class="nav-icon">🚂</span>
+                    <span class="nav-label">Ghostlight Board</span>
+                    <span class="nav-count">${GHOSTLIGHT_COUNT}</span>
+                </button>
                 <button class="nav-btn ${currentView === 'directory' ? 'active' : ''}" data-view="directory">
                     <span class="nav-icon">📋</span>
                     <span class="nav-label">Directory</span>
@@ -409,6 +418,11 @@ function renderDashboard() {
     const playerGuilds = user && user !== 'generic' ? getAllPlayerGuilds(user) : [];
     
     return `
+        <button class="gl-banner" data-view="ghostlight">
+            <span class="gl-banner-icon">🚂</span>
+            <span class="gl-banner-text"><strong>Next stop: Wickermoor Hollow.</strong> ${GHOSTLIGHT_COUNT} guild contracts are open, and every one of them is a ticket on the Ghostlight Express. Pick one.</span>
+            <span class="gl-banner-go">Open the board →</span>
+        </button>
         <div class="dashboard-grid">
             ${renderMembershipSummary(playerGuilds)}
             ${renderReputationOverview(user)}
@@ -749,9 +763,11 @@ function renderGuildGrid() {
             ${allGuilds.map(guild => {
                 const playerData = user && user !== 'generic' ? getPlayerGuildData(user, guild.id) : null;
                 const repTier = playerData ? getReputationTier(playerData.reputation) : null;
-                const isMember = playerData?.rank !== null;
+                // != null: logged-out visitors have no playerData, and
+                // `undefined !== null` used to mark every guild as joined.
+                const isMember = playerData?.rank != null;
                 const category = GUILD_CATEGORIES[guild.category];
-                
+
                 return `
                     <div class="guild-card ${isMember ? 'is-member' : ''}" 
                          data-guild="${guild.id}"
@@ -840,7 +856,7 @@ function renderGuildDetail() {
                     <p class="guild-detail-motto">"${guild.motto}"</p>
                     <div class="guild-header-meta">
                         <span><strong>Founded:</strong> ${guild.founded}</span>
-                        <span><strong>HQ:</strong> ${guild.headquarters}</span>
+                        <span><strong>HQ:</strong> ${renderSeat(guild)}</span>
                     </div>
                     ${playerData ? `
                         <div class="player-standing-badge">
@@ -1419,13 +1435,17 @@ function renderContractsBoard() {
                     ...contract,
                     guildId: guild.id,
                     guildName: guild.shortName || guild.name,
-                    guildIcon: guild.icon
+                    guildIcon: guild.icon,
+                    location: contract.location || (guild.headquarters || '').split(' (')[0]
                 });
             });
         }
     });
     
     // Sort and filter
+    allContracts = allContracts.filter(c =>
+        (contractDifficulty === 'all' || c.difficulty === contractDifficulty) &&
+        (contractGuild === 'all' || c.guildId === contractGuild));
     const urgentContracts = allContracts.filter(c => c.status === 'urgent');
     const availableContracts = allContracts.filter(c => c.status === 'available');
     const playerContracts = allContracts.filter(c => c.status === 'assigned' || c.status === 'in-progress');
@@ -1437,16 +1457,16 @@ function renderContractsBoard() {
                 <div class="contracts-filters">
                     <select id="contract-difficulty-filter" class="filter-select">
                         <option value="all">All Difficulties</option>
-                        <option value="easy">Easy</option>
-                        <option value="medium">Medium</option>
-                        <option value="hard">Hard</option>
-                        <option value="expert">Expert</option>
-                        <option value="legendary">Legendary</option>
+                        <option value="easy" ${contractDifficulty === 'easy' ? 'selected' : ''}>Easy</option>
+                        <option value="medium" ${contractDifficulty === 'medium' ? 'selected' : ''}>Medium</option>
+                        <option value="hard" ${contractDifficulty === 'hard' ? 'selected' : ''}>Hard</option>
+                        <option value="expert" ${contractDifficulty === 'expert' ? 'selected' : ''}>Expert</option>
+                        <option value="legendary" ${contractDifficulty === 'legendary' ? 'selected' : ''}>Legendary</option>
                     </select>
                     <select id="contract-guild-filter" class="filter-select">
                         <option value="all">All Guilds</option>
                         ${Object.values(allGuilds).map(g => `
-                            <option value="${g.id}">${g.icon} ${g.shortName || g.name}</option>
+                            <option value="${g.id}" ${contractGuild === g.id ? 'selected' : ''}>${g.icon} ${g.shortName || g.name}</option>
                         `).join('')}
                     </select>
                 </div>
@@ -1853,7 +1873,7 @@ function getFilteredGuilds() {
     // Filter by membership
     if (currentFilter === 'member' && user && user !== 'generic') {
         const playerData = PLAYER_GUILD_DATA[user] || {};
-        guilds = guilds.filter(guild => playerData[guild.id]?.rank !== null);
+        guilds = guilds.filter(guild => playerData[guild.id]?.rank != null);
     }
     
     // Filter by category
@@ -1923,6 +1943,11 @@ function attachDynamicListeners() {
 }
 
 function handleClick(e) {
+    if (handleGhostlightClick(e, state.loggedInUser, showNotification)) {
+        render();
+        playSound?.('ui_click');
+        return;
+    }
     const target = e.target.closest('[data-view]');
     const guildCard = e.target.closest('[data-guild]');
     const filterBtn = e.target.closest('[data-filter]');
@@ -2010,7 +2035,8 @@ function handleInput(e) {
     }
     
     if (e.target.id === 'contract-difficulty-filter' || e.target.id === 'contract-guild-filter') {
-        // Filter contracts
+        if (e.target.id === 'contract-difficulty-filter') contractDifficulty = e.target.value;
+        else contractGuild = e.target.value;
         render();
     }
 }
@@ -2117,7 +2143,13 @@ function debounce(func, wait) {
 // INITIALIZE
 // ============================================
 
-document.addEventListener('DOMContentLoaded', init);
+// Module scripts can finish after DOMContentLoaded has already fired (a
+// dependency with top-level await is enough), which left the page blank.
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+} else {
+    init();
+}
 
 // Export for external use
 export {

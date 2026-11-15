@@ -32,7 +32,8 @@ export const GUILD_DATA = {
         icon: '⚒️',
         banner: 'guild_banners/stonecarvers.png',
         founded: '847 BF',
-        headquarters: 'The Granite Hall, Midlands Capital',
+        headquarters: 'Wickermoor Hollow, Druskenvald (chapter hall unconfirmed)',
+        locationStatus: 'unconfirmed',
         
         description: "An ancient and prestigious guild of master stonemasons, sculptors, and architects. The Brethren have built the greatest monuments and fortifications across the realm for centuries.",
         
@@ -220,7 +221,8 @@ In recent years, the Brethren have faced challenges from cheaper labor and magic
         icon: '💰',
         banner: 'guild_banners/consortium.png',
         founded: '723 BF',
-        headquarters: 'The Golden Exchange, Toad Town',
+        headquarters: 'Wickermoor Hollow, Druskenvald (market charter; hall unconfirmed)',
+        locationStatus: 'unconfirmed',
         
         description: "The largest and most influential trade organization in the realm. The Consortium controls major trade routes, sets market standards, and provides banking services.",
         
@@ -362,7 +364,8 @@ Recent events have strained the Consortium's resources. The conflict in the Mush
         icon: '🕷️',
         banner: 'guild_banners/weavers.png',
         founded: '??? BF',
-        headquarters: 'Unknown (rumored: The Whisper Market)',
+        headquarters: 'Wickermoor Hollow, Druskenvald (rumored)',
+        locationStatus: 'rumored',
         
         description: "A secretive organization of spies, assassins, and information brokers. Their existence is officially denied by all governments, yet their influence is felt everywhere.",
         
@@ -503,7 +506,9 @@ To attract their attention, one must know the signs. A particular arrangement of
         icon: '🔮',
         banner: 'guild_banners/mages.png',
         founded: '412 BF',
-        headquarters: 'The Astral Spire, Yale Shores',
+        headquarters: 'The Arcane Quarter (central tower complex)',
+        locationStatus: 'canon',
+        article: 'mages_guild',
         
         description: "The preeminent organization of magical practitioners. The Guild regulates magic use, trains new mages, and researches the arcane arts. Recently under political pressure from the Iron Legion.",
         
@@ -646,6 +651,7 @@ The recent Supernatural Sovereignty Act has placed the Guild in a precarious pos
         banner: 'guild_banners/iron_crown.png',
         founded: '1038 BF',
         headquarters: 'Mobile Command (Currently: Mushroom Kingdom)',
+        locationStatus: 'mobile',
         
         description: "The elite covert operations arm of the Iron Legion. Officially, they don't exist. In practice, they're the tip of the Empire's spear in foreign territories.",
         
@@ -776,7 +782,9 @@ export const CHARTER_DATA = {
         icon: '🍄',
         banner: 'charter_banners/liberated.png',
         founded: '1040 BF',
-        headquarters: 'Mobile (Last known: Shadeward Manor)',
+        headquarters: 'No fixed capital (travels with the Vigilance diaspora)',
+        locationStatus: 'canon',
+        article: 'liberated_toads',
         
         description: "A resistance movement formed by those who refuse to accept Iron Legion occupation. Part freedom fighters, part refugees, wholly determined to reclaim their homeland.",
         
@@ -920,7 +928,8 @@ Recent events have tested them severely. The loss of the Vigilance, the intensif
         icon: '⛏️',
         banner: 'guild_banners/deephold.png',
         founded: '89 BF',
-        headquarters: 'The Great Forge, Ironroot Mountains (Midlands)',
+        headquarters: 'Wickermoor Hollow, Druskenvald (forge site unconfirmed)',
+        locationStatus: 'unconfirmed',
         
         description: "The legendary dwarven smithing guild, producers of the finest weapons and armor in the known world. Their runic enchantments are unmatched by any magical academy.",
         
@@ -1069,7 +1078,8 @@ Individual guild members like hjumpik often travel the surface world, both to pr
         icon: '🔥',
         banner: 'guild_banners/silver_flame.png',
         founded: '567 BF',
-        headquarters: 'Flamekeep, Midlands (Regal Empire)',
+        headquarters: 'Wickermoor Hollow, Druskenvald (mission house unconfirmed)',
+        locationStatus: 'unconfirmed',
         
         description: "A militant religious order dedicated to destroying supernatural evil. Popular among humans in the Midlands, they've become controversial since the Supernatural Sovereignty Act aligned their goals with the Iron Legion.",
         
@@ -1215,7 +1225,8 @@ The current High Inquisitor walks a careful line, accepting Legion support while
         icon: '⚔️',
         banner: 'guild_banners/adventurers.png',
         founded: '650 BF',
-        headquarters: 'The Crossroads Inn (Multiple Chapters)',
+        headquarters: 'Wickermoor Hollow, Druskenvald (lost chapter; other chapters scattered)',
+        locationStatus: 'unconfirmed',
         
         description: "A loose confederation of professional adventurers, monster hunters, and sellswords. They maintain neutrality, taking contracts from anyone who pays.",
         
@@ -1356,14 +1367,15 @@ The current conflict has been a boom time for adventurers. There's never been mo
 
     thieves_guild: {
         id: 'thieves_guild',
-        name: "The Shadow Weavers",
-        shortName: "Shadows",
+        name: "The Hollow Lanterns",
+        shortName: "Lanterns",
         motto: "What You Don't See Can Hurt You",
         category: 'shadow',
         icon: '🗡️',
         banner: 'guild_banners/shadows.png',
         founded: 'Unknown',
-        headquarters: 'The Nowhere (Location Unknown)',
+        headquarters: 'Wickermoor Hollow, Druskenvald (rumored)',
+        locationStatus: 'rumored',
         
         description: "The organized criminal underworld. Thieves, smugglers, assassins, and information brokers all answer to the Shadow Weavers—or find themselves floating in the harbor.",
         
@@ -1515,6 +1527,8 @@ The current conflict has been complicated for the Weavers. The Iron Legion's ord
         banner: 'guild_banners/star_church.png',
         founded: 'Ancient',
         headquarters: 'Star Haven Temple, Mushroom Kingdom',
+        locationStatus: 'seat',
+        article: 'star_spirits',
         
         description: "The dominant faith of the Mushroom Kingdom. Followers believe the Star Spirits grant wishes and guide destiny. Provides healing, sanctuary, and moral guidance.",
         

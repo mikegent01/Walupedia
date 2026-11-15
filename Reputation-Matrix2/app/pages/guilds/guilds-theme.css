@@ -1,0 +1,286 @@
+/* guilds-theme.css
+   Brings the Guilds & Charters registry in line with the Waluipedia shell:
+   same tokens as app/styles/waluipedia.css (purple panels, gold accent,
+   light/dark via html[data-theme], which the head script copies from the
+   site's 'waluipedia-theme' setting). Loaded after guilds.css; it remaps
+   guilds.css's own variables rather than rewriting its rules. */
+
+:root,
+html[data-theme="dark"] {
+    --bg: #0d0a15; --bg2: #151022; --panel: #1b1430; --panel2: #231838;
+    --border: #38295a; --text: #ece7f5; --muted: #a99cc6; --accent: #8a4bff;
+    --accent2: #e0b400; --green: #2fae8a; --danger: #e5484d; --link: #c8a6ff;
+    --shadow: 0 8px 30px rgba(0, 0, 0, .45);
+    --accent-soft: rgba(138, 75, 255, .16);
+    --gold-soft: rgba(224, 180, 0, .14);
+    color-scheme: dark;
+}
+html[data-theme="light"] {
+    --bg: #f3eefb; --bg2: #e9e1f6; --panel: #ffffff; --panel2: #f7f2ff;
+    --border: #c9b6e8; --text: #1a1230; --muted: #5c4e7a; --accent: #6b2bbd;
+    --accent2: #8a6200; --green: #1f8f70; --danger: #c3282d; --link: #5b239e;
+    --shadow: 0 10px 28px rgba(70, 0, 120, .12);
+    --accent-soft: rgba(107, 43, 189, .10);
+    --gold-soft: rgba(138, 98, 0, .10);
+    color-scheme: light;
+}
+
+/* guilds.css variables -> site tokens */
+:root, html[data-theme] {
+    --guild-primary: var(--accent);
+    --guild-secondary: var(--muted);
+    --guild-accent: var(--accent2);
+    --guild-dark: var(--panel);
+    --guild-darker: var(--bg);
+    --guild-light: var(--text);
+    --guild-text: var(--text);
+    --guild-text-muted: var(--muted);
+    --guild-border: var(--border);
+    --guild-shadow: var(--shadow);
+    --guild-glow: 0 0 0 1px var(--accent), var(--shadow);
+    --text-primary: var(--text);
+    --text-secondary: var(--muted);
+    --card-bg: var(--panel2);
+    --border-color: var(--border);
+}
+
+html, body.wp-guilds {
+    background:
+        radial-gradient(1100px 520px at 85% -8%, var(--accent-soft), transparent 58%),
+        radial-gradient(820px 460px at -8% 12%, var(--gold-soft), transparent 55%),
+        var(--bg) !important;
+    color: var(--text);
+}
+body.wp-guilds { font-family: "Inter", "Segoe UI", system-ui, sans-serif; }
+body.wp-guilds .tablet-frame { background: transparent; border: 0; box-shadow: none; max-width: none; padding: 0; margin: 0; width: auto; height: auto; }
+body.wp-guilds .scanline-overlay { display: none; }
+body.wp-guilds a { color: var(--link); }
+
+/* ---- Top bar: the way back to the encyclopedia ---- */
+.wp-topbar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 20px;
+    background: color-mix(in srgb, var(--panel) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+}
+.wp-topbar .wp-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-weight: 800; color: var(--text); text-decoration: none;
+}
+.wp-topbar .wp-brand-mark {
+    display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px;
+    background: var(--accent); color: #fff; font-weight: 900;
+}
+.wp-topbar .wp-crumb { color: var(--muted); font-size: .9rem; }
+.wp-topbar .wp-spacer { flex: 1; }
+.wp-topbar button {
+    background: var(--panel2); color: var(--text);
+    border: 1px solid var(--border); border-radius: 10px;
+    padding: 6px 10px; cursor: pointer; font: inherit;
+}
+.wp-topbar button:hover { border-color: var(--accent); }
+
+/* ---- Readable width instead of 8 columns on a wide monitor ---- */
+body.wp-guilds #main-content {
+    max-width: 1280px; margin: 0 auto; padding: 0 20px 48px;
+}
+
+.guilds-header {
+    background: linear-gradient(135deg, var(--accent-soft), transparent 70%), var(--panel2);
+    border: 1px solid var(--border);
+    border-left: 5px solid var(--accent);
+    border-radius: 14px;
+    margin: 20px 0;
+    box-shadow: var(--shadow);
+}
+.guilds-title-section { text-align: left; }
+.page-title {
+    justify-content: flex-start;
+    font-family: "Orbitron", "Bahnschrift", sans-serif;
+    font-size: 1.7rem;
+    color: var(--text);
+    text-shadow: none;
+}
+.title-icon { font-size: 1.8rem; }
+.guilds-nav { justify-content: flex-start; }
+
+.nav-btn {
+    background: var(--panel);
+    color: var(--text);
+    border-color: var(--border);
+    border-radius: 999px;
+}
+.nav-btn:hover { background: var(--accent-soft); border-color: var(--accent); }
+.nav-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+.nav-btn .nav-count {
+    min-width: 22px; padding: 1px 7px; border-radius: 999px;
+    background: var(--accent2); color: #1a1230; font-size: .75rem; font-weight: 800;
+}
+.nav-btn-ghostlight:not(.active) { border-color: var(--accent2); }
+
+.guilds-content {
+    background: none;
+    padding: 0;
+    min-height: 0;
+}
+
+/* Panels: the old rgba(255,255,255,.03) cards vanish in light mode. */
+.dashboard-card,
+.guild-card,
+.category-card,
+.board-contract-card,
+.contract-card,
+.politics-card,
+.relations-panel,
+.detail-card,
+.guild-detail-header,
+.guild-modal-content,
+.modal-content {
+    background: var(--panel2) !important;
+    border-color: var(--border) !important;
+    color: var(--text);
+    box-shadow: var(--shadow);
+    border-radius: 14px;
+}
+.guild-card:hover,
+.dashboard-card:hover,
+.board-contract-card:hover {
+    border-color: var(--accent) !important;
+}
+.section-label, .card-header h3, .contracts-board-header h3, .contracts-section h4 {
+    color: var(--text);
+}
+.filter-select, #guild-search, .search-input {
+    background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 10px;
+}
+
+/* ============================================
+   GHOSTLIGHT BOARD
+   ============================================ */
+.gl-banner {
+    display: flex; align-items: center; gap: 14px; width: 100%;
+    margin: 0 0 20px; padding: 14px 18px; text-align: left; cursor: pointer;
+    font: inherit; color: var(--text);
+    background: linear-gradient(135deg, var(--gold-soft), transparent 70%), var(--panel2);
+    border: 1px solid var(--border); border-left: 5px solid var(--accent2);
+    border-radius: 14px; box-shadow: var(--shadow);
+}
+.gl-banner:hover { border-color: var(--accent2); }
+.gl-banner-icon { font-size: 1.8rem; }
+.gl-banner-text { flex: 1; line-height: 1.45; }
+.gl-banner-go { color: var(--accent2); font-weight: 700; white-space: nowrap; }
+
+.gl-board { display: flex; flex-direction: column; gap: 18px; }
+
+.gl-hero {
+    display: grid; grid-template-columns: 1.3fr 1fr; gap: 20px;
+    padding: 20px 22px;
+    background:
+        radial-gradient(600px 240px at 100% 0%, var(--gold-soft), transparent 70%),
+        var(--panel2);
+    border: 1px solid var(--border); border-left: 5px solid var(--accent2);
+    border-radius: 14px; box-shadow: var(--shadow);
+}
+.gl-kicker {
+    font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase;
+    color: var(--accent2);
+}
+.gl-hero h3 {
+    margin: 6px 0 10px; font-family: "Orbitron", "Bahnschrift", sans-serif;
+    font-size: 1.5rem; color: var(--text);
+}
+.gl-hero p { margin: 0 0 10px; color: var(--text); line-height: 1.55; }
+.gl-hero .gl-route { color: var(--muted); }
+.gl-hero-lists { display: grid; gap: 12px; align-content: start; }
+.gl-hero-lists h5 {
+    margin: 0 0 6px; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted);
+}
+.gl-hero-lists ul { margin: 0; padding-left: 18px; line-height: 1.5; }
+.gl-hero-lists li { margin-bottom: 4px; }
+
+.gl-ticket {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 18px; border-radius: 14px;
+    background: var(--panel); border: 1px dashed var(--border);
+    line-height: 1.5;
+}
+.gl-ticket.has-pick { border: 1px solid var(--accent2); background: linear-gradient(135deg, var(--gold-soft), transparent 70%), var(--panel); }
+.gl-ticket-stub { font-size: 1.6rem; }
+.gl-note { margin-top: 4px; font-size: .85rem; color: var(--muted); }
+
+.gl-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+.gl-card {
+    display: flex; flex-direction: column; gap: 10px;
+    padding: 16px; border-radius: 14px;
+    background: var(--panel2); border: 1px solid var(--border);
+    box-shadow: var(--shadow);
+}
+.gl-card:hover { border-color: var(--accent); }
+.gl-card.is-chosen { border: 2px solid var(--accent2); }
+.gl-card.is-taken { opacity: .78; }
+.gl-card-head { display: flex; gap: 12px; align-items: flex-start; }
+.gl-card-head > div { flex: 1; min-width: 0; }
+.gl-card-head h4 { margin: 0 0 3px; font-size: 1.05rem; color: var(--text); }
+.gl-card-icon {
+    display: grid; place-items: center; flex: none;
+    width: 40px; height: 40px; border-radius: 11px;
+    background: var(--panel); border: 1px solid var(--border); font-size: 1.3rem;
+}
+.gl-sponsor { font-size: .85rem; color: var(--muted); }
+.gl-linkbtn {
+    background: none; border: 0; padding: 0; font: inherit; color: var(--link); cursor: pointer;
+}
+.gl-linkbtn:hover { text-decoration: underline; }
+.gl-pitch { margin: 0; line-height: 1.5; }
+.gl-hook {
+    margin: 0; padding-left: 10px; border-left: 3px solid var(--accent);
+    color: var(--muted); font-style: italic; line-height: 1.45;
+}
+.gl-meta { display: flex; flex-wrap: wrap; gap: 6px; font-size: .78rem; }
+.gl-meta span {
+    padding: 2px 8px; border-radius: 999px;
+    background: var(--panel); border: 1px solid var(--border); color: var(--muted);
+}
+.gl-meta .gl-dest { color: var(--accent2); border-color: color-mix(in srgb, var(--accent2) 45%, var(--border)); }
+.gl-reward { display: flex; flex-wrap: wrap; gap: 12px; font-weight: 700; font-size: .9rem; }
+.gl-links, .gl-source { font-size: .85rem; color: var(--muted); }
+.gl-wiki { color: var(--link); text-decoration: none; }
+.gl-wiki:hover { text-decoration: underline; }
+.gl-card-foot { margin-top: auto; padding-top: 4px; }
+.gl-btn {
+    width: 100%; padding: 9px 12px; border-radius: 10px; cursor: pointer; font: inherit; font-weight: 700;
+    background: var(--accent); color: #fff; border: 1px solid var(--accent);
+}
+.gl-btn:hover { filter: brightness(1.1); }
+.gl-btn-ghost { background: transparent; color: var(--text); border-color: var(--border); }
+.gl-taken {
+    display: block; text-align: center; padding: 8px; border-radius: 10px;
+    background: var(--panel); border: 1px solid var(--border); color: var(--muted); font-size: .9rem;
+}
+
+/* HQ status chips (directory + guild detail) */
+.gl-seat {
+    display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 999px;
+    font-size: .72rem; font-weight: 700; vertical-align: middle;
+    border: 1px solid var(--border); color: var(--muted); background: var(--panel);
+}
+.gl-seat-unconfirmed, .gl-seat-rumored { color: var(--accent2); border-color: color-mix(in srgb, var(--accent2) 45%, var(--border)); }
+.gl-seat-canon, .gl-seat-seat { color: var(--green); border-color: color-mix(in srgb, var(--green) 45%, var(--border)); }
+
+@media (max-width: 760px) {
+    body.wp-guilds #main-content { padding: 0 16px 40px; }
+    .gl-hero { grid-template-columns: 1fr; }
+    .gl-banner { flex-wrap: wrap; }
+    .gl-banner-text { flex: 1 1 calc(100% - 60px); }
+    .wp-topbar .wp-crumb { display: none; }
+    .page-title { font-size: 1.3rem; }
+}

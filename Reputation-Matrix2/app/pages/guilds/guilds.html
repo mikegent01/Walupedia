@@ -1,42 +1,36 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vigilance Terminal | Guilds & Charters</title>
+    <title>Guilds & Charters — Waluipedia</title>
+    <script>
+        /* Follow the encyclopedia's light/dark setting before first paint. */
+        (function () {
+            var t = 'dark';
+            try { t = localStorage.getItem('waluipedia-theme') || 'dark'; } catch (e) {}
+            document.documentElement.setAttribute('data-theme', t === 'light' ? 'light' : 'dark');
+        })();
+    </script>
     <link rel="stylesheet" href="../../styles/global.css">
     <link rel="stylesheet" href="../../styles/layout.css">
     <link rel="stylesheet" href="../../styles/components.css">
     <link rel="stylesheet" href="guilds.css">
+    <link rel="stylesheet" href="guilds-theme.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="wp-guilds">
+    <header class="wp-topbar">
+        <a class="wp-brand" href="../../../../index.html#/home"><span class="wp-brand-mark">W</span>Waluipedia</a>
+        <span class="wp-crumb">/ Guilds &amp; Charters</span>
+        <span class="wp-spacer"></span>
+        <button type="button" id="wp-theme-toggle" title="Switch light / dark">◐ Theme</button>
+    </header>
     <div class="tablet-frame">
         <div class="scanline-overlay"></div>
         <div id="app">
-             
             <main id="main-content">
-                 <div class="guilds-header">
-                     <h2 class="page-title">Guilds & Charters Registry</h2>
-                     <div class="guild-controls">
-                         <button class="filter-btn active" data-filter="all">All</button>
-                         <button class="filter-btn" data-filter="guild">Guilds</button>
-                         <button class="filter-btn" data-filter="charter">Charters</button>
-                         <button class="filter-btn" data-filter="my-guilds">My Memberships</button>
-                     </div>
-                 </div>
-
-                 <div id="guilds-dashboard">
-                     <!-- User's Guild Membership Panel (Dynamic) -->
-                     <div id="my-membership-container"></div>
-
-                     <!-- Main Grid -->
-                     <div class="section-label">Directory Listing</div>
-                     <div id="guilds-grid" class="guilds-grid">
-                         <!-- Injected by JS -->
-                     </div>
-                 </div>
+                <!-- Rendered by guilds.js -->
             </main>
         </div>
     </div>
@@ -51,6 +45,13 @@
         </div>
     </div>
 
+    <script>
+        document.getElementById('wp-theme-toggle').addEventListener('click', function () {
+            var next = document.documentElement.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+            document.documentElement.setAttribute('data-theme', next);
+            try { localStorage.setItem('waluipedia-theme', next); } catch (e) {}
+        });
+    </script>
     <script type="module" src="../../core/common.js"></script>
     <script type="module" src="../navigation/navigation.js"></script>
     <script type="module" src="guilds.js"></script>
