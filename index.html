@@ -9084,6 +9084,7 @@ function renderSidebar(active){
     navLink({emoji:'👑',label:'Dynasties',go:"Router.go('#/dynasties')",active:active==='dynasties',count:Object.keys(DYNASTY_SYSTEM.houses||{}).length}),
     navLink({emoji:'✧',label:'Faiths & Doctrine',go:"Router.go('#/faiths')",active:active==='faiths',count:Object.keys((RELIGION&&RELIGION.denominations)||{}).length,title:'Denominations, cosmological groups, and the friction between them'}),
     navLink({emoji:'📜',label:"Mages Guild Codex",go:"location.href='mages-code.html'",title:'C.C.D. — Consolidated Canal Decrees, 99k words, 296 pages, Autumnwood Accords Desk',count:'99k'}),
+    navLink({emoji:'🛡️',label:'Guilds & Charters',go:"location.href='Reputation-Matrix2/app/pages/guilds/guilds.html'",title:'Guilds & Charters Registry — every guild and charter, and your memberships'}),
     navLink({emoji:'💬',label:'Chatroom',go:"location.href='chatroom.html'",title:'Talk to the cast — filed characters, scene scripts, cross-chat memory, and What-Ifs built from the archive. Needs a local model; see docs/CHATROOM_GUIDE.md'}),
     navLink({emoji:'📺',label:'Rakasha News Network',go:"Router.go('#/rnn')",active:(active==='rnn'||h1.includes('/rnn')||h1.includes('rakasha-news')),title:"Last week's broadcast — the Rakasha desk reads back every recent adventure"})
   ];
