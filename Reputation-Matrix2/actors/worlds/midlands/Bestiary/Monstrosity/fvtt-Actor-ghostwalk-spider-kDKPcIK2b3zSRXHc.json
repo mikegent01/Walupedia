@@ -1,0 +1,2364 @@
+{
+  "name": "Ghostwalk Spider",
+  "type": "npc",
+  "flags": {
+    "plutonium": {
+      "page": "bestiary.html",
+      "source": "ToB1-2023",
+      "hash": "ghostwalk%20spider_tob1-2023"
+    },
+    "waluipedia-mass-import": {
+      "folderPath": [
+        "Bestiary",
+        "Monstrosity"
+      ]
+    },
+    "waluipedia-sheets": {
+      "tags": [
+        "Bestiary",
+        "npc",
+        "monstrosity",
+        "Creatures"
+      ],
+      "color": "#CD5C5C",
+      "organized": {
+        "path": [
+          "Bestiary",
+          "Monstrosity"
+        ],
+        "basis": "bestiary",
+        "from": [
+          "Creatures"
+        ]
+      }
+    }
+  },
+  "_stats": {
+    "systemVersion": "5.3.3",
+    "coreVersion": "14.367",
+    "systemId": "dnd5e",
+    "createdTime": 1794761489333,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "_id": "kDKPcIK2b3zSRXHc",
+  "img": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/ToB1-2023/bestiary/Ghostwalk Spider.webp",
+  "system": {
+    "currency": {
+      "pp": 0,
+      "gp": 0,
+      "ep": 0,
+      "sp": 0,
+      "cp": 0
+    },
+    "abilities": {
+      "str": {
+        "value": 15,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "dex": {
+        "value": 20,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "con": {
+        "value": 17,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "int": {
+        "value": 9,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "wis": {
+        "value": 14,
+        "proficient": 0,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      },
+      "cha": {
+        "value": 8,
+        "proficient": 1,
+        "max": null,
+        "bonuses": {
+          "check": "",
+          "save": "0"
+        },
+        "check": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        },
+        "save": {
+          "roll": {
+            "min": null,
+            "max": null,
+            "mode": 0
+          }
+        }
+      }
+    },
+    "bonuses": {
+      "mwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rwak": {
+        "attack": "",
+        "damage": ""
+      },
+      "msak": {
+        "attack": "",
+        "damage": ""
+      },
+      "rsak": {
+        "attack": "",
+        "damage": ""
+      },
+      "abilities": {
+        "check": "",
+        "save": "",
+        "skill": ""
+      },
+      "spell": {
+        "dc": ""
+      }
+    },
+    "skills": {
+      "acr": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ani": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "arc": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ath": {
+        "ability": "str",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "dec": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "his": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ins": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "itm": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "inv": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "med": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "nat": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prc": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "prf": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "per": {
+        "ability": "cha",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "rel": {
+        "ability": "int",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "slt": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "ste": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 1,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      },
+      "sur": {
+        "ability": "wis",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "value": 0,
+        "bonuses": {
+          "check": "",
+          "passive": ""
+        }
+      }
+    },
+    "tools": {},
+    "spells": {
+      "spell1": {
+        "value": 0,
+        "override": null
+      },
+      "spell2": {
+        "value": 0,
+        "override": null
+      },
+      "spell3": {
+        "value": 0,
+        "override": null
+      },
+      "spell4": {
+        "value": 0,
+        "override": null
+      },
+      "spell5": {
+        "value": 0,
+        "override": null
+      },
+      "spell6": {
+        "value": 0,
+        "override": null
+      },
+      "spell7": {
+        "value": 0,
+        "override": null
+      },
+      "spell8": {
+        "value": 0,
+        "override": null
+      },
+      "spell9": {
+        "value": 0,
+        "override": null
+      },
+      "pact": {
+        "value": 0
+      },
+      "spell0": {
+        "value": 0
+      }
+    },
+    "attributes": {
+      "ac": {
+        "calc": "default",
+        "flat": 0
+      },
+      "init": {
+        "ability": "dex",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonus": ""
+      },
+      "movement": {
+        "units": "ft",
+        "hover": false,
+        "ignoredDifficultTerrain": [],
+        "walk": "50",
+        "climb": "50",
+        "special": ""
+      },
+      "attunement": {
+        "max": 3
+      },
+      "senses": {
+        "ranges": {
+          "blindsight": 0,
+          "darkvision": 0,
+          "tremorsense": 0,
+          "truesight": 60
+        },
+        "units": "ft",
+        "special": ""
+      },
+      "spellcasting": "",
+      "exhaustion": 0,
+      "concentration": {
+        "ability": "",
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "bonuses": {
+          "save": ""
+        },
+        "limit": 1
+      },
+      "loyalty": {},
+      "hd": {
+        "spent": 0
+      },
+      "hp": {
+        "max": 119,
+        "temp": 0,
+        "tempmax": 0,
+        "value": 119,
+        "formula": "14d10 + 42"
+      },
+      "death": {
+        "roll": {
+          "min": null,
+          "max": null,
+          "mode": 0
+        },
+        "success": 0,
+        "failure": 0,
+        "bonuses": {
+          "save": ""
+        }
+      },
+      "price": {
+        "value": null,
+        "denomination": "gp"
+      },
+      "spell": {
+        "level": 0
+      }
+    },
+    "details": {
+      "biography": {
+        "value": "<div class=\"ve-rd__b  ve-rd__b--1\"><p><i>A pasty-white spider the size of a horse slinks through the shadows. It fades from sight with a ghostly blue shimmer.</i></p><p>Ghostwalk spiders are malevolent hunters that sprang from misguided experiments on phase spiders. They are spindly, emaciated things all but devoid of color. The spider is 8 feet in diameter (including legs) and weighs 500 pounds.</p><div class=\"ve-rd__b  ve-rd__b--2\"><div data-roll-name-ancestor=\"Phantom Webs\" class=\"ve-rd__b  ve-rd__b--named ve-rd__b--3\"><p><span class=\"ve-rd__h ve-rd__h--3\" data-title-index=\"1\"> <span class=\"entry-title-inner \">Phantom Webs.</span></span> Ghostwalk spiders spin ephemeral webs in secluded areas. They spend most of their time stalking prey to paralyze and drag back to their phantom web. As long as these remains lie tangled in ghostly webs, they go unnoticed by most creatures, but the spiders eventually cast old kills aside. Adventurers are wise to fear empty caves containing unexplained, desiccated remains.</p></div></div></div>",
+        "public": ""
+      },
+      "alignment": "Neutral Evil",
+      "ideal": "",
+      "bond": "",
+      "flaw": "",
+      "race": null,
+      "type": {
+        "value": "monstrosity",
+        "subtype": ""
+      },
+      "habitat": {
+        "value": [
+          {
+            "type": "underdark"
+          }
+        ],
+        "custom": ""
+      },
+      "cr": 9,
+      "treasure": {
+        "value": []
+      }
+    },
+    "resources": {
+      "legact": {
+        "max": 0,
+        "spent": 0
+      },
+      "legres": {
+        "max": 0,
+        "spent": 0
+      },
+      "lair": {
+        "value": false,
+        "initiative": null,
+        "inside": false
+      }
+    },
+    "source": {
+      "revision": 1,
+      "rules": "2014",
+      "book": "ToB1'23",
+      "page": "343",
+      "custom": "",
+      "license": ""
+    },
+    "traits": {
+      "size": "lg",
+      "di": {
+        "value": [
+          "poison"
+        ],
+        "custom": "",
+        "bypasses": []
+      },
+      "dr": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dv": {
+        "value": [],
+        "custom": "",
+        "bypasses": []
+      },
+      "dm": {
+        "amount": {},
+        "bypasses": []
+      },
+      "ci": {
+        "value": [
+          "poisoned"
+        ],
+        "custom": ""
+      },
+      "languages": {
+        "value": [
+          "undercommon"
+        ],
+        "custom": "understands Undercommon but can't speak",
+        "communication": {}
+      },
+      "important": false
+    }
+  },
+  "prototypeToken": {
+    "name": "Ghostwalk Spider",
+    "displayName": 20,
+    "actorLink": false,
+    "width": 2,
+    "height": 2,
+    "depth": 1,
+    "texture": {
+      "src": "assets/srd5e/img/TheGiddyLimit/homebrew-img/main/img/ToB1-2023/bestiary/tokens/Ghostwalk Spider.webp",
+      "anchorX": 0.5,
+      "anchorY": 0.5,
+      "fit": "contain",
+      "scaleX": 1,
+      "scaleY": 1,
+      "tint": "#ffffff",
+      "alphaThreshold": 0.75
+    },
+    "lockRotation": false,
+    "rotation": 0,
+    "alpha": 1,
+    "disposition": -1,
+    "displayBars": 40,
+    "bar1": {
+      "attribute": "attributes.hp"
+    },
+    "bar2": {
+      "attribute": null
+    },
+    "light": {
+      "negative": false,
+      "priority": 0,
+      "alpha": 0.5,
+      "angle": 360,
+      "bright": 0,
+      "color": null,
+      "coloration": 1,
+      "dim": 0,
+      "attenuation": 0.5,
+      "luminosity": 0.5,
+      "saturation": 0,
+      "contrast": 0,
+      "shadows": 0,
+      "animation": {
+        "type": null,
+        "speed": 5,
+        "intensity": 5,
+        "reverse": false
+      },
+      "darkness": {
+        "min": 0,
+        "max": 1
+      }
+    },
+    "sight": {
+      "enabled": true,
+      "range": 60,
+      "angle": 360,
+      "visionMode": "basic",
+      "color": null,
+      "attenuation": 0.1,
+      "brightness": 0,
+      "saturation": 0,
+      "contrast": 0
+    },
+    "detectionModes": {
+      "seeAll": {
+        "range": 60,
+        "enabled": true
+      }
+    },
+    "occludable": {
+      "radius": 0
+    },
+    "ring": {
+      "enabled": false,
+      "colors": {
+        "ring": null,
+        "background": null
+      },
+      "effects": 1,
+      "subject": {
+        "scale": 1,
+        "texture": null
+      }
+    },
+    "turnMarker": {
+      "mode": 1,
+      "animation": null,
+      "src": null,
+      "disposition": false
+    },
+    "movementAction": null,
+    "flags": {
+      "monks-bloodsplats": {
+        "bloodsplat-colour": "#ff1000"
+      }
+    },
+    "randomImg": false,
+    "appendNumber": false,
+    "prependAdjective": false
+  },
+  "items": [
+    {
+      "_id": "jZeb80Lesvsi7ljC",
+      "name": "Multiattack",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The ghostwalk spider makes one Bite attack and one Ghostly Snare attack, or it makes two Bite attacks.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity003": {
+            "_id": "dnd5eactivity003",
+            "type": "utility",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "multiattack",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/skills/melee/strike-weapons-orange.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterAction",
+          "source": "ToB1-2023",
+          "hash": "multiattack_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489623,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "EZ7L5f9wjGeiV2xW",
+      "name": "Bite",
+      "type": "weapon",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p><i>Melee Weapon Attack:</i> [[/r 1d20+9]]{+9} to hit, reach 5 ft., one target. <i>Hit:</i> 21 ([[/damage 3d10 + 5 type=piercing]]) damage. If the ghostwalk spider is in its true form, the target must make a [[/save ability=con dc=15]] saving throw, taking 13 ([[/damage 3d8 type=poison]]) damage on a failed save, or half as much damage on a successful one. If the poison damage reduces the target to 0 hp, the target is stable but &amp;Reference[condition=poisoned] for 1 hour, even after regaining hp, and is &amp;Reference[condition=paralyzed] while &amp;Reference[condition=poisoned] in this way.</p></div>",
+          "chat": ""
+        },
+        "range": {
+          "value": 5,
+          "long": null,
+          "units": "ft"
+        },
+        "proficient": 1,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "name": "Attack: 3d10 Piercing Damage",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "description": {},
+            "effects": [
+              {
+                "_id": "6NRgEsc7virRBDuu",
+                "level": {}
+              }
+            ],
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "attack": {
+              "flat": false,
+              "type": {
+                "value": "melee",
+                "classification": ""
+              },
+              "ability": "dex",
+              "bonus": "",
+              "critical": {}
+            },
+            "damage": {
+              "parts": [
+                {
+                  "types": [
+                    "piercing"
+                  ],
+                  "number": 3,
+                  "denomination": 10,
+                  "bonus": "@mod",
+                  "scaling": {
+                    "mode": "",
+                    "number": 1
+                  },
+                  "custom": {
+                    "enabled": false
+                  }
+                }
+              ],
+              "critical": {},
+              "includeBase": true
+            },
+            "img": null,
+            "sort": 0,
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          },
+          "dnd5eactivity001": {
+            "_id": "dnd5eactivity001",
+            "type": "save",
+            "name": "Save: 3d8 Poison Damage",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "description": {},
+            "effects": [
+              {
+                "_id": "6NRgEsc7virRBDuu",
+                "level": {},
+                "onSave": false
+              }
+            ],
+            "target": {
+              "template": {
+                "count": "",
+                "contiguous": false,
+                "type": "",
+                "size": "",
+                "width": "",
+                "height": "",
+                "units": "ft",
+                "stationary": false
+              },
+              "affects": {
+                "count": "1",
+                "type": "",
+                "choice": false,
+                "special": ""
+              },
+              "prompt": true,
+              "override": false
+            },
+            "save": {
+              "ability": [
+                "con"
+              ],
+              "dc": {
+                "calculation": "",
+                "formula": "15"
+              }
+            },
+            "damage": {
+              "onSave": "half",
+              "parts": [
+                {
+                  "types": [
+                    "poison"
+                  ],
+                  "number": 3,
+                  "denomination": 8,
+                  "bonus": "",
+                  "scaling": {
+                    "mode": "",
+                    "number": 1
+                  },
+                  "custom": {
+                    "enabled": false
+                  }
+                }
+              ],
+              "critical": {
+                "allow": false
+              }
+            },
+            "img": null,
+            "sort": 0,
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "friendlySave": "default"
+          }
+        },
+        "identifier": "bite",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "versatile": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterAction",
+          "source": "ToB1-2023",
+          "hash": "bite_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [
+        {
+          "_id": "6NRgEsc7virRBDuu",
+          "name": "Bite",
+          "img": "icons/creatures/abilities/mouth-teeth-long-red.webp",
+          "description": "",
+          "system": {
+            "changes": []
+          },
+          "statuses": [
+            "paralyzed",
+            "poisoned"
+          ],
+          "disabled": false,
+          "duration": {
+            "value": 3600,
+            "units": "seconds",
+            "expiry": "turnStart",
+            "expired": false
+          },
+          "transfer": false,
+          "flags": {
+            "plutonium": {
+              "dedupeId": "bite"
+            }
+          },
+          "type": "base",
+          "start": null,
+          "origin": null,
+          "tint": "#ffffff",
+          "showIcon": 1,
+          "folder": null,
+          "sort": 0,
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1794761489665,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        }
+      ],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489665,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "9HG2GpLTWxva1a1W",
+      "name": "Ghostly Snare (Ghostwalk Form Only, Recharge 4-6)",
+      "type": "weapon",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p><i>Ranged Weapon Attack:</i> [[/r 1d20+9]]{+9} to hit, range 30/60 ft., one target. <i>Hit:</i> The target is &amp;Reference[condition=restrained] by &amp;Reference[condition=invisible] webbing. While &amp;Reference[condition=restrained] in this way, the target is &amp;Reference[condition=invisible]. As an action, the &amp;Reference[condition=restrained] target can make a [[/save ability=str dc=15]] check, bursting the webbing on a success. The webbing can also be attacked and destroyed (AC 12; hp 15; immunity to bludgeoning, poison, and psychic damage).</p></div>",
+          "chat": ""
+        },
+        "range": {
+          "value": 30,
+          "long": 60,
+          "units": "ft"
+        },
+        "proficient": 1,
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "natural",
+          "baseItem": ""
+        },
+        "properties": [],
+        "activities": {
+          "dnd5eactivity000": {
+            "_id": "dnd5eactivity000",
+            "type": "attack",
+            "activation": {
+              "type": "action",
+              "value": 1,
+              "override": false
+            },
+            "effects": [
+              {
+                "_id": "pQ9ZIFpitWvWte7A",
+                "level": {}
+              }
+            ],
+            "target": {
+              "prompt": true,
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "override": false
+            },
+            "attack": {
+              "flat": false,
+              "type": {
+                "value": "ranged",
+                "classification": ""
+              },
+              "ability": "dex",
+              "bonus": "",
+              "critical": {}
+            },
+            "img": null,
+            "sort": 0,
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "flags": {},
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "damage": {
+              "critical": {},
+              "includeBase": true,
+              "parts": []
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true,
+            "attackMode": "oneHanded",
+            "ammunition": "",
+            "otherActivityUuid": "",
+            "attackRollPerTarget": "default",
+            "fumbleThreshold": 1
+          }
+        },
+        "identifier": "ghostly-snare-ghostwalk-form-only-recharge-4-6",
+        "identified": true,
+        "unidentified": {
+          "description": ""
+        },
+        "container": null,
+        "quantity": 1,
+        "weight": {
+          "value": 0,
+          "units": "lb"
+        },
+        "price": {
+          "value": 0,
+          "denomination": "gp"
+        },
+        "rarity": "",
+        "attunement": "",
+        "attuned": false,
+        "equipped": true,
+        "crew": {
+          "value": []
+        },
+        "ammunition": {},
+        "armor": {},
+        "damage": {
+          "base": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          },
+          "versatile": {
+            "types": [],
+            "custom": {
+              "enabled": false
+            },
+            "scaling": {
+              "number": 1
+            }
+          }
+        }
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "modules/plutonium/media/icon/pocket-bow.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterAction",
+          "source": "ToB1-2023",
+          "hash": "ghostly%20snare%20(ghostwalk%20form%20only%2c%20recharge%204-6)_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [
+        {
+          "_id": "pQ9ZIFpitWvWte7A",
+          "name": "Ghostly Snare (Ghostwalk Form Only, Recharge 4-6)",
+          "img": "modules/plutonium/media/icon/pocket-bow.svg",
+          "description": "",
+          "system": {
+            "changes": []
+          },
+          "statuses": [
+            "invisible",
+            "restrained"
+          ],
+          "disabled": false,
+          "duration": {
+            "units": "seconds",
+            "value": null,
+            "expiry": null,
+            "expired": false
+          },
+          "transfer": false,
+          "flags": {
+            "plutonium": {
+              "dedupeId": "ghostly-snare-ghostwalk-form-only-recharge-4-6"
+            }
+          },
+          "type": "base",
+          "start": null,
+          "origin": null,
+          "tint": "#ffffff",
+          "showIcon": 1,
+          "folder": null,
+          "sort": 0,
+          "_stats": {
+            "coreVersion": "14.367",
+            "systemId": "dnd5e",
+            "systemVersion": "5.3.3",
+            "createdTime": 1794761489692,
+            "compendiumSource": null,
+            "duplicateSource": null,
+            "exportSource": null
+          }
+        }
+      ],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489692,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "ueqCcpVyvKzFus9m",
+      "name": "Ghostly Body (Ghostwalk Form Only)",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The ghostwalk spider has resistance to acid, cold, fire, lightning, and thunder damage and to bludgeoning, piercing, and slashing damage from nonmagical attacks, and it has immunity to the &amp;Reference[condition=grappled], &amp;Reference[condition=paralyzed], &amp;Reference[condition=petrified], and &amp;Reference[condition=restrained] conditions.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "ghostly-body-ghostwalk-form-only",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "systems/dnd5e/icons/svg/items/feature.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "ToB1-2023",
+          "hash": "ghostly%20body%20(ghostwalk%20form%20only)_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489709,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "n0E8OtGdQoTd8qfa",
+      "name": "Incorporeal Movement (Ghostwalk Form Only)",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The ghostwalk spider can move through other creatures and objects as if they were difficult terrain. It takes 5 ([[/damage 1d10 type=force]]) damage if it ends its turn inside an object.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity002": {
+            "_id": "dnd5eactivity002",
+            "type": "damage",
+            "name": "",
+            "activation": {
+              "type": "",
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "damage": {
+              "critical": {
+                "allow": false
+              },
+              "parts": [
+                {
+                  "types": [
+                    "force"
+                  ],
+                  "number": 1,
+                  "denomination": 10,
+                  "bonus": "",
+                  "scaling": {
+                    "mode": "",
+                    "number": 1
+                  },
+                  "custom": {
+                    "enabled": false
+                  }
+                }
+              ]
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            }
+          }
+        },
+        "identifier": "incorporeal-movement-ghostwalk-form-only",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/magic/control/debuff-energy-snare-purple-blue.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "ToB1-2023",
+          "hash": "incorporeal%20movement%20(ghostwalk%20form%20only)_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489726,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "wG8gdrtGkpZK2r0M",
+      "name": "Spider Climb",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The spider can climb difficult surfaces, including upside down on ceilings, without needing to make an ability check.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "spider-climb",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/creatures/invertebrates/spider-beetle-runed-green.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "ToB1-2023",
+          "hash": "spider%20climb_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489744,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "KPa8hI5N9ptxzC0f",
+      "name": "Web Walker",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The spider ignores movement restrictions caused by webbing.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {},
+        "identifier": "web-walker",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "icons/commodities/biological/legs-insect-brown.webp",
+      "flags": {
+        "plutonium": {
+          "page": "monsterTrait",
+          "source": "ToB1-2023",
+          "hash": "web%20walker_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489760,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    },
+    {
+      "_id": "WCZOz0rUZym7prWh",
+      "name": "Ghostwalk",
+      "type": "feat",
+      "system": {
+        "source": {
+          "custom": "",
+          "book": "ToB1'23",
+          "page": "343",
+          "license": "",
+          "rules": "2014",
+          "revision": 1
+        },
+        "description": {
+          "value": "<div class=\"ve-rd__b  ve-rd__b--3\"><p>The ghostwalk spider magically takes on a ghostly form or returns to its true, tangible form. Its statistics are the same in each form. Any equipment it is wearing or carrying becomes ghostly with it. It reverts to its true form if it dies.</p></div>",
+          "chat": ""
+        },
+        "uses": {
+          "max": "",
+          "spent": 0,
+          "recovery": []
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "properties": [],
+        "advancement": {},
+        "activities": {
+          "dnd5eactivity003": {
+            "_id": "dnd5eactivity003",
+            "type": "utility",
+            "activation": {
+              "type": "bonus",
+              "value": 1,
+              "override": false
+            },
+            "consumption": {
+              "scaling": {
+                "allowed": false
+              },
+              "spellSlot": true,
+              "targets": []
+            },
+            "description": {},
+            "duration": {
+              "units": "inst",
+              "concentration": false,
+              "override": false
+            },
+            "range": {
+              "units": "self",
+              "override": false
+            },
+            "target": {
+              "template": {
+                "contiguous": false,
+                "stationary": false,
+                "units": "ft"
+              },
+              "affects": {
+                "choice": false
+              },
+              "prompt": true,
+              "override": false
+            },
+            "uses": {
+              "spent": 0,
+              "recovery": []
+            },
+            "roll": {
+              "prompt": false,
+              "visible": false
+            },
+            "img": null,
+            "sort": 0,
+            "effects": [],
+            "flags": {},
+            "visibility": {
+              "level": {},
+              "requireAttunement": false,
+              "requireIdentification": false,
+              "requireMagic": false
+            },
+            "useConditionText": "",
+            "useConditionReason": "",
+            "effectConditionText": "",
+            "otherActivityId": null,
+            "macroData": {
+              "name": "",
+              "command": ""
+            },
+            "ignoreTraits": {
+              "idi": false,
+              "idr": false,
+              "idv": false,
+              "ida": false,
+              "idm": false
+            },
+            "midiProperties": {
+              "ignoreTraits": [],
+              "triggeredActivityId": "none",
+              "triggeredActivityConditionText": "",
+              "triggeredActivityTargets": "targets",
+              "triggeredActivityRollAs": "self",
+              "triggeredActivityConsume": true,
+              "triggeredActivityConfigure": true,
+              "autoConsume": false,
+              "forceConsumeDialog": "default",
+              "forceRollDialog": "default",
+              "forceDamageDialog": "default",
+              "confirmTargets": "default",
+              "autoTargetType": "any",
+              "autoTargetAction": "default",
+              "automationOnly": false,
+              "otherActivityCompatible": true,
+              "otherActivityAsParentType": true,
+              "identifier": "",
+              "displayActivityName": false,
+              "rollMode": "default",
+              "chooseEffects": false,
+              "toggleEffect": false,
+              "ignoreFullCover": false,
+              "removeChatButtons": "default",
+              "magicEffect": false,
+              "magicDamage": false,
+              "noConcentrationCheck": false,
+              "skipConcentrationCheck": false,
+              "autoCEEffects": "default"
+            },
+            "isOverTimeFlag": false,
+            "overTimeProperties": {
+              "saveRemoves": true,
+              "rollAs": "target",
+              "preRemoveConditionText": "",
+              "postRemoveConditionText": ""
+            },
+            "regionBehavior": {
+              "enabled": false,
+              "dispositionFilter": -1,
+              "excludeSource": true,
+              "oncePerTurn": true,
+              "wallRestriction": "none",
+              "regionVisibility": 2,
+              "attachToken": "default",
+              "rules": []
+            },
+            "regionLight": {
+              "enabled": false,
+              "dim": 0,
+              "bright": 0,
+              "color": null,
+              "alpha": 0.5,
+              "luminosity": 0.5,
+              "animationType": "",
+              "animationSpeed": 5,
+              "animationIntensity": 5
+            },
+            "otherActivityAsParentType": true
+          }
+        },
+        "identifier": "ghostwalk",
+        "crewed": false,
+        "enchant": {},
+        "prerequisites": {
+          "items": [],
+          "repeatable": false
+        },
+        "requirements": ""
+      },
+      "ownership": {
+        "default": 0,
+        "7BMT1Aux3QVtq027": 3
+      },
+      "img": "systems/dnd5e/icons/svg/items/feature.svg",
+      "flags": {
+        "plutonium": {
+          "page": "monsterBonus",
+          "source": "ToB1-2023",
+          "hash": "ghostwalk_ghostwalk%20spider_tob1-2023_tob1-2023"
+        }
+      },
+      "effects": [],
+      "_stats": {
+        "systemVersion": "5.3.3",
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "createdTime": 1794761489779,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "folder": null,
+      "sort": 0
+    }
+  ],
+  "effects": [],
+  "folder": "mhbJT3yOx9R3fkq9",
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "7BMT1Aux3QVtq027": 3
+  }
+}

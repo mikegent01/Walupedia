@@ -21051,6 +21051,75 @@
       },
       "showIcon": 1,
       "folder": null
+    },
+    {
+      "_id": "dnd5ereaction000",
+      "name": "Reaction used",
+      "system": {
+        "changes": [
+          {
+            "key": "flags.midi-qol.actions.reaction",
+            "type": "override",
+            "value": true,
+            "phase": "initial"
+          },
+          {
+            "key": "flags.midi-qol.actions.reactionsUsed",
+            "type": "override",
+            "value": 1,
+            "phase": "initial"
+          },
+          {
+            "key": "flags.midi-qol.actions.reactionCombatRound",
+            "type": "override",
+            "value": 1,
+            "phase": "initial"
+          }
+        ]
+      },
+      "img": "modules/midi-qol/icons/reaction.svg",
+      "flags": {
+        "dae": {
+          "specialDuration": [
+            "shortRest"
+          ]
+        }
+      },
+      "statuses": [
+        "reaction"
+      ],
+      "showIcon": 2,
+      "type": "base",
+      "disabled": false,
+      "start": {
+        "time": 30,
+        "combat": "OXYV6EcATn4b05QX",
+        "combatant": "OyMfwdcxySO5Qidv",
+        "initiative": 11,
+        "round": 1,
+        "turn": 4
+      },
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": "targetStart",
+        "expired": false
+      },
+      "description": "",
+      "origin": "Actor.pi25oGpjW0lCFtuF",
+      "tint": "#ffffff",
+      "transfer": false,
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1794762239409,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
     }
   ],
   "folder": "0A40B9PdH5WzraZl",

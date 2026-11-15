@@ -357,7 +357,9 @@ function render() {
             ${currentView === 'dashboard' ? renderDashboard() : ''}
             ${currentView === 'directory' ? renderDirectory() : ''}
             ${currentView === 'guild-detail' ? renderGuildDetail() : ''}
-            ${currentView === 'contracts' ? renderContractsBoard() : ''}
+            ${/* The open contracts board was retired: players took jobs freely and it
+                 broke the campaign's pacing. Contracts now come only from the
+                 Ghostlight Board (one pick per player). Data stays in guilds-data.js. */ ''}
             ${currentView === 'politics' ? renderPoliticsView() : ''}
             ${currentView === 'ghostlight' ? renderGhostlightBoard({ guilds: { ...GUILD_DATA, ...CHARTER_DATA }, user: state.loggedInUser }) : ''}
         </div>
@@ -396,10 +398,6 @@ function renderHeader() {
                     <span class="nav-icon">📋</span>
                     <span class="nav-label">Directory</span>
                 </button>
-                <button class="nav-btn ${currentView === 'contracts' ? 'active' : ''}" data-view="contracts">
-                    <span class="nav-icon">📝</span>
-                    <span class="nav-label">Contracts</span>
-                </button>
                 <button class="nav-btn ${currentView === 'politics' ? 'active' : ''}" data-view="politics">
                     <span class="nav-icon">🕸️</span>
                     <span class="nav-label">Politics</span>
@@ -426,7 +424,6 @@ function renderDashboard() {
         <div class="dashboard-grid">
             ${renderMembershipSummary(playerGuilds)}
             ${renderReputationOverview(user)}
-            ${renderActiveContracts(user)}
             ${renderGuildNews()}
             ${renderQuickActions()}
         </div>
@@ -661,10 +658,6 @@ function renderQuickActions() {
                         <span class="action-icon">🔍</span>
                         <span class="action-label">Find a Guild</span>
                     </button>
-                    <button class="quick-action-btn" data-view="contracts">
-                        <span class="action-icon">📋</span>
-                        <span class="action-label">Browse Contracts</span>
-                    </button>
                     <button class="quick-action-btn" data-view="politics">
                         <span class="action-icon">🕸️</span>
                         <span class="action-label">View Relations</span>
@@ -874,7 +867,6 @@ function renderGuildDetail() {
                 <button class="tab-btn ${currentTab === 'overview' ? 'active' : ''}" data-tab="overview">Overview</button>
                 <button class="tab-btn ${currentTab === 'ranks' ? 'active' : ''}" data-tab="ranks">Ranks & Rules</button>
                 <button class="tab-btn ${currentTab === 'services' ? 'active' : ''}" data-tab="services">Services</button>
-                <button class="tab-btn ${currentTab === 'contracts' ? 'active' : ''}" data-tab="contracts">Contracts</button>
                 <button class="tab-btn ${currentTab === 'relations' ? 'active' : ''}" data-tab="relations">Relations</button>
                 <button class="tab-btn ${currentTab === 'history' ? 'active' : ''}" data-tab="history">History</button>
             </div>
@@ -894,8 +886,6 @@ function renderGuildTab(guild, playerData, repTier) {
             return renderRanksTab(guild, playerData);
         case 'services':
             return renderServicesTab(guild, playerData, repTier);
-        case 'contracts':
-            return renderContractsTab(guild);
         case 'relations':
             return renderRelationsTab(guild);
         case 'history':
