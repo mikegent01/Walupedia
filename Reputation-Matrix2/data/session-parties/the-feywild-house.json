@@ -1,0 +1,61 @@
+{
+  "format": "waluipedia-session-party/1",
+  "session": "the_feywild_house",
+  "plan": "docs/sessions/feywild-mansion-plan.md",
+  "packet": "feywild-house",
+  "folder": "The Feywild House",
+  "built": "2026-11-20",
+  "note": "The party for one session, as player character sheets. tools/build-session-party.py reads this file: a member with `reuse` already has a character sheet in the world mirror and is only reported; every other member is built as a dnd5e character into actors/<packet>/ from `base` (an NPC statblock the archive already has), keeping its kit and art. Levels without a ledger row are the GM's call; every assumption is written into the sheet's biography. Not on players.roster: these sheets are for this session, not the standing party.",
+  "members": [
+    {"character": "wario", "name": "Wario", "reuse": "dEhGeFofEfnIG24J"},
+    {"character": "waluigi", "name": "Waluigi", "reuse": "BmWNDwbxPQHU3Bbn"},
+    {
+      "character": "mr_t", "name": "Mr. T",
+      "base": "Reputation-Matrix2/actors/cast/fvtt-Actor-mr_t.json",
+      "build": ["Rogue", "Thief", 8, "none", "", "Human", "Courier"],
+      "level": 5,
+      "scores": {"str": 10, "dex": 15, "con": 12, "int": 14, "wis": 13, "cha": 8},
+      "saves": ["dex", "int"],
+      "skills": {"ste": 1, "slt": 1, "inv": 1, "prc": 1, "ath": 1, "ins": 1},
+      "languages": ["common"],
+      "assumptions": [
+        "Rogue (Thief) read off the record: the courier who moves fast, keeps records and has a sense for coin.",
+        "Level 5, the party's level (Waluigi 5, Wario 6); Mr. T has no XP ledger row.",
+        "Standard array: DEX 15, INT 14, WIS 13, CON 12, STR 10, CHA 8.",
+        "Saving throws DEX and INT (Rogue); skills Stealth, Sleight of Hand, Investigation, Perception (class), Athletics, Insight (background)."
+      ]
+    },
+    {
+      "character": "beta_luigi", "name": "Beta Luigi",
+      "base": "Reputation-Matrix2/actors/cast/fvtt-Actor-beta_luigi.json",
+      "build": ["Warlock", "Archfey Patron", 8, "pact", "cha", "Human (Spirit)", "Left Alone"],
+      "level": 5,
+      "scores": {"str": 8, "dex": 14, "con": 13, "int": 10, "wis": 12, "cha": 15},
+      "saves": ["wis", "cha"],
+      "skills": {"arc": 1, "inv": 1, "ste": 1, "ins": 1},
+      "languages": ["common"],
+      "assumptions": [
+        "Warlock (Archfey Patron) read off the record: the ghost-touched brother of the Feywild House, with a withering touch and an incorporeal step.",
+        "Level 5, the party's level; Beta Luigi has no XP ledger row.",
+        "Standard array: CHA 15, DEX 14, CON 13, WIS 12, INT 10, STR 8.",
+        "Spells and invocations are the player's to pick in Foundry; Withering Touch and Incorporeal Movement are kept as features from the statblock."
+      ]
+    },
+    {
+      "character": "jory_dobbs", "name": "Jory Dobbs",
+      "base": "Reputation-Matrix2/actors/worlds/midlands/Wario's Enterprise & WarioWare/fvtt-Actor-jory-dobbs-aMiR0gNRryTWWWlB.json",
+      "build": ["Fighter", "Champion", 10, "none", "", "Human", "Hireling"],
+      "level": 3,
+      "scores": {"str": 15, "dex": 13, "con": 14, "int": 8, "wis": 10, "cha": 12},
+      "saves": ["str", "con"],
+      "skills": {"ath": 1, "prc": 1, "slt": 1, "prf": 1},
+      "languages": ["common"],
+      "assumptions": [
+        "Fighter (Champion) read off the record: hired off a noticeboard, swings a club, loud, light-fingered.",
+        "Level 3, as his record's ledger line gives it.",
+        "Standard array: STR 15, CON 14, DEX 13, CHA 12, WIS 10, INT 8.",
+        "The world's Jory Dobbs NPC statblock stays as it is; this is a second, player-run sheet."
+      ]
+    }
+  ]
+}

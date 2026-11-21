@@ -1,8 +1,8 @@
 {
-  "_id": "dhy7flTVOQczF3Ms",
-  "name": "Toadburt",
-  "type": "npc",
-  "img": "portraits/toadburt.jpg",
+  "_id": "bUe2bxSKuOsWc5K0",
+  "name": "Mr. T",
+  "type": "character",
+  "img": "portraits/fullbody/mr_t.png",
   "system": {
     "abilities": {
       "str": {
@@ -29,7 +29,7 @@
         }
       },
       "dex": {
-        "value": 16,
+        "value": 15,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -75,7 +75,7 @@
         }
       },
       "int": {
-        "value": 13,
+        "value": 14,
         "proficient": 1,
         "bonuses": {
           "check": "",
@@ -121,7 +121,7 @@
         }
       },
       "cha": {
-        "value": 12,
+        "value": 8,
         "proficient": 0,
         "bonuses": {
           "check": "",
@@ -151,14 +151,14 @@
         "formula": ""
       },
       "hp": {
-        "value": 27,
-        "max": 27,
-        "formula": "6d6 + 6",
+        "value": 33,
+        "max": 33,
         "temp": null,
-        "tempmax": null
+        "tempmax": 0,
+        "bonuses": {}
       },
       "movement": {
-        "walk": "25",
+        "walk": "30",
         "units": "ft",
         "hover": false,
         "burrow": "0",
@@ -170,7 +170,7 @@
       "senses": {
         "units": "ft",
         "ranges": {
-          "darkvision": 0
+          "darkvision": null
         },
         "special": ""
       },
@@ -216,36 +216,33 @@
           "save": ""
         }
       },
-      "price": {
-        "value": null,
-        "denomination": "gp"
-      },
-      "spell": {
-        "level": 0
-      }
+      "inspiration": false
     },
     "details": {
       "alignment": "Neutral",
-      "type": {
-        "value": "humanoid",
-        "subtype": "Toad"
-      },
-      "cr": 1,
       "biography": {
-        "value": "<p><em>Waluipedia cast sheet — Toadburt.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. XP ledger: level 2, power rating 5 → CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>From Leashed Agent to Indentured Archivist</strong> — Formerly Iron Legion (coerced), currently Shadow Estate Archives (indentured)</p><p>Status: Active — real injured Toadburt confirmed alive at the Shadow Estate portal circle with Tanukiburt and Mystic Morel</p><p>Toadburt's story is a masterclass in trading one cage for another. The Iron Legion strapped an entropy ring on him and sent him into the Feywild as a coerced operative. Now the ring is off, but Toadburt isn't free—he's working for the Shadow Estate's Archivist in exchange for gradual healing, recovering from his injuries over two-week intervals while organizing books in a vampire library. Waluigi recognizes this pattern: someone too damaged to refuse help, accepting terms from whoever offers it, trading independence for survival. It's not slavery. It's not freedom. It's the grey area in between that nobody likes to name. The Toadburt question has changed from unresolved suspicion to immediate rescue problem. Remi's exterior scouting confirmed an injured real Toadburt gathered at the master-bedroom portal circle with Tanukiburt and Mystic Morel while the rug was being covered and uncovered. This means Toadburt is alive, not free, and positioned at the exact route the party needs to use.</p><h3>Evidence</h3><ul><li><strong>Dagger</strong> — “From Leashed Agent to Indentured Archivist”</li><li><strong>Keen Records</strong> — “From Leashed Agent to Indentured Archivist”</li></ul><p>Article: <code>#/article/toadburt</code> (characters). Site sheet: <code>#/sheets/toadburt</code>.</p>",
+        "value": "<p><em>Waluipedia cast sheet — Mr. T.</em> Built by <code>tools/build-character-sheets.py</code>, generated from the article's own words. no XP ledger entry; archetype default → CR 1 as a operative. Numbers are a GM-ready reading of the record, not a filed stat line; the article stays the authority. Archive date 1040 BF.</p><p><strong>The Courier Who Cleans the Laundry</strong> — Wario's Enterprise / Waluigi's Audit Desk (Courier &amp; Back-Room Cleaner)</p><p>Status: Active — followed Wario and the Contract of Accord into the Star Hill corridor on 3 Aethel, 1035 BF after watching Beta Luigi walk out with an Archive Hall volume</p><p>A gaunt, exhausted courier and back-room bookkeeper who writes Wario's daily reports, cleans Waluigi's financial laundry, and knows too much about both men's gambling debts. He slid Waluigi the 'Wario Bowser / Wawario' lyric sheet, fell asleep beneath the Archive Hall's leaking vault, pulled Wario's real backup ledgers off the shelf at random, and proved he had flagged the Treasury of Wonders discrepancy months earlier with 'AUDIT REQUIRED - WARIO' in the corner.</p><h3>Evidence</h3><ul><li><strong>Dagger</strong> — “The Courier Who Cleans the Laundry”</li><li><strong>Keen Records</strong> — “He opens the night of 3 Aethel, 1035 BF by sliding a transcribed song sheet across the Archive Hall table to Waluigi — &quot;Mario, Luigi, Wario, Waluigi, Bowser, and Wario Bowser&quot; — and pressing him deadpan on whether”</li><li><strong>Courier's Pace</strong> — “The Courier Who Cleans the Laundry”</li><li><strong>Coin Sense</strong> — “A gaunt, exhausted courier and back-room bookkeeper who writes Wario's daily reports, cleans Waluigi's financial laundry, and knows too much about both men's gambling debts.”</li></ul><p>Article: <code>#/article/mr_t</code> (characters). Site sheet: <code>#/sheets/mr_t</code>.</p><p><em>Promoted from an NPC statblock to a player character sheet on 2026-11-20 (Waluipedia sheets suite). Rogue 5 (Thief), Human, background Courier.</em></p><ul><li>Rogue (Thief) read off the record: the courier who moves fast, keeps records and has a sense for coin.</li><li>Level 5, the party's level (Waluigi 5, Wario 6); Mr. T has no XP ledger row.</li><li>Standard array: DEX 15, INT 14, WIS 13, CON 12, STR 10, CHA 8.</li><li>Saving throws DEX and INT (Rogue); skills Stealth, Sleight of Hand, Investigation, Perception (class), Athletics, Insight (background).</li></ul>",
         "public": ""
       },
+      "race": "CJ6cBFfIOgGO2yas",
+      "background": "MfpleehU8Q0APAYw",
+      "originalClass": "1afENc2qBC3kolZ0",
+      "xp": {
+        "value": 6500
+      },
+      "trait": "",
       "ideal": "",
       "bond": "",
       "flaw": "",
-      "race": null,
-      "habitat": {
-        "value": [],
-        "custom": ""
-      },
-      "treasure": {
-        "value": []
-      }
+      "appearance": "",
+      "eyes": "",
+      "hair": "",
+      "skin": "",
+      "height": "",
+      "weight": "",
+      "age": "",
+      "gender": "",
+      "faith": ""
     },
     "traits": {
       "size": "sm",
@@ -258,7 +255,8 @@
       },
       "ci": {
         "value": [],
-        "custom": ""
+        "custom": "",
+        "bypasses": []
       },
       "di": {
         "value": [],
@@ -279,7 +277,22 @@
         "amount": {},
         "bypasses": []
       },
-      "important": false
+      "weaponProf": {
+        "value": [
+          "sim"
+        ],
+        "custom": "",
+        "mastery": {
+          "value": [],
+          "bonus": []
+        }
+      },
+      "armorProf": {
+        "value": [
+          "lgt"
+        ],
+        "custom": ""
+      }
     },
     "skills": {
       "acr": {
@@ -322,7 +335,7 @@
         }
       },
       "ath": {
-        "value": 0,
+        "value": 1,
         "ability": "str",
         "roll": {
           "min": null,
@@ -335,7 +348,7 @@
         }
       },
       "dec": {
-        "value": 1,
+        "value": 0,
         "ability": "cha",
         "roll": {
           "min": null,
@@ -361,7 +374,7 @@
         }
       },
       "ins": {
-        "value": 0,
+        "value": 1,
         "ability": "wis",
         "roll": {
           "min": null,
@@ -387,7 +400,7 @@
         }
       },
       "inv": {
-        "value": 0,
+        "value": 1,
         "ability": "int",
         "roll": {
           "min": null,
@@ -491,7 +504,7 @@
         }
       },
       "ste": {
-        "value": 2,
+        "value": 1,
         "ability": "dex",
         "roll": {
           "min": null,
@@ -529,58 +542,24 @@
       "sp": 0,
       "cp": 0
     },
-    "bonuses": {
-      "mwak": {
-        "attack": "",
-        "damage": ""
-      },
-      "rwak": {
-        "attack": "",
-        "damage": ""
-      },
-      "msak": {
-        "attack": "",
-        "damage": ""
-      },
-      "rsak": {
-        "attack": "",
-        "damage": ""
-      },
-      "abilities": {
-        "check": "",
-        "save": "",
-        "skill": ""
-      },
-      "spell": {
-        "dc": ""
-      }
-    },
+    "bonuses": {},
     "tools": {},
     "spells": {},
-    "resources": {
-      "legact": {
-        "max": 0,
-        "spent": 0
-      },
-      "legres": {
-        "max": 0,
-        "spent": 0
-      },
-      "lair": {
-        "value": false,
-        "initiative": null,
-        "inside": false
-      }
+    "resources": {},
+    "favorites": [],
+    "bastion": {
+      "name": "",
+      "description": ""
     }
   },
   "prototypeToken": {
-    "name": "Toadburt",
+    "name": "Mr. T",
     "displayName": 0,
-    "actorLink": false,
+    "actorLink": true,
     "width": 1,
     "height": 1,
     "texture": {
-      "src": "portraits/toadburt.jpg",
+      "src": "portraits/fullbody/mr_t.png",
       "anchorX": 0.5,
       "anchorY": 0.5,
       "fit": "contain",
@@ -592,82 +571,166 @@
     "lockRotation": false,
     "rotation": 0,
     "alpha": 1,
-    "disposition": -1,
+    "disposition": 0,
     "displayBars": 0,
     "bar1": {
       "attribute": "attributes.hp"
     },
     "bar2": {
       "attribute": null
-    },
-    "depth": 1,
-    "light": {
-      "negative": false,
-      "priority": 0,
-      "alpha": 0.5,
-      "angle": 360,
-      "bright": 0,
-      "color": null,
-      "coloration": 1,
-      "dim": 0,
-      "attenuation": 0.5,
-      "luminosity": 0.5,
-      "saturation": 0,
-      "contrast": 0,
-      "shadows": 0,
-      "animation": {
-        "type": null,
-        "speed": 5,
-        "intensity": 5,
-        "reverse": false
-      },
-      "darkness": {
-        "min": 0,
-        "max": 1
-      }
-    },
-    "sight": {
-      "enabled": false,
-      "range": 0,
-      "angle": 360,
-      "visionMode": "basic",
-      "color": null,
-      "attenuation": 0.1,
-      "brightness": 0,
-      "saturation": 0,
-      "contrast": 0
-    },
-    "detectionModes": {},
-    "occludable": {
-      "radius": 0
-    },
-    "ring": {
-      "enabled": false,
-      "colors": {
-        "ring": null,
-        "background": null
-      },
-      "effects": 1,
-      "subject": {
-        "scale": 1,
-        "texture": null
-      }
-    },
-    "turnMarker": {
-      "mode": 1,
-      "animation": null,
-      "src": null,
-      "disposition": false
-    },
-    "movementAction": null,
-    "flags": {},
-    "randomImg": false,
-    "appendNumber": false,
-    "prependAdjective": false
+    }
   },
   "items": [
     {
-      "_id": "pKxSYPzKknp9OrRs",
+      "_id": "1afENc2qBC3kolZ0",
+      "name": "Rogue",
+      "type": "class",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Rogue — the class this sheet reads the record as. Levels follow the XP ledger.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "rogue",
+        "levels": 5,
+        "hd": {
+          "denomination": "d8",
+          "spent": 0,
+          "additional": ""
+        },
+        "advancement": [],
+        "startingEquipment": [],
+        "properties": [],
+        "primaryAbility": {
+          "value": [],
+          "all": true
+        },
+        "spellcasting": {
+          "progression": "none",
+          "ability": "",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 100000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "HgaDjkHPrGom50OC",
+      "name": "Thief",
+      "type": "subclass",
+      "img": "icons/skills/melee/weapons-crossed-swords-white-blue.webp",
+      "system": {
+        "description": {
+          "value": "<p>Thief (Rogue).</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "thief",
+        "classIdentifier": "rogue",
+        "advancement": [],
+        "spellcasting": {
+          "progression": "none",
+          "ability": "",
+          "preparation": {
+            "formula": ""
+          }
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 200000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "CJ6cBFfIOgGO2yas",
+      "name": "Human",
+      "type": "race",
+      "img": "icons/environment/people/group.webp",
+      "system": {
+        "description": {
+          "value": "<p>Human, as the article files it.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "human",
+        "advancement": [],
+        "movement": {
+          "walk": "30",
+          "units": "ft",
+          "hover": false,
+          "ignoredDifficultTerrain": []
+        },
+        "senses": {
+          "units": "ft",
+          "special": "",
+          "ranges": {
+            "darkvision": null,
+            "blindsight": null,
+            "tremorsense": null,
+            "truesight": null
+          }
+        },
+        "type": {
+          "value": "humanoid",
+          "subtype": ""
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 300000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "MfpleehU8Q0APAYw",
+      "name": "Courier",
+      "type": "background",
+      "img": "icons/sundries/scrolls/scroll-bound-white-tan.webp",
+      "system": {
+        "description": {
+          "value": "<p>Courier — the life the article describes before the table.</p>",
+          "chat": ""
+        },
+        "source": {
+          "custom": "Waluipedia campaign",
+          "revision": 1,
+          "rules": "2024"
+        },
+        "identifier": "courier",
+        "advancement": [],
+        "startingEquipment": []
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 400000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "PTaCi49FYcWN43PI",
       "name": "Dagger",
       "type": "weapon",
       "img": "icons/weapons/daggers/dagger-simple-black.webp",
@@ -855,112 +918,19 @@
               "requireIdentification": false,
               "requireMagic": false
             },
-            "img": null,
-            "useConditionText": "",
-            "useConditionReason": "",
-            "effectConditionText": "",
-            "otherActivityId": null,
-            "macroData": {
-              "name": "",
-              "command": ""
-            },
-            "ignoreTraits": {
-              "idi": false,
-              "idr": false,
-              "idv": false,
-              "ida": false,
-              "idm": false
-            },
-            "midiProperties": {
-              "ignoreTraits": [],
-              "triggeredActivityId": "none",
-              "triggeredActivityConditionText": "",
-              "triggeredActivityTargets": "targets",
-              "triggeredActivityRollAs": "self",
-              "triggeredActivityConsume": true,
-              "triggeredActivityConfigure": true,
-              "autoConsume": false,
-              "forceConsumeDialog": "default",
-              "forceRollDialog": "default",
-              "forceDamageDialog": "default",
-              "confirmTargets": "default",
-              "autoTargetType": "any",
-              "autoTargetAction": "default",
-              "automationOnly": false,
-              "otherActivityCompatible": true,
-              "otherActivityAsParentType": true,
-              "identifier": "",
-              "displayActivityName": false,
-              "rollMode": "default",
-              "chooseEffects": false,
-              "toggleEffect": false,
-              "ignoreFullCover": false,
-              "removeChatButtons": "default",
-              "magicEffect": false,
-              "magicDamage": false,
-              "noConcentrationCheck": false,
-              "skipConcentrationCheck": false,
-              "autoCEEffects": "default"
-            },
-            "isOverTimeFlag": false,
-            "overTimeProperties": {
-              "saveRemoves": true,
-              "rollAs": "target",
-              "preRemoveConditionText": "",
-              "postRemoveConditionText": ""
-            },
-            "regionBehavior": {
-              "enabled": false,
-              "dispositionFilter": -1,
-              "excludeSource": true,
-              "oncePerTurn": true,
-              "wallRestriction": "none",
-              "regionVisibility": 2,
-              "attachToken": "default",
-              "rules": []
-            },
-            "regionLight": {
-              "enabled": false,
-              "dim": 0,
-              "bright": 0,
-              "color": null,
-              "alpha": 0.5,
-              "luminosity": 0.5,
-              "animationType": "",
-              "animationSpeed": 5,
-              "animationIntensity": 5
-            },
-            "otherActivityAsParentType": true,
-            "attackMode": "oneHanded",
-            "ammunition": "",
-            "otherActivityUuid": "",
-            "attackRollPerTarget": "default",
-            "fumbleThreshold": 1
+            "img": null
           }
-        },
-        "unidentified": {
-          "description": ""
         }
       },
       "effects": [],
       "flags": {},
-      "sort": 100000,
+      "sort": 500000,
       "ownership": {
         "default": 0
-      },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171678138,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
       }
     },
     {
-      "_id": "ENjy3hZyNG7AHsVs",
+      "_id": "ZD8QX5QvxB84jZlH",
       "name": "Keen Records",
       "type": "feat",
       "img": "icons/tools/scribal/ink-quill-pink.webp",
@@ -973,6 +943,10 @@
           "value": "monster",
           "subtype": ""
         },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
         "uses": {
           "spent": 0,
           "max": "",
@@ -986,115 +960,162 @@
           "license": "",
           "revision": 1,
           "rules": "2024"
-        },
-        "advancement": {},
-        "identifier": "",
-        "crewed": false,
-        "enchant": {},
-        "prerequisites": {
-          "items": [],
-          "repeatable": false
-        },
-        "properties": [],
-        "requirements": ""
+        }
       },
       "effects": [],
       "flags": {},
-      "sort": 200000,
+      "sort": 600000,
       "ownership": {
         "default": 0
+      }
+    },
+    {
+      "_id": "wh6qGuc8i1VoKlen",
+      "name": "Courier's Pace",
+      "type": "feat",
+      "img": "icons/skills/movement/figure-running-gray.webp",
+      "system": {
+        "description": {
+          "value": "<p>Speed increased by 10 feet; opportunity attacks against it are made with disadvantage while it is carrying a package.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
       },
-      "folder": null,
-      "_stats": {
-        "coreVersion": "14.367",
-        "systemId": "dnd5e",
-        "systemVersion": "5.3.3",
-        "createdTime": 1791171678138,
-        "compendiumSource": null,
-        "duplicateSource": null,
-        "exportSource": null
+      "effects": [],
+      "flags": {},
+      "sort": 700000,
+      "ownership": {
+        "default": 0
+      }
+    },
+    {
+      "_id": "UM0WSLcg1uHdP6T5",
+      "name": "Coin Sense",
+      "type": "feat",
+      "img": "icons/commodities/currency/coins-plain-stack-gold.webp",
+      "system": {
+        "description": {
+          "value": "<p>Knows the market value of anything it can see or hold, and has advantage on Wisdom (Insight) checks to tell whether an offer is a lie.</p>",
+          "chat": ""
+        },
+        "type": {
+          "value": "monster",
+          "subtype": ""
+        },
+        "activation": {},
+        "duration": {},
+        "target": {},
+        "range": {},
+        "uses": {
+          "spent": 0,
+          "max": "",
+          "recovery": []
+        },
+        "activities": {},
+        "source": {
+          "custom": "Waluipedia campaign",
+          "book": "",
+          "page": "",
+          "license": "",
+          "revision": 1,
+          "rules": "2024"
+        }
+      },
+      "effects": [],
+      "flags": {},
+      "sort": 800000,
+      "ownership": {
+        "default": 0
       }
     }
   ],
   "effects": [],
-  "folder": "txtt9HC0wxmSvDeo",
+  "folder": null,
   "ownership": {
-    "default": 0,
-    "7BMT1Aux3QVtq027": 3
+    "default": 0
   },
   "flags": {
     "waluipedia-mass-import": {
       "folderPath": [
-        "Koopa Troop"
+        "The Feywild House"
       ],
-      "source": "tools/build-character-sheets.py"
+      "source": "tools/build-session-party.py"
     },
     "waluipedia-sheets": {
-      "characterId": "toadburt",
-      "generated": true,
-      "bespoke": false,
-      "role": "rogue",
-      "ledger": {
-        "level": 2,
-        "powerLevel": 5
-      },
-      "evidence": [
-        {
-          "feature": "Dagger",
-          "quote": "From Leashed Agent to Indentured Archivist",
-          "source": "title"
+      "promoted": {
+        "on": "2026-11-20",
+        "mode": "convert",
+        "tool": "tools/promote-player-sheets.py",
+        "ledger": "mr_t",
+        "why": "player sheet for the session the_feywild_house (docs/sessions/feywild-mansion-plan.md)",
+        "from": {
+          "type": "npc",
+          "cr": 1
         },
-        {
-          "feature": "Keen Records",
-          "quote": "From Leashed Agent to Indentured Archivist",
-          "source": "article"
-        }
-      ],
-      "tags": [
-        "Iron Legion",
-        "npc",
-        "humanoid"
-      ],
-      "color": "#006400",
-      "organized": {
-        "path": [
-          "Iron Legion"
+        "build": {
+          "class": "Rogue",
+          "subclass": "Thief",
+          "level": 5,
+          "hitDie": "d8",
+          "formula": "5d8 + 5",
+          "species": "Human",
+          "background": "Courier"
+        },
+        "scores": {
+          "str": 10,
+          "dex": 15,
+          "con": 12,
+          "int": 14,
+          "wis": 13,
+          "cha": 8
+        },
+        "saves": [
+          "dex",
+          "int"
         ],
-        "basis": "gm-group",
-        "from": null
-      }
-    },
-    "scene-packer": {
-      "hash": "1f07b919f30a8751f553706692a78553c523c02c"
-    },
-    "midi-qol": {
-      "onUseMacroParts": {}
-    },
-    "5e-npc-combat-automation": {
-      "aiProfile": {
-        "archetypes": [
-          "tactician",
-          "undead-disciplined"
+        "skills": [
+          "ath",
+          "ins",
+          "inv",
+          "prc",
+          "slt",
+          "ste"
         ],
-        "reasons": [
-          "Keyword \"vampire\" in name/biography → tactician",
-          "Keyword \"shadow\" in name/biography → undead-disciplined"
-        ],
-        "confidence": 0.6666666666666666,
-        "version": 3,
-        "timestamp": 1791338588797,
-        "manuallyOverridden": false
-      }
+        "hp": 33,
+        "xp": 6500,
+        "ledgerLevel": 5,
+        "removedFlags": [],
+        "assumptions": [
+          "Rogue (Thief) read off the record: the courier who moves fast, keeps records and has a sense for coin.",
+          "Level 5, the party's level (Waluigi 5, Wario 6); Mr. T has no XP ledger row.",
+          "Standard array: DEX 15, INT 14, WIS 13, CON 12, STR 10, CHA 8.",
+          "Saving throws DEX and INT (Rogue); skills Stealth, Sleight of Hand, Investigation, Perception (class), Athletics, Insight (background)."
+        ]
+      },
+      "characterId": "mr_t",
+      "sessionParty": "the_feywild_house",
+      "base": "Reputation-Matrix2/actors/cast/fvtt-Actor-mr_t.json"
     }
-  },
-  "_stats": {
-    "coreVersion": "14.367",
-    "systemId": "dnd5e",
-    "systemVersion": "5.3.3",
-    "compendiumSource": null,
-    "duplicateSource": null,
-    "createdTime": 1791171678138,
-    "exportSource": null
-  },
-  "sort": 200000
+  }
 }
