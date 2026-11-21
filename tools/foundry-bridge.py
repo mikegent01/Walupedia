@@ -935,7 +935,7 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None
     scheme = load_folder_scheme() if scheme is None else scheme
     dedupe = (len(dirs) > 1) if dedupe is None else bool(dedupe)
     rows, omitted = [], []
-    seen_names = {}
+    seen_names, seen_src_ids = {}, {}
     for base_index, base in enumerate(dirs):
         export_ms = stripped_export_ms(base)
         for path, rel_parts in actor_files([base]):
@@ -949,12 +949,19 @@ def combine(dirs, folder_prefix=None, world=None, ignore_dirs=False, scheme=None
             key = (str(doc.get("name") or "").strip().lower(), doc.get("type"))
             if dedupe:
                 first = seen_names.get(key)
+                # the same actor under another name: the GM renamed it in the
+                # world (X.O. -> P.S); the earlier source's copy is that actor
+                same_id = seen_src_ids.get(doc.get("_id")) if doc.get("_id") else None
+                if first is None and same_id is not None and same_id != base_index:
+                    first = same_id
                 if first is not None and first != base_index:
                     omitted.append({"name": doc.get("name"), "type": doc.get("type"), "_id": doc.get("_id"),
                                     "file": os.path.relpath(path, ROOT).replace(os.sep, "/"),
                                     "keptFrom": os.path.relpath(os.path.abspath(dirs[first]), ROOT).replace(os.sep, "/")})
                     continue
                 seen_names.setdefault(key, base_index)
+                if doc.get("_id"):
+                    seen_src_ids.setdefault(doc["_id"], base_index)
             rows.append(_combine_row(doc, rel_parts, path, prefix, ignore_dirs))
     rows.sort(key=lambda r: (r[0] is None, r[0] or [], r[1], r[2]))
     payload, dupes = _combine_payload(rows, scheme, world, omitted)
@@ -1008,6 +1015,28 @@ def fullbody_twin(path):
     return roster_twins().get(name)
 
 
+FULLBODY_DIR = "portraits/fullbody"
+FULLBODY_FROM = ("portraits/", "npc/", "player/")
+
+
+def fullbody_sprite(path):
+    """Actor art -> its full-body sprite, when tools/fullbody-portraits.py made one.
+
+    ``portraits/alice.jpg`` or ``npc/wario.png`` becomes
+    ``portraits/fullbody/alice.png`` when that file exists in the repo
+    (Reputation-Matrix2/portraits/fullbody/, cut to transparency by
+    tools/cutout-fullbody.py). Applied when packets are combined and when art
+    is installed, so the GM's exported mirror keeps the art it had."""
+    if not isinstance(path, str) or not path:
+        return None
+    rel = urllib.parse.unquote(path.split("?")[0].replace("\\", "/").lstrip("/"))
+    if rel.startswith(FULLBODY_DIR + "/") or not rel.startswith(FULLBODY_FROM):
+        return None
+    stem = os.path.splitext(rel.rsplit("/", 1)[-1])[0]
+    cand = f"{FULLBODY_DIR}/{stem}.png"
+    return cand if os.path.isfile(os.path.join(RM, *cand.split("/"))) else None
+
+
 def _combine_row(doc, rel_parts, path, prefix, ignore_dirs):
     """(folder path or None, name, id, doc, file) — the folder comes from the
     folderPath flag, else from the directory the file sits in."""
@@ -1051,6 +1080,12 @@ def _combine_payload(rows, scheme, world, omitted):
         plate = roster_plate(tok.get("src")) or fullbody_twin(tok.get("src"))
         if plate:
             tok["src"] = plate
+        sprite = fullbody_sprite(doc.get("img"))
+        if sprite:
+            doc["img"] = sprite         # the full-body sprite wins over a face crop
+        sprite = fullbody_sprite(tok.get("src"))
+        if sprite:
+            tok["src"] = sprite
         if fpath is None:
             unresolved += 1  # keep doc["folder"] as exported
         else:
@@ -1590,6 +1625,7 @@ def install_images(dirs, foundry_data, dry_run=False, force=False):
         if doc is None:
             continue
         paths = [doc.get("img"), ((doc.get("prototypeToken") or {}).get("texture") or {}).get("src")]
+        paths += [fullbody_sprite(p) for p in paths[:2]]   # combine swaps these in
         paths += [it.get("img") for it in doc.get("items") or [] if isinstance(it, dict)]
         for p in paths:
             if not isinstance(p, str) or p in seen:

@@ -274,7 +274,8 @@ def main():
         ("CAST_SHEETS.refreshSearch()", "debug toggle hook"),
         ('"route": "#/sheets"', "SITE_UPDATES card"),
     ]:
-        if needle not in html:
+        # SITE_UPDATES is sometimes written minified ("route":"#/sheets"), so ignore the space after the colon
+        if needle not in html and needle.replace('": "', '":"') not in html:
             problems.append(f"index.html wiring missing: {what}")
 
     # fresh

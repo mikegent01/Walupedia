@@ -749,6 +749,16 @@
         "type": "item",
         "id": ".Item.a8a0d59d5e9c4c19",
         "sort": 100000
+      },
+      {
+        "type": "item",
+        "id": ".Item.euG2itgATdMovyIj",
+        "sort": 200000
+      },
+      {
+        "type": "item",
+        "id": ".Item.banREwYp8HIClV1j",
+        "sort": 300000
       }
     ]
   },
@@ -1186,7 +1196,7 @@
         "compendiumSource": "Compendium.dnd5e.items.Item.10ZP2Bu3vnCuYMIB",
         "duplicateSource": null,
         "exportSource": null,
-        "coreVersion": "14.365",
+        "coreVersion": "14.367",
         "systemId": "dnd5e",
         "systemVersion": "5.3.3",
         "createdTime": 1788573672599
@@ -11893,7 +11903,77 @@
       "sort": 0
     }
   ],
-  "effects": [],
+  "effects": [
+    {
+      "_id": "dnd5ereaction000",
+      "name": "Reaction used",
+      "system": {
+        "changes": [
+          {
+            "key": "flags.midi-qol.actions.reaction",
+            "type": "override",
+            "value": true,
+            "phase": "initial"
+          },
+          {
+            "key": "flags.midi-qol.actions.reactionsUsed",
+            "type": "override",
+            "value": 1,
+            "phase": "initial"
+          },
+          {
+            "key": "flags.midi-qol.actions.reactionCombatRound",
+            "type": "override",
+            "value": 0,
+            "phase": "initial"
+          }
+        ]
+      },
+      "img": "modules/midi-qol/icons/reaction.svg",
+      "flags": {
+        "dae": {
+          "specialDuration": [
+            "shortRest"
+          ]
+        }
+      },
+      "statuses": [
+        "reaction"
+      ],
+      "showIcon": 2,
+      "type": "base",
+      "disabled": false,
+      "start": {
+        "time": 30,
+        "combat": null,
+        "combatant": null,
+        "initiative": null,
+        "round": null,
+        "turn": null
+      },
+      "duration": {
+        "value": null,
+        "units": "seconds",
+        "expiry": "targetStart",
+        "expired": true
+      },
+      "description": "",
+      "origin": "Actor.mEqlzuZoafEdiApl",
+      "tint": "#ffffff",
+      "transfer": false,
+      "folder": null,
+      "sort": 0,
+      "_stats": {
+        "coreVersion": "14.367",
+        "systemId": "dnd5e",
+        "systemVersion": "5.3.3",
+        "createdTime": 1795232539240,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      }
+    }
+  ],
   "folder": "FvKdqeKTwINidr0T",
   "sort": 200000,
   "ownership": {
@@ -11953,7 +12033,7 @@
     },
     "midi-qol": {
       "actions": {
-        "action": false
+        "action": true
       },
       "disadvantage": {
         "skill": {
