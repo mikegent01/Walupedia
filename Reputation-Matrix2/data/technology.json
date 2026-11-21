@@ -2266,6 +2266,62 @@
         "detention",
         "drone"
       ]
+    },
+    {
+      "id": "tech_double_b_recording_camera",
+      "name": "Double B Recording Camera",
+      "kind": "device",
+      "tier": "industrial",
+      "icon": "📹",
+      "territory": {
+        "nation": null,
+        "region": null,
+        "plane": "fey",
+        "location": "overgrown_manor",
+        "label": "The Overgrown Manor, Feyward"
+      },
+      "origin": {
+        "faction": null,
+        "maker": "Double B (identified in the session notes)",
+        "holder": null
+      },
+      "firstSeen": {
+        "event": "feyward_bramblefly_double_b_and_the_way_home",
+        "date": "3 Aethel, 922 BF (Feyward clock; time estimated)",
+        "year": 922,
+        "timeCode": "TC:0922-09-03T13:30/FEY",
+        "confidence": "estimated"
+      },
+      "sightings": [],
+      "status": "Recording interrupted the covert operation; operator, destination, and custody unknown.",
+      "summary": "A Double B camera recorded or attempted to record the party during a covert approach in the Feyward; the source notes do not identify who controlled it.",
+      "record": "The camera interrupted the party’s covert operation and made recording part of the scene. The Iron Legion logo was visible nearby, but the record does not establish that the Legion owned or operated the device. Its operator, recording destination, and later custody remain unknown.",
+      "quotes": [
+        {
+          "event": "feyward_bramblefly_double_b_and_the_way_home",
+          "text": "The party's planning and movement were interrupted by a Double B camera and its recording."
+        }
+      ],
+      "pressure": 1,
+      "tension": [],
+      "model": {
+        "recipe": "camera",
+        "palette": {
+          "body": "#282b30",
+          "brass": "#8d7954",
+          "lens": "#8db8c4",
+          "red": "#b83d3d",
+          "metal": "#555b62"
+        }
+      },
+      "tags": [
+        "double-b",
+        "camera",
+        "recording",
+        "feyward",
+        "surveillance",
+        "unresolved"
+      ]
     }
   ]
 }

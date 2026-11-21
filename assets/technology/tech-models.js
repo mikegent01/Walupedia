@@ -329,6 +329,21 @@
   ];
   T.drone.view = {yaw:0.4, pitch:0.3};
 
+  /* A generic field camera: the filing identifies Double B's recording device,
+     but not its maker's housing details. This model is deliberately generic. */
+  T.camera = (P)=>[
+    box(1.0,0.62,0.56,[0,0.12,0],'body'),
+    box(0.42,0.18,0.16,[-0.15,0.52,0],'body'),
+    cyl(0.22,0.16,0.34,[0.57,0.12,0],'brass',{r:[0,0,PI/2]}),
+    cyl(0.15,0.15,0.06,[0.75,0.12,0],'lens',{r:[0,0,PI/2],e:0.4}),
+    tor(0.17,0.025,[0.79,0.12,0],'brass',{r:[0,PI/2,0]}),
+    box(0.18,0.08,0.08,[-0.18,0.47,0.22],'red'),
+    box(0.12,0.06,0.08,[0.12,0.46,0.22],'brass'),
+    box(0.46,0.04,0.12,[-0.1,-0.22,0],'metal'),
+    sph(0.055,[-0.2,0.48,-0.18],'red',{e:0.3}),
+  ];
+  T.camera.view = {yaw:0.45, pitch:0.25};
+
   /* The sanctum telescope on its platform, clockwork turning under it. */
   T.telescope = (P)=>[
     cyl(0.9,1.0,0.12,[0,0.06,0],'#3a3344'), tor(0.95,0.03,[0,0.12,0],'brass',{r:[X,0,0]}),
